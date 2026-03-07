@@ -121,6 +121,21 @@ func TestBentoMetricsOK(t *testing.T) {
 	}
 }
 
+func TestHTMXContentNotFoundRedirects(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/guides/does-not-exist/content", nil)
+	req.Header.Set("HX-Request", "true")
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+
+	if w.Code != http.StatusSeeOther {
+		t.Errorf("expected 303, got %d", w.Code)
+	}
+	if w.Header().Get("HX-Redirect") != "/" {
+		t.Errorf("expected HX-Redirect: /, got %q", w.Header().Get("HX-Redirect"))
+	}
+}
+
 func TestCassetteLogOK(t *testing.T) {
 	mux := handlers.NewMux()
 	req := httptest.NewRequest(http.MethodGet, "/guides/cassette/log", nil)

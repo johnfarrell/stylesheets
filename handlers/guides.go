@@ -157,7 +157,13 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 }
 
 // renderNotFound serves a styled 404 page inside the main layout.
+// For HTMX partial requests, it redirects the whole page to the landing page instead.
 func renderNotFound(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("HX-Request") == "true" {
+		w.Header().Set("HX-Redirect", "/")
+		w.WriteHeader(http.StatusSeeOther)
+		return
+	}
 	page := templates.Layout(guides.All, "", "", templates.NotFound())
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	templ.Handler(page, templ.WithStatus(http.StatusNotFound)).ServeHTTP(w, r)
