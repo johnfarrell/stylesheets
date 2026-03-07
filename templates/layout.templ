@@ -1,0 +1,35 @@
+package templates
+
+import "github.com/johnfarrell/stylesheets/guides"
+
+templ Layout(allGuides []guides.Guide, activeSlug string, fontURL string, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Stylesheets — Style Guide Reference</title>
+			<link rel="stylesheet" href="/static/css/output.css"/>
+			<!-- Per-guide Google Font: swapped via HTMX out-of-band on navigation -->
+			<div id="font-loader">
+				if fontURL != "" {
+					<link rel="preconnect" href="https://fonts.googleapis.com"/>
+					<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+					<link rel="stylesheet" href={ fontURL }/>
+				}
+			</div>
+			<!-- HTMX -->
+			<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+			<!-- Alpine.js -->
+			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+		</head>
+		<body class="flex h-screen bg-gray-100 overflow-hidden">
+			<!-- Sidebar -->
+			@Sidebar(allGuides, activeSlug)
+			<!-- Main content area — HTMX swaps this on navigation -->
+			<main id="content" class="flex-1 overflow-y-auto">
+				@content
+			</main>
+		</body>
+	</html>
+}
