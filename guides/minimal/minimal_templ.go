@@ -35,6 +35,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		snippets := guides.GetSnippets(g.Slug)
 		if htmxRequest {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation --> <span id=\"font-loader\"")
 			if templ_7745c5c3_Err != nil {
@@ -51,7 +52,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var2 templ.SafeURL
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(g.FontURL)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 15, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 16, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -70,7 +71,19 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"mx-auto px-6 py-16\" style=\"max-width: var(--content-max-width); font-family: var(--font-body);\"><!-- Guide header --><div class=\"mb-16\"><h1 class=\"font-light tracking-tight mb-3\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); color: var(--color-primary);\">Minimal</h1><p style=\"color: var(--color-text-muted); font-size: var(--font-size-body);\">Calm. Spacious. Nothing extra. Design through restraint and generous whitespace.</p><hr class=\"min-divider mt-8\"></div><!-- 1. Color Palette -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"mx-auto px-6 py-16\" style=\"max-width: var(--content-max-width); font-family: var(--font-body);\"><!-- Guide header --><div class=\"mb-16\"><h1 class=\"font-light tracking-tight mb-3\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); color: var(--color-primary);\">Minimal</h1><p style=\"color: var(--color-text-muted); font-size: var(--font-size-body);\">Calm. Spacious. Nothing extra. Design through restraint and generous whitespace.</p><hr class=\"min-divider mt-8\"></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.TechSummary([]components.TechCallout{
+			{Tech: "Alpine", Description: "Copy-to-clipboard with navigator.clipboard.writeText"},
+			{Tech: "HTMX", Description: "hx-post form submission with hx-target response swap"},
+			{Tech: "Alpine", Description: "x-show card expand with smooth x-transition"},
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<!-- 1. Color Palette -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -86,7 +99,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<div class=\"grid grid-cols-2 sm:grid-cols-3 gap-4\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<!-- snippet:color-swatch --> <div class=\"grid grid-cols-2 sm:grid-cols-3 gap-4\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -114,7 +127,11 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</div><p class=\"mt-4 text-sm\" style=\"color: var(--color-text-muted);\">Click any swatch to copy the hex value to clipboard.</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div><!-- /snippet:color-swatch --> <p class=\"mt-4 text-sm\" style=\"color: var(--color-text-muted);\">Click any swatch to copy the hex value to clipboard.</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["color-swatch"]).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -124,7 +141,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<!-- 2. Typography -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<!-- 2. Typography -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -140,7 +157,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"space-y-4\"><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Display — 3rem / Light</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 300; color: var(--color-primary); line-height: 1.15;\">Simplicity</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Heading — 1.5rem / Semibold</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 600; color: var(--color-primary);\">Clear hierarchy guides the eye</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Body — 1rem / Regular</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-text); line-height: 1.7;\">Minimal design is not about removing things arbitrarily — it's about keeping only what serves a purpose. Every element earns its place.</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Body / Medium weight</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 500; color: var(--color-text);\">\"Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.\"</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Caption — 0.8rem / Regular</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.6;\">Figure 1. — Whitespace is not empty space; it is a deliberate design element.</p></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<div class=\"space-y-4\"><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Display — 3rem / Light</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 300; color: var(--color-primary); line-height: 1.15;\">Simplicity</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Heading — 1.5rem / Semibold</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 600; color: var(--color-primary);\">Clear hierarchy guides the eye</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Body — 1rem / Regular</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-text); line-height: 1.7;\">Minimal design is not about removing things arbitrarily — it's about keeping only what serves a purpose. Every element earns its place.</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Body / Medium weight</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 500; color: var(--color-text);\">\"Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away.\"</p></div><div class=\"min-card p-6\"><p class=\"text-xs mb-2 uppercase tracking-widest\" style=\"color: var(--color-text-muted);\">Caption — 0.8rem / Regular</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.6;\">Figure 1. — Whitespace is not empty space; it is a deliberate design element.</p></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -150,7 +167,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<!-- 3. Spacing Scale -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<!-- 3. Spacing Scale -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -166,7 +183,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<div class=\"min-card p-8 space-y-5\"><p class=\"text-xs uppercase tracking-widest mb-6\" style=\"color: var(--color-text-muted);\">Base unit: 4px</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "<div class=\"min-card p-8 space-y-5\"><p class=\"text-xs uppercase tracking-widest mb-6\" style=\"color: var(--color-text-muted);\">Base unit: 4px</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -179,38 +196,38 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"48px", "48px"},
 				{"64px", "64px"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "<div class=\"flex items-center gap-6\"><span class=\"text-xs w-12 tabular-nums\" style=\"color: var(--color-text-muted);\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<div class=\"flex items-center gap-6\"><span class=\"text-xs w-12 tabular-nums\" style=\"color: var(--color-text-muted);\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 85, Col: 95}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 94, Col: 95}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</span><div class=\"h-2 rounded-full\" style=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</span><div class=\"h-2 rounded-full\" style=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; background: var(--color-accent);")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 86, Col: 102}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 95, Col: 102}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\"></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\"></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -220,7 +237,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<!-- 4. Buttons -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<!-- 4. Buttons -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -236,7 +253,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"space-y-10\"><!-- Sizes --><div><p class=\"text-xs uppercase tracking-widest mb-4\" style=\"color: var(--color-text-muted);\">Sizes</p><div class=\"flex flex-wrap items-center gap-3\"><button class=\"min-btn-primary px-2.5 py-1 text-xs cursor-pointer\">Extra Small</button> <button class=\"min-btn-primary px-3.5 py-1.5 text-sm cursor-pointer\">Small</button> <button class=\"min-btn-primary px-5 py-2 text-base cursor-pointer\">Medium</button> <button class=\"min-btn-primary px-7 py-3 text-lg cursor-pointer\">Large</button></div></div><!-- Variants --><div><p class=\"text-xs uppercase tracking-widest mb-4\" style=\"color: var(--color-text-muted);\">Variants</p><div class=\"flex flex-wrap gap-3\"><button class=\"min-btn-primary px-5 py-2 text-sm cursor-pointer\">Primary</button> <button class=\"min-btn-secondary px-5 py-2 text-sm cursor-pointer\">Secondary</button> <button class=\"min-btn-ghost px-5 py-2 text-sm cursor-pointer\">Ghost</button> <button class=\"px-5 py-2 text-sm cursor-not-allowed opacity-40 border border-gray-200 rounded-lg font-medium\" style=\"font-family: var(--font-body);\" disabled>Disabled</button></div></div><!-- Alpine toggle demo --><div><p class=\"text-xs uppercase tracking-widest mb-4\" style=\"color: var(--color-text-muted);\">Toggle Demo [Alpine]</p><div x-data=\"{ active: false }\" class=\"flex items-center gap-5\"><button class=\"px-5 py-2 text-sm font-medium cursor-pointer transition-all\" style=\"border-radius: var(--radius-md); font-family: var(--font-body);\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<div class=\"space-y-10\"><!-- Sizes --><div><p class=\"text-xs uppercase tracking-widest mb-4\" style=\"color: var(--color-text-muted);\">Sizes</p><div class=\"flex flex-wrap items-center gap-3\"><button class=\"min-btn-primary px-2.5 py-1 text-xs cursor-pointer\">Extra Small</button> <button class=\"min-btn-primary px-3.5 py-1.5 text-sm cursor-pointer\">Small</button> <button class=\"min-btn-primary px-5 py-2 text-base cursor-pointer\">Medium</button> <button class=\"min-btn-primary px-7 py-3 text-lg cursor-pointer\">Large</button></div></div><!-- Variants --><div><p class=\"text-xs uppercase tracking-widest mb-4\" style=\"color: var(--color-text-muted);\">Variants</p><div class=\"flex flex-wrap gap-3\"><button class=\"min-btn-primary px-5 py-2 text-sm cursor-pointer\">Primary</button> <button class=\"min-btn-secondary px-5 py-2 text-sm cursor-pointer\">Secondary</button> <button class=\"min-btn-ghost px-5 py-2 text-sm cursor-pointer\">Ghost</button> <button class=\"px-5 py-2 text-sm cursor-not-allowed opacity-40 border border-gray-200 rounded-lg font-medium\" style=\"font-family: var(--font-body);\" disabled>Disabled</button></div></div><!-- Alpine toggle demo --><div><p class=\"text-xs uppercase tracking-widest mb-4\" style=\"color: var(--color-text-muted);\">Toggle Demo [Alpine]</p><div x-data=\"{ active: false }\" class=\"flex items-center gap-5\"><button class=\"px-5 py-2 text-sm font-medium cursor-pointer transition-all\" style=\"border-radius: var(--radius-md); font-family: var(--font-body);\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -248,7 +265,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "><span x-text=\"active ? 'Enabled' : 'Disabled'\">Disabled</span></button><p class=\"text-sm\" style=\"color: var(--color-text-muted);\" x-text=\"active ? 'State: on' : 'State: off'\">State: off</p></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "><span x-text=\"active ? 'Enabled' : 'Disabled'\">Disabled</span></button><p class=\"text-sm\" style=\"color: var(--color-text-muted);\" x-text=\"active ? 'State: on' : 'State: off'\">State: off</p></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -258,7 +275,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<!-- 5. Forms -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<!-- 5. Forms -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -274,7 +291,15 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<div class=\"min-card p-8\"><form hx-post=\"/guides/minimal/demo-form\" hx-target=\"#min-form-response\" hx-swap=\"innerHTML\" class=\"space-y-6\"><!-- Text input --><div><label class=\"block text-sm font-medium mb-1.5\" style=\"color: var(--color-primary);\" for=\"min-name\">Name</label> <input id=\"min-name\" name=\"name\" type=\"text\" placeholder=\"Your name\" class=\"min-input w-full px-4 py-2.5 text-sm\"></div><!-- Select --><div><label class=\"block text-sm font-medium mb-1.5\" style=\"color: var(--color-primary);\" for=\"min-select\">Category</label> <select id=\"min-select\" name=\"category\" class=\"min-input w-full px-4 py-2.5 text-sm cursor-pointer\"><option value=\"\">Select one…</option> <option value=\"clarity\">Clarity</option> <option value=\"balance\">Balance</option> <option value=\"restraint\">Restraint</option></select></div><!-- Checkboxes --><div><p class=\"text-sm font-medium mb-3\" style=\"color: var(--color-primary);\">Preferences</p><div class=\"space-y-2.5\"><label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"checkbox\" name=\"pref\" value=\"whitespace\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Generous whitespace</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"checkbox\" name=\"pref\" value=\"typography\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Strong typography</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"checkbox\" name=\"pref\" value=\"subtle\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Subtle interactions</label></div></div><!-- Radio buttons --><div><p class=\"text-sm font-medium mb-3\" style=\"color: var(--color-primary);\">Weight</p><div class=\"space-y-2.5\"><label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"weight\" value=\"light\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Light</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"weight\" value=\"regular\" checked class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Regular</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"weight\" value=\"medium\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Medium</label></div></div><!-- Submit --><div class=\"pt-2\"><button type=\"submit\" class=\"min-btn-primary px-6 py-2.5 text-sm cursor-pointer\">Submit</button></div></form><!-- HTMX response target --><div id=\"min-form-response\" class=\"mt-6\"></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "<div class=\"min-card p-8\"><!-- snippet:form-htmx --><form hx-post=\"/guides/minimal/demo-form\" hx-target=\"#min-form-response\" hx-swap=\"innerHTML\" class=\"space-y-6\"><!-- Text input --><div><label class=\"block text-sm font-medium mb-1.5\" style=\"color: var(--color-primary);\" for=\"min-name\">Name</label> <input id=\"min-name\" name=\"name\" type=\"text\" placeholder=\"Your name\" class=\"min-input w-full px-4 py-2.5 text-sm\"></div><!-- Select --><div><label class=\"block text-sm font-medium mb-1.5\" style=\"color: var(--color-primary);\" for=\"min-select\">Category</label> <select id=\"min-select\" name=\"category\" class=\"min-input w-full px-4 py-2.5 text-sm cursor-pointer\"><option value=\"\">Select one…</option> <option value=\"clarity\">Clarity</option> <option value=\"balance\">Balance</option> <option value=\"restraint\">Restraint</option></select></div><!-- Checkboxes --><div><p class=\"text-sm font-medium mb-3\" style=\"color: var(--color-primary);\">Preferences</p><div class=\"space-y-2.5\"><label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"checkbox\" name=\"pref\" value=\"whitespace\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Generous whitespace</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"checkbox\" name=\"pref\" value=\"typography\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Strong typography</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"checkbox\" name=\"pref\" value=\"subtle\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Subtle interactions</label></div></div><!-- Radio buttons --><div><p class=\"text-sm font-medium mb-3\" style=\"color: var(--color-primary);\">Weight</p><div class=\"space-y-2.5\"><label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"weight\" value=\"light\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Light</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"weight\" value=\"regular\" checked class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Regular</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"weight\" value=\"medium\" class=\"w-4 h-4 cursor-pointer accent-blue-500\"> Medium</label></div></div><!-- Submit --><div class=\"pt-2\"><button type=\"submit\" class=\"min-btn-primary px-6 py-2.5 text-sm cursor-pointer\">Submit</button></div></form><!-- /snippet:form-htmx -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["form-htmx"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<!-- HTMX response target --><div id=\"min-form-response\" class=\"mt-6\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -284,7 +309,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "<!-- 6. Cards & Panels -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<!-- 6. Cards & Panels -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -300,7 +325,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<div class=\"space-y-6\"><!-- Basic card --><div class=\"min-card p-6\"><div class=\"flex items-start justify-between mb-3\"><h3 class=\"text-base font-semibold\" style=\"color: var(--color-primary);\">Basic Card</h3><span class=\"text-xs font-medium px-2.5 py-0.5 rounded-full\" style=\"background: var(--color-bg); color: var(--color-text-muted); border: var(--border-width) solid var(--border-color);\">Static</span></div><p class=\"text-sm leading-relaxed mb-5\" style=\"color: var(--color-secondary);\">A clean content container with soft shadow, rounded corners, and a single-pixel border. Whitespace does the heavy lifting.</p><hr class=\"min-divider mb-4\"><div class=\"flex gap-3\"><button class=\"min-btn-primary px-4 py-1.5 text-sm cursor-pointer\">Confirm</button> <button class=\"min-btn-secondary px-4 py-1.5 text-sm cursor-pointer\">Cancel</button></div></div><!-- Expandable card (Alpine) --><div class=\"min-card overflow-hidden\" x-data=\"{ expanded: false }\"><div class=\"px-6 py-5 flex items-center justify-between cursor-pointer\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<div class=\"space-y-6\"><!-- Basic card --><div class=\"min-card p-6\"><div class=\"flex items-start justify-between mb-3\"><h3 class=\"text-base font-semibold\" style=\"color: var(--color-primary);\">Basic Card</h3><span class=\"text-xs font-medium px-2.5 py-0.5 rounded-full\" style=\"background: var(--color-bg); color: var(--color-text-muted); border: var(--border-width) solid var(--border-color);\">Static</span></div><p class=\"text-sm leading-relaxed mb-5\" style=\"color: var(--color-secondary);\">A clean content container with soft shadow, rounded corners, and a single-pixel border. Whitespace does the heavy lifting.</p><hr class=\"min-divider mb-4\"><div class=\"flex gap-3\"><button class=\"min-btn-primary px-4 py-1.5 text-sm cursor-pointer\">Confirm</button> <button class=\"min-btn-secondary px-4 py-1.5 text-sm cursor-pointer\">Cancel</button></div></div><!-- Expandable card (Alpine) --><!-- snippet:card-expand --><div class=\"min-card overflow-hidden\" x-data=\"{ expanded: false }\"><div class=\"px-6 py-5 flex items-center justify-between cursor-pointer\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -308,7 +333,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "><h3 class=\"text-base font-semibold\" style=\"color: var(--color-primary);\">Expandable Panel</h3><span class=\"text-lg font-light transition-transform duration-200\" style=\"color: var(--color-text-muted);\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "><h3 class=\"text-base font-semibold\" style=\"color: var(--color-primary);\">Expandable Panel</h3><span class=\"text-lg font-light transition-transform duration-200\" style=\"color: var(--color-text-muted);\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -316,20 +341,28 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, ">+</span></div><div x-show=\"expanded\" x-transition style=\"border-top: var(--border-width) solid var(--border-color);\"><div class=\"px-6 py-5\"><p class=\"text-sm leading-relaxed mb-4\" style=\"color: var(--color-secondary);\">Revealed content with a smooth transition. Alpine handles the toggle with zero server round-trips.</p><div class=\"rounded-lg p-4 text-sm\" style=\"background: var(--color-bg); border: var(--border-width) solid var(--border-color); color: var(--color-text-muted);\"><p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, ">+</span></div><div x-show=\"expanded\" x-transition style=\"border-top: var(--border-width) solid var(--border-color);\"><div class=\"px-6 py-5\"><p class=\"text-sm leading-relaxed mb-4\" style=\"color: var(--color-secondary);\">Revealed content with a smooth transition. Alpine handles the toggle with zero server round-trips.</p><div class=\"rounded-lg p-4 text-sm\" style=\"background: var(--color-bg); border: var(--border-width) solid var(--border-color); color: var(--color-text-muted);\"><p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs("// state snapshot")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 247, Col: 32}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 260, Col: 32}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</p><p>expanded: true</p><p>border-radius: 16px</p><p>shadow: subtle</p></div></div></div></div><!-- Info/accent panel --><div class=\"p-5 flex gap-4 items-start\" style=\"background: rgba(59,130,246,0.06); border: var(--border-width) solid rgba(59,130,246,0.2); border-radius: var(--radius-lg);\"><span class=\"text-blue-500 mt-0.5 text-lg leading-none font-medium\">i</span><div><p class=\"text-sm font-semibold mb-1\" style=\"color: var(--color-accent);\">Info Panel</p><p class=\"text-sm leading-relaxed\" style=\"color: var(--color-secondary);\">Accent panels use a tinted background and matching border for a calm, informational tone — never alarming.</p></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</p><p>expanded: true</p><p>border-radius: 16px</p><p>shadow: subtle</p></div></div></div></div><!-- /snippet:card-expand -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["card-expand"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<!-- Info/accent panel --><div class=\"p-5 flex gap-4 items-start\" style=\"background: rgba(59,130,246,0.06); border: var(--border-width) solid rgba(59,130,246,0.2); border-radius: var(--radius-lg);\"><span class=\"text-blue-500 mt-0.5 text-lg leading-none font-medium\">i</span><div><p class=\"text-sm font-semibold mb-1\" style=\"color: var(--color-accent);\">Info Panel</p><p class=\"text-sm leading-relaxed\" style=\"color: var(--color-secondary);\">Accent panels use a tinted background and matching border for a calm, informational tone — never alarming.</p></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -339,7 +372,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -369,20 +402,20 @@ func minColorSwatch(name, cssVar, hex string) templ.Component {
 			templ_7745c5c3_Var12 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<div x-data=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div x-data=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 271, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 286, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "\" class=\"cursor-pointer group\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "\" class=\"cursor-pointer group\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -390,59 +423,59 @@ func minColorSwatch(name, cssVar, hex string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "><div class=\"h-14 mb-2 transition-transform duration-150 group-hover:-translate-y-0.5\" style=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "><div class=\"h-14 mb-2 transition-transform duration-150 group-hover:-translate-y-0.5\" style=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + cssVar + "; border-radius: var(--radius-md); border: var(--border-width) solid var(--border-color);")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 277, Col: 128}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 292, Col: 128}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "\"></div><p class=\"text-xs font-medium\" style=\"color: var(--color-primary);\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "\"></div><p class=\"text-xs font-medium\" style=\"color: var(--color-primary);\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 279, Col: 76}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 294, Col: 76}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "</p><p class=\"text-xs\" style=\"color: var(--color-text-muted);\" x-text=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</p><p class=\"text-xs\" style=\"color: var(--color-text-muted);\" x-text=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 280, Col: 106}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 295, Col: 106}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 280, Col: 114}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/minimal/minimal.templ`, Line: 295, Col: 114}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

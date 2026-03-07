@@ -7,6 +7,7 @@ import (
 
 // Page renders the full Minimal style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
+	{{ snippets := guides.GetSnippets(g.Slug) }}
 	if htmxRequest {
 		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
@@ -24,8 +25,14 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<p style="color: var(--color-text-muted); font-size: var(--font-size-body);">Calm. Spacious. Nothing extra. Design through restraint and generous whitespace.</p>
 			<hr class="min-divider mt-8"/>
 		</div>
+		@components.TechSummary([]components.TechCallout{
+			{Tech: "Alpine", Description: "Copy-to-clipboard with navigator.clipboard.writeText"},
+			{Tech: "HTMX",   Description: "hx-post form submission with hx-target response swap"},
+			{Tech: "Alpine", Description: "x-show card expand with smooth x-transition"},
+		})
 		<!-- 1. Color Palette -->
 		@components.Section("Color Palette", components.BadgeAlpine) {
+			<!-- snippet:color-swatch -->
 			<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
 				@minColorSwatch("Primary", "var(--color-primary)", "#1a1a1a")
 				@minColorSwatch("Secondary", "var(--color-secondary)", "#6b7280")
@@ -34,7 +41,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				@minColorSwatch("Surface", "var(--color-surface)", "#ffffff")
 				@minColorSwatch("Muted", "var(--color-text-muted)", "#9ca3af")
 			</div>
+			<!-- /snippet:color-swatch -->
 			<p class="mt-4 text-sm" style="color: var(--color-text-muted);">Click any swatch to copy the hex value to clipboard.</p>
+			@components.SourceView(snippets["color-swatch"])
 		}
 		<!-- 2. Typography -->
 		@components.Section("Typography", components.BadgeNone) {
@@ -131,6 +140,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		<!-- 5. Forms -->
 		@components.Section("Forms", components.BadgeBoth) {
 			<div class="min-card p-8">
+				<!-- snippet:form-htmx -->
 				<form
 					hx-post="/guides/minimal/demo-form"
 					hx-target="#min-form-response"
@@ -201,6 +211,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</button>
 					</div>
 				</form>
+				<!-- /snippet:form-htmx -->
+				@components.SourceView(snippets["form-htmx"])
 				<!-- HTMX response target -->
 				<div id="min-form-response" class="mt-6"></div>
 			</div>
@@ -225,6 +237,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 				<!-- Expandable card (Alpine) -->
+				<!-- snippet:card-expand -->
 				<div class="min-card overflow-hidden" x-data="{ expanded: false }">
 					<div
 						class="px-6 py-5 flex items-center justify-between cursor-pointer"
@@ -252,6 +265,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</div>
 					</div>
 				</div>
+				<!-- /snippet:card-expand -->
+				@components.SourceView(snippets["card-expand"])
 				<!-- Info/accent panel -->
 				<div class="p-5 flex gap-4 items-start" style="background: rgba(59,130,246,0.06); border: var(--border-width) solid rgba(59,130,246,0.2); border-radius: var(--radius-lg);">
 					<span class="text-blue-500 mt-0.5 text-lg leading-none font-medium">i</span>
