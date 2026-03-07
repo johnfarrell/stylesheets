@@ -54,8 +54,7 @@ func ParseSnippets(src string) map[string]string {
 
 func extractOpen(line string) (string, bool) {
 	if strings.HasPrefix(line, "<!-- snippet:") && strings.HasSuffix(line, "-->") {
-		name := strings.TrimSuffix(strings.TrimPrefix(line, "<!-- snippet:"), " -->")
-		name = strings.TrimSpace(name)
+		name := strings.TrimSpace(strings.TrimSuffix(strings.TrimPrefix(line, "<!-- snippet:"), "-->"))
 		if name != "" {
 			return name, true
 		}
@@ -71,8 +70,7 @@ func extractOpen(line string) (string, bool) {
 
 func extractClose(line string) (string, bool) {
 	if strings.HasPrefix(line, "<!-- /snippet:") && strings.HasSuffix(line, "-->") {
-		name := strings.TrimSuffix(strings.TrimPrefix(line, "<!-- /snippet:"), " -->")
-		name = strings.TrimSpace(name)
+		name := strings.TrimSpace(strings.TrimSuffix(strings.TrimPrefix(line, "<!-- /snippet:"), "-->"))
 		if name != "" {
 			return name, true
 		}
@@ -88,17 +86,14 @@ func extractClose(line string) (string, bool) {
 
 func loadAll() map[string]map[string]string {
 	cache := map[string]map[string]string{}
-	files := map[string]string{
-		"brutalist": "brutalist/brutalist.templ",
-		"minimal":   "minimal/minimal.templ",
-		"cassette":  "cassette/cassette.templ",
-	}
-	for slug, path := range files {
+	for _, g := range All {
+		path := g.Slug + "/" + g.Slug + ".templ"
 		data, err := SourceFS.ReadFile(path)
 		if err != nil {
+			// Not yet embedded — skip silently
 			continue
 		}
-		cache[slug] = ParseSnippets(string(data))
+		cache[g.Slug] = ParseSnippets(string(data))
 	}
 	return cache
 }
