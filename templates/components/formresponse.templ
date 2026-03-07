@@ -35,6 +35,21 @@ templ FormResponse(slug, name string) {
 			<p style="font-family: var(--font-body); font-size: 0.625rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 0.25rem;">&#9654; RECEIVED</p>
 			<p style="font-family: var(--font-display); font-weight: 700; color: var(--color-secondary);">{ name }</p>
 		</div>
+	case "terminal":
+		<div style="background: var(--color-bg); border: 1px solid var(--color-primary); padding: 0.75rem; font-family: var(--font-body); font-size: var(--font-size-caption);">
+			<div style="color: var(--color-primary);">&#9654; RECEIVED</div>
+			<div style="color: var(--color-primary); opacity: 0.7;">operator: <strong style="color: var(--color-primary);">{ name }</strong> — logged</div>
+		</div>
+	case "retro":
+		<div style="background: var(--color-surface); border: 2px outset var(--color-surface); padding: 0.75rem; font-family: var(--font-body);">
+			<div style="background: var(--color-primary); color: #fff; padding: 0.25rem 0.5rem; font-weight: 700; font-size: var(--font-size-caption); margin: -0.75rem -0.75rem 0.5rem; border-bottom: 2px outset var(--color-surface);">Message</div>
+			<p style="font-size: var(--font-size-body);">Form submitted. Thank you, <strong>{ name }</strong>.</p>
+		</div>
+	case "newspaper":
+		<div style="border-top: 2px solid var(--color-border); padding: 0.75rem 0; margin-top: 0.5rem;">
+			<p style="font-family: var(--font-body); font-variant: small-caps; font-size: var(--font-size-caption); color: var(--color-primary); margin-bottom: 0.25rem;">Received</p>
+			<p style="font-family: var(--font-display); font-weight: 700; color: var(--color-secondary);">{ name }</p>
+		</div>
 	default:
 		<div class="p-3"><strong>Received:</strong> { name }</div>
 	}

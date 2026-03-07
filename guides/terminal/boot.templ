@@ -1,0 +1,9 @@
+package terminal
+
+templ BootMessage(timestamp, subsystem, message, color string) {
+	<div style={ "font-size: var(--font-size-caption); color: " + color }>
+		<span style="color: var(--color-text-muted);">[{ timestamp }]</span>
+		<span style="font-weight: 700;">{ " " + subsystem + " " }</span>
+		{ message }
+	</div>
+}

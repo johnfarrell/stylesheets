@@ -1,0 +1,27 @@
+package newspaper
+
+// HeadlineCard renders a single headline in the infinite scroll feed.
+templ HeadlineCard(id, category, headline, summary, byline string) {
+	<div class="news-card mb-6">
+		<p class="news-byline mb-1">{ category }</p>
+		<h3 class="news-headline-md mb-2">
+			<a style="cursor: pointer; text-decoration: none; color: inherit;"
+				hx-get={ "/guides/newspaper/article/" + id }
+				hx-target="#news-main-content"
+				hx-swap="innerHTML transition:true"
+				hx-push-url="false"
+			>{ headline }</a>
+		</h3>
+		<p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-text-muted); max-width: 55ch;">{ summary }</p>
+		<p class="news-byline mt-2">{ byline }</p>
+	</div>
+}
+
+// HeadlineSentinel renders the scroll sentinel that triggers loading the next page.
+templ HeadlineSentinel(nextPage string) {
+	<div hx-get={ "/guides/newspaper/headlines?page=" + nextPage }
+		hx-trigger="revealed"
+		hx-swap="outerHTML"
+		style="height: 1px;">
+	</div>
+}

@@ -1,0 +1,93 @@
+package retro
+
+// AppAbout renders the About window content.
+templ AppAbout() {
+	<div style="padding: 1rem; font-size: var(--font-size-body);">
+		<div style="text-align: center; margin-bottom: 1rem;">
+			<span style="font-size: 3rem;">&#x1F5A5;</span>
+			<h2 style="font-family: var(--font-display); font-size: 1.5rem; margin-top: 0.5rem;">Retro OS v1.0</h2>
+		</div>
+		<div class="retro-inset" style="padding: 0.5rem; font-size: var(--font-size-caption);">
+			<p>A style guide showcasing the Win95 aesthetic.</p>
+			<p style="margin-top: 0.5rem;">Built with Go &middot; Templ &middot; HTMX &middot; Alpine.js</p>
+			<p style="margin-top: 0.5rem; color: var(--color-text-muted);">Physical Memory: 640K</p>
+		</div>
+		<div style="text-align: center; margin-top: 1rem;">
+			<button class="retro-btn retro-btn-primary" style="min-width: 80px;"
+				{ templ.Attributes{"@click": "$dispatch('close-window', 'about')"}... }>OK</button>
+		</div>
+	</div>
+}
+
+// AppCalculator renders the Calculator window content.
+templ AppCalculator() {
+	<div style="padding: 0.25rem;" x-data="{ display: '0', op: '', prev: 0, reset: true }">
+		<div class="retro-inset" style="padding: 0.25rem 0.5rem; text-align: right; font-family: var(--font-mono); font-size: 1.25rem; margin-bottom: 0.25rem;">
+			<span x-text="display">0</span>
+		</div>
+		<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;">
+			for _, row := range [][]string{{"7","8","9","/"}, {"4","5","6","*"}, {"1","2","3","-"}, {"C","0","=","+"}} {
+				for _, btn := range row {
+					if btn == "=" {
+						<button class="retro-btn" style="padding: 0.4rem;"
+							{ templ.Attributes{"@click": `
+								let cur = parseFloat(display);
+								if (op === '+') display = String(prev + cur);
+								else if (op === '-') display = String(prev - cur);
+								else if (op === '*') display = String(prev * cur);
+								else if (op === '/') display = cur !== 0 ? String(prev / cur) : 'Err';
+								op = ''; reset = true;
+							`}... }
+						>{ btn }</button>
+					} else if btn == "C" {
+						<button class="retro-btn" style="padding: 0.4rem;"
+							{ templ.Attributes{"@click": "display = '0'; op = ''; prev = 0; reset = true"}... }
+						>{ btn }</button>
+					} else if btn == "+" || btn == "-" || btn == "*" || btn == "/" {
+						<button class="retro-btn" style="padding: 0.4rem;"
+							{ templ.Attributes{"@click": "prev = parseFloat(display); op = '" + btn + "'; reset = true"}... }
+						>{ btn }</button>
+					} else {
+						<button class="retro-btn" style="padding: 0.4rem;"
+							{ templ.Attributes{"@click": "if (reset) { display = '" + btn + "'; reset = false } else { display += '" + btn + "' }"}... }
+						>{ btn }</button>
+					}
+				}
+			}
+		</div>
+	</div>
+}
+
+// AppFiles renders the File Manager window content.
+templ AppFiles() {
+	<div style="font-size: var(--font-size-caption);">
+		<div class="retro-raised" style="padding: 0.25rem 0.5rem; margin-bottom: 2px; font-size: 0.625rem;">
+			<span style="text-decoration: underline;">F</span>ile
+			<span style="margin-left: 0.5rem; text-decoration: underline;">E</span>dit
+			<span style="margin-left: 0.5rem; text-decoration: underline;">V</span>iew
+			<span style="margin-left: 0.5rem; text-decoration: underline;">H</span>elp
+		</div>
+		<div class="retro-inset" style="padding: 0.5rem;">
+			for _, f := range []struct{icon, name, size string}{
+				{"&#x1F4C4;", "README.md", "2 KB"},
+				{"&#x1F4C4;", "main.go", "1 KB"},
+				{"&#x1F4C4;", "go.mod", "1 KB"},
+				{"&#x1F4C1;", "handlers", ""},
+				{"&#x1F4C1;", "guides", ""},
+				{"&#x1F4C1;", "static", ""},
+				{"&#x1F4C1;", "templates", ""},
+				{"&#x1F4C4;", "Makefile", "1 KB"},
+			} {
+				<div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.15rem 0.25rem; cursor: default;"
+					class="hover:bg-[#000080] hover:text-white">
+					@templ.Raw(f.icon)
+					<span style="flex: 1;">{ f.name }</span>
+					<span style="color: var(--color-text-muted); min-width: 3rem; text-align: right;">{ f.size }</span>
+				</div>
+			}
+		</div>
+		<div class="retro-inset" style="padding: 0.15rem 0.5rem; margin-top: 2px; font-size: 0.625rem; color: var(--color-text-muted);">
+			8 object(s)
+		</div>
+	</div>
+}
