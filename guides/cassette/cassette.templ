@@ -7,6 +7,7 @@ import (
 )
 
 templ Page(g guides.Guide, htmxRequest bool) {
+	{{ snippets := guides.GetSnippets(g.Slug) }}
 	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
 	if htmxRequest {
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
@@ -34,9 +35,20 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			</div>
 			<div class="mt-3" style="height: 3px; background: var(--color-primary);"></div>
 		</div>
+		@components.TechSummary([]components.TechCallout{
+			{Tech: "Alpine", Description: "Copy-to-clipboard on color swatches"},
+			{Tech: "Alpine", Description: "Button state toggle with x-bind:class"},
+			{Tech: "HTMX",   Description: "Form submission with hx-post + hx-target"},
+			{Tech: "Alpine", Description: "Status board lights with reactive x-data state"},
+			{Tech: "Alpine", Description: "setInterval instrument readouts (live number updates)"},
+			{Tech: "Alpine", Description: "Segmented progress tracker with dynamic width binding"},
+			{Tech: "HTMX",   Description: "System log polling: hx-trigger=\"every 4s\" + hx-swap=\"beforeend\""},
+			{Tech: "Alpine", Description: "Modal open/close with x-show + x-transition overlay"},
+		})
 
 		<!-- SECTION 1: Color Palette -->
 		@components.Section("1.0  Color Palette", components.BadgeAlpine) {
+			<!-- snippet:color-swatch -->
 			<div x-data="{ copied: null }">
 				<div class="mb-4">
 					<p class="mb-2" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">DOCUMENT COLORS</p>
@@ -126,6 +138,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 				<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.75rem;">Click any swatch to copy hex value to clipboard.</p>
 			</div>
+			<!-- /snippet:color-swatch -->
+			@components.SourceView(snippets["color-swatch"])
 		}
 
 		<!-- SECTION 2: Typography -->
@@ -284,6 +298,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 			</div>
 			<!-- Interactive: Armed/Safe Toggle -->
+			<!-- snippet:button-toggle -->
 			<div class="cass-panel mb-6">
 				<div class="cass-panel-header">INTERACTIVE — ARMED / SAFE TOGGLE</div>
 				<div style="padding: 1rem;">
@@ -298,6 +313,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 			</div>
+			<!-- /snippet:button-toggle -->
+			@components.SourceView(snippets["button-toggle"])
 			<!-- Interactive: Confirm with feedback -->
 			<div class="cass-panel">
 				<div class="cass-panel-header">INTERACTIVE — CONFIRM WITH FEEDBACK</div>
@@ -319,6 +336,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<div class="cass-panel">
 				<div class="cass-panel-header cass-panel-header-blue">MISSION REQUEST FORM — MRF-2183-A</div>
 				<div style="padding: 1.25rem;">
+					<!-- snippet:form-htmx -->
 					<form
 						hx-post="/guides/cassette/demo-form"
 						hx-target="#cass-form-response"
@@ -434,6 +452,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							<button type="submit" class="cass-btn cass-btn-filled">TRANSMIT REPORT</button>
 						</div>
 					</form>
+					<!-- /snippet:form-htmx -->
+					@components.SourceView(snippets["form-htmx"])
 					<div id="cass-form-response" class="mt-4"></div>
 				</div>
 			</div>
@@ -669,6 +689,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		@components.Section("8.0  System Status Monitor", components.BadgeAlpine) {
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<!-- Part A: System Grid -->
+				<!-- snippet:status-board -->
 				<div class="cass-panel" x-data="{ systems: [{n:'LIFE SUPPORT',s:'ok'},{n:'PROPULSION',s:'ok'},{n:'NAVIGATION',s:'warn'},{n:'COMMUNICATIONS',s:'ok'},{n:'POWER GRID',s:'ok'},{n:'HYPERSLEEP',s:'ok'},{n:'MOTION SENSORS',s:'err'},{n:'ATMOSPHERIC',s:'ok'},{n:'FIRE SUPPRESSION',s:'ok'},{n:'CARGO LOCKS',s:'warn'}] }">
 					<div class="cass-panel-header">SYSTEM STATUS GRID — CLICK TO CYCLE</div>
 					<div style="padding: 0.5rem;">
@@ -691,6 +712,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</template>
 					</div>
 				</div>
+				<!-- /snippet:status-board -->
 				<!-- Right column: MET + Personnel -->
 				<div style="display: flex; flex-direction: column; gap: 1rem;">
 					<!-- Part B: Mission Elapsed Time -->
@@ -750,6 +772,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 			</div>
+			@components.SourceView(snippets["status-board"])
 		}
 
 		<!-- SECTION 9: Notices -->
@@ -1018,6 +1041,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		<!-- SECTION 12: Technical Readouts -->
 		@components.Section("12.0  Instrument Readouts", components.BadgeAlpine) {
 			<!-- Part A: Readout Grid -->
+			<!-- snippet:instrument-readout -->
 			<div class="cass-panel mb-6">
 				<div class="cass-panel-header cass-panel-header-blue">ENVIRONMENTAL INSTRUMENT READOUTS — LIVE</div>
 				<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 0.75rem; gap: 0.5rem;">
@@ -1091,6 +1115,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 			</div>
+			<!-- /snippet:instrument-readout -->
+			@components.SourceView(snippets["instrument-readout"])
 			<!-- Part B: Bar Gauges -->
 			<div class="cass-panel mb-6" x-data="{ fuel: 67, o2: 89, coolant: 23, power: 78 }">
 				<div class="cass-panel-header">BAR GAUGE DISPLAY</div>
@@ -1223,6 +1249,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 				<!-- Style B: Segmented Progress -->
+				<!-- snippet:progress-tracker -->
 				<div class="cass-panel" x-data="{ steps: 6, total: 10 }">
 					<div class="cass-panel-header">SEGMENTED PROGRESS — MISSION SUBSTEPS</div>
 					<div style="padding: 1rem;">
@@ -1238,6 +1265,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</div>
 					</div>
 				</div>
+				<!-- /snippet:progress-tracker -->
+				@components.SourceView(snippets["progress-tracker"])
 				<!-- Style C: Step Tracker -->
 				<div class="cass-panel" x-data="{ step: 2 }">
 					<div class="cass-panel-header">STEP TRACKER — MISSION AUTHORIZATION SEQUENCE</div>
@@ -1402,14 +1431,17 @@ templ Page(g guides.Guide, htmxRequest bool) {
 								<span style="color: var(--color-text);">BULKHEAD DOORS — ALL SEALED — OVERRIDE DISABLED</span>
 							</div>
 						</div>
-						<!-- HTMX polling trigger -->
+						<!-- snippet:system-log -->
+					<!-- HTMX polling trigger -->
 						<div
 							hx-get="/guides/cassette/log"
 							hx-trigger="every 4s"
 							hx-target="#cass-log-output"
 							hx-swap="beforeend"
 						></div>
+					<!-- /snippet:system-log -->
 					</div>
+					@components.SourceView(snippets["system-log"])
 					<!-- Controls -->
 					<div class="flex gap-3 mt-3">
 						<button
@@ -1426,6 +1458,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 
 		<!-- SECTION 15: Modal/Dialog -->
 		@components.Section("15.0  Dialog Components", components.BadgeAlpine) {
+			<!-- snippet:modal -->
 			<div x-data="{ modal: null, authCode: '', confirmed: false }">
 				<!-- Trigger buttons -->
 				<div class="flex flex-wrap gap-3 mb-4">
@@ -1535,6 +1568,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 			</div>
+			<!-- /snippet:modal -->
+			@components.SourceView(snippets["modal"])
 		}
 
 	</div>
