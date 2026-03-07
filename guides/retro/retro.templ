@@ -1,0 +1,30 @@
+package retro
+
+import (
+	"github.com/johnfarrell/stylesheets/guides"
+)
+
+// Page renders the Retro OS style guide showcase.
+templ Page(g guides.Guide, htmxRequest bool) {
+	if htmxRequest {
+		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link rel="stylesheet" href={ g.FontURL }/>
+		</span>
+	}
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	<div style="background: var(--color-bg); min-height: 100%; padding: 2rem;">
+		<div style="max-width: var(--content-max-width); margin: 0 auto;">
+			<div class="retro-window" style="width: 400px;">
+				<div class="retro-titlebar">
+					<span>Welcome</span>
+				</div>
+				<div style="padding: 1rem;">
+					<h1 style="font-family: var(--font-display); font-size: var(--font-size-display);">Retro OS</h1>
+					<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Guide under construction...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+}

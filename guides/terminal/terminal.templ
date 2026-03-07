@@ -1,0 +1,23 @@
+package terminal
+
+import (
+	"github.com/johnfarrell/stylesheets/guides"
+)
+
+// Page renders the Terminal style guide showcase.
+templ Page(g guides.Guide, htmxRequest bool) {
+	if htmxRequest {
+		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link rel="stylesheet" href={ g.FontURL }/>
+		</span>
+	}
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	<div class="term-screen p-8 min-h-full" style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);">
+		<div style="max-width: var(--content-max-width); margin: 0 auto;">
+			<h1 class="text-3xl font-bold term-glow mb-2" style="font-family: var(--font-display);">Terminal</h1>
+			<p style="color: var(--color-text-muted); font-size: var(--font-size-caption);">Guide under construction...</p>
+		</div>
+	</div>
+}

@@ -1,0 +1,26 @@
+package newspaper
+
+import (
+	"github.com/johnfarrell/stylesheets/guides"
+)
+
+// Page renders the Newspaper style guide showcase.
+templ Page(g guides.Guide, htmxRequest bool) {
+	if htmxRequest {
+		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link rel="stylesheet" href={ g.FontURL }/>
+		</span>
+	}
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	<div style="background: var(--color-bg); min-height: 100%; padding: var(--section-padding);">
+		<div style="max-width: var(--content-max-width); margin: 0 auto;">
+			<div class="news-masthead mb-8">
+				<h1 style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 900;">The Daily Style</h1>
+				<p class="news-byline mt-1">A Reference Collection of Design Languages</p>
+			</div>
+			<p style="color: var(--color-text-muted); font-size: var(--font-size-caption);">Guide under construction...</p>
+		</div>
+	</div>
+}

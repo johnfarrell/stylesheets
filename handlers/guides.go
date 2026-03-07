@@ -13,7 +13,10 @@ import (
 	cassettetempl "github.com/johnfarrell/stylesheets/guides/cassette"
 	glasstempl "github.com/johnfarrell/stylesheets/guides/glass"
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
+	newspapertempl "github.com/johnfarrell/stylesheets/guides/newspaper"
+	retrotempl "github.com/johnfarrell/stylesheets/guides/retro"
 	swisstempl "github.com/johnfarrell/stylesheets/guides/swiss"
+	terminaltempl "github.com/johnfarrell/stylesheets/guides/terminal"
 	"github.com/johnfarrell/stylesheets/templates"
 	"github.com/johnfarrell/stylesheets/templates/components"
 )
@@ -194,6 +197,12 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 		return bentotempl.Page(g, htmxRequest)
 	case "swiss":
 		return swisstempl.Page(g, htmxRequest)
+	case "terminal":
+		return terminaltempl.Page(g, htmxRequest)
+	case "retro":
+		return retrotempl.Page(g, htmxRequest)
+	case "newspaper":
+		return newspapertempl.Page(g, htmxRequest)
 	default:
 		return templ.Raw(fmt.Sprintf(`<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
 			templ.EscapeString(g.Name), templ.EscapeString(g.Description)))
