@@ -134,16 +134,7 @@ func NewMux() *http.ServeMux {
 	// Minimal — lazy-loaded Design Principles content
 	mux.HandleFunc("/guides/minimal/principles", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprint(w, `<div class="space-y-6">`+
-			`<div><h3 class="text-base font-semibold mb-2" style="color: var(--color-primary);">Reduction</h3>`+
-			`<p class="text-sm leading-relaxed" style="color: var(--color-secondary);">Remove until it breaks, then add one thing back. The last element you add is the design.</p></div>`+
-			`<hr style="border: none; border-top: 1px solid var(--border-color);"/>`+
-			`<div><h3 class="text-base font-semibold mb-2" style="color: var(--color-primary);">Whitespace</h3>`+
-			`<p class="text-sm leading-relaxed" style="color: var(--color-secondary);">Space is not emptiness — it is structure. Give every element room to breathe and it will speak more clearly.</p></div>`+
-			`<hr style="border: none; border-top: 1px solid var(--border-color);"/>`+
-			`<div><h3 class="text-base font-semibold mb-2" style="color: var(--color-primary);">Intention</h3>`+
-			`<p class="text-sm leading-relaxed" style="color: var(--color-secondary);">Every choice is deliberate. Color, weight, size, position — nothing is arbitrary. Minimal is not less; it is only what matters.</p></div>`+
-			`</div>`)
+		minimaltempl.Principles().Render(r.Context(), w)
 	})
 
 	// Swiss — HTMX search filter for editorial cards
