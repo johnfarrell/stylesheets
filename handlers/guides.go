@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"bytes"
 	"fmt"
 	"net/http"
 	"strings"
@@ -154,6 +155,81 @@ func NewMux() *http.ServeMux {
 			}
 			swisstempl.SearchResult(a.eyebrow, a.headline, a.body).Render(r.Context(), w)
 		}
+	})
+
+	// Terminal — SSE boot sequence stream
+	mux.HandleFunc("/guides/terminal/boot", func(w http.ResponseWriter, r *http.Request) {
+		flusher, ok := w.(http.Flusher)
+		if !ok {
+			http.Error(w, "streaming not supported", http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "text/event-stream")
+		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("Connection", "keep-alive")
+
+		bootMessages := []struct{ sub, msg, color string }{
+			{"BIOS", "POST check... OK", "var(--color-text)"},
+			{"BIOS", "Memory: 640K conventional, 3072K extended", "var(--color-text)"},
+			{"BOOT", "Loading kernel...", "var(--color-primary)"},
+			{"KERN", "Initializing subsystems", "var(--color-primary)"},
+			{"NET ", "eth0: link up 1000Mbps", "var(--color-secondary)"},
+			{"DISK", "Mounting /dev/sda1 on /", "var(--color-text)"},
+			{"DISK", "Filesystem clean — 847392 blocks free", "var(--color-text)"},
+			{"AUTH", "Loading user credentials", "var(--color-accent)"},
+			{"PROC", "Starting daemon processes", "var(--color-text)"},
+			{"PROC", "sshd: listening on port 22", "var(--color-primary)"},
+			{"PROC", "httpd: listening on port 8080", "var(--color-primary)"},
+			{"NET ", "Firewall rules loaded (47 rules)", "var(--color-secondary)"},
+			{"SYS ", "System clock synchronized via NTP", "var(--color-text)"},
+			{"SYS ", "All systems nominal", "var(--color-primary)"},
+			{"BOOT", "READY. Type 'help' for commands.", "var(--color-primary)"},
+		}
+
+		ts := time.Now()
+		for i, m := range bootMessages {
+			select {
+			case <-r.Context().Done():
+				return
+			default:
+			}
+			bootTS := ts.Add(time.Duration(i*200) * time.Millisecond).Format("15:04:05.000")
+			var buf bytes.Buffer
+			terminaltempl.BootMessage(bootTS, m.sub, m.msg, m.color).Render(r.Context(), &buf)
+			fmt.Fprintf(w, "data: %s\n\n", strings.ReplaceAll(buf.String(), "\n", ""))
+			flusher.Flush()
+			time.Sleep(300 * time.Millisecond)
+		}
+	})
+
+	// Terminal — command exec endpoint
+	mux.HandleFunc("/guides/terminal/exec", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, "bad request", http.StatusBadRequest)
+			return
+		}
+		cmd := r.FormValue("cmd")
+		var output string
+		switch strings.TrimSpace(strings.ToLower(cmd)) {
+		case "help":
+			output = "Available commands: help, ls, whoami, date, clear\nType any command and press Enter."
+		case "ls":
+			output = "README.md  main.go  go.mod  go.sum  handlers/  guides/  static/  templates/  Makefile"
+		case "whoami":
+			output = "guest@stylesheets"
+		case "date":
+			output = time.Now().Format("Mon Jan 2 15:04:05 MST 2006")
+		case "clear":
+			output = ""
+		default:
+			output = "command not found: " + templ.EscapeString(cmd) + "\nType 'help' for available commands."
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		terminaltempl.ExecResponse(cmd, output).Render(r.Context(), w)
 	})
 
 	mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {

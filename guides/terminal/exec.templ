@@ -1,0 +1,10 @@
+package terminal
+
+templ ExecResponse(cmd, output string) {
+	<div style="font-size: var(--font-size-caption); margin-top: 0.25rem;">
+		<div><span style="color: var(--color-secondary);">$</span> { cmd }</div>
+		if output != "" {
+			<div style="color: var(--color-text-muted); white-space: pre-wrap;">{ output }</div>
+		}
+	</div>
+}

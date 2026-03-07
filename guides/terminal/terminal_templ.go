@@ -10,6 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // Page renders the Terminal style guide showcase.
@@ -34,8 +35,9 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		snippets := guides.GetHighlightedSnippets(g.Slug)
 		if htmxRequest {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<span id=\"font-loader\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation --> <span id=\"font-loader\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -50,7 +52,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var2 templ.SafeURL
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(g.FontURL)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 13, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 16, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -61,11 +63,664 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"term-screen p-8 min-h-full\" style=\"background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><h1 class=\"text-3xl font-bold term-glow mb-2\" style=\"font-family: var(--font-display);\">Terminal</h1><p style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Guide under construction...</p></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"term-screen p-8 min-h-full\" style=\"background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><!-- Guide header --><div class=\"mb-12 pb-4\" style=\"border-bottom: 1px solid var(--color-border);\"><h1 class=\"font-bold term-glow mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-display);\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var3 string
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs("> Terminal_")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 26, Col: 20}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<span class=\"term-cursor\">|</span></h1><p style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Green-on-black CRT aesthetic. Scanlines, phosphor glow, monospace everything.</p></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.TechSummary([]components.TechCallout{
+			{Tech: "Alpine", Description: "Copy-to-clipboard color swatches with x-data + @click"},
+			{Tech: "Alpine", Description: "Toggle demo — process start/stop with blinking indicator"},
+			{Tech: "HTMX", Description: "hx-post form submission to /guides/terminal/demo-form"},
+			{Tech: "Alpine", Description: "Collapsible card panels with x-show + x-transition"},
+			{Tech: "HTMX", Description: "SSE boot stream via hx-ext='sse' + sse-connect"},
+			{Tech: "Both", Description: "Command prompt — HTMX POST + Alpine state management"},
+			{Tech: "Alpine", Description: "Keyboard-navigable file browser with @keydown handlers"},
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<!-- 1. Color Palette -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var4 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<!-- snippet:color-swatch --> <div class=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = termColorSwatch("Primary", "var(--color-primary)", "#00ff41", "\\033[32m").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = termColorSwatch("Secondary", "var(--color-secondary)", "#00bfff", "\\033[36m").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = termColorSwatch("Accent", "var(--color-accent)", "#ffcc00", "\\033[33m").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = termColorSwatch("Danger", "var(--color-danger)", "#ff3333", "\\033[31m").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = termColorSwatch("Muted", "var(--color-text-muted)", "#00994d", "\\033[90m").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = termColorSwatch("BG", "var(--color-bg)", "#0a0a0a", "\\033[40m").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</div><!-- /snippet:color-swatch --> <p class=\"mt-4\" style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Click any swatch to copy hex value to clipboard.</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["color-swatch"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Color Palette", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<!-- 2. Typography -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var5 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<div class=\"space-y-6\"><div class=\"term-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">DISPLAY — 2.5rem / Bold</p><p class=\"term-glow\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; line-height: 1.1;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs("user@stylesheets:~$")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 64, Col: 30}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</p></div><div class=\"term-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">HEADING — 1.25rem / Bold</p><p class=\"term-glow\" style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700;\">System Process Monitor</p></div><div class=\"term-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">BODY — 0.875rem / Regular</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body);\">The terminal is more than an interface — it is a philosophy. Every keystroke is deliberate. Every output is meaningful. No wasted pixels, no unnecessary decoration.</p></div><div class=\"term-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">BODY — 0.875rem / Light (300)</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 300; color: var(--color-text-muted);\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var7 string
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs("// Dimmed text for secondary information and comments")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 82, Col: 64}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</p></div><div class=\"term-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">CAPTION — 0.75rem / Regular</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var8 string
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs("[2026-03-07 14:32:01] LOG: All font weights rendered with Fira Code monospace.")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 88, Col: 89}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "</p></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Typography", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "<!-- 3. Spacing Scale -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var9 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<div class=\"term-panel p-6 space-y-4\"><p class=\"mb-4\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">BASE UNIT: 4px</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, s := range []struct{ label, width string }{
+				{"4px", "4px"},
+				{"8px", "8px"},
+				{"16px", "16px"},
+				{"24px", "24px"},
+				{"32px", "32px"},
+				{"48px", "48px"},
+				{"64px", "64px"},
+			} {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"flex items-center gap-4\"><span class=\"w-16\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var10 string
+				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 107, Col: 112}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</span><div class=\"term-glow\" style=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var11 string
+				templ_7745c5c3_Var11, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; color: var(--color-primary); font-size: var(--font-size-caption); line-height: 1; overflow: hidden; white-space: nowrap;")
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 108, Col: 184}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var12 string
+				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs("████████████████████████████████")
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 109, Col: 108}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</div></div>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Spacing Scale", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<!-- 4. Buttons -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var13 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<div class=\"space-y-8\"><!-- Sizes --><div><p class=\"mb-3\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">SIZES</p><div class=\"flex flex-wrap items-end gap-4\"><button class=\"term-btn cursor-pointer\" style=\"padding: 0.25rem 0.5rem; font-size: 0.625rem;\">[XS]</button> <button class=\"term-btn cursor-pointer\" style=\"padding: 0.3rem 0.75rem; font-size: 0.6875rem;\">[SM]</button> <button class=\"term-btn cursor-pointer\">[MD]</button> <button class=\"term-btn cursor-pointer\" style=\"padding: 0.5rem 1.5rem; font-size: 0.875rem;\">[LG]</button></div></div><!-- Variants --><div><p class=\"mb-3\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">VARIANTS</p><div class=\"flex flex-wrap gap-4\"><button class=\"term-btn cursor-pointer\">[DEFAULT]</button> <button class=\"term-btn term-btn-danger cursor-pointer\">[DANGER]</button> <button class=\"term-btn cursor-pointer\" disabled style=\"opacity: 0.3; cursor: not-allowed;\">[DISABLED]</button></div></div><!-- Toggle demo --><div><p class=\"mb-3\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">TOGGLE DEMO [Alpine]</p><!-- snippet:button-toggle --><div x-data=\"{ running: false }\" class=\"flex items-center gap-6\"><button class=\"term-btn cursor-pointer\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "running = !running"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "><span x-text=\"running ? '[STOP]' : '[START]'\">[START]</span></button><div class=\"flex items-center gap-2\" style=\"font-size: var(--font-size-caption);\"><span class=\"inline-block w-2 h-2 rounded-full\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "running ? 'term-cursor' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "running ? 'background: var(--color-primary); box-shadow: 0 0 6px var(--color-primary)' : 'background: var(--color-text-muted)'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "></span> <span style=\"color: var(--color-text-muted);\" x-text=\"running ? 'PROCESS RUNNING' : 'PROCESS STOPPED'\">PROCESS STOPPED</span></div></div><!-- /snippet:button-toggle -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["button-toggle"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "</div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Buttons", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<!-- 5. Forms -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var14 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<div class=\"term-panel p-6\"><!-- snippet:form-htmx --><form hx-post=\"/guides/terminal/demo-form\" hx-target=\"#term-form-response\" hx-swap=\"innerHTML\" hx-indicator=\"#term-submit\" class=\"space-y-6\"><!-- Text input --><div><label class=\"block mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" for=\"term-name\">OPERATOR NAME <span class=\"term-cursor\">_</span></label> <input id=\"term-name\" name=\"name\" type=\"text\" placeholder=\"enter identifier...\" class=\"term-input\"></div><!-- Select --><div><label class=\"block mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" for=\"term-select\">CLEARANCE LEVEL</label> <select id=\"term-select\" name=\"category\" class=\"term-input cursor-pointer\"><option value=\"\">-- SELECT --</option> <option value=\"alpha\">ALPHA</option> <option value=\"beta\">BETA</option> <option value=\"gamma\">GAMMA</option></select></div><!-- Checkboxes --><div><p class=\"mb-2\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">SUBSYSTEMS</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"pref\" value=\"network\" class=\"w-4 h-4 cursor-pointer\"> NETWORK</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"pref\" value=\"storage\" class=\"w-4 h-4 cursor-pointer\"> STORAGE</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"pref\" value=\"compute\" class=\"w-4 h-4 cursor-pointer\"> COMPUTE</label></div></div><!-- Radio buttons --><div><p class=\"mb-2\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">PRIORITY</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"weight\" value=\"low\" class=\"w-4 h-4 cursor-pointer\"> LOW</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"weight\" value=\"normal\" checked class=\"w-4 h-4 cursor-pointer\"> NORMAL</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"weight\" value=\"critical\" class=\"w-4 h-4 cursor-pointer\"> CRITICAL</label></div></div><!-- Submit --><div><button type=\"submit\" class=\"term-btn cursor-pointer\" id=\"term-submit\">[SUBMIT] <span class=\"term-indicator\">...</span></button></div></form><!-- /snippet:form-htmx -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["form-htmx"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<!-- HTMX response target --><div id=\"term-form-response\" class=\"mt-4\"></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Forms", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<!-- 6. Cards & Panels -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var15 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<div class=\"grid grid-cols-1 md:grid-cols-2 gap-6\"><!-- Basic card --><div class=\"term-panel p-6\"><div class=\"flex items-start justify-between mb-3\"><h3 style=\"font-size: var(--font-size-heading); font-weight: 700;\">system.log</h3><span class=\"term-btn\" style=\"padding: 0.15rem 0.5rem; font-size: 0.625rem; cursor: default;\">STATIC</span></div><p style=\"font-size: var(--font-size-body); color: var(--color-text-muted);\" class=\"mb-4\">A standard content container. Single-pixel green border, subtle glow shadow, CRT scanline overlay. Pure function.</p><div class=\"pt-3 flex gap-3\" style=\"border-top: 1px solid var(--color-border);\"><button class=\"term-btn cursor-pointer\" style=\"padding: 0.25rem 0.5rem; font-size: 0.625rem;\">[VIEW]</button> <button class=\"term-btn term-btn-danger cursor-pointer\" style=\"padding: 0.25rem 0.5rem; font-size: 0.625rem;\">[DELETE]</button></div></div><!-- Expandable card (Alpine) --><!-- snippet:card-collapse --><div class=\"term-panel\" x-data=\"{ expanded: false }\"><div class=\"p-6 cursor-pointer flex items-center justify-between\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "expanded = !expanded"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "><h3 style=\"font-size: var(--font-size-heading); font-weight: 700;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var16 string
+			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs("── process.log ──")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 273, Col: 37}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</h3><span class=\"transition-transform\" style=\"font-size: var(--font-size-heading);\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "expanded ? 'rotate-45' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, ">+</span></div><div x-show=\"expanded\" class=\"px-6 pb-6\" style=\"border-top: 1px solid var(--color-border);\"><p class=\"pt-4\" style=\"font-size: var(--font-size-body); color: var(--color-text-muted);\">Hidden content revealed on expand. Alpine.js powers the toggle with no server round-trip.</p><div class=\"mt-4 p-3\" style=\"background: var(--color-bg); font-size: var(--font-size-caption);\"><p style=\"color: var(--color-text-muted);\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var17 string
+			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs("// process metadata")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 282, Col: 74}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</p><p>pid: 31337</p><p>status: <span style=\"color: var(--color-primary);\">RUNNING</span></p><p>uptime: 47d 13h 22m</p></div></div></div><!-- /snippet:card-collapse -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["card-collapse"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "<!-- Alert panel --><div class=\"md:col-span-2 p-4 flex gap-4 items-start\" style=\"border: 1px solid var(--color-danger); background: var(--color-surface); box-shadow: 0 0 10px rgba(255,51,51,0.15);\"><span class=\"term-glow-strong\" style=\"font-size: 1.25rem; font-weight: 700; color: var(--color-danger); line-height: 1;\">!</span><div><p class=\"mb-1\" style=\"font-size: var(--font-size-body); font-weight: 700; color: var(--color-danger);\">CRITICAL ALERT</p><p style=\"font-size: var(--font-size-body); color: var(--color-text-muted);\">Warning panel using danger color. Hard edges. Cannot be dismissed. Glowing red border.</p></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Cards & Panels", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<!-- 7. Live System Boot -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var18 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<!-- snippet:boot --> <div x-data=\"{ connected: true }\" class=\"term-panel p-4\"><p class=\"mb-2\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">SSE stream from /guides/terminal/boot — messages arrive with 300ms delay</p><div x-show=\"connected\"><div hx-ext=\"sse\" sse-connect=\"/guides/terminal/boot\" sse-swap=\"message\" hx-swap=\"beforeend\" id=\"term-boot-log\" class=\"h-64 overflow-y-auto\" style=\"font-size: var(--font-size-caption);\"></div></div><div class=\"mt-3 flex gap-3\"><button class=\"term-btn cursor-pointer\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "connected = false; $nextTick(() => { document.getElementById('term-boot-log').innerHTML = ''; connected = true })"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, ">[REBOOT]</button></div></div><!-- /snippet:boot --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["boot"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Live System Boot", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var18), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<!-- 8. Command Prompt -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var19 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "<!-- snippet:command-prompt --> <div class=\"term-panel p-4\"><div id=\"term-cmd-output\" class=\"space-y-1 mb-2\" style=\"font-size: var(--font-size-caption);\"></div><form hx-post=\"/guides/terminal/exec\" hx-target=\"#term-cmd-output\" hx-swap=\"beforeend\" class=\"flex items-center gap-2\"><span style=\"color: var(--color-secondary);\">$</span> <input type=\"text\" name=\"cmd\" class=\"term-input flex-1\" autocomplete=\"off\" placeholder=\"type help, ls, whoami, or date\"></form></div><!-- /snippet:command-prompt --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["command-prompt"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Command Prompt", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var19), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<!-- 9. File Browser -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var20 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<!-- snippet:file-browser --> <div x-data=\"{ files: ['README.md','main.go','go.mod','go.sum','handlers/','guides/','static/','templates/','Makefile'], active: 0, preview: '' }\" tabindex=\"0\" class=\"term-panel p-4 focus:outline-none\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+				"@keydown.up.prevent":   "active = Math.max(0, active - 1)",
+				"@keydown.down.prevent": "active = Math.min(files.length - 1, active + 1)",
+				"@keydown.enter":        "preview = 'Contents of ' + files[active] + '...'",
+			})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "><p class=\"mb-2\" style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var21 string
+			templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs("Use ↑↓ to navigate, Enter to open. Click to focus.")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 356, Col: 64}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</p><template x-for=\"(f, i) in files\" :key=\"f\"><div class=\"px-2 py-0.5\" style=\"font-size: var(--font-size-body);\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+				":class": "i === active ? 'term-file-active' : ''",
+				"@click": "active = i",
+			})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, " x-text=\"f\"></div></template><div x-show=\"preview\" class=\"mt-3 p-2\" style=\"border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: var(--font-size-caption);\" x-text=\"preview\"></div></div><!-- /snippet:file-browser --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["file-browser"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("File Browser", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var20), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+// termColorSwatch renders a terminal-styled color swatch with escape code label.
+func termColorSwatch(name, cssVar, hex, escCode string) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var22 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var22 == nil {
+			templ_7745c5c3_Var22 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "<div x-data=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var23 string
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 386, Col: 50}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "\" class=\"cursor-pointer group\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"})
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "><div class=\"h-16 mb-2 transition-transform group-hover:-translate-y-1\" style=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var24 string
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + cssVar + "; border: 1px solid var(--color-border); box-shadow: var(--shadow-card);")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 392, Col: 111}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "\"></div><p style=\"font-size: var(--font-size-caption); font-weight: 700;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var25 string
+		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 394, Col: 74}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var26 string
+		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 395, Col: 127}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var27 string
+		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 395, Col: 135}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var28 string
+		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(escCode)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/terminal/terminal.templ`, Line: 396, Col: 75}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
