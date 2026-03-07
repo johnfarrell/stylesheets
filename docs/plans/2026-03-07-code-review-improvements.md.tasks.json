@@ -1,0 +1,20 @@
+{
+  "planPath": "docs/plans/2026-03-07-code-review-improvements.md",
+  "tasks": [
+    {"id": 0, "subject": "Task 0: Extract shared BuildCSSVars into guides package", "status": "pending"},
+    {"id": 1, "subject": "Task 1: Fix Makefile docker dependency inversion and stale dev phony", "status": "pending"},
+    {"id": 2, "subject": "Task 2: Add SRI hash to Alpine.js CDN script tag", "status": "pending"},
+    {"id": 3, "subject": "Task 3: Mark chroma/v2 as direct dependency", "status": "pending"},
+    {"id": 4, "subject": "Task 4: Add test verifying all registered guides have handler coverage", "status": "pending"},
+    {"id": 5, "subject": "Task 5: Add PORT env var support to main.go", "status": "pending"},
+    {"id": 6, "subject": "Task 6: Add graceful shutdown to main.go", "status": "pending", "blockedBy": [5]},
+    {"id": 7, "subject": "Task 7: Move demo form response HTML to templ component", "status": "pending"},
+    {"id": 8, "subject": "Task 8: Move bento metrics HTML to templ component", "status": "pending"},
+    {"id": 9, "subject": "Task 9: Move glass edit-field HTML to templ components", "status": "pending"},
+    {"id": 10, "subject": "Task 10: Move minimal principles HTML to templ component", "status": "pending"},
+    {"id": 11, "subject": "Task 11: Move swiss search HTML to templ component", "status": "pending"},
+    {"id": 12, "subject": "Task 12: Move cassette log HTML to templ component", "status": "pending"},
+    {"id": 13, "subject": "Task 13: Final cleanup and verification", "status": "pending", "blockedBy": [7, 8, 9, 10, 11, 12]}
+  ],
+  "lastUpdated": "2026-03-07T00:00:00Z"
+}
