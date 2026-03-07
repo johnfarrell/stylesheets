@@ -546,10 +546,10 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</button>
 						<div style="width: 1px; height: 1.25rem; background: #808080; margin: 0 0.15rem;"></div>
 						<template x-for="app in apps" x-bind:key="'tb-' + app.name">
-							<button x-show="app.open"
+							<button x-show="app.loaded"
 								class="retro-taskbar-btn"
-								{ templ.Attributes{":class": "app.z === Alpine.store('desktop').topZ ? 'retro-taskbar-btn-active' : ''"}... }
-								{ templ.Attributes{"@click": "bringFront(app)"}... }
+								{ templ.Attributes{":class": "app.open && app.z === Alpine.store('desktop').topZ ? 'retro-taskbar-btn-active' : ''"}... }
+								{ templ.Attributes{"@click": "app.z === Alpine.store('desktop').topZ && app.open ? (app.open = false) : (app.open = true, bringFront(app))"}... }
 								x-text="app.label">
 							</button>
 						</template>

@@ -692,15 +692,15 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "<span style=\"font-weight: 700;\">Start</span></button><div style=\"width: 1px; height: 1.25rem; background: #808080; margin: 0 0.15rem;\"></div><template x-for=\"app in apps\" x-bind:key=\"'tb-' + app.name\"><button x-show=\"app.open\" class=\"retro-taskbar-btn\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "<span style=\"font-weight: 700;\">Start</span></button><div style=\"width: 1px; height: 1.25rem; background: #808080; margin: 0 0.15rem;\"></div><template x-for=\"app in apps\" x-bind:key=\"'tb-' + app.name\"><button x-show=\"app.loaded\" class=\"retro-taskbar-btn\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "app.z === Alpine.store('desktop').topZ ? 'retro-taskbar-btn-active' : ''"})
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "app.open && app.z === Alpine.store('desktop').topZ ? 'retro-taskbar-btn-active' : ''"})
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "bringFront(app)"})
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "app.z === Alpine.store('desktop').topZ && app.open ? (app.open = false) : (app.open = true, bringFront(app))"})
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
