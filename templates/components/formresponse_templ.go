@@ -140,14 +140,14 @@ func FormResponse(slug, name string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		case "terminal":
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<div style=\"background: #0a0a0a; border: 1px solid #00ff41; padding: 0.75rem; font-family: 'Fira Code', monospace; font-size: 0.8125rem;\"><div style=\"color: #00ff41;\">&#9654; RECEIVED</div><div style=\"color: #00ff41; opacity: 0.7;\">operator: <strong style=\"color: #00ff41;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<div style=\"background: var(--color-bg); border: 1px solid var(--color-primary); padding: 0.75rem; font-family: var(--font-body); font-size: var(--font-size-caption);\"><div style=\"color: var(--color-primary);\">&#9654; RECEIVED</div><div style=\"color: var(--color-primary); opacity: 0.7;\">operator: <strong style=\"color: var(--color-primary);\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/formresponse.templ`, Line: 41, Col: 94}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/formresponse.templ`, Line: 41, Col: 120}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -158,14 +158,14 @@ func FormResponse(slug, name string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		case "retro":
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "<div style=\"background: #c0c0c0; border: 2px outset #c0c0c0; padding: 0.75rem; font-family: 'IBM Plex Sans', sans-serif;\"><div style=\"background: #000080; color: #fff; padding: 0.25rem 0.5rem; font-weight: 700; font-size: 0.75rem; margin: -0.75rem -0.75rem 0.5rem; border-bottom: 2px outset #c0c0c0;\">Message</div><p style=\"font-size: 0.875rem;\">Form submitted. Thank you, <strong>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "<div style=\"background: var(--color-surface); border: 2px outset var(--color-surface); padding: 0.75rem; font-family: var(--font-body);\"><div style=\"background: var(--color-primary); color: #fff; padding: 0.25rem 0.5rem; font-weight: 700; font-size: var(--font-size-caption); margin: -0.75rem -0.75rem 0.5rem; border-bottom: 2px outset var(--color-surface);\">Message</div><p style=\"font-size: var(--font-size-body);\">Form submitted. Thank you, <strong>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/formresponse.templ`, Line: 46, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/formresponse.templ`, Line: 46, Col: 89}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
@@ -176,14 +176,14 @@ func FormResponse(slug, name string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		case "newspaper":
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div style=\"border-top: 2px solid #1a1a1a; padding: 0.75rem 0; margin-top: 0.5rem;\"><p style=\"font-family: 'Source Serif 4', serif; font-variant: small-caps; font-size: 0.75rem; color: #c41e1e; margin-bottom: 0.25rem;\">Received</p><p style=\"font-family: 'Playfair Display', serif; font-weight: 700; color: #1a1a1a;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div style=\"border-top: 2px solid var(--color-border); padding: 0.75rem 0; margin-top: 0.5rem;\"><p style=\"font-family: var(--font-body); font-variant: small-caps; font-size: var(--font-size-caption); color: var(--color-primary); margin-bottom: 0.25rem;\">Received</p><p style=\"font-family: var(--font-display); font-weight: 700; color: var(--color-secondary);\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/formresponse.templ`, Line: 51, Col: 94}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/formresponse.templ`, Line: 51, Col: 103}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
