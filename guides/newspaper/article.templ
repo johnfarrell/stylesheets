@@ -1,0 +1,18 @@
+package newspaper
+
+// Article renders a full article view.
+templ Article(category, headline, byline, body string) {
+	<div>
+		<button class="news-btn mb-6"
+			hx-get="/guides/newspaper/feed"
+			hx-target="#news-main-content"
+			hx-swap="innerHTML transition:true"
+		>{ "\u2190 Back to Front Page" }</button>
+		<p class="news-byline mb-2">{ category }</p>
+		<h1 class="news-headline-lg mb-3">{ headline }</h1>
+		<p class="news-byline mb-6">{ byline }</p>
+		<div class="news-columns-2 news-dropcap" style="font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.7;">
+			{ body }
+		</div>
+	</div>
+}

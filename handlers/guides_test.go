@@ -203,6 +203,29 @@ func TestRetroAppLoad(t *testing.T) {
 	}
 }
 
+func TestNewspaperHeadlines(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/guides/newspaper/headlines?page=0", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+	if !strings.Contains(w.Body.String(), "news-card") {
+		t.Error("expected headline cards in response")
+	}
+}
+
+func TestNewspaperArticle(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/guides/newspaper/article/0", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+}
+
 func TestCassetteLogOK(t *testing.T) {
 	mux := handlers.NewMux()
 	req := httptest.NewRequest(http.MethodGet, "/guides/cassette/log", nil)

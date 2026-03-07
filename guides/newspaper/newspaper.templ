@@ -2,11 +2,14 @@ package newspaper
 
 import (
 	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // Page renders the Newspaper style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
+	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	if htmxRequest {
+		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
 			<link rel="preconnect" href="https://fonts.googleapis.com"/>
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -14,13 +17,360 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		</span>
 	}
 	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	<!-- 9. Reading Progress Bar (fixed at top) -->
+	<!-- snippet:reading-progress -->
+	<div x-data="{ progress: 0 }"
+		{ templ.Attributes{
+			"@scroll.window": "progress = Math.min(100, Math.round(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100))",
+			":style": "'width:' + progress + '%'",
+		}... }
+		class="news-progress">
+	</div>
+	<!-- /snippet:reading-progress -->
 	<div style="background: var(--color-bg); min-height: 100%; padding: var(--section-padding);">
 		<div style="max-width: var(--content-max-width); margin: 0 auto;">
-			<div class="news-masthead mb-8">
-				<h1 style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 900;">The Daily Style</h1>
+			<!-- Masthead -->
+			<div class="news-masthead mb-2">
+				<p class="news-byline mb-1" style="letter-spacing: 0.15em;">Est. 2026 &middot; Digital Edition</p>
+				<h1 style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 900; color: var(--color-secondary);">The Daily Style</h1>
 				<p class="news-byline mt-1">A Reference Collection of Design Languages</p>
+				<p class="mt-1" style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+					Friday, March 7, 2026 &middot; Final Edition
+				</p>
 			</div>
-			<p style="color: var(--color-text-muted); font-size: var(--font-size-caption);">Guide under construction...</p>
+			<div class="news-rule-red mb-8"></div>
+			@components.TechSummary([]components.TechCallout{
+				{Tech: "Alpine", Description: "Copy-to-clipboard ink swatches with x-data + @click"},
+				{Tech: "Alpine", Description: "Breaking News banner toggle slide in/out"},
+				{Tech: "HTMX", Description: "Letters to the Editor form submission to /guides/newspaper/demo-form"},
+				{Tech: "Alpine", Description: "Expandable story cards with x-show + x-transition"},
+				{Tech: "HTMX", Description: "Infinite scroll headlines with hx-trigger='revealed'"},
+				{Tech: "HTMX", Description: "Article view transitions with hx-swap='innerHTML transition:true'"},
+				{Tech: "Alpine", Description: "Reading progress bar with @scroll.window tracking"},
+			})
+			<!-- 1. Color Palette -->
+			@components.Section("Color Palette", components.BadgeAlpine) {
+				<div class="news-rule-thick mb-6"></div>
+				<!-- snippet:color-swatch -->
+				<div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+					@newsColorSwatch("Cream Paper", "var(--color-bg)", "#faf9f6")
+					@newsColorSwatch("Ink Black", "var(--color-secondary)", "#1a1a1a")
+					@newsColorSwatch("Spot Red", "var(--color-primary)", "#c41e1e")
+					@newsColorSwatch("Paper White", "var(--color-surface)", "#ffffff")
+				</div>
+				<!-- /snippet:color-swatch -->
+				<p class="mt-4" style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+					Click any swatch to copy the hex value to clipboard. A newspaper palette is defined by restraint.
+				</p>
+				@components.SourceView(snippets["color-swatch"])
+			}
+			<div class="news-rule mb-12"></div>
+			<!-- 2. Typography -->
+			@components.Section("Typography", components.BadgeNone) {
+				<div class="news-rule-thick mb-6"></div>
+				<div class="space-y-8">
+					<!-- Display -->
+					<div>
+						<p class="news-byline mb-2">Display &mdash; Playfair Display 4rem / 900</p>
+						<p style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 900; line-height: 1.05; color: var(--color-secondary);">
+							Headlines Set The Tone
+						</p>
+					</div>
+					<!-- Heading -->
+					<div>
+						<p class="news-byline mb-2">Heading &mdash; Playfair Display 2rem / 700</p>
+						<p style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; line-height: 1.15; color: var(--color-secondary);">
+							Subheads Guide the Reader Through the Story
+						</p>
+					</div>
+					<!-- Body -->
+					<div>
+						<p class="news-byline mb-2">Body &mdash; Source Serif 4 1.0625rem / 400</p>
+						<div class="news-columns-2 news-dropcap" style="font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text);">
+							Typography is the voice of a newspaper. Every choice of weight, size, and leading communicates hierarchy before a single word is read. The serif face carries authority earned over centuries of print. A well-set column of text is invisible — the reader sees only the story. But set it poorly and every line is a stumbling block. The measure, the leading, the word spacing: these are the silent architecture of reading.
+						</div>
+					</div>
+					<!-- Pull quote -->
+					<div class="news-pullquote">
+						{ "\"Good typography is invisible. Bad typography is everywhere.\"" }
+					</div>
+					<!-- Caption -->
+					<div>
+						<p class="news-byline mb-2">Caption &mdash; Source Serif 4 0.75rem / 400</p>
+						<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+							Photo captions, bylines, and metadata. Small-caps variant used for attributions and datelines throughout.
+						</p>
+					</div>
+				</div>
+			}
+			<div class="news-rule mb-12"></div>
+			<!-- 3. Spacing Scale -->
+			@components.Section("Spacing Scale", components.BadgeNone) {
+				<div class="news-rule-thick mb-6"></div>
+				<p class="news-byline mb-4">Column gutters and leading examples. Base unit: 4px.</p>
+				<div class="space-y-4">
+					for _, s := range []struct{ label, width string }{
+						{"4px", "4px"},
+						{"8px", "8px"},
+						{"16px", "16px"},
+						{"24px", "24px"},
+						{"32px", "32px"},
+						{"48px", "48px"},
+						{"64px", "64px"},
+					} {
+						<div class="flex items-center gap-4">
+							<span class="w-12" style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); text-align: right;">{ s.label }</span>
+							<div style={ "width: " + s.width + "; height: 8px; background: var(--color-secondary);" }></div>
+							<div class="news-rule flex-1"></div>
+						</div>
+					}
+				</div>
+				<div class="mt-8">
+					<p class="news-byline mb-3">Column Gutter Demonstration</p>
+					<div class="news-columns-3" style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.6;">
+						The gutter is the space between columns. In newspaper design, 2rem is standard. The column rule provides a subtle visual separator that helps the eye track back to the correct column after reaching the end of a line. Without the rule, columns set too close together become illegible. Without adequate gutter width, the text feels cramped.
+					</div>
+				</div>
+			}
+			<div class="news-rule mb-12"></div>
+			<!-- 4. Buttons -->
+			@components.Section("Buttons", components.BadgeAlpine) {
+				<div class="news-rule-thick mb-6"></div>
+				<div class="space-y-8">
+					<!-- Variants -->
+					<div>
+						<p class="news-byline mb-3">Button Variants</p>
+						<div class="flex flex-wrap items-center gap-4">
+							<button class="news-btn cursor-pointer">{ "Read More \u203a" }</button>
+							<button class="news-btn news-btn-primary cursor-pointer">Subscribe</button>
+							<button class="news-btn cursor-pointer" disabled style="opacity: 0.4; cursor: not-allowed;">Archived</button>
+							<a style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-primary); text-decoration: underline; cursor: pointer;">
+								{ "Continue reading \u2192" }
+							</a>
+						</div>
+					</div>
+					<!-- Toggle demo: Breaking News -->
+					<div>
+						<p class="news-byline mb-3">Toggle Demo [Alpine]</p>
+						<!-- snippet:breaking-toggle -->
+						<div x-data="{ breaking: false }">
+							<button
+								class="news-btn cursor-pointer"
+								{ templ.Attributes{"@click": "breaking = !breaking"}... }
+							>
+								<span x-text="breaking ? 'Dismiss Alert' : 'Show Breaking News'">Show Breaking News</span>
+							</button>
+							<div
+								x-show="breaking"
+								x-transition:enter="transition ease-out duration-200"
+								x-transition:enter-start="opacity-0 -translate-y-2"
+								x-transition:enter-end="opacity-100 translate-y-0"
+								x-transition:leave="transition ease-in duration-150"
+								x-transition:leave-start="opacity-100 translate-y-0"
+								x-transition:leave-end="opacity-0 -translate-y-2"
+								class="news-breaking mt-4"
+							>
+								{ "\u26a0 BREAKING: Typography declared the most important design tool of the century" }
+							</div>
+						</div>
+						<!-- /snippet:breaking-toggle -->
+						@components.SourceView(snippets["breaking-toggle"])
+					</div>
+				</div>
+			}
+			<div class="news-rule mb-12"></div>
+			<!-- 5. Forms -->
+			@components.Section("Forms", components.BadgeBoth) {
+				<div class="news-rule-thick mb-6"></div>
+				<div style="max-width: 36rem;">
+					<h3 class="news-headline-sm mb-1">Letters to the Editor</h3>
+					<p class="news-byline mb-6">We welcome correspondence from our readers. All submissions subject to editorial review.</p>
+					<!-- snippet:form-htmx -->
+					<form
+						hx-post="/guides/newspaper/demo-form"
+						hx-target="#news-form-response"
+						hx-swap="innerHTML"
+						class="space-y-6"
+					>
+						<div>
+							<label class="block news-byline mb-2" for="news-name">Your Name</label>
+							<input id="news-name" name="name" type="text" placeholder="e.g. A. Reader" class="news-input"/>
+						</div>
+						<div>
+							<label class="block news-byline mb-2" for="news-subject">Subject</label>
+							<select id="news-subject" name="category" class="news-input cursor-pointer" style="background: transparent;">
+								<option value="">Select a topic...</option>
+								<option value="typography">Typography</option>
+								<option value="design">Design</option>
+								<option value="editorial">Editorial</option>
+								<option value="corrections">Corrections</option>
+							</select>
+						</div>
+						<div>
+							<label class="block news-byline mb-2" for="news-message">Your Letter</label>
+							<textarea id="news-message" name="message" rows="4" placeholder="Dear Editor,..." class="news-input" style="resize: vertical;"></textarea>
+						</div>
+						<!-- Checkboxes -->
+						<div>
+							<p class="news-byline mb-2">Preferences</p>
+							<div class="space-y-2">
+								<label class="flex items-center gap-2 cursor-pointer" style="font-family: var(--font-body); font-size: var(--font-size-body);">
+									<input type="checkbox" name="pref" value="anonymous" class="w-4 h-4 cursor-pointer"/>
+									Publish anonymously
+								</label>
+								<label class="flex items-center gap-2 cursor-pointer" style="font-family: var(--font-body); font-size: var(--font-size-body);">
+									<input type="checkbox" name="pref" value="subscribe" class="w-4 h-4 cursor-pointer"/>
+									Subscribe to responses
+								</label>
+							</div>
+						</div>
+						<!-- Radio -->
+						<div>
+							<p class="news-byline mb-2">Urgency</p>
+							<div class="space-y-2">
+								<label class="flex items-center gap-2 cursor-pointer" style="font-family: var(--font-body); font-size: var(--font-size-body);">
+									<input type="radio" name="weight" value="standard" checked class="w-4 h-4 cursor-pointer"/>
+									Standard
+								</label>
+								<label class="flex items-center gap-2 cursor-pointer" style="font-family: var(--font-body); font-size: var(--font-size-body);">
+									<input type="radio" name="weight" value="urgent" class="w-4 h-4 cursor-pointer"/>
+									Urgent
+								</label>
+							</div>
+						</div>
+						<div>
+							<button type="submit" class="news-btn news-btn-primary cursor-pointer">Submit Letter</button>
+						</div>
+					</form>
+					<!-- /snippet:form-htmx -->
+					@components.SourceView(snippets["form-htmx"])
+					<div id="news-form-response" class="mt-4"></div>
+				</div>
+			}
+			<div class="news-rule mb-12"></div>
+			<!-- 6. Cards / Panels -->
+			@components.Section("Cards & Panels", components.BadgeAlpine) {
+				<div class="news-rule-thick mb-6"></div>
+				<!-- Feature article (full width) -->
+				<div class="news-card mb-8 pb-6" style="border-top: 3px solid var(--color-secondary);">
+					<p class="news-byline mt-2 mb-1" style="color: var(--color-primary);">Feature</p>
+					<h3 class="news-headline-lg mb-3">The Typographic Renaissance: How Digital Design Rediscovered Print</h3>
+					<div class="news-columns-2" style="font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text-muted);">
+						For decades, web design chased novelty. Rounded corners, gradients, flat design, material design, neumorphism. Each trend lasted a few years before being replaced. But in the quiet margins, a counter-movement was forming. Designers began to look backward, past the screen, to the centuries of typographic craft that preceded the pixel. What they found was not nostalgia but clarity.
+					</div>
+				</div>
+				<!-- Smaller stories in grid -->
+				<!-- snippet:card-collapse -->
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+					<div class="news-card">
+						<p class="news-byline mt-2 mb-1">Typography</p>
+						<h4 class="news-headline-sm mb-2">Serif Fonts Make a Comeback in Web Design</h4>
+						<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.5;">
+							After years of sans-serif dominance, designers are returning to serif typefaces for body text, citing improved readability.
+						</p>
+						<a class="inline-block mt-3" style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-primary); cursor: pointer;">{ "Read More \u203a" }</a>
+					</div>
+					<div class="news-card">
+						<p class="news-byline mt-2 mb-1">CSS</p>
+						<h4 class="news-headline-sm mb-2">Column Layout Properties See Renewed Interest</h4>
+						<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.5;">
+							The CSS multi-column specification, long overlooked, is finding new applications in editorial web design.
+						</p>
+						<a class="inline-block mt-3" style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-primary); cursor: pointer;">{ "Read More \u203a" }</a>
+					</div>
+					<!-- Expandable card -->
+					<div class="news-card" x-data="{ expanded: false }">
+						<div
+							class="cursor-pointer"
+							{ templ.Attributes{"@click": "expanded = !expanded"}... }
+						>
+							<p class="news-byline mt-2 mb-1">Opinion</p>
+							<h4 class="news-headline-sm mb-2">
+								Why Every Designer Should Study Newspapers
+								<span class="inline-block transition-transform text-sm" { templ.Attributes{":class": "expanded ? 'rotate-45' : ''"}... }>+</span>
+							</h4>
+						</div>
+						<div x-show="expanded" x-transition class="mt-2">
+							<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.5;">
+								The newspaper is the original design system. Centuries before atomic design or component libraries, editors and typesetters developed rigorous systems for organizing information hierarchically. Every designer working in digital media owes a debt to the broadsheet. Understanding these foundations is not optional — it is essential.
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:card-collapse -->
+				@components.SourceView(snippets["card-collapse"])
+			}
+			<div class="news-rule mb-12"></div>
+			<!-- 7. Breaking News Feed (Infinite Scroll) -->
+			<section class="mb-12">
+				<div class="flex items-center gap-3 mb-6">
+					<h2 class="text-lg font-semibold uppercase tracking-widest" style="color: var(--color-text-muted); font-family: var(--font-body);">Latest Headlines</h2>
+					<span class="px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200">[HTMX]</span>
+				</div>
+				<div class="news-rule-thick mb-6"></div>
+				<p class="news-byline mb-6">Scroll down to load more headlines. Click any headline to read the full article.</p>
+				<!-- snippet:infinite-scroll -->
+				<div id="news-main-content">
+					@HeadlineCard("0", "Design", "The Grid Is Dead, Long Live the Grid", "Modern layout systems have made the rigid grid obsolete \u2014 or have they? A look at the evolution of page structure.", "By Jane Chen \u00b7 8 min read")
+					@HeadlineCard("1", "Typography", "Why Your Font Choice Is Wrong", "A provocative look at the assumptions designers make about typeface selection and readability.", "By Marcus Webb \u00b7 5 min read")
+					@HeadlineCard("2", "Color Theory", "The Case Against Color", "When restraint becomes the most powerful tool in a designer\u2019s arsenal.", "By Sarah Kim \u00b7 6 min read")
+					@HeadlineSentinel("1")
+				</div>
+				<!-- /snippet:infinite-scroll -->
+				@components.SourceView(snippets["infinite-scroll"])
+			</section>
+			<div class="news-rule mb-12"></div>
+			<!-- 8. Article View Transition -->
+			<section class="mb-12">
+				<div class="flex items-center gap-3 mb-6">
+					<h2 class="text-lg font-semibold uppercase tracking-widest" style="color: var(--color-text-muted); font-family: var(--font-body);">Article View Transition</h2>
+					<span class="px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200">[HTMX]</span>
+				</div>
+				<div class="news-rule-thick mb-6"></div>
+				<p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-text-muted); max-width: 55ch; line-height: 1.6;">
+					Click any headline in the feed above. The article loads into the same container using
+					<code style="font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);">hx-swap="innerHTML transition:true"</code>.
+					A "Back to Front Page" button returns to the headline listing via
+					<code style="font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);">/guides/newspaper/feed</code>.
+				</p>
+			</section>
+			<div class="news-rule mb-12"></div>
+			<!-- 9. Reading Progress -->
+			<section class="mb-12">
+				<div class="flex items-center gap-3 mb-6">
+					<h2 class="text-lg font-semibold uppercase tracking-widest" style="color: var(--color-text-muted); font-family: var(--font-body);">Reading Progress</h2>
+					<span class="px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200">[Alpine]</span>
+				</div>
+				<div class="news-rule-thick mb-6"></div>
+				<p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-text-muted); max-width: 55ch; line-height: 1.6;">
+					The red progress bar at the very top of the viewport tracks your scroll position.
+					It uses Alpine.js <code style="font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);">{ "@scroll.window" }</code> to
+					calculate percentage via <code style="font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);">scrollY / (documentHeight - windowHeight)</code>.
+				</p>
+				@components.SourceView(snippets["reading-progress"])
+			</section>
+			<!-- Footer -->
+			<div class="news-rule-thick mt-12 pt-4">
+				<p class="news-byline text-center" style="color: var(--color-text-muted);">
+					{ "\u00a9 2026 The Daily Style \u00b7 All Rights Reserved \u00b7 A Style Guide Reference" }
+				</p>
+			</div>
 		</div>
+	</div>
+}
+
+// newsColorSwatch renders a newspaper-styled ink swatch with copy-to-clipboard.
+templ newsColorSwatch(name, cssVar, hex string) {
+	<div
+		x-data={ "{ copied: false, hex: '" + hex + "' }" }
+		class="cursor-pointer group"
+		{ templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"}... }
+	>
+		<div
+			class="h-20 mb-3 transition-transform group-hover:-translate-y-1"
+			style={ "background: " + cssVar + "; border: 1px solid var(--color-border);" }
+		></div>
+		<p style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700; color: var(--color-secondary);">{ name }</p>
+		<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text={ "copied ? 'Copied!' : '" + hex + "'" }>{ hex }</p>
 	</div>
 }

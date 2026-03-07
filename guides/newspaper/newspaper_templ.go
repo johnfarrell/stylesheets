@@ -10,6 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // Page renders the Newspaper style guide showcase.
@@ -34,8 +35,9 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		snippets := guides.GetHighlightedSnippets(g.Slug)
 		if htmxRequest {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<span id=\"font-loader\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation --> <span id=\"font-loader\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -50,7 +52,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var2 templ.SafeURL
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(g.FontURL)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 13, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 16, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -65,7 +67,545 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div style=\"background: var(--color-bg); min-height: 100%; padding: var(--section-padding);\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><div class=\"news-masthead mb-8\"><h1 style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 900;\">The Daily Style</h1><p class=\"news-byline mt-1\">A Reference Collection of Design Languages</p></div><p style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Guide under construction...</p></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!-- 9. Reading Progress Bar (fixed at top) --><!-- snippet:reading-progress --><div x-data=\"{ progress: 0 }\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+			"@scroll.window": "progress = Math.min(100, Math.round(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100))",
+			":style":         "'width:' + progress + '%'",
+		})
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, " class=\"news-progress\"></div><!-- /snippet:reading-progress --><div style=\"background: var(--color-bg); min-height: 100%; padding: var(--section-padding);\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><!-- Masthead --><div class=\"news-masthead mb-2\"><p class=\"news-byline mb-1\" style=\"letter-spacing: 0.15em;\">Est. 2026 &middot; Digital Edition</p><h1 style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 900; color: var(--color-secondary);\">The Daily Style</h1><p class=\"news-byline mt-1\">A Reference Collection of Design Languages</p><p class=\"mt-1\" style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Friday, March 7, 2026 &middot; Final Edition</p></div><div class=\"news-rule-red mb-8\"></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.TechSummary([]components.TechCallout{
+			{Tech: "Alpine", Description: "Copy-to-clipboard ink swatches with x-data + @click"},
+			{Tech: "Alpine", Description: "Breaking News banner toggle slide in/out"},
+			{Tech: "HTMX", Description: "Letters to the Editor form submission to /guides/newspaper/demo-form"},
+			{Tech: "Alpine", Description: "Expandable story cards with x-show + x-transition"},
+			{Tech: "HTMX", Description: "Infinite scroll headlines with hx-trigger='revealed'"},
+			{Tech: "HTMX", Description: "Article view transitions with hx-swap='innerHTML transition:true'"},
+			{Tech: "Alpine", Description: "Reading progress bar with @scroll.window tracking"},
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<!-- 1. Color Palette -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var3 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<div class=\"news-rule-thick mb-6\"></div><!-- snippet:color-swatch --> <div class=\"grid grid-cols-2 sm:grid-cols-4 gap-6\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = newsColorSwatch("Cream Paper", "var(--color-bg)", "#faf9f6").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = newsColorSwatch("Ink Black", "var(--color-secondary)", "#1a1a1a").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = newsColorSwatch("Spot Red", "var(--color-primary)", "#c41e1e").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = newsColorSwatch("Paper White", "var(--color-surface)", "#ffffff").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</div><!-- /snippet:color-swatch --> <p class=\"mt-4\" style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Click any swatch to copy the hex value to clipboard. A newspaper palette is defined by restraint.</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["color-swatch"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Color Palette", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<div class=\"news-rule mb-12\"></div><!-- 2. Typography -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var4 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "<div class=\"news-rule-thick mb-6\"></div><div class=\"space-y-8\"><!-- Display --><div><p class=\"news-byline mb-2\">Display &mdash; Playfair Display 4rem / 900</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 900; line-height: 1.05; color: var(--color-secondary);\">Headlines Set The Tone</p></div><!-- Heading --><div><p class=\"news-byline mb-2\">Heading &mdash; Playfair Display 2rem / 700</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; line-height: 1.15; color: var(--color-secondary);\">Subheads Guide the Reader Through the Story</p></div><!-- Body --><div><p class=\"news-byline mb-2\">Body &mdash; Source Serif 4 1.0625rem / 400</p><div class=\"news-columns-2 news-dropcap\" style=\"font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text);\">Typography is the voice of a newspaper. Every choice of weight, size, and leading communicates hierarchy before a single word is read. The serif face carries authority earned over centuries of print. A well-set column of text is invisible — the reader sees only the story. But set it poorly and every line is a stumbling block. The measure, the leading, the word spacing: these are the silent architecture of reading.</div></div><!-- Pull quote --><div class=\"news-pullquote\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs("\"Good typography is invisible. Bad typography is everywhere.\"")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 95, Col: 73}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "</div><!-- Caption --><div><p class=\"news-byline mb-2\">Caption &mdash; Source Serif 4 0.75rem / 400</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Photo captions, bylines, and metadata. Small-caps variant used for attributions and datelines throughout.</p></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Typography", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "<div class=\"news-rule mb-12\"></div><!-- 3. Spacing Scale -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var6 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<div class=\"news-rule-thick mb-6\"></div><p class=\"news-byline mb-4\">Column gutters and leading examples. Base unit: 4px.</p><div class=\"space-y-4\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, s := range []struct{ label, width string }{
+				{"4px", "4px"},
+				{"8px", "8px"},
+				{"16px", "16px"},
+				{"24px", "24px"},
+				{"32px", "32px"},
+				{"48px", "48px"},
+				{"64px", "64px"},
+			} {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<div class=\"flex items-center gap-4\"><span class=\"w-12\" style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); text-align: right;\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var7 string
+				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 122, Col: 162}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</span><div style=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var8 string
+				templ_7745c5c3_Var8, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; height: 8px; background: var(--color-secondary);")
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 123, Col: 94}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "\"></div><div class=\"news-rule flex-1\"></div></div>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</div><div class=\"mt-8\"><p class=\"news-byline mb-3\">Column Gutter Demonstration</p><div class=\"news-columns-3\" style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.6;\">The gutter is the space between columns. In newspaper design, 2rem is standard. The column rule provides a subtle visual separator that helps the eye track back to the correct column after reaching the end of a line. Without the rule, columns set too close together become illegible. Without adequate gutter width, the text feels cramped.</div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Spacing Scale", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var6), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<div class=\"news-rule mb-12\"></div><!-- 4. Buttons -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var9 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<div class=\"news-rule-thick mb-6\"></div><div class=\"space-y-8\"><!-- Variants --><div><p class=\"news-byline mb-3\">Button Variants</p><div class=\"flex flex-wrap items-center gap-4\"><button class=\"news-btn cursor-pointer\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var10 string
+			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs("Read More \u203a")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 144, Col: 67}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</button> <button class=\"news-btn news-btn-primary cursor-pointer\">Subscribe</button> <button class=\"news-btn cursor-pointer\" disabled style=\"opacity: 0.4; cursor: not-allowed;\">Archived</button> <a style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-primary); text-decoration: underline; cursor: pointer;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var11 string
+			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs("Continue reading \u2192")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 148, Col: 35}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</a></div></div><!-- Toggle demo: Breaking News --><div><p class=\"news-byline mb-3\">Toggle Demo [Alpine]</p><!-- snippet:breaking-toggle --><div x-data=\"{ breaking: false }\"><button class=\"news-btn cursor-pointer\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "breaking = !breaking"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "><span x-text=\"breaking ? 'Dismiss Alert' : 'Show Breaking News'\">Show Breaking News</span></button><div x-show=\"breaking\" x-transition:enter=\"transition ease-out duration-200\" x-transition:enter-start=\"opacity-0 -translate-y-2\" x-transition:enter-end=\"opacity-100 translate-y-0\" x-transition:leave=\"transition ease-in duration-150\" x-transition:leave-start=\"opacity-100 translate-y-0\" x-transition:leave-end=\"opacity-0 -translate-y-2\" class=\"news-breaking mt-4\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var12 string
+			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs("\u26a0 BREAKING: Typography declared the most important design tool of the century")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 173, Col: 94}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "</div></div><!-- /snippet:breaking-toggle -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["breaking-toggle"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "</div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Buttons", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<div class=\"news-rule mb-12\"></div><!-- 5. Forms -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var13 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<div class=\"news-rule-thick mb-6\"></div><div style=\"max-width: 36rem;\"><h3 class=\"news-headline-sm mb-1\">Letters to the Editor</h3><p class=\"news-byline mb-6\">We welcome correspondence from our readers. All submissions subject to editorial review.</p><!-- snippet:form-htmx --><form hx-post=\"/guides/newspaper/demo-form\" hx-target=\"#news-form-response\" hx-swap=\"innerHTML\" class=\"space-y-6\"><div><label class=\"block news-byline mb-2\" for=\"news-name\">Your Name</label> <input id=\"news-name\" name=\"name\" type=\"text\" placeholder=\"e.g. A. Reader\" class=\"news-input\"></div><div><label class=\"block news-byline mb-2\" for=\"news-subject\">Subject</label> <select id=\"news-subject\" name=\"category\" class=\"news-input cursor-pointer\" style=\"background: transparent;\"><option value=\"\">Select a topic...</option> <option value=\"typography\">Typography</option> <option value=\"design\">Design</option> <option value=\"editorial\">Editorial</option> <option value=\"corrections\">Corrections</option></select></div><div><label class=\"block news-byline mb-2\" for=\"news-message\">Your Letter</label> <textarea id=\"news-message\" name=\"message\" rows=\"4\" placeholder=\"Dear Editor,...\" class=\"news-input\" style=\"resize: vertical;\"></textarea></div><!-- Checkboxes --><div><p class=\"news-byline mb-2\">Preferences</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-family: var(--font-body); font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"pref\" value=\"anonymous\" class=\"w-4 h-4 cursor-pointer\"> Publish anonymously</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-family: var(--font-body); font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"pref\" value=\"subscribe\" class=\"w-4 h-4 cursor-pointer\"> Subscribe to responses</label></div></div><!-- Radio --><div><p class=\"news-byline mb-2\">Urgency</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-family: var(--font-body); font-size: var(--font-size-body);\"><input type=\"radio\" name=\"weight\" value=\"standard\" checked class=\"w-4 h-4 cursor-pointer\"> Standard</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-family: var(--font-body); font-size: var(--font-size-body);\"><input type=\"radio\" name=\"weight\" value=\"urgent\" class=\"w-4 h-4 cursor-pointer\"> Urgent</label></div></div><div><button type=\"submit\" class=\"news-btn news-btn-primary cursor-pointer\">Submit Letter</button></div></form><!-- /snippet:form-htmx -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["form-htmx"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<div id=\"news-form-response\" class=\"mt-4\"></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Forms", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<div class=\"news-rule mb-12\"></div><!-- 6. Cards / Panels -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var14 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<div class=\"news-rule-thick mb-6\"></div><!-- Feature article (full width) --> <div class=\"news-card mb-8 pb-6\" style=\"border-top: 3px solid var(--color-secondary);\"><p class=\"news-byline mt-2 mb-1\" style=\"color: var(--color-primary);\">Feature</p><h3 class=\"news-headline-lg mb-3\">The Typographic Renaissance: How Digital Design Rediscovered Print</h3><div class=\"news-columns-2\" style=\"font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text-muted);\">For decades, web design chased novelty. Rounded corners, gradients, flat design, material design, neumorphism. Each trend lasted a few years before being replaced. But in the quiet margins, a counter-movement was forming. Designers began to look backward, past the screen, to the centuries of typographic craft that preceded the pixel. What they found was not nostalgia but clarity.</div></div><!-- Smaller stories in grid --> <!-- snippet:card-collapse --> <div class=\"grid grid-cols-1 md:grid-cols-3 gap-6\"><div class=\"news-card\"><p class=\"news-byline mt-2 mb-1\">Typography</p><h4 class=\"news-headline-sm mb-2\">Serif Fonts Make a Comeback in Web Design</h4><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.5;\">After years of sans-serif dominance, designers are returning to serif typefaces for body text, citing improved readability.</p><a class=\"inline-block mt-3\" style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-primary); cursor: pointer;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var15 string
+			templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs("Read More \u203a")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 271, Col: 177}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "</a></div><div class=\"news-card\"><p class=\"news-byline mt-2 mb-1\">CSS</p><h4 class=\"news-headline-sm mb-2\">Column Layout Properties See Renewed Interest</h4><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.5;\">The CSS multi-column specification, long overlooked, is finding new applications in editorial web design.</p><a class=\"inline-block mt-3\" style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-primary); cursor: pointer;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var16 string
+			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs("Read More \u203a")
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 279, Col: 177}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "</a></div><!-- Expandable card --><div class=\"news-card\" x-data=\"{ expanded: false }\"><div class=\"cursor-pointer\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "expanded = !expanded"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "><p class=\"news-byline mt-2 mb-1\">Opinion</p><h4 class=\"news-headline-sm mb-2\">Why Every Designer Should Study Newspapers <span class=\"inline-block transition-transform text-sm\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "expanded ? 'rotate-45' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, ">+</span></h4></div><div x-show=\"expanded\" x-transition class=\"mt-2\"><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.5;\">The newspaper is the original design system. Centuries before atomic design or component libraries, editors and typesetters developed rigorous systems for organizing information hierarchically. Every designer working in digital media owes a debt to the broadsheet. Understanding these foundations is not optional — it is essential.</p></div></div></div><!-- /snippet:card-collapse --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["card-collapse"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Cards & Panels", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<div class=\"news-rule mb-12\"></div><!-- 7. Breaking News Feed (Infinite Scroll) --><section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold uppercase tracking-widest\" style=\"color: var(--color-text-muted); font-family: var(--font-body);\">Latest Headlines</h2><span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200\">[HTMX]</span></div><div class=\"news-rule-thick mb-6\"></div><p class=\"news-byline mb-6\">Scroll down to load more headlines. Click any headline to read the full article.</p><!-- snippet:infinite-scroll --><div id=\"news-main-content\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = HeadlineCard("0", "Design", "The Grid Is Dead, Long Live the Grid", "Modern layout systems have made the rigid grid obsolete \u2014 or have they? A look at the evolution of page structure.", "By Jane Chen \u00b7 8 min read").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = HeadlineCard("1", "Typography", "Why Your Font Choice Is Wrong", "A provocative look at the assumptions designers make about typeface selection and readability.", "By Marcus Webb \u00b7 5 min read").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = HeadlineCard("2", "Color Theory", "The Case Against Color", "When restraint becomes the most powerful tool in a designer\u2019s arsenal.", "By Sarah Kim \u00b7 6 min read").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = HeadlineSentinel("1").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div><!-- /snippet:infinite-scroll -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.SourceView(snippets["infinite-scroll"]).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</section><div class=\"news-rule mb-12\"></div><!-- 8. Article View Transition --><section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold uppercase tracking-widest\" style=\"color: var(--color-text-muted); font-family: var(--font-body);\">Article View Transition</h2><span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200\">[HTMX]</span></div><div class=\"news-rule-thick mb-6\"></div><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-text-muted); max-width: 55ch; line-height: 1.6;\">Click any headline in the feed above. The article loads into the same container using <code style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);\">hx-swap=\"innerHTML transition:true\"</code>. A \"Back to Front Page\" button returns to the headline listing via <code style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);\">/guides/newspaper/feed</code>.</p></section><div class=\"news-rule mb-12\"></div><!-- 9. Reading Progress --><section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold uppercase tracking-widest\" style=\"color: var(--color-text-muted); font-family: var(--font-body);\">Reading Progress</h2><span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200\">[Alpine]</span></div><div class=\"news-rule-thick mb-6\"></div><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-text-muted); max-width: 55ch; line-height: 1.6;\">The red progress bar at the very top of the viewport tracks your scroll position. It uses Alpine.js <code style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var17 string
+		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs("@scroll.window")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 347, Col: 181}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</code> to calculate percentage via <code style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); padding: 0.1em 0.3em; background: var(--color-surface-2);\">scrollY / (documentHeight - windowHeight)</code>.</p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.SourceView(snippets["reading-progress"]).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</section><!-- Footer --><div class=\"news-rule-thick mt-12 pt-4\"><p class=\"news-byline text-center\" style=\"color: var(--color-text-muted);\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var18 string
+		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs("\u00a9 2026 The Daily Style \u00b7 All Rights Reserved \u00b7 A Style Guide Reference")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 355, Col: 94}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "</p></div></div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return nil
+	})
+}
+
+// newsColorSwatch renders a newspaper-styled ink swatch with copy-to-clipboard.
+func newsColorSwatch(name, cssVar, hex string) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var19 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var19 == nil {
+			templ_7745c5c3_Var19 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<div x-data=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 365, Col: 50}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "\" class=\"cursor-pointer group\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"})
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "><div class=\"h-20 mb-3 transition-transform group-hover:-translate-y-1\" style=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var21 string
+		templ_7745c5c3_Var21, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + cssVar + "; border: 1px solid var(--color-border);")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 371, Col: 79}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "\"></div><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700; color: var(--color-secondary);\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var22 string
+		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 373, Col: 139}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var23 string
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 374, Col: 158}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var24 string
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/newspaper/newspaper.templ`, Line: 374, Col: 166}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
