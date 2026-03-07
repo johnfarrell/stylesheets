@@ -78,6 +78,12 @@ func TestUnknownPathIs404(t *testing.T) {
 	if w.Code != http.StatusNotFound {
 		t.Errorf("expected 404, got %d", w.Code)
 	}
+	if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
+		t.Errorf("expected text/html for 404 page, got %q", ct)
+	}
+	if !strings.Contains(w.Body.String(), "404") {
+		t.Error("expected styled 404 page body, got plain response")
+	}
 }
 
 func TestAllGuidePagesOK(t *testing.T) {
