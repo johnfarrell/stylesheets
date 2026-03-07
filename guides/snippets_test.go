@@ -55,6 +55,14 @@ func TestParseSnippets_EmptyInput(t *testing.T) {
 	}
 }
 
+func TestParseSnippets_NoSpaceMarkerVariant(t *testing.T) {
+	input := "<!-- snippet:bar-->\n<p>content</p>\n<!-- /snippet:bar-->"
+	got := guides.ParseSnippets(input)
+	if got["bar"] != "<p>content</p>" {
+		t.Errorf("bar = %q, want %q", got["bar"], "<p>content</p>")
+	}
+}
+
 func TestGetSnippets_ReturnsEmptyMapForUnknownSlug(t *testing.T) {
 	got := guides.GetSnippets("does-not-exist")
 	if got == nil {
