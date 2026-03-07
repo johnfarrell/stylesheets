@@ -140,6 +140,25 @@ func TestHTMXContentNotFoundRedirects(t *testing.T) {
 	}
 }
 
+func TestDemoFormPostReturnsHTML(t *testing.T) {
+	mux := handlers.NewMux()
+	for _, g := range guides.All {
+		t.Run(g.Slug, func(t *testing.T) {
+			body := strings.NewReader("name=TestUser")
+			req := httptest.NewRequest(http.MethodPost, "/guides/"+g.Slug+"/demo-form", body)
+			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+			w := httptest.NewRecorder()
+			mux.ServeHTTP(w, req)
+			if w.Code != http.StatusOK {
+				t.Errorf("POST demo-form %s: expected 200, got %d", g.Slug, w.Code)
+			}
+			if !strings.Contains(w.Body.String(), "TestUser") {
+				t.Errorf("POST demo-form %s: expected body to contain 'TestUser'", g.Slug)
+			}
+		})
+	}
+}
+
 func TestCassetteLogOK(t *testing.T) {
 	mux := handlers.NewMux()
 	req := httptest.NewRequest(http.MethodGet, "/guides/cassette/log", nil)

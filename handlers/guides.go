@@ -17,6 +17,7 @@ import (
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 	swisstempl "github.com/johnfarrell/stylesheets/guides/swiss"
 	"github.com/johnfarrell/stylesheets/templates"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // NewMux creates and returns the application HTTP mux with all routes registered.
@@ -81,7 +82,7 @@ func NewMux() *http.ServeMux {
 			name = "anonymous"
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprint(w, demoFormResponse(slug, name))
+		components.FormResponse(slug, name).Render(r.Context(), w)
 	})
 
 	// Bento Dashboard — live metric tiles (HTMX polling every 3s)
@@ -238,39 +239,6 @@ func renderNotFound(w http.ResponseWriter, r *http.Request) {
 	page := templates.Layout(guides.All, "", "", templates.NotFound())
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	templ.Handler(page, templ.WithStatus(http.StatusNotFound)).ServeHTTP(w, r)
-}
-
-// demoFormResponse returns a guide-styled HTML response for the demo form.
-func demoFormResponse(slug, name string) string {
-	n := templ.EscapeString(name)
-	switch slug {
-	case "brutalist":
-		return `<div class="border-2 border-black p-3 font-mono" style="background: var(--color-accent); box-shadow: var(--shadow-card);">` +
-			`<span class="font-bold uppercase">&#10003; Received:</span> <strong>` + n + `</strong></div>`
-	case "minimal":
-		return `<div class="p-4" style="background: var(--color-surface); border: var(--border-width) solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-card);">` +
-			`<p class="text-sm" style="color: var(--color-accent); font-weight: 500;">&#10003; Submitted successfully</p>` +
-			`<p class="text-sm mt-1" style="color: var(--color-secondary);">Thank you, <strong>` + n + `</strong>.</p></div>`
-	case "cassette":
-		return `<div style="border: 1px solid var(--color-primary); padding: 0.75rem; font-family: var(--font-body); font-size: var(--font-size-caption);">` +
-			`<div style="color: var(--color-primary); font-weight: 700; margin-bottom: 0.25rem;">&#9654; TRANSMISSION RECEIVED</div>` +
-			`<div style="color: var(--color-text-muted);">OPERATOR: <strong style="color: var(--color-text);">` + n + `</strong> — LOGGED</div></div>`
-	case "glass":
-		return `<div style="background: var(--frost-bg); backdrop-filter: blur(var(--frost-blur)); -webkit-backdrop-filter: blur(var(--frost-blur)); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem;">` +
-			`<p class="text-sm font-semibold" style="color: var(--color-primary);">&#10003; Submitted</p>` +
-			`<p class="text-sm mt-1" style="color: var(--color-text-muted);">Thank you, <strong style="color: var(--color-text);">` + n + `</strong>.</p></div>`
-	case "bento":
-		return `<div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">` +
-			`<span style="color: var(--color-accent);">&#10003;</span>` +
-			`<div><p class="text-sm font-medium" style="color: var(--color-text);">Submitted</p>` +
-			`<p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Received from <strong>` + n + `</strong></p></div></div>`
-	case "swiss":
-		return `<div style="border-top: 3px solid var(--color-primary); padding: 1rem 0; margin-top: 1rem;">` +
-			`<p style="font-family: var(--font-body); font-size: 0.625rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 0.25rem;">&#9654; RECEIVED</p>` +
-			`<p style="font-family: var(--font-display); font-weight: 700; color: var(--color-secondary);">` + n + `</p></div>`
-	default:
-		return `<div class="p-3"><strong>Received:</strong> ` + n + `</div>`
-	}
 }
 
 // containsFold checks if s contains substr, case-insensitive.
