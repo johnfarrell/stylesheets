@@ -34,3 +34,6 @@ go.work.sum
 # Tailwind
 static/css/output.css
 tailwindcss
+node_modules/
+package.json
+package-lock.json
