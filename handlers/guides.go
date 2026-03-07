@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/a-h/templ"
 	"github.com/johnfarrell/stylesheets/guides"
 	brutalisttempl "github.com/johnfarrell/stylesheets/guides/brutalist"
+	cassettetempl "github.com/johnfarrell/stylesheets/guides/cassette"
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 	"github.com/johnfarrell/stylesheets/templates"
 )
@@ -79,6 +81,31 @@ func NewMux() *http.ServeMux {
 		fmt.Fprintf(w, `<div class="border-2 border-black p-3 bg-yellow-50 font-mono">✓ Received: <strong>%s</strong></div>`, templ.EscapeString(name))
 	})
 
+	mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {
+		entries := []struct{ sub, msg string }{
+			{"SYS", "WCYPD COLONY SYSTEMS — HEARTBEAT NOMINAL"},
+			{"NET", "NETWORK NODE 3 — PACKET LOSS 0.1% — WITHIN TOLERANCE"},
+			{"ATM", "ATMOSPHERIC PROCESSOR — PRESSURE STABLE AT 101.3 kPa"},
+			{"SEC", "MOTION SENSOR ARRAY — SECTOR 7G — NO CONTACTS"},
+			{"PWR", "POWER GRID — OUTPUT 98.7% — NOMINAL"},
+			{"NAV", "NAVIGATION ARRAY — COURSE HEADING CONFIRMED"},
+			{"SCI", "SCIENCE LAB — ACCESS RESTRICTED — SPECIAL ORDER 937"},
+			{"MED", "HYPERSLEEP UNITS — ALL OCCUPANT VITALS STABLE"},
+			{"COM", "LONG-RANGE COMMS — SIGNAL RELAY B — ACTIVE"},
+			{"ENG", "REACTOR COOLANT — TEMP 487°C — NOMINAL RANGE"},
+			{"SEC", "BULKHEAD DOOR 14A — SEALED — VERIFIED"},
+			{"SYS", "EMERGENCY LIGHTING — STANDBY MODE — READY"},
+		}
+		idx := int(time.Now().Unix()) % len(entries)
+		e := entries[idx]
+		ts := time.Now().Format("15:04:05")
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		fmt.Fprintf(w,
+			`<div class="flex gap-3" style="font-size:0.6875rem;color:var(--color-text-muted);padding:2px 0;border-bottom:1px solid var(--color-surface-2);font-family:var(--font-body)"><span style="min-width:4.5rem">[%s]</span><span style="color:var(--color-primary);font-weight:700;min-width:2.5rem">%s</span><span style="color:var(--color-text)">%s</span></div>`,
+			ts, templ.EscapeString(e.sub), templ.EscapeString(e.msg),
+		)
+	})
+
 	return mux
 }
 
@@ -88,6 +115,8 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 	switch g.Slug {
 	case "brutalist":
 		return brutalisttempl.Page(g, htmxRequest)
+	case "cassette":
+		return cassettetempl.Page(g, htmxRequest)
 	case "minimal":
 		return minimaltempl.Page(g, htmxRequest)
 	default:
