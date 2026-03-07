@@ -42,6 +42,7 @@ func Highlight(code, lang string) string {
 }
 
 // DetectLang returns "html" for template/HTML code and "go" for Go code.
+// Detection is based on simple content heuristics.
 func DetectLang(code string) string {
 	trimmed := strings.TrimSpace(code)
 	if strings.Contains(code, "<!--") || (len(trimmed) > 0 && trimmed[0] == '<') {
