@@ -151,10 +151,7 @@ func NewMux() *http.ServeMux {
 			if q != "" && !containsFold(a.eyebrow+a.headline+a.body, q) {
 				continue
 			}
-			fmt.Fprintf(w,
-				`<div class="border-t-2 border-black pt-4 pb-8"><p class="swiss-label mb-3">%s</p><h3 class="text-2xl font-bold mb-3" style="font-family: var(--font-display); color: var(--color-secondary);">%s</h3><p class="text-base leading-relaxed" style="color: var(--color-text); max-width: 55ch;">%s</p></div>`,
-				templ.EscapeString(a.eyebrow), templ.EscapeString(a.headline), templ.EscapeString(a.body),
-			)
+			swisstempl.SearchResult(a.eyebrow, a.headline, a.body).Render(r.Context(), w)
 		}
 	})
 
