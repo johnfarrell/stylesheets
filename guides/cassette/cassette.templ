@@ -1441,7 +1441,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						></div>
 						<!-- /snippet:system-log -->
 					</div>
-					@components.SourceView("<!-- HTMX (client) -->\n" + snippets["system-log"] + "\n\n// Go handler (server)\n" + LogHandlerSnippet)
+					@components.SourceView("<!-- HTMX (client) -->\n" + snippets["system-log"] + "\n\n<!-- Go handler (server) -->\n" + LogHandlerSnippet)
 					<!-- Controls -->
 					<div class="flex gap-3 mt-3">
 						<button
