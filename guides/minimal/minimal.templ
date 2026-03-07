@@ -6,92 +6,17 @@ import (
 )
 
 // Page renders the full Minimal style guide showcase.
-templ Page(g guides.Guide) {
-	<!-- OOB font loader: swaps the #font-loader div in <head> on HTMX navigation -->
-	<div id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-		<link rel="preconnect" href="https://fonts.googleapis.com"/>
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-		<link rel="stylesheet" href={ g.FontURL }/>
-	</div>
-	<!-- CSS vars + guide-specific classes -->
-	<style>
-		:root {
-			for k, v := range g.CSSVars {
-				{ k }: { v };
-			}
-		}
-		/* min-btn-primary: clean filled button with subtle shadow */
-		.min-btn-primary {
-			background: var(--color-accent);
-			color: #ffffff;
-			border: var(--border-width) solid var(--color-accent);
-			border-radius: var(--radius-md);
-			box-shadow: var(--shadow-btn);
-			font-family: var(--font-body);
-			font-weight: 500;
-			transition: opacity 0.15s, box-shadow 0.15s, transform 0.15s;
-		}
-		.min-btn-primary:hover {
-			opacity: 0.88;
-			box-shadow: 0 4px 12px rgba(59,130,246,0.25);
-			transform: translateY(-1px);
-		}
-		/* min-btn-secondary: outlined style */
-		.min-btn-secondary {
-			background: var(--color-surface);
-			color: var(--color-primary);
-			border: var(--border-width) solid var(--border-color);
-			border-radius: var(--radius-md);
-			box-shadow: var(--shadow-btn);
-			font-family: var(--font-body);
-			font-weight: 500;
-			transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-		}
-		.min-btn-secondary:hover {
-			border-color: var(--color-secondary);
-			box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-			transform: translateY(-1px);
-		}
-		/* min-btn-ghost: text-only button */
-		.min-btn-ghost {
-			background: transparent;
-			color: var(--color-accent);
-			border: var(--border-width) solid transparent;
-			border-radius: var(--radius-md);
-			font-family: var(--font-body);
-			font-weight: 500;
-			transition: background 0.15s;
-		}
-		.min-btn-ghost:hover {
-			background: rgba(59,130,246,0.06);
-		}
-		/* min-card: clean surface with soft shadow */
-		.min-card {
-			background: var(--color-surface);
-			border: var(--border-width) solid var(--border-color);
-			border-radius: var(--radius-lg);
-			box-shadow: var(--shadow-card);
-		}
-		/* min-input: clean form input */
-		.min-input {
-			background: var(--color-surface);
-			border: var(--border-width) solid var(--border-color);
-			border-radius: var(--radius-md);
-			font-family: var(--font-body);
-			color: var(--color-text);
-			transition: border-color 0.15s, box-shadow 0.15s;
-		}
-		.min-input:focus {
-			outline: none;
-			border-color: var(--color-accent);
-			box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
-		}
-		/* min-divider: soft horizontal rule */
-		.min-divider {
-			border: none;
-			border-top: var(--border-width) solid var(--border-color);
-		}
-	</style>
+templ Page(g guides.Guide, htmxRequest bool) {
+	if htmxRequest {
+		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
+		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link rel="stylesheet" href={ g.FontURL }/>
+		</span>
+	}
+	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
+	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
 	<div class="mx-auto px-6 py-16" style="max-width: var(--content-max-width); font-family: var(--font-body);">
 		<!-- Guide header -->
 		<div class="mb-16">

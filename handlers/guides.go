@@ -41,7 +41,7 @@ func NewMux() *http.ServeMux {
 			http.NotFound(w, r)
 			return
 		}
-		content := guideContent(guide)
+		content := guideContent(guide, false)
 		page := templates.Layout(guides.All, guide.Slug, guide.FontURL, content)
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		templ.Handler(page).ServeHTTP(w, r)
@@ -55,7 +55,8 @@ func NewMux() *http.ServeMux {
 			http.NotFound(w, r)
 			return
 		}
-		partial := guideContent(guide)
+		isHTMX := r.Header.Get("HX-Request") == "true"
+		partial := guideContent(guide, isHTMX)
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		templ.Handler(partial).ServeHTTP(w, r)
 	})
@@ -66,7 +67,10 @@ func NewMux() *http.ServeMux {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
-		r.ParseForm()
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, "bad request", http.StatusBadRequest)
+			return
+		}
 		name := r.FormValue("name")
 		if name == "" {
 			name = "anonymous"
@@ -80,12 +84,12 @@ func NewMux() *http.ServeMux {
 
 // guideContent returns the Templ component for a guide's showcase.
 // Add a case here when registering a new guide.
-func guideContent(g guides.Guide) templ.Component {
+func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 	switch g.Slug {
 	case "brutalist":
-		return brutalisttempl.Page(g)
+		return brutalisttempl.Page(g, htmxRequest)
 	case "minimal":
-		return minimaltempl.Page(g)
+		return minimaltempl.Page(g, htmxRequest)
 	default:
 		return placeholderContent(g)
 	}

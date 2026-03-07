@@ -6,81 +6,17 @@ import (
 )
 
 // Page renders the full Brutalist style guide showcase.
-templ Page(g guides.Guide) {
-	<!-- OOB font loader: swaps the #font-loader div in <head> on HTMX navigation -->
-	<div id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-		<link rel="preconnect" href="https://fonts.googleapis.com"/>
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-		<link rel="stylesheet" href={ g.FontURL }/>
-	</div>
-	<!-- CSS vars + guide-specific classes -->
-	<style>
-		:root {
-			for k, v := range g.CSSVars {
-				{ k }: { v };
-			}
-		}
-		/* [custom] - brutalist button primary: solid black background with offset shadow */
-		.brut-btn-primary {
-			background: var(--color-primary);
-			color: var(--color-bg);
-			border: var(--border-width) solid var(--border-color);
-			/* [custom] - per-guide box-shadow token */
-			box-shadow: var(--shadow-btn);
-			font-family: var(--font-body);
-			transition: transform 0.1s, box-shadow 0.1s;
-		}
-		/* [custom] - brutalist shift effect on hover */
-		.brut-btn-primary:hover {
-			transform: translate(-2px, -2px);
-			box-shadow: 5px 5px 0px var(--border-color);
-		}
-		/* [custom] - brutalist button secondary: outlined style */
-		.brut-btn-secondary {
-			background: var(--color-bg);
-			color: var(--color-primary);
-			border: var(--border-width) solid var(--border-color);
-			box-shadow: var(--shadow-btn);
-			font-family: var(--font-body);
-			transition: transform 0.1s, box-shadow 0.1s;
-		}
-		/* [custom] - brutalist shift effect on hover for secondary */
-		.brut-btn-secondary:hover {
-			transform: translate(-2px, -2px);
-			box-shadow: 5px 5px 0px var(--border-color);
-		}
-		/* [custom] - brutalist card with hard shadow */
-		.brut-card {
-			background: var(--color-surface);
-			border: var(--border-width) solid var(--border-color);
-			/* [custom] - per-guide card shadow token */
-			box-shadow: var(--shadow-card);
-		}
-		/* [custom] - form input brutalist style */
-		.brut-input {
-			background: var(--color-bg);
-			border: var(--border-width) solid var(--border-color);
-			font-family: var(--font-body);
-			border-radius: 0;
-		}
-		.brut-input:focus {
-			outline: 3px solid var(--color-secondary);
-			outline-offset: 0;
-		}
-		/* [custom] - danger/accent button using secondary color */
-		.brut-btn-accent {
-			background: var(--color-accent);
-			color: var(--color-primary);
-			border: var(--border-width) solid var(--border-color);
-			box-shadow: var(--shadow-btn);
-			font-family: var(--font-body);
-			transition: transform 0.1s, box-shadow 0.1s;
-		}
-		.brut-btn-accent:hover {
-			transform: translate(-2px, -2px);
-			box-shadow: 5px 5px 0px var(--border-color);
-		}
-	</style>
+templ Page(g guides.Guide, htmxRequest bool) {
+	if htmxRequest {
+		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
+		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link rel="stylesheet" href={ g.FontURL }/>
+		</span>
+	}
+	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
+	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
 	<div class="p-8 max-w-4xl mx-auto font-mono">
 		<!-- Guide header -->
 		<div class="mb-12 border-b-4 border-black pb-6">
