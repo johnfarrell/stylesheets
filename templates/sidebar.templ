@@ -10,6 +10,7 @@ templ Sidebar(allGuides []guides.Guide, activeSlug string) {
 	<nav
 		class="w-64 bg-white border-r border-gray-200 flex flex-col h-full shrink-0"
 		x-data={ fmt.Sprintf(`{ active: '%s' }`, activeSlug) }
+		{ templ.Attributes{"@set-active.window": "active = $event.detail"}... }
 	>
 		<div class="p-6 border-b border-gray-200">
 			<h1 class="text-lg font-bold text-gray-900 leading-tight">Stylesheets</h1>

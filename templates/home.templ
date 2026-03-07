@@ -22,6 +22,7 @@ templ Home(allGuides []guides.Guide) {
 					hx-target="#content"
 					hx-push-url={ fmt.Sprintf("/guides/%s", g.Slug) }
 					class="block bg-white border border-gray-200 rounded p-6 hover:border-gray-400 hover:shadow-sm transition-all cursor-pointer"
+					{ templ.Attributes{"@click": fmt.Sprintf("$dispatch('set-active', '%s')", g.Slug)}... }
 				>
 					<h2 class="text-base font-semibold text-gray-900">{ g.Name }</h2>
 					<p class="mt-1 text-sm text-gray-500">{ g.Description }</p>
