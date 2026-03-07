@@ -20,9 +20,9 @@
 
 Run from `/home/john/projects/stylesheets`:
 ```bash
-go mod init github.com/john/stylesheets
+go mod init github.com/johnfarrell/stylesheets
 ```
-Expected: `go.mod` created with `module github.com/john/stylesheets` and `go 1.26`
+Expected: `go.mod` created with `module github.com/johnfarrell/stylesheets` and `go 1.26`
 
 **Step 2: Install Templ**
 
@@ -187,7 +187,7 @@ package guides_test
 import (
 	"testing"
 
-	"github.com/john/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/guides"
 )
 
 func TestRegistryNotEmpty(t *testing.T) {
@@ -337,7 +337,7 @@ Create `templates/layout.templ`:
 ```go
 package templates
 
-import "github.com/john/stylesheets/guides"
+import "github.com/johnfarrell/stylesheets/guides"
 
 templ Layout(allGuides []guides.Guide, activeSlug string, fontURL string) {
 	<!DOCTYPE html>
@@ -380,7 +380,7 @@ package templates
 
 import (
 	"fmt"
-	"github.com/john/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/guides"
 )
 
 templ Sidebar(allGuides []guides.Guide, activeSlug string) {
@@ -525,7 +525,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/john/stylesheets/handlers"
+	"github.com/johnfarrell/stylesheets/handlers"
 )
 
 func TestIndexRedirects(t *testing.T) {
@@ -598,9 +598,9 @@ import (
 	"strings"
 
 	"github.com/a-h/templ"
-	"github.com/john/stylesheets/guides"
-	guidetemplates "github.com/john/stylesheets/guides/brutalist"
-	"github.com/john/stylesheets/templates"
+	"github.com/johnfarrell/stylesheets/guides"
+	guidetemplates "github.com/johnfarrell/stylesheets/guides/brutalist"
+	"github.com/johnfarrell/stylesheets/templates"
 )
 
 // NewMux creates and returns the application HTTP mux with all routes registered.
@@ -704,7 +704,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/john/stylesheets/handlers"
+	"github.com/johnfarrell/stylesheets/handlers"
 )
 
 func main() {
@@ -749,8 +749,8 @@ package brutalist
 
 import (
 	"fmt"
-	"github.com/john/stylesheets/guides"
-	"github.com/john/stylesheets/templates/components"
+	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // Page renders the full Brutalist style guide showcase.
@@ -1118,7 +1118,7 @@ Create `guides/minimal/minimal.templ` — follow the same structure as brutalist
 
 In `handlers/guides.go`, add an import and a case:
 ```go
-import minimaltempl "github.com/john/stylesheets/guides/minimal"
+import minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 
 // in guideContent switch:
 case "minimal":
