@@ -2,6 +2,7 @@ package templates
 
 import (
 	"fmt"
+	"time"
 	"github.com/johnfarrell/stylesheets/guides"
 )
 
@@ -45,7 +46,7 @@ templ Sidebar(allGuides []guides.Guide, activeSlug string) {
 				GitHub
 			</a>
 			<p class="text-xs text-gray-400">Go · Templ · HTMX · Alpine · Tailwind</p>
-			<p class="text-xs text-gray-400">© 2026 John Farrell</p>
+			<p class="text-xs text-gray-400">{ fmt.Sprintf("© %d John Farrell", time.Now().Year()) }</p>
 		</div>
 	</nav>
 }
