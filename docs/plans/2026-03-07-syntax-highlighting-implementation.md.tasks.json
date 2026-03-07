@@ -1,0 +1,11 @@
+{
+  "planPath": "docs/plans/2026-03-07-syntax-highlighting-implementation.md",
+  "tasks": [
+    {"id": 22, "subject": "Task 1: guides/highlight.go — Highlight function and detectLang", "status": "pending"},
+    {"id": 23, "subject": "Task 2: GetHighlightedSnippets — highlighted snippet cache", "status": "pending", "blockedBy": [22]},
+    {"id": 24, "subject": "Task 3: Add --code-* CSS vars to all 6 guides in registry.go", "status": "pending"},
+    {"id": 25, "subject": "Task 4: CSS token mappings + SourceView component update", "status": "pending", "blockedBy": [22, 23, 24]},
+    {"id": 26, "subject": "Task 5: Wire GetHighlightedSnippets into all guides + fix Cassette system-log", "status": "pending", "blockedBy": [25]}
+  ],
+  "lastUpdated": "2026-03-07T05:00:00Z"
+}
