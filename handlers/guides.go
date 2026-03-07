@@ -174,10 +174,7 @@ func NewMux() *http.ServeMux {
 		e := entries[idx]
 		ts := time.Now().Format("15:04:05")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w,
-			`<div class="flex gap-3" style="font-size:0.6875rem;color:var(--color-text-muted);padding:2px 0;border-bottom:1px solid var(--color-surface-2);font-family:var(--font-body)"><span style="min-width:4.5rem">[%s]</span><span style="color:var(--color-primary);font-weight:700;min-width:2.5rem">%s</span><span style="color:var(--color-text)">%s</span></div>`,
-			ts, templ.EscapeString(e.sub), templ.EscapeString(e.msg),
-		)
+		cassettetempl.LogEntry(ts, e.sub, e.msg).Render(r.Context(), w)
 	})
 
 	return mux
