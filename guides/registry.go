@@ -53,6 +53,44 @@ var All = []Guide{
 			"--section-padding":   "3rem 2rem",
 		},
 	},
+	{
+		Name:        "Minimal",
+		Slug:        "minimal",
+		Description: "Calm, spacious, single-column design with generous whitespace.",
+		FontURL:     "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap",
+		CSSVars: map[string]string{
+			// Colors
+			"--color-primary":    "#1a1a1a",
+			"--color-secondary":  "#6b7280",
+			"--color-accent":     "#3b82f6",
+			"--color-bg":         "#fafafa",
+			"--color-surface":    "#ffffff",
+			"--color-text":       "#1a1a1a",
+			"--color-text-muted": "#9ca3af",
+			// Typography
+			"--font-display":      "'Inter', sans-serif",
+			"--font-body":         "'Inter', sans-serif",
+			"--font-size-display": "3rem",
+			"--font-size-heading": "1.5rem",
+			"--font-size-body":    "1rem",
+			"--font-size-caption": "0.8rem",
+			// Shape
+			"--radius-sm": "4px",
+			"--radius-md": "8px",
+			"--radius-lg": "16px",
+			// Elevation
+			"--shadow-card": "0 1px 3px rgba(0,0,0,0.08)",
+			"--shadow-btn":  "0 1px 2px rgba(0,0,0,0.05)",
+			// Borders
+			"--border-width": "1px",
+			"--border-color": "#e5e7eb",
+			// Layout — single column, generous spacing
+			"--layout-columns":    "1",
+			"--layout-gap":        "4rem",
+			"--content-max-width": "640px",
+			"--section-padding":   "5rem 2rem",
+		},
+	},
 }
 
 // BySlug looks up a guide by its URL slug.

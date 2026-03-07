@@ -7,8 +7,9 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
-	brutalisttempl "github.com/johnfarrell/stylesheets/guides/brutalist"
 	"github.com/johnfarrell/stylesheets/guides"
+	brutalisttempl "github.com/johnfarrell/stylesheets/guides/brutalist"
+	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 	"github.com/johnfarrell/stylesheets/templates"
 )
 
@@ -83,6 +84,8 @@ func guideContent(g guides.Guide) templ.Component {
 	switch g.Slug {
 	case "brutalist":
 		return brutalisttempl.Page(g)
+	case "minimal":
+		return minimaltempl.Page(g)
 	default:
 		return placeholderContent(g)
 	}
