@@ -59,3 +59,52 @@ func TestGuideNotFound(t *testing.T) {
 		t.Errorf("expected 404, got %d", w.Code)
 	}
 }
+
+func TestAllGuidePagesOK(t *testing.T) {
+	slugs := []string{"glass", "bento", "swiss"}
+	mux := handlers.NewMux()
+	for _, slug := range slugs {
+		t.Run(slug, func(t *testing.T) {
+			req := httptest.NewRequest(http.MethodGet, "/guides/"+slug, nil)
+			w := httptest.NewRecorder()
+			mux.ServeHTTP(w, req)
+			if w.Code != http.StatusOK {
+				t.Errorf("GET /guides/%s: expected 200, got %d", slug, w.Code)
+			}
+			if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
+				t.Errorf("GET /guides/%s: expected text/html, got %q", slug, ct)
+			}
+		})
+	}
+}
+
+func TestBentoMetricsOK(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/guides/bento/metrics", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+	if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
+		t.Errorf("expected text/html, got %q", ct)
+	}
+	if !strings.Contains(w.Body.String(), "bento-card") {
+		t.Errorf("expected bento-card tiles in response body")
+	}
+}
+
+func TestCassetteLogOK(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/guides/cassette/log", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+	if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
+		t.Errorf("expected text/html, got %q", ct)
+	}
+}

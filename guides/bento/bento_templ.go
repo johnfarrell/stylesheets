@@ -79,6 +79,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			{Tech: "HTMX", Description: "hx-trigger=\"every 3s\" polling — live metric tile updates"},
 			{Tech: "HTMX", Description: "hx-swap=\"innerHTML\" for in-place number replacement"},
 			{Tech: "HTMX", Description: "hx-post form submission with inline response"},
+			{Tech: "Alpine", Description: "x-data button toggle — active state with :style binding"},
 			{Tech: "Alpine", Description: "Column sort indicators with Alpine x-data reactive state"},
 			{Tech: "CSS", Description: "grid-column: span N — variable-width bento tiles"},
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -180,7 +181,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("font-family: var(--font-body); font-weight: " + w.weight + "; color: var(--color-text); font-size: 0.9375rem;")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 70, Col: 129}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 71, Col: 129}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -193,7 +194,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(w.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 70, Col: 141}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 71, Col: 141}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -250,7 +251,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 94, Col: 92}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 95, Col: 92}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -263,7 +264,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; background: var(--color-primary);")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 95, Col: 101}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 96, Col: 101}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -284,7 +285,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "<!-- 4. Live Metric Tiles [HTMX] -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "<!-- 4. Buttons [Alpine] -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -300,21 +301,32 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<p class=\"text-sm mb-4\" style=\"color: var(--color-text-muted);\">These tiles poll <code class=\"font-mono text-xs\" style=\"color: var(--color-primary);\">/guides/bento/metrics</code> every 3 seconds via HTMX.</p><!-- snippet:metric-tiles --> <div class=\"bento-grid\" hx-get=\"/guides/bento/metrics\" hx-trigger=\"every 3s\" hx-swap=\"innerHTML\"><!-- initial static tiles (replaced by HTMX on first poll) --><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Active Users</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">1,247</p><p class=\"text-xs font-medium\" style=\"color:var(--color-accent)\">+12% ↑</p></div><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Revenue</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">$48.2K</p><p class=\"text-xs font-medium\" style=\"color:var(--color-accent)\">+8% ↑</p></div><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Error Rate</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">0.3%</p><p class=\"text-xs font-medium\" style=\"color:var(--color-danger)\">-0.1% ↓</p></div><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Response Time</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">142ms</p><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">+5ms →</p></div></div><!-- /snippet:metric-tiles --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<!-- snippet:buttons --> <div class=\"bento-card space-y-6\"><div><p class=\"text-xs mb-3\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\">Variants</p><div class=\"flex flex-wrap gap-3\"><button class=\"bento-btn text-sm\">Primary</button> <button class=\"bento-btn bento-btn-secondary text-sm\">Secondary</button> <button class=\"bento-btn text-sm\" disabled style=\"opacity: 0.4; cursor: not-allowed;\">Disabled</button></div></div><div><p class=\"text-xs mb-3\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\">Sizes</p><div class=\"flex flex-wrap items-center gap-3\"><button class=\"bento-btn\" style=\"font-size: 0.75rem; padding: 0.25rem 0.625rem;\">Small</button> <button class=\"bento-btn text-sm\">Medium</button> <button class=\"bento-btn\" style=\"font-size: 1rem; padding: 0.75rem 1.5rem;\">Large</button></div></div><div><p class=\"text-xs mb-3\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\">Toggle [Alpine]</p><div x-data=\"{ on: false }\" class=\"flex items-center gap-4\"><button class=\"bento-btn text-sm\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.SourceView(snippets["metric-tiles"]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+				"@click": "on = !on",
+				":style": "on ? 'background: var(--color-accent)' : ''",
+			})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "><span x-text=\"on ? 'Active ✓' : 'Toggle Me'\">Toggle Me</span></button> <span class=\"text-xs\" style=\"color: var(--color-text-muted);\" x-text=\"on ? 'state: on' : 'state: off'\">state: off</span></div></div></div><!-- /snippet:buttons --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["buttons"]).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Live Metric Tiles", components.BadgeHTMX).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Buttons", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<!-- 5. Data Table [Alpine] -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<!-- 5. Live Metric Tiles [HTMX] -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -330,118 +342,25 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<!-- snippet:sortable-table --> <div x-data=\"{ sort: 'name', dir: 'asc' }\" class=\"bento-card overflow-x-auto\"><table class=\"w-full text-sm\"><thead><tr style=\"border-bottom: 1px solid var(--color-border);\"><th class=\"text-left p-3 font-medium cursor-pointer select-none\" style=\"color:var(--color-text-muted)\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<p class=\"text-sm mb-4\" style=\"color: var(--color-text-muted);\">These tiles poll <code class=\"font-mono text-xs\" style=\"color: var(--color-primary);\">/guides/bento/metrics</code> every 3 seconds via HTMX.</p><!-- snippet:metric-tiles --> <div class=\"bento-grid\" hx-get=\"/guides/bento/metrics\" hx-trigger=\"every 3s\" hx-swap=\"innerHTML\"><!-- initial static tiles (replaced by HTMX on first poll) --><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Active Users</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">1,247</p><p class=\"text-xs font-medium\" style=\"color:var(--color-accent)\">+12% ↑</p></div><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Revenue</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">$48.2K</p><p class=\"text-xs font-medium\" style=\"color:var(--color-accent)\">+8% ↑</p></div><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Error Rate</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">0.3%</p><p class=\"text-xs font-medium\" style=\"color:var(--color-danger)\">-0.1% ↓</p></div><div class=\"bento-card bento-span-6 flex flex-col gap-2\"><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">Response Time</p><p class=\"text-2xl font-bold\" style=\"color:var(--color-text)\">142ms</p><p class=\"text-xs font-medium\" style=\"color:var(--color-text-muted)\">+5ms →</p></div></div><!-- /snippet:metric-tiles --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sort='name'; dir = dir==='asc'?'desc':'asc'"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, ">Name <span x-text=\"sort==='name' ? (dir==='asc' ? '↑' : '↓') : '↕'\"></span></th><th class=\"text-left p-3 font-medium cursor-pointer select-none\" style=\"color:var(--color-text-muted)\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sort='status'; dir = dir==='asc'?'desc':'asc'"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, ">Status <span x-text=\"sort==='status' ? (dir==='asc' ? '↑' : '↓') : '↕'\"></span></th><th class=\"text-left p-3 font-medium cursor-pointer select-none\" style=\"color:var(--color-text-muted)\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sort='amount'; dir = dir==='asc'?'desc':'asc'"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, ">Amount <span x-text=\"sort==='amount' ? (dir==='asc' ? '↑' : '↓') : '↕'\"></span></th></tr></thead> <tbody>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			for _, row := range []struct{ name, status, amount, statusColor string }{
-				{"Project Alpha", "Active", "$12,400", "var(--color-accent)"},
-				{"Project Beta", "Review", "$8,200", "var(--color-warning)"},
-				{"Project Gamma", "Active", "$31,000", "var(--color-accent)"},
-				{"Project Delta", "Paused", "$4,100", "var(--color-text-muted)"},
-				{"Project Epsilon", "Active", "$19,750", "var(--color-accent)"},
-				{"Project Zeta", "Review", "$6,900", "var(--color-warning)"},
-			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<tr style=\"border-bottom: 1px solid var(--color-border);\"><td class=\"p-3 font-medium\" style=\"color:var(--color-text)\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var12 string
-				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(row.name)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 175, Col: 78}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</td><td class=\"p-3\"><span class=\"px-2 py-0.5 rounded text-xs font-medium\" style=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var13 string
-				templ_7745c5c3_Var13, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("color:" + row.statusColor + ";background:" + row.statusColor + "18")
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 177, Col: 139}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var14 string
-				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(row.status)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 177, Col: 154}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "</span></td><td class=\"p-3 font-mono text-sm\" style=\"color:var(--color-text)\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var15 string
-				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(row.amount)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 179, Col: 86}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</td></tr>")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</tbody></table></div><!-- /snippet:sortable-table --> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = components.SourceView(snippets["sortable-table"]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = components.SourceView(snippets["metric-tiles"]).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Sortable Data Table", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Live Metric Tiles", components.BadgeHTMX).Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<!-- 6. Status Indicators [Alpine] -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<!-- 6. Data Table [Alpine] -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var16 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var12 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -453,48 +372,114 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "<!-- snippet:status-indicator --> <div x-data=\"{ statuses: [\n\t\t\t\t\t{ name: 'API Gateway', state: 0 },\n\t\t\t\t\t{ name: 'Database', state: 0 },\n\t\t\t\t\t{ name: 'CDN', state: 0 },\n\t\t\t\t\t{ name: 'Auth Service', state: 1 },\n\t\t\t\t\t{ name: 'Queue Worker', state: 2 }\n\t\t\t\t] }\" class=\"bento-card\"><p class=\"text-xs mb-4\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\">Click any service to cycle status</p><div class=\"flex flex-wrap gap-3\"><template x-for=\"svc in statuses\" :key=\"svc.name\"><button class=\"flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer\" style=\"border: 1px solid var(--color-border); background: var(--color-surface);\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<!-- snippet:sortable-table --> <div x-data=\"{ sort: 'name', dir: 'asc' }\" class=\"bento-card overflow-x-auto\"><table class=\"w-full text-sm\"><thead><tr style=\"border-bottom: 1px solid var(--color-border);\"><th class=\"text-left p-3 font-medium cursor-pointer select-none\" style=\"color:var(--color-text-muted)\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "svc.state = (svc.state + 1) % 3"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sort='name'; dir = dir==='asc'?'desc':'asc'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "><span class=\"w-2 h-2 rounded-full\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, ">Name <span x-text=\"sort==='name' ? (dir==='asc' ? '↑' : '↓') : '↕'\"></span></th><th class=\"text-left p-3 font-medium cursor-pointer select-none\" style=\"color:var(--color-text-muted)\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "svc.state === 0 ? 'bg-emerald-500' : svc.state === 1 ? 'bg-amber-400' : 'bg-red-500'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sort='status'; dir = dir==='asc'?'desc':'asc'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "></span> <span x-text=\"svc.name\" style=\"color: var(--color-text);\"></span> <span class=\"text-xs font-normal\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, ">Status <span x-text=\"sort==='status' ? (dir==='asc' ? '↑' : '↓') : '↕'\"></span></th><th class=\"text-left p-3 font-medium cursor-pointer select-none\" style=\"color:var(--color-text-muted)\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
-				"x-text": "svc.state === 0 ? 'Active' : svc.state === 1 ? 'Warning' : 'Down'",
-				":style": "svc.state === 0 ? 'color:var(--color-accent)' : svc.state === 1 ? 'color:var(--color-warning)' : 'color:var(--color-danger)'",
-			})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sort='amount'; dir = dir==='asc'?'desc':'asc'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "></span></button></template></div></div><!-- /snippet:status-indicator --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, ">Amount <span x-text=\"sort==='amount' ? (dir==='asc' ? '↑' : '↓') : '↕'\"></span></th></tr></thead> <tbody>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.SourceView(snippets["status-indicator"]).Render(ctx, templ_7745c5c3_Buffer)
+			for _, row := range []struct{ name, status, amount, statusColor string }{
+				{"Project Alpha", "Active", "$12,400", "var(--color-accent)"},
+				{"Project Beta", "Review", "$8,200", "var(--color-warning)"},
+				{"Project Gamma", "Active", "$31,000", "var(--color-accent)"},
+				{"Project Delta", "Paused", "$4,100", "var(--color-text-muted)"},
+				{"Project Epsilon", "Active", "$19,750", "var(--color-accent)"},
+				{"Project Zeta", "Review", "$6,900", "var(--color-warning)"},
+			} {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<tr style=\"border-bottom: 1px solid var(--color-border);\"><td class=\"p-3 font-medium\" style=\"color:var(--color-text)\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var13 string
+				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(row.name)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 215, Col: 78}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</td><td class=\"p-3\"><span class=\"px-2 py-0.5 rounded text-xs font-medium\" style=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var14 string
+				templ_7745c5c3_Var14, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("color:" + row.statusColor + ";background:" + row.statusColor + "18")
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 217, Col: 139}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var15 string
+				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(row.status)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 217, Col: 154}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</span></td><td class=\"p-3 font-mono text-sm\" style=\"color:var(--color-text)\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var16 string
+				templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(row.amount)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 219, Col: 86}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</td></tr>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</tbody></table></div><!-- /snippet:sortable-table --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["sortable-table"]).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Status Indicators", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var16), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Sortable Data Table", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<!-- 7. Forms [HTMX] -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<!-- 7. Status Indicators [Alpine] -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -510,7 +495,64 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<div class=\"bento-card\"><!-- snippet:form-htmx --><form hx-post=\"/guides/bento/demo-form\" hx-target=\"#bento-form-response\" hx-swap=\"innerHTML\" class=\"space-y-4\"><div class=\"grid grid-cols-1 sm:grid-cols-2 gap-4\"><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted);\" for=\"bento-name\">Name</label> <input id=\"bento-name\" name=\"name\" type=\"text\" placeholder=\"Jane Smith\" class=\"bento-input\"></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted);\" for=\"bento-email\">Email</label> <input id=\"bento-email\" name=\"email\" type=\"email\" placeholder=\"jane@company.com\" class=\"bento-input\"></div></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted);\" for=\"bento-plan\">Plan</label> <select id=\"bento-plan\" name=\"plan\" class=\"bento-input cursor-pointer\"><option value=\"\">— Select plan —</option> <option value=\"starter\">Starter</option> <option value=\"pro\">Pro</option> <option value=\"enterprise\">Enterprise</option></select></div><div class=\"flex items-center gap-3\"><input type=\"checkbox\" id=\"bento-analytics\" name=\"analytics\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> <label for=\"bento-analytics\" class=\"text-sm cursor-pointer\" style=\"color: var(--color-text);\">Enable analytics dashboard</label></div><button type=\"submit\" class=\"bento-btn text-sm\">Submit via HTMX</button></form><!-- /snippet:form-htmx -->")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<!-- snippet:status-indicator --> <div x-data=\"{ statuses: [\n\t\t\t\t\t{ name: 'API Gateway', state: 0 },\n\t\t\t\t\t{ name: 'Database', state: 0 },\n\t\t\t\t\t{ name: 'CDN', state: 0 },\n\t\t\t\t\t{ name: 'Auth Service', state: 1 },\n\t\t\t\t\t{ name: 'Queue Worker', state: 2 }\n\t\t\t\t] }\" class=\"bento-card\"><p class=\"text-xs mb-4\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\">Click any service to cycle status</p><div class=\"flex flex-wrap gap-3\"><template x-for=\"svc in statuses\" :key=\"svc.name\"><button class=\"flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer\" style=\"border: 1px solid var(--color-border); background: var(--color-surface);\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "svc.state = (svc.state + 1) % 3"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "><span class=\"w-2 h-2 rounded-full\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "svc.state === 0 ? 'bg-emerald-500' : svc.state === 1 ? 'bg-amber-400' : 'bg-red-500'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "></span> <span x-text=\"svc.name\" style=\"color: var(--color-text);\"></span> <span class=\"text-xs font-normal\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+				"x-text": "svc.state === 0 ? 'Active' : svc.state === 1 ? 'Warning' : 'Down'",
+				":style": "svc.state === 0 ? 'color:var(--color-accent)' : svc.state === 1 ? 'color:var(--color-warning)' : 'color:var(--color-danger)'",
+			})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "></span></button></template></div></div><!-- /snippet:status-indicator --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["status-indicator"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Status Indicators", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<!-- 8. Forms [HTMX] -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var18 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<div class=\"bento-card\"><!-- snippet:form-htmx --><form hx-post=\"/guides/bento/demo-form\" hx-target=\"#bento-form-response\" hx-swap=\"innerHTML\" class=\"space-y-4\"><div class=\"grid grid-cols-1 sm:grid-cols-2 gap-4\"><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted);\" for=\"bento-name\">Name</label> <input id=\"bento-name\" name=\"name\" type=\"text\" placeholder=\"Jane Smith\" class=\"bento-input\"></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted);\" for=\"bento-email\">Email</label> <input id=\"bento-email\" name=\"email\" type=\"email\" placeholder=\"jane@company.com\" class=\"bento-input\"></div></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted);\" for=\"bento-plan\">Plan</label> <select id=\"bento-plan\" name=\"plan\" class=\"bento-input cursor-pointer\"><option value=\"\">— Select plan —</option> <option value=\"starter\">Starter</option> <option value=\"pro\">Pro</option> <option value=\"enterprise\">Enterprise</option></select></div><div class=\"flex items-center gap-3\"><input type=\"checkbox\" id=\"bento-analytics\" name=\"analytics\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> <label for=\"bento-analytics\" class=\"text-sm cursor-pointer\" style=\"color: var(--color-text);\">Enable analytics dashboard</label></div><button type=\"submit\" class=\"bento-btn text-sm\">Submit via HTMX</button></form><!-- /snippet:form-htmx -->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -518,17 +560,17 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "<div id=\"bento-form-response\" class=\"mt-4\"></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "<div id=\"bento-form-response\" class=\"mt-4\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Forms", components.BadgeHTMX).Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Forms", components.BadgeHTMX).Render(templ.WithChildren(ctx, templ_7745c5c3_Var18), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -553,25 +595,25 @@ func bentoSwatch(name, hex string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var18 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var18 == nil {
-			templ_7745c5c3_Var18 = templ.NopComponent
+		templ_7745c5c3_Var19 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var19 == nil {
+			templ_7745c5c3_Var19 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<div x-data=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "<div x-data=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var19 string
-		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 274, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 314, Col: 50}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "\" class=\"cursor-pointer group\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "\" class=\"cursor-pointer group\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -579,59 +621,59 @@ func bentoSwatch(name, hex string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "><div class=\"h-14 mb-2 rounded-xl transition-transform group-hover:-translate-y-1\" style=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var20 string
-		templ_7745c5c3_Var20, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + hex + ";")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 280, Col: 37}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "\"></div><p class=\"text-xs font-medium\" style=\"color: var(--color-text);\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "><div class=\"h-14 mb-2 rounded-xl transition-transform group-hover:-translate-y-1\" style=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var21 string
-		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+		templ_7745c5c3_Var21, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + hex + ";")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 282, Col: 73}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 320, Col: 37}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</p><p class=\"text-xs font-mono\" style=\"color: var(--color-text-muted);\" x-text=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "\"></div><p class=\"text-xs font-medium\" style=\"color: var(--color-text);\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var22 string
-		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
+		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 283, Col: 116}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 322, Col: 73}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "</p><p class=\"text-xs font-mono\" style=\"color: var(--color-text-muted);\" x-text=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var23 string
-		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 283, Col: 124}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 323, Col: 116}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var24 string
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/bento/bento.templ`, Line: 323, Col: 124}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

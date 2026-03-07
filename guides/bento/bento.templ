@@ -28,6 +28,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			{Tech: "HTMX",   Description: "hx-trigger=\"every 3s\" polling — live metric tile updates"},
 			{Tech: "HTMX",   Description: "hx-swap=\"innerHTML\" for in-place number replacement"},
 			{Tech: "HTMX",   Description: "hx-post form submission with inline response"},
+			{Tech: "Alpine", Description: "x-data button toggle — active state with :style binding"},
 			{Tech: "Alpine", Description: "Column sort indicators with Alpine x-data reactive state"},
 			{Tech: "CSS",    Description: "grid-column: span N — variable-width bento tiles"},
 		})
@@ -97,7 +98,46 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				}
 			</div>
 		}
-		<!-- 4. Live Metric Tiles [HTMX] -->
+		<!-- 4. Buttons [Alpine] -->
+		@components.Section("Buttons", components.BadgeAlpine) {
+			<!-- snippet:buttons -->
+			<div class="bento-card space-y-6">
+				<div>
+					<p class="text-xs mb-3" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Variants</p>
+					<div class="flex flex-wrap gap-3">
+						<button class="bento-btn text-sm">Primary</button>
+						<button class="bento-btn bento-btn-secondary text-sm">Secondary</button>
+						<button class="bento-btn text-sm" disabled style="opacity: 0.4; cursor: not-allowed;">Disabled</button>
+					</div>
+				</div>
+				<div>
+					<p class="text-xs mb-3" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Sizes</p>
+					<div class="flex flex-wrap items-center gap-3">
+						<button class="bento-btn" style="font-size: 0.75rem; padding: 0.25rem 0.625rem;">Small</button>
+						<button class="bento-btn text-sm">Medium</button>
+						<button class="bento-btn" style="font-size: 1rem; padding: 0.75rem 1.5rem;">Large</button>
+					</div>
+				</div>
+				<div>
+					<p class="text-xs mb-3" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Toggle [Alpine]</p>
+					<div x-data="{ on: false }" class="flex items-center gap-4">
+						<button
+							class="bento-btn text-sm"
+							{ templ.Attributes{
+								"@click":  "on = !on",
+								":style":  "on ? 'background: var(--color-accent)' : ''",
+							}... }
+						>
+							<span x-text="on ? 'Active ✓' : 'Toggle Me'">Toggle Me</span>
+						</button>
+						<span class="text-xs" style="color: var(--color-text-muted);" x-text="on ? 'state: on' : 'state: off'">state: off</span>
+					</div>
+				</div>
+			</div>
+			<!-- /snippet:buttons -->
+			@components.SourceView(snippets["buttons"])
+		}
+		<!-- 5. Live Metric Tiles [HTMX] -->
 		@components.Section("Live Metric Tiles", components.BadgeHTMX) {
 			<p class="text-sm mb-4" style="color: var(--color-text-muted);">These tiles poll <code class="font-mono text-xs" style="color: var(--color-primary);">/guides/bento/metrics</code> every 3 seconds via HTMX.</p>
 			<!-- snippet:metric-tiles -->
@@ -132,7 +172,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:metric-tiles -->
 			@components.SourceView(snippets["metric-tiles"])
 		}
-		<!-- 5. Data Table [Alpine] -->
+		<!-- 6. Data Table [Alpine] -->
 		@components.Section("Sortable Data Table", components.BadgeAlpine) {
 			<!-- snippet:sortable-table -->
 			<div x-data="{ sort: 'name', dir: 'asc' }" class="bento-card overflow-x-auto">
@@ -185,7 +225,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:sortable-table -->
 			@components.SourceView(snippets["sortable-table"])
 		}
-		<!-- 6. Status Indicators [Alpine] -->
+		<!-- 7. Status Indicators [Alpine] -->
 		@components.Section("Status Indicators", components.BadgeAlpine) {
 			<!-- snippet:status-indicator -->
 			<div
@@ -225,7 +265,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:status-indicator -->
 			@components.SourceView(snippets["status-indicator"])
 		}
-		<!-- 7. Forms [HTMX] -->
+		<!-- 8. Forms [HTMX] -->
 		@components.Section("Forms", components.BadgeHTMX) {
 			<div class="bento-card">
 				<!-- snippet:form-htmx -->

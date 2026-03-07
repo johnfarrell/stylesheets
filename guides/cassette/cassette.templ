@@ -6,6 +6,7 @@ import (
 	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
+// Page renders the full Cassette style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetSnippets(g.Slug) }}
 	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
