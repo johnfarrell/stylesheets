@@ -18,7 +18,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
 	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
-	<div class="p-8 max-w-5xl mx-auto" style="font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
+	<div style="max-width: var(--content-max-width); margin: 0 auto; padding: 2rem; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
 		<!-- Guide header -->
 		<div class="mb-12 pb-0">
 			<div class="swiss-rule-red mb-4"></div>
@@ -34,7 +34,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			{Tech: "HTMX",   Description: "hx-post form submission with editorial-style inline response"},
 		})
 		<!-- 1. Color Palette -->
-		@components.Section("Color Palette", components.BadgeAlpine) {
+		@swissSection("Color Palette", "[Alpine]") {
 			<!-- snippet:color-swatch -->
 			<div class="grid grid-cols-1 sm:grid-cols-3 gap-0" style="border: 2px solid var(--color-border);">
 				@swissSwatch("Red", "#e63329", "#fff")
@@ -46,7 +46,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			@components.SourceView(snippets["color-swatch"])
 		}
 		<!-- 2. Typography [Alpine] -->
-		@components.Section("Typography", components.BadgeAlpine) {
+		@swissSection("Typography", "[Alpine]") {
 			<div class="space-y-0">
 				<div class="swiss-rule pt-6 pb-6">
 					<p class="swiss-label mb-3">Display — 5rem / Bold</p>
@@ -93,7 +93,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			@components.SourceView(snippets["type-scale-demo"])
 		}
 		<!-- 3. Grid System -->
-		@components.Section("Grid System", components.BadgeNone) {
+		@swissSection("Grid System", "") {
 			<div class="space-y-4">
 				<p class="swiss-label">12-column modular grid — all columns have equal width, separated by borders</p>
 				<div class="swiss-grid">
@@ -131,7 +131,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			</div>
 		}
 		<!-- 4. Typographic Hierarchy [Templ composition] -->
-		@components.Section("Editorial Cards (Templ Composition)", components.BadgeNone) {
+		@swissSection("Editorial Cards", "[Templ]") {
 			<!-- snippet:templ-composition -->
 			@swissArticleCard("Design Systems", "Grid as Foundation", "The grid is not a cage — it is a liberation from chaos. When elements align to a common module, the eye can rest and the mind can read. Structure is the invisible architecture of good design.")
 			@swissArticleCard("Typography", "Weight Creates Hierarchy", "Bold speaks first. Regular speaks second. Light speaks last. Weight is not decoration — it is the sequence in which information is consumed. Hierarchy is direction.")
@@ -140,7 +140,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			@components.SourceView(snippets["templ-composition"])
 		}
 		<!-- 5. Pull Quotes -->
-		@components.Section("Pull Quotes", components.BadgeNone) {
+		@swissSection("Pull Quotes", "") {
 			<div class="space-y-8">
 				for _, q := range []struct{ quote, attr string }{
 					{"Good design is as little design as possible.", "Dieter Rams — Ten Principles of Good Design"},
@@ -156,7 +156,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			</div>
 		}
 		<!-- 6. Buttons -->
-		@components.Section("Buttons", components.BadgeNone) {
+		@swissSection("Buttons", "") {
 			<div class="space-y-6">
 				<div>
 					<p class="swiss-label mb-4">Variants</p>
@@ -170,7 +170,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			</div>
 		}
 		<!-- 7. Forms [HTMX] -->
-		@components.Section("Forms", components.BadgeHTMX) {
+		@swissSection("Forms", "[HTMX]") {
 			<!-- snippet:form-htmx -->
 			<form
 				hx-post="/guides/swiss/demo-form"
@@ -208,7 +208,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<div id="swiss-form-response" class="mt-4"></div>
 		}
 		<!-- 8. Cards [Alpine] -->
-		@components.Section("Cards & Panels", components.BadgeAlpine) {
+		@swissSection("Cards & Panels", "[Alpine]") {
 			<div class="space-y-4">
 				<!-- Static card -->
 				<div style="border: 2px solid var(--color-border); padding: 1.5rem;">
@@ -248,6 +248,24 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			</div>
 		}
 	</div>
+}
+
+// swissSection renders a guide section using the Swiss 2-column editorial grid:
+// section label in a narrow left column, content in a wider right column.
+templ swissSection(title, badge string) {
+	<section class="swiss-rule">
+		<div class="swiss-layout">
+			<div class="swiss-col-3 swiss-section-label">
+				<p class="swiss-label">{ title }</p>
+				if badge != "" {
+					<p class="swiss-label mt-2" style="color: var(--color-primary);">{ badge }</p>
+				}
+			</div>
+			<div class="swiss-col-9 swiss-section-body">
+				{ children... }
+			</div>
+		</div>
+	</section>
 }
 
 // swissArticleCard renders a typographic editorial card component.

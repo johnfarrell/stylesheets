@@ -63,19 +63,33 @@ func guideStyles() string {
     cursor: pointer;
     padding: 0.75rem 1.5rem;
 }
-/* [custom] - CSS grid strict column layout */
+/* [custom] - CSS grid strict column layout for demos */
 .swiss-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 0;
     border-left: 2px solid var(--color-border);
 }
-.swiss-col-4 { grid-column: span 4; border-right: 2px solid var(--color-border); }
-.swiss-col-6 { grid-column: span 6; border-right: 2px solid var(--color-border); }
-.swiss-col-8 { grid-column: span 8; border-right: 2px solid var(--color-border); }
+.swiss-col-4  { grid-column: span 4;  border-right: 2px solid var(--color-border); }
+.swiss-col-6  { grid-column: span 6;  border-right: 2px solid var(--color-border); }
+.swiss-col-8  { grid-column: span 8;  border-right: 2px solid var(--color-border); }
 .swiss-col-12 { grid-column: span 12; border-right: 2px solid var(--color-border); }
+/* [custom] - 2-column editorial section layout (label column + content column) */
+.swiss-layout {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 0;
+}
+.swiss-col-3  { grid-column: span 3;  border-right: 2px solid var(--color-border); }
+.swiss-col-9  { grid-column: span 9;  }
+.swiss-section-label { padding: 2rem 1.5rem 2rem 0; }
+.swiss-section-body  { padding: 2rem 0 2rem 2rem; }
 @media (max-width: 768px) {
     .swiss-col-4, .swiss-col-6, .swiss-col-8 { grid-column: span 12; }
+    .swiss-col-3  { grid-column: span 12; border-right: none; border-bottom: 2px solid var(--color-border); }
+    .swiss-col-9  { grid-column: span 12; }
+    .swiss-section-label { padding: 1rem; }
+    .swiss-section-body  { padding: 1rem; }
 }
 .swiss-input {
     background: var(--color-surface);

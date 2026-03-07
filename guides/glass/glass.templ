@@ -18,7 +18,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
 	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
-	<div class="glass-bg p-8 max-w-5xl mx-auto" style="font-family: var(--font-body); color: var(--color-text);">
+	<!-- glass-bg must be full-width so the radial gradient fills the viewport -->
+	<div class="glass-bg" style="min-height: 100%; font-family: var(--font-body); color: var(--color-text);">
+		<div style="max-width: var(--content-max-width); margin: 0 auto; padding: 2rem;">
 		<!-- Guide header -->
 		<div class="mb-12 pb-6" style="border-bottom: 1px solid var(--color-border);">
 			<h1 class="font-bold mb-2" style="font-family: var(--font-display); font-size: var(--font-size-display); background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Glassmorphism</h1>
@@ -247,6 +249,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				@components.SourceView(snippets["modal"])
 			</div>
 		}
+		</div>
 	</div>
 }
 

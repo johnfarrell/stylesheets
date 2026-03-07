@@ -18,7 +18,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
 	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
-	<div class="p-8 max-w-6xl mx-auto" style="font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
+	<div style="max-width: var(--content-max-width); margin: 0 auto; padding: 2rem; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
 		<!-- Guide header -->
 		<div class="mb-12 pb-6" style="border-bottom: 1px solid var(--color-border);">
 			<h1 class="font-bold mb-2" style="font-family: var(--font-display); font-size: var(--font-size-display); color: var(--color-text);">Bento Dashboard</h1>

@@ -71,7 +71,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"p-8 max-w-6xl mx-auto\" style=\"font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);\"><!-- Guide header --><div class=\"mb-12 pb-6\" style=\"border-bottom: 1px solid var(--color-border);\"><h1 class=\"font-bold mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); color: var(--color-text);\">Bento Dashboard</h1><p style=\"color: var(--color-text-muted);\">Variable-span grid tiles, live HTMX metrics, SaaS dashboard patterns.</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div style=\"max-width: var(--content-max-width); margin: 0 auto; padding: 2rem; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);\"><!-- Guide header --><div class=\"mb-12 pb-6\" style=\"border-bottom: 1px solid var(--color-border);\"><h1 class=\"font-bold mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); color: var(--color-text);\">Bento Dashboard</h1><p style=\"color: var(--color-text-muted);\">Variable-span grid tiles, live HTMX metrics, SaaS dashboard patterns.</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

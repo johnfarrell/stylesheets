@@ -71,7 +71,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"glass-bg p-8 max-w-5xl mx-auto\" style=\"font-family: var(--font-body); color: var(--color-text);\"><!-- Guide header --><div class=\"mb-12 pb-6\" style=\"border-bottom: 1px solid var(--color-border);\"><h1 class=\"font-bold mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;\">Glassmorphism</h1><p style=\"color: var(--color-text-muted);\">Frosted translucent panels over deep gradients. Modern, layered, luminous.</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<!-- glass-bg must be full-width so the radial gradient fills the viewport --><div class=\"glass-bg\" style=\"min-height: 100%; font-family: var(--font-body); color: var(--color-text);\"><div style=\"max-width: var(--content-max-width); margin: 0 auto; padding: 2rem;\"><!-- Guide header --><div class=\"mb-12 pb-6\" style=\"border-bottom: 1px solid var(--color-border);\"><h1 class=\"font-bold mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;\">Glassmorphism</h1><p style=\"color: var(--color-text-muted);\">Frosted translucent panels over deep gradients. Modern, layered, luminous.</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -182,7 +182,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("font-family: var(--font-body); font-weight: " + w.weight + "; color: var(--color-text);")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 72, Col: 107}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 74, Col: 107}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -195,7 +195,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(w.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 72, Col: 119}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 74, Col: 119}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -252,7 +252,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 96, Col: 106}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 98, Col: 106}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -265,7 +265,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 97, Col: 150}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 99, Col: 150}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -461,7 +461,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -498,7 +498,7 @@ func glassSwatch(name, hex string) templ.Component {
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 256, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 259, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -519,7 +519,7 @@ func glassSwatch(name, hex string) templ.Component {
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + hex + "; border: 1px solid rgba(255,255,255,0.2);")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 262, Col: 78}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 265, Col: 78}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
@@ -532,7 +532,7 @@ func glassSwatch(name, hex string) templ.Component {
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 264, Col: 75}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 267, Col: 75}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
@@ -545,7 +545,7 @@ func glassSwatch(name, hex string) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 265, Col: 116}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 268, Col: 116}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -558,7 +558,7 @@ func glassSwatch(name, hex string) templ.Component {
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 265, Col: 124}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 268, Col: 124}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {
