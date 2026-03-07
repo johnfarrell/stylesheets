@@ -225,6 +225,8 @@ var All = []Guide{
 			"--border-color":      "#1a1a1a",
 			"--content-max-width": "1100px",
 			"--section-padding":   "5rem 2rem",
+			"--grid-columns":      "12",
+			"--baseline":          "8px",
 		},
 	},
 }

@@ -79,7 +79,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			{Tech: "HTMX", Description: "hx-trigger=\"every 3s\" polling — live metric tile updates"},
 			{Tech: "HTMX", Description: "hx-swap=\"innerHTML\" for in-place number replacement"},
 			{Tech: "HTMX", Description: "hx-post form submission with inline response"},
-			{Tech: "Alpine", Description: "Reactive sort state across sortable table columns"},
+			{Tech: "Alpine", Description: "Column sort indicators with Alpine x-data reactive state"},
 			{Tech: "CSS", Description: "grid-column: span N — variable-width bento tiles"},
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {

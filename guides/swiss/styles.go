@@ -18,7 +18,6 @@ func guideStyles() string {
 /* [custom] - strict typographic grid not achievable with Tailwind utilities alone */
 .swiss-rule { border-top: 2px solid var(--color-border); }
 .swiss-rule-red { border-top: 3px solid var(--color-primary); }
-.swiss-rule-thin { border-top: 1px solid #d0d0d0; }
 .swiss-label {
     font-family: var(--font-body);
     font-size: 0.625rem;

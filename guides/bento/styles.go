@@ -34,18 +34,6 @@ func guideStyles() string {
     padding: 0.5rem 1rem;
 }
 .bento-btn:hover { opacity: 0.9; }
-.bento-btn-outline {
-    background: transparent;
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-body);
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    padding: 0.5rem 1rem;
-}
-.bento-btn-outline:hover { background: var(--color-primary); color: #fff; }
 /* [custom] - CSS grid variable-span tiles not achievable with static Tailwind classes */
 .bento-grid {
     display: grid;

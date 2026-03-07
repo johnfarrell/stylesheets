@@ -122,7 +122,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = glassSwatch("Surface", "#1c1c2e").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = glassSwatch("Surface (rgba)", "#1c1c2e").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
