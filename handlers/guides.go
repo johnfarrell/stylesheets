@@ -1,9 +1,7 @@
 package handlers
 
 import (
-	"context"
 	"fmt"
-	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -197,7 +195,8 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 	case "swiss":
 		return swisstempl.Page(g, htmxRequest)
 	default:
-		return placeholderContent(g)
+		return templ.Raw(fmt.Sprintf(`<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
+			templ.EscapeString(g.Name), templ.EscapeString(g.Description)))
 	}
 }
 
@@ -219,13 +218,3 @@ func containsFold(s, substr string) bool {
 	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
 
-// placeholderContent renders a minimal placeholder until guide packages are implemented.
-func placeholderContent(g guides.Guide) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
-		_, err := fmt.Fprintf(w, `<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
-			templ.EscapeString(g.Name),
-			templ.EscapeString(g.Description),
-		)
-		return err
-	})
-}
