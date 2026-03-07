@@ -1,0 +1,25 @@
+package components
+
+// SourceView renders an inline "View Source" toggle for a code snippet.
+// Renders nothing if code is empty — safe to call unconditionally.
+templ SourceView(code string) {
+	if code != "" {
+		<div x-data="{ open: false }" class="mt-4">
+			<button
+				class="flex items-center gap-1.5 text-xs font-mono px-2 py-1 border rounded transition-colors cursor-pointer"
+				style="border-color: var(--color-border, #e5e7eb); color: var(--color-text-muted, #6b7280); background: var(--color-surface, #fff);"
+				{ templ.Attributes{"@click": "open = !open"}... }
+			>
+				<span class="font-bold" style="color: var(--color-primary, #000);">&lt;/&gt;</span>
+				<span x-text="open ? 'Hide Source' : 'View Source'">View Source</span>
+				<span x-text="open ? '▴' : '▾'">▾</span>
+			</button>
+			<div x-show="open" x-cloak>
+				<pre
+					class="mt-2 p-4 overflow-x-auto text-xs rounded border"
+					style="font-family: var(--font-body, monospace); background: var(--color-surface, #f8f8f8); border-color: var(--color-border, #e5e7eb); color: var(--color-text, #1a1a1a); line-height: 1.6; white-space: pre; tab-size: 2;"
+				>{ code }</pre>
+			</div>
+		</div>
+	}
+}
