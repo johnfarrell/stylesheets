@@ -42,3 +42,24 @@ func TestGuideHasRequiredFields(t *testing.T) {
 		}
 	}
 }
+
+func TestGlassGuideRegistered(t *testing.T) {
+	_, ok := guides.BySlug("glass")
+	if !ok {
+		t.Fatal("expected 'glass' guide to be registered")
+	}
+}
+
+func TestBentoGuideRegistered(t *testing.T) {
+	_, ok := guides.BySlug("bento")
+	if !ok {
+		t.Fatal("expected 'bento' guide to be registered")
+	}
+}
+
+func TestSwissGuideRegistered(t *testing.T) {
+	_, ok := guides.BySlug("swiss")
+	if !ok {
+		t.Fatal("expected 'swiss' guide to be registered")
+	}
+}

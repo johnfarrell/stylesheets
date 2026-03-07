@@ -9,9 +9,12 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/johnfarrell/stylesheets/guides"
+	bentotempl "github.com/johnfarrell/stylesheets/guides/bento"
 	brutalisttempl "github.com/johnfarrell/stylesheets/guides/brutalist"
 	cassettetempl "github.com/johnfarrell/stylesheets/guides/cassette"
+	glasstempl "github.com/johnfarrell/stylesheets/guides/glass"
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
+	swisstempl "github.com/johnfarrell/stylesheets/guides/swiss"
 	"github.com/johnfarrell/stylesheets/templates"
 )
 
@@ -81,6 +84,31 @@ func NewMux() *http.ServeMux {
 		fmt.Fprintf(w, `<div class="border-2 border-black p-3 bg-yellow-50 font-mono">✓ Received: <strong>%s</strong></div>`, templ.EscapeString(name))
 	})
 
+	// Bento Dashboard — live metric tiles (HTMX polling every 3s)
+	mux.HandleFunc("/guides/bento/metrics", func(w http.ResponseWriter, r *http.Request) {
+		type metric struct{ label, value, change, trend string }
+		metrics := []metric{
+			{"Active Users", fmt.Sprintf("%d", 1200+int(time.Now().Unix())%300), "+12%", "↑"},
+			{"Revenue", fmt.Sprintf("$%.1fK", 48.2+float64(int(time.Now().Unix())%20)/10), "+8%", "↑"},
+			{"Error Rate", fmt.Sprintf("%.1f%%", 0.3+float64(int(time.Now().Unix())%10)/10), "-0.1%", "↓"},
+			{"Response Time", fmt.Sprintf("%dms", 120+int(time.Now().Unix())%80), "+5ms", "→"},
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		for _, m := range metrics {
+			trendColor := "var(--color-accent)"
+			if m.trend == "↓" {
+				trendColor = "var(--color-danger)"
+			}
+			if m.trend == "→" {
+				trendColor = "var(--color-text-muted)"
+			}
+			fmt.Fprintf(w,
+				`<div class="bento-card bento-span-6 flex flex-col gap-2"><p class="text-xs font-medium" style="color:var(--color-text-muted)">%s</p><p class="text-2xl font-bold" style="color:var(--color-text)">%s</p><p class="text-xs font-medium" style="color:%s">%s %s</p></div>`,
+				templ.EscapeString(m.label), templ.EscapeString(m.value), trendColor, templ.EscapeString(m.change), templ.EscapeString(m.trend),
+			)
+		}
+	})
+
 	mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {
 		entries := []struct{ sub, msg string }{
 			{"SYS", "WCYPD COLONY SYSTEMS — HEARTBEAT NOMINAL"},
@@ -119,6 +147,12 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 		return cassettetempl.Page(g, htmxRequest)
 	case "minimal":
 		return minimaltempl.Page(g, htmxRequest)
+	case "glass":
+		return glasstempl.Page(g, htmxRequest)
+	case "bento":
+		return bentotempl.Page(g, htmxRequest)
+	case "swiss":
+		return swisstempl.Page(g, htmxRequest)
 	default:
 		return placeholderContent(g)
 	}
