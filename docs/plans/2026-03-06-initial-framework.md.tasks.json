@@ -1,0 +1,15 @@
+{
+  "planPath": "docs/plans/2026-03-06-initial-framework.md",
+  "tasks": [
+    {"id": 7,  "subject": "Task 1: Initialize Go module and install dependencies", "status": "pending"},
+    {"id": 8,  "subject": "Task 2: Set up Tailwind CSS CLI", "status": "pending", "blockedBy": [7]},
+    {"id": 9,  "subject": "Task 3: Create Makefile for dev workflow", "status": "pending", "blockedBy": [7]},
+    {"id": 10, "subject": "Task 4: Create guide registry", "status": "pending", "blockedBy": [7]},
+    {"id": 11, "subject": "Task 5: Create layout and sidebar templates", "status": "pending", "blockedBy": [9, 10]},
+    {"id": 12, "subject": "Task 6: Create shared Section component with tech badges", "status": "pending", "blockedBy": [9]},
+    {"id": 13, "subject": "Task 7: Create HTTP server and routes", "status": "pending", "blockedBy": [10, 11, 12]},
+    {"id": 14, "subject": "Task 8: Create Brutalist guide showcase", "status": "pending", "blockedBy": [13, 12]},
+    {"id": 15, "subject": "Task 9: Add Minimal guide to validate data-driven approach", "status": "pending", "blockedBy": [14]}
+  ],
+  "lastUpdated": "2026-03-06T00:00:00Z"
+}
