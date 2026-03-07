@@ -119,25 +119,16 @@ func NewMux() *http.ServeMux {
 			if name == "" {
 				name = "Aurora Dashboard"
 			}
-			fmt.Fprintf(w,
-				`<div class="flex items-center justify-between"><div><p class="text-xs" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project Name</p><p class="text-lg font-semibold mt-1" style="color: var(--color-text);">%s</p></div><button class="glass-btn-ghost px-3 py-1.5 text-xs" hx-get="/guides/glass/edit-field" hx-target="#glass-editable" hx-swap="innerHTML">Edit</button></div>`,
-				templ.EscapeString(name))
+			glasstempl.EditFieldDisplay(name).Render(r.Context(), w)
 			return
 		}
 		// GET with cancel — return the display view
 		if r.URL.Query().Get("cancel") == "true" {
-			fmt.Fprint(w,
-				`<div class="flex items-center justify-between"><div><p class="text-xs" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project Name</p><p class="text-lg font-semibold mt-1" style="color: var(--color-text);">Aurora Dashboard</p></div><button class="glass-btn-ghost px-3 py-1.5 text-xs" hx-get="/guides/glass/edit-field" hx-target="#glass-editable" hx-swap="innerHTML">Edit</button></div>`)
+			glasstempl.EditFieldDisplay("Aurora Dashboard").Render(r.Context(), w)
 			return
 		}
 		// GET — return the edit form
-		fmt.Fprint(w,
-			`<form hx-post="/guides/glass/edit-field" hx-target="#glass-editable" hx-swap="innerHTML" class="flex items-end gap-3">`+
-				`<div class="flex-1"><p class="text-xs mb-1.5" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project Name</p>`+
-				`<input type="text" name="name" value="Aurora Dashboard" class="glass-input" autofocus/></div>`+
-				`<button type="submit" class="glass-btn-primary px-4 py-2 text-xs">Save</button>`+
-				`<button type="button" class="glass-btn-ghost px-4 py-2 text-xs" hx-get="/guides/glass/edit-field?cancel=true" hx-target="#glass-editable" hx-swap="innerHTML">Cancel</button>`+
-				`</form>`)
+		glasstempl.EditFieldForm("Aurora Dashboard").Render(r.Context(), w)
 	})
 
 	// Minimal — lazy-loaded Design Principles content
