@@ -1443,9 +1443,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<!-- /snippet:system-log -->
 					</div>
 					<p class="text-xs mb-1" style="color: var(--color-text-muted); font-family: var(--font-body);">HTMX client — cassette.templ</p>
-				@components.SourceView(snippets["system-log"])
-				<p class="text-xs mt-4 mb-1" style="color: var(--color-text-muted); font-family: var(--font-body);">Go handler — handlers/guides.go</p>
-				@components.SourceView(guides.Highlight(LogHandlerSnippet, "go"))
+					@components.SourceView(snippets["system-log"])
+					<p class="text-xs mt-4 mb-1" style="color: var(--color-text-muted); font-family: var(--font-body);">Go handler — handlers/guides.go</p>
+					@components.SourceView(guides.Highlight(LogHandlerSnippet, "go"))
 					<!-- Controls -->
 					<div class="flex gap-3 mt-3">
 						<button
