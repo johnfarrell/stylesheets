@@ -15,7 +15,8 @@
 .code-block .kp, .code-block .kr { color: var(--code-keyword); font-weight: bold; }
 /* String literals */
 .code-block .s,  .code-block .s1, .code-block .s2,
-.code-block .sa, .code-block .sb, .code-block .sc { color: var(--code-string); }
+.code-block .sa, .code-block .sb, .code-block .sc,
+.code-block .sr { color: var(--code-string); }
 /* Comments */
 .code-block .c,  .code-block .c1, .code-block .cm,
 .code-block .cs, .code-block .cp { color: var(--code-comment); font-style: italic; }
@@ -26,5 +27,9 @@
 .code-block .nt { color: var(--code-tag); }
 /* HTML/Templ attribute names */
 .code-block .na { color: var(--code-attr); }
+/* Operators: :=, ==, +, -, etc. */
+.code-block .o { color: var(--code-text); }
+/* Type names and struct names */
+.code-block .nc { color: var(--code-keyword); }
 /* Builtins and function names — use keyword color */
 .code-block .nb, .code-block .nf, .code-block .nx { color: var(--code-keyword); }
