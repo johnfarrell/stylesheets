@@ -1,6 +1,10 @@
 package cassette
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/johnfarrell/stylesheets/guides"
+)
 
 // LogHandlerSnippet is the server-side handler shown in the system log SourceView.
 // Display copy only — the live handler is in handlers/guides.go.
@@ -17,6 +21,9 @@ const LogHandlerSnippet = `mux.HandleFunc("/guides/cassette/log", func(w http.Re
         ts, templ.EscapeString(e.sub), templ.EscapeString(e.msg),
     )
 })`
+
+// highlightedLogHandler is LogHandlerSnippet pre-highlighted as Go, cached at startup.
+var highlightedLogHandler = guides.Highlight(LogHandlerSnippet, "go")
 
 func buildCSSVars(vars map[string]string) string {
 	var sb strings.Builder
