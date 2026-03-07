@@ -204,6 +204,17 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							</label>
 						</div>
 					</div>
+					<!-- Textarea -->
+					<div>
+						<label class="block text-sm font-medium mb-1.5" style="color: var(--color-primary);" for="min-message">Message</label>
+						<textarea
+							id="min-message"
+							name="message"
+							placeholder="Tell us more..."
+							rows="3"
+							class="min-input w-full px-4 py-2.5 text-sm"
+						></textarea>
+					</div>
 					<!-- Submit -->
 					<div class="pt-2">
 						<button type="submit" class="min-btn-primary px-6 py-2.5 text-sm cursor-pointer">
@@ -276,6 +287,21 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 			</div>
+		}
+		<!-- 7. Design Principles [HTMX lazy-load] -->
+		@components.Section("Design Principles", components.BadgeHTMX) {
+			<p class="text-sm mb-4" style="color: var(--color-text-muted);">This section loads via <code class="text-xs font-mono" style="color: var(--color-accent);">hx-trigger="revealed"</code> — content is fetched only when scrolled into view.</p>
+			<!-- snippet:lazy-load -->
+			<div
+				hx-get="/guides/minimal/principles"
+				hx-trigger="revealed"
+				hx-swap="innerHTML"
+				class="min-card p-8"
+			>
+				<p class="text-sm" style="color: var(--color-text-muted);">Loading...</p>
+			</div>
+			<!-- /snippet:lazy-load -->
+			@components.SourceView(snippets["lazy-load"])
 		}
 	</div>
 }

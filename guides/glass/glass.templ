@@ -33,6 +33,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			{Tech: "Alpine", Description: "x-transition for modal blur-in animation"},
 			{Tech: "Alpine", Description: "Copy-to-clipboard on color swatches"},
 			{Tech: "HTMX",   Description: "hx-post form submission with response swap"},
+		{Tech: "HTMX",   Description: "hx-get/hx-post inline edit with click-to-edit pattern"},
+		{Tech: "Alpine", Description: "Frosted tab pills with gradient active indicator"},
 		})
 		<!-- 1. Color Palette -->
 		@components.Section("Color Palette", components.BadgeAlpine) {
@@ -175,6 +177,35 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<input type="checkbox" id="glass-notify" name="notify" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
 						<label for="glass-notify" class="text-sm cursor-pointer" style="color: var(--color-text);">Enable blur-in notifications</label>
 					</div>
+					<!-- Radio buttons -->
+					<div>
+						<p class="text-xs font-medium mb-2" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Blur Level</p>
+						<div class="space-y-2">
+							<label class="flex items-center gap-3 cursor-pointer text-sm" style="color: var(--color-text);">
+								<input type="radio" name="blur" value="subtle" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+								Subtle (8px)
+							</label>
+							<label class="flex items-center gap-3 cursor-pointer text-sm" style="color: var(--color-text);">
+								<input type="radio" name="blur" value="medium" checked class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+								Medium (16px)
+							</label>
+							<label class="flex items-center gap-3 cursor-pointer text-sm" style="color: var(--color-text);">
+								<input type="radio" name="blur" value="heavy" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+								Heavy (24px)
+							</label>
+						</div>
+					</div>
+					<!-- Textarea -->
+					<div>
+						<label class="block text-xs font-medium mb-1.5" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;" for="glass-notes">Notes</label>
+						<textarea
+							id="glass-notes"
+							name="notes"
+							placeholder="Additional details..."
+							rows="3"
+							class="glass-input"
+						></textarea>
+					</div>
 					<button type="submit" class="glass-btn-primary px-6 py-2.5 text-sm w-full">
 						Submit via HTMX
 					</button>
@@ -213,7 +244,89 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:glass-panel -->
 			@components.SourceView(snippets["glass-panel"])
 		}
-		<!-- 7. Modal -->
+		<!-- 7. Tabs -->
+		@components.Section("Tabs", components.BadgeAlpine) {
+			<div class="glass-panel p-6">
+				<!-- snippet:tabs -->
+				<div x-data="{ tab: 'layers' }">
+					<div class="flex gap-2 mb-6" style="border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;">
+						for _, t := range []struct{ id, label string }{
+							{"layers", "Layers"},
+							{"depth", "Depth"},
+							{"glow", "Glow"},
+						} {
+							<button
+								{ templ.Attributes{
+									":class": "tab==='" + t.id + "' ? 'glass-tab glass-tab-active' : 'glass-tab'",
+									"@click": "tab='" + t.id + "'",
+								}... }
+							>{ t.label }</button>
+						}
+					</div>
+					<div x-show="tab==='layers'">
+						<p class="text-sm" style="color: var(--color-text-muted);">Glassmorphism builds depth through stacked translucent layers. Each panel reveals what lies beneath, creating a sense of physical space in a flat medium.</p>
+					</div>
+					<div x-show="tab==='depth'" style="display: none;">
+						<p class="text-sm" style="color: var(--color-text-muted);">Blur intensity creates visual hierarchy. Foreground panels use heavy frost (16-24px blur), while background elements use subtle frost (4-8px). The eye focuses on what is sharpest.</p>
+					</div>
+					<div x-show="tab==='glow'" style="display: none;">
+						<p class="text-sm" style="color: var(--color-text-muted);">Gradient glows serve as ambient lighting. Soft radial gradients behind panels simulate light sources, giving the interface a luminous, ethereal quality.</p>
+					</div>
+				</div>
+				<!-- /snippet:tabs -->
+				@components.SourceView(snippets["tabs"])
+			</div>
+		}
+		<!-- 8. Alerts -->
+		@components.Section("Alerts & Notices", components.BadgeNone) {
+			<div class="space-y-4">
+				<div class="glass-alert" style="border-left: 3px solid var(--color-primary);">
+					<span class="text-base" style="color: var(--color-primary);">i</span>
+					<div>
+						<p class="font-medium text-sm" style="color: var(--color-text);">Info</p>
+						<p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Backdrop-filter requires Chrome 76+, Firefox 103+, or Safari 9+.</p>
+					</div>
+				</div>
+				<div class="glass-alert" style="border-left: 3px solid #10b981;">
+					<span class="text-base" style="color: #10b981;">&#10003;</span>
+					<div>
+						<p class="font-medium text-sm" style="color: var(--color-text);">Success</p>
+						<p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Theme applied successfully. All panels updated.</p>
+					</div>
+				</div>
+				<div class="glass-alert" style="border-left: 3px solid var(--color-accent);">
+					<span class="text-base" style="color: var(--color-accent);">!</span>
+					<div>
+						<p class="font-medium text-sm" style="color: var(--color-text);">Warning</p>
+						<p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Heavy blur effects may impact performance on older GPUs.</p>
+					</div>
+				</div>
+			</div>
+		}
+		<!-- 9. Inline Edit [HTMX] -->
+		@components.Section("Inline Edit", components.BadgeHTMX) {
+			<div class="glass-panel p-6">
+				<p class="text-sm mb-4" style="color: var(--color-text-muted);">Click the value below to edit it in place. Uses <code class="font-mono text-xs" style="color: var(--color-primary);">hx-get</code> to load an edit form and <code class="font-mono text-xs" style="color: var(--color-primary);">hx-post</code> to save.</p>
+				<!-- snippet:inline-edit -->
+				<div id="glass-editable">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-xs" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project Name</p>
+							<p class="text-lg font-semibold mt-1" style="color: var(--color-text);">Aurora Dashboard</p>
+						</div>
+						<button
+							class="glass-btn-ghost px-3 py-1.5 text-xs"
+							hx-get="/guides/glass/edit-field"
+							hx-target="#glass-editable"
+							hx-swap="innerHTML"
+						>Edit</button>
+					</div>
+				</div>
+				<!-- /snippet:inline-edit -->
+				@components.SourceView(snippets["inline-edit"])
+			</div>
+		}
+		<!-- 10. Modal -->
 		@components.Section("Modal (x-transition)", components.BadgeAlpine) {
 			<div class="glass-panel p-6">
 				<p class="text-sm mb-4" style="color: var(--color-text-muted);">The modal overlay uses <code class="font-mono text-xs" style="color: var(--color-primary);">x-transition</code> directives for blur-in animation. The scrim itself also uses backdrop-filter.</p>

@@ -68,5 +68,15 @@ func guideStyles() string {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
 }
+/* [custom] - alert component with per-variant border/bg colors not achievable with Tailwind alone */
+.bento-alert {
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+}
 `
 }

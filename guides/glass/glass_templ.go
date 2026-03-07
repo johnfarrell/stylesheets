@@ -82,6 +82,8 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			{Tech: "Alpine", Description: "x-transition for modal blur-in animation"},
 			{Tech: "Alpine", Description: "Copy-to-clipboard on color swatches"},
 			{Tech: "HTMX", Description: "hx-post form submission with response swap"},
+			{Tech: "HTMX", Description: "hx-get/hx-post inline edit with click-to-edit pattern"},
+			{Tech: "Alpine", Description: "Frosted tab pills with gradient active indicator"},
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -182,7 +184,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("font-family: var(--font-body); font-weight: " + w.weight + "; color: var(--color-text);")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 74, Col: 107}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 76, Col: 107}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -195,7 +197,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(w.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 74, Col: 119}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 76, Col: 119}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -252,7 +254,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 98, Col: 106}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 100, Col: 106}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -265,7 +267,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 99, Col: 150}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 101, Col: 150}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -347,7 +349,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<div class=\"glass-panel p-6\"><!-- snippet:form-htmx --><form hx-post=\"/guides/glass/demo-form\" hx-target=\"#glass-form-response\" hx-swap=\"innerHTML\" class=\"space-y-5\"><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\" for=\"glass-name\">Name</label> <input id=\"glass-name\" name=\"name\" type=\"text\" placeholder=\"Enter your name...\" class=\"glass-input\"></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\" for=\"glass-email\">Email</label> <input id=\"glass-email\" name=\"email\" type=\"email\" placeholder=\"hello@example.com\" class=\"glass-input\"></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\" for=\"glass-theme\">Theme Preference</label> <select id=\"glass-theme\" name=\"theme\" class=\"glass-input cursor-pointer\"><option value=\"\" style=\"background: #1a1a2e;\">— Select theme —</option> <option value=\"dark\" style=\"background: #1a1a2e;\">Deep Dark</option> <option value=\"aurora\" style=\"background: #1a1a2e;\">Aurora</option> <option value=\"cosmic\" style=\"background: #1a1a2e;\">Cosmic</option></select></div><div class=\"flex items-center gap-3\"><input type=\"checkbox\" id=\"glass-notify\" name=\"notify\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> <label for=\"glass-notify\" class=\"text-sm cursor-pointer\" style=\"color: var(--color-text);\">Enable blur-in notifications</label></div><button type=\"submit\" class=\"glass-btn-primary px-6 py-2.5 text-sm w-full\">Submit via HTMX</button></form><!-- /snippet:form-htmx -->")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<div class=\"glass-panel p-6\"><!-- snippet:form-htmx --><form hx-post=\"/guides/glass/demo-form\" hx-target=\"#glass-form-response\" hx-swap=\"innerHTML\" class=\"space-y-5\"><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\" for=\"glass-name\">Name</label> <input id=\"glass-name\" name=\"name\" type=\"text\" placeholder=\"Enter your name...\" class=\"glass-input\"></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\" for=\"glass-email\">Email</label> <input id=\"glass-email\" name=\"email\" type=\"email\" placeholder=\"hello@example.com\" class=\"glass-input\"></div><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\" for=\"glass-theme\">Theme Preference</label> <select id=\"glass-theme\" name=\"theme\" class=\"glass-input cursor-pointer\"><option value=\"\" style=\"background: #1a1a2e;\">— Select theme —</option> <option value=\"dark\" style=\"background: #1a1a2e;\">Deep Dark</option> <option value=\"aurora\" style=\"background: #1a1a2e;\">Aurora</option> <option value=\"cosmic\" style=\"background: #1a1a2e;\">Cosmic</option></select></div><div class=\"flex items-center gap-3\"><input type=\"checkbox\" id=\"glass-notify\" name=\"notify\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> <label for=\"glass-notify\" class=\"text-sm cursor-pointer\" style=\"color: var(--color-text);\">Enable blur-in notifications</label></div><!-- Radio buttons --><div><p class=\"text-xs font-medium mb-2\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\">Blur Level</p><div class=\"space-y-2\"><label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"blur\" value=\"subtle\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> Subtle (8px)</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"blur\" value=\"medium\" checked class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> Medium (16px)</label> <label class=\"flex items-center gap-3 cursor-pointer text-sm\" style=\"color: var(--color-text);\"><input type=\"radio\" name=\"blur\" value=\"heavy\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> Heavy (24px)</label></div></div><!-- Textarea --><div><label class=\"block text-xs font-medium mb-1.5\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\" for=\"glass-notes\">Notes</label> <textarea id=\"glass-notes\" name=\"notes\" placeholder=\"Additional details...\" rows=\"3\" class=\"glass-input\"></textarea></div><button type=\"submit\" class=\"glass-btn-primary px-6 py-2.5 text-sm w-full\">Submit via HTMX</button></form><!-- /snippet:form-htmx -->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -395,7 +397,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<!-- 7. Modal -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<!-- 7. Tabs -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -411,7 +413,139 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<div class=\"glass-panel p-6\"><p class=\"text-sm mb-4\" style=\"color: var(--color-text-muted);\">The modal overlay uses <code class=\"font-mono text-xs\" style=\"color: var(--color-primary);\">x-transition</code> directives for blur-in animation. The scrim itself also uses backdrop-filter.</p><!-- snippet:modal --><div x-data=\"{ open: false }\"><button class=\"glass-btn-primary px-4 py-2 text-sm\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<div class=\"glass-panel p-6\"><!-- snippet:tabs --><div x-data=\"{ tab: 'layers' }\"><div class=\"flex gap-2 mb-6\" style=\"border-bottom: 1px solid var(--color-border); padding-bottom: 0.75rem;\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, t := range []struct{ id, label string }{
+				{"layers", "Layers"},
+				{"depth", "Depth"},
+				{"glow", "Glow"},
+			} {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<button")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+					":class": "tab==='" + t.id + "' ? 'glass-tab glass-tab-active' : 'glass-tab'",
+					"@click": "tab='" + t.id + "'",
+				})
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, ">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var14 string
+				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(t.label)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 263, Col: 17}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</button>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div><div x-show=\"tab==='layers'\"><p class=\"text-sm\" style=\"color: var(--color-text-muted);\">Glassmorphism builds depth through stacked translucent layers. Each panel reveals what lies beneath, creating a sense of physical space in a flat medium.</p></div><div x-show=\"tab==='depth'\" style=\"display: none;\"><p class=\"text-sm\" style=\"color: var(--color-text-muted);\">Blur intensity creates visual hierarchy. Foreground panels use heavy frost (16-24px blur), while background elements use subtle frost (4-8px). The eye focuses on what is sharpest.</p></div><div x-show=\"tab==='glow'\" style=\"display: none;\"><p class=\"text-sm\" style=\"color: var(--color-text-muted);\">Gradient glows serve as ambient lighting. Soft radial gradients behind panels simulate light sources, giving the interface a luminous, ethereal quality.</p></div></div><!-- /snippet:tabs -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["tabs"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Tabs", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<!-- 8. Alerts -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var15 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<div class=\"space-y-4\"><div class=\"glass-alert\" style=\"border-left: 3px solid var(--color-primary);\"><span class=\"text-base\" style=\"color: var(--color-primary);\">i</span><div><p class=\"font-medium text-sm\" style=\"color: var(--color-text);\">Info</p><p class=\"text-xs mt-0.5\" style=\"color: var(--color-text-muted);\">Backdrop-filter requires Chrome 76+, Firefox 103+, or Safari 9+.</p></div></div><div class=\"glass-alert\" style=\"border-left: 3px solid #10b981;\"><span class=\"text-base\" style=\"color: #10b981;\">&#10003;</span><div><p class=\"font-medium text-sm\" style=\"color: var(--color-text);\">Success</p><p class=\"text-xs mt-0.5\" style=\"color: var(--color-text-muted);\">Theme applied successfully. All panels updated.</p></div></div><div class=\"glass-alert\" style=\"border-left: 3px solid var(--color-accent);\"><span class=\"text-base\" style=\"color: var(--color-accent);\">!</span><div><p class=\"font-medium text-sm\" style=\"color: var(--color-text);\">Warning</p><p class=\"text-xs mt-0.5\" style=\"color: var(--color-text-muted);\">Heavy blur effects may impact performance on older GPUs.</p></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Alerts & Notices", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<!-- 9. Inline Edit [HTMX] -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var16 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<div class=\"glass-panel p-6\"><p class=\"text-sm mb-4\" style=\"color: var(--color-text-muted);\">Click the value below to edit it in place. Uses <code class=\"font-mono text-xs\" style=\"color: var(--color-primary);\">hx-get</code> to load an edit form and <code class=\"font-mono text-xs\" style=\"color: var(--color-primary);\">hx-post</code> to save.</p><!-- snippet:inline-edit --><div id=\"glass-editable\"><div class=\"flex items-center justify-between\"><div><p class=\"text-xs\" style=\"color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;\">Project Name</p><p class=\"text-lg font-semibold mt-1\" style=\"color: var(--color-text);\">Aurora Dashboard</p></div><button class=\"glass-btn-ghost px-3 py-1.5 text-xs\" hx-get=\"/guides/glass/edit-field\" hx-target=\"#glass-editable\" hx-swap=\"innerHTML\">Edit</button></div></div><!-- /snippet:inline-edit -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["inline-edit"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Inline Edit", components.BadgeHTMX).Render(templ.WithChildren(ctx, templ_7745c5c3_Var16), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<!-- 10. Modal -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var17 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<div class=\"glass-panel p-6\"><p class=\"text-sm mb-4\" style=\"color: var(--color-text-muted);\">The modal overlay uses <code class=\"font-mono text-xs\" style=\"color: var(--color-primary);\">x-transition</code> directives for blur-in animation. The scrim itself also uses backdrop-filter.</p><!-- snippet:modal --><div x-data=\"{ open: false }\"><button class=\"glass-btn-primary px-4 py-2 text-sm\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -419,7 +553,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, ">Open Modal</button><div x-show=\"open\" class=\"fixed inset-0 flex items-center justify-center z-50\" style=\"backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); background: rgba(0,0,0,0.5);\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, ">Open Modal</button><div x-show=\"open\" class=\"fixed inset-0 flex items-center justify-center z-50\" style=\"backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); background: rgba(0,0,0,0.5);\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -435,7 +569,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "><div class=\"glass-panel p-8 max-w-md w-full mx-4\"><h3 class=\"text-lg font-semibold mb-2\" style=\"color: var(--color-text);\">Frosted Dialog</h3><p class=\"text-sm mb-6\" style=\"color: var(--color-text-muted);\">This overlay uses backdrop-filter: blur() on both the modal panel and the scrim.</p><button class=\"glass-btn-primary px-4 py-2 text-sm\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "><div class=\"glass-panel p-8 max-w-md w-full mx-4\"><h3 class=\"text-lg font-semibold mb-2\" style=\"color: var(--color-text);\">Frosted Dialog</h3><p class=\"text-sm mb-6\" style=\"color: var(--color-text-muted);\">This overlay uses backdrop-filter: blur() on both the modal panel and the scrim.</p><button class=\"glass-btn-primary px-4 py-2 text-sm\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -443,7 +577,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, ">Close</button></div></div></div><!-- /snippet:modal -->")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, ">Close</button></div></div></div><!-- /snippet:modal -->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -451,17 +585,17 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Modal (x-transition)", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Modal (x-transition)", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -486,25 +620,25 @@ func glassSwatch(name, hex string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var14 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var14 == nil {
-			templ_7745c5c3_Var14 = templ.NopComponent
+		templ_7745c5c3_Var18 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var18 == nil {
+			templ_7745c5c3_Var18 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<div x-data=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "<div x-data=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var15 string
-		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
+		var templ_7745c5c3_Var19 string
+		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 259, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 372, Col: 50}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\" class=\"cursor-pointer group\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "\" class=\"cursor-pointer group\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -512,59 +646,59 @@ func glassSwatch(name, hex string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "><div class=\"h-16 mb-2 rounded-xl transition-transform group-hover:-translate-y-1\" style=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "><div class=\"h-16 mb-2 rounded-xl transition-transform group-hover:-translate-y-1\" style=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var16 string
-		templ_7745c5c3_Var16, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + hex + "; border: 1px solid rgba(255,255,255,0.2);")
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + hex + "; border: 1px solid rgba(255,255,255,0.2);")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 265, Col: 78}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 378, Col: 78}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\"></div><p class=\"text-xs font-semibold\" style=\"color: var(--color-text);\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var17 string
-		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(name)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 267, Col: 75}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "\"></div><p class=\"text-xs font-semibold\" style=\"color: var(--color-text);\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</p><p class=\"text-xs font-mono\" style=\"color: var(--color-text-muted);\" x-text=\"")
+		var templ_7745c5c3_Var21 string
+		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 380, Col: 75}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var18 string
-		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 268, Col: 116}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "</p><p class=\"text-xs font-mono\" style=\"color: var(--color-text-muted);\" x-text=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\">")
+		var templ_7745c5c3_Var22 string
+		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 381, Col: 116}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var19 string
-		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 268, Col: 124}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</p></div>")
+		var templ_7745c5c3_Var23 string
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/glass/glass.templ`, Line: 381, Col: 124}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

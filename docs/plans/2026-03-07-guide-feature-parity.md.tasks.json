@@ -1,0 +1,12 @@
+{
+  "planPath": "docs/plans/2026-03-07-guide-feature-parity.md",
+  "tasks": [
+    {"id": 1, "subject": "Task 1: Swiss — Spacing Scale, Button Toggle, Search Filter", "status": "completed"},
+    {"id": 2, "subject": "Task 2: Bento — Expandable Card, Alerts, Form Radios", "status": "completed"},
+    {"id": 3, "subject": "Task 3: Brutalist — Tabs, HTMX Loading Indicator", "status": "completed"},
+    {"id": 4, "subject": "Task 4: Minimal — Lazy-Loaded Section, Form Textarea", "status": "completed"},
+    {"id": 5, "subject": "Task 5: Glass — Tabs, Alerts, Form Radios/Textarea, Inline Edit", "status": "completed"},
+    {"id": 6, "subject": "Task 6: Final Verification", "status": "completed", "blockedBy": [1, 2, 3, 4, 5]}
+  ],
+  "lastUpdated": "2026-03-07T12:00:00Z"
+}
