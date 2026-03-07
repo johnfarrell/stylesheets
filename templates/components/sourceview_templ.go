@@ -40,16 +40,11 @@ func SourceView(code string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "><span class=\"font-bold\" style=\"color: var(--color-primary, #000);\">&lt;/&gt;</span> <span x-text=\"open ? 'Hide Source' : 'View Source'\">View Source</span> <span x-text=\"open ? '▴' : '▾'\">▾</span></button><div x-show=\"open\" x-cloak><pre class=\"mt-2 p-4 overflow-x-auto text-xs rounded border\" style=\"font-family: var(--font-body, monospace); background: var(--color-surface, #f8f8f8); border-color: var(--color-border, #e5e7eb); color: var(--color-text, #1a1a1a); line-height: 1.6; white-space: pre; tab-size: 2;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "><span class=\"font-bold\" style=\"color: var(--color-primary, #000);\">&lt;/&gt;</span> <span x-text=\"open ? 'Hide Source' : 'View Source'\">View Source</span> <span x-text=\"open ? '▴' : '▾'\">▾</span></button><div x-show=\"open\" x-cloak><pre class=\"code-block mt-2 p-4 overflow-x-auto text-xs rounded border\" style=\"font-family: monospace; border-color: var(--color-border, #e5e7eb); line-height: 1.6; white-space: pre; tab-size: 2;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var2 string
-			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(code)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/sourceview.templ`, Line: 21, Col: 11}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+			templ_7745c5c3_Err = templ.Raw(code).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

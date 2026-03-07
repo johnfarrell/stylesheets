@@ -3,3 +3,28 @@
 @source "../../**/*.go";
 
 [x-cloak] { display: none !important; }
+
+/* Syntax highlighting — chroma CSS class tokens mapped to per-guide CSS vars */
+.code-block {
+    background: var(--code-bg, #1a1a1a);
+    color: var(--code-text, #f0f0f0);
+    border-radius: var(--radius-sm, 0);
+}
+/* Keywords: func, package, if, for, return, var, etc. */
+.code-block .k, .code-block .kd, .code-block .kn,
+.code-block .kp, .code-block .kr { color: var(--code-keyword); font-weight: bold; }
+/* String literals */
+.code-block .s,  .code-block .s1, .code-block .s2,
+.code-block .sa, .code-block .sb, .code-block .sc { color: var(--code-string); }
+/* Comments */
+.code-block .c,  .code-block .c1, .code-block .cm,
+.code-block .cs, .code-block .cp { color: var(--code-comment); font-style: italic; }
+/* Numeric literals */
+.code-block .m,  .code-block .mi, .code-block .mf,
+.code-block .mo { color: var(--code-number); }
+/* HTML/Templ tag names */
+.code-block .nt { color: var(--code-tag); }
+/* HTML/Templ attribute names */
+.code-block .na { color: var(--code-attr); }
+/* Builtins and function names — use keyword color */
+.code-block .nb, .code-block .nf, .code-block .nx { color: var(--code-keyword); }
