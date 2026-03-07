@@ -17,7 +17,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		</span>
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
 	<div class="p-8 max-w-4xl mx-auto font-mono">
 		<!-- Guide header -->
 		<div class="mb-12 border-b-4 border-black pb-6">
@@ -147,6 +147,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					hx-post="/guides/brutalist/demo-form"
 					hx-target="#form-response"
 					hx-swap="innerHTML"
+					hx-indicator="#brut-submit"
 					class="space-y-6"
 				>
 					<!-- Text input -->
@@ -208,8 +209,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 					<!-- Submit -->
 					<div>
-						<button type="submit" class="brut-btn-primary px-6 py-2 text-sm font-bold uppercase cursor-pointer">
+						<button type="submit" class="brut-btn-primary px-6 py-2 text-sm font-bold uppercase cursor-pointer"id="brut-submit">
 							Submit Form
+							<span class="brut-indicator font-mono"> ...</span>
 						</button>
 					</div>
 				</form>
@@ -271,6 +273,40 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 			</div>
+		}
+		<!-- 7. Tabs -->
+		@components.Section("Tabs", components.BadgeAlpine) {
+			<!-- snippet:tabs -->
+			<div x-data="{ tab: 'design' }">
+				<div class="flex" style="border-bottom: 2px solid var(--color-primary);">
+					for _, t := range []struct{ id, label string }{
+						{"design", "DESIGN"},
+						{"code", "CODE"},
+						{"docs", "DOCS"},
+					} {
+						<button
+							class="brut-tab"
+							{ templ.Attributes{
+								":class": "tab==='" + t.id + "' ? 'brut-tab brut-tab-active' : 'brut-tab'",
+								"@click": "tab='" + t.id + "'",
+							}... }
+						>{ t.label }</button>
+					}
+				</div>
+				<div class="brut-card p-6" style="border-top: none;">
+					<div x-show="tab==='design'">
+						<p class="text-sm font-mono">Design is not decoration. Design is function made visible. Every pixel, every border, every shadow must justify its existence.</p>
+					</div>
+					<div x-show="tab==='code'" style="display: none;">
+						<p class="text-sm font-mono">Code is structure. Like brutalist architecture, the structure is not hidden behind a facade — it is the facade. What you see is what it does.</p>
+					</div>
+					<div x-show="tab==='docs'" style="display: none;">
+						<p class="text-sm font-mono">Documentation is honest. It does not promise what it cannot deliver. It does not hide complexity behind friendly language.</p>
+					</div>
+				</div>
+			</div>
+			<!-- /snippet:tabs -->
+			@components.SourceView(snippets["tabs"])
 		}
 	</div>
 }

@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/johnfarrell/stylesheets/guides"
 	"github.com/johnfarrell/stylesheets/handlers"
 )
 
@@ -86,19 +87,22 @@ func TestUnknownPathIs404(t *testing.T) {
 	}
 }
 
-func TestAllGuidePagesOK(t *testing.T) {
-	slugs := []string{"glass", "bento", "swiss"}
+func TestAllRegisteredGuidesReturnOK(t *testing.T) {
 	mux := handlers.NewMux()
-	for _, slug := range slugs {
-		t.Run(slug, func(t *testing.T) {
-			req := httptest.NewRequest(http.MethodGet, "/guides/"+slug, nil)
+	for _, g := range guides.All {
+		t.Run(g.Slug, func(t *testing.T) {
+			req := httptest.NewRequest(http.MethodGet, "/guides/"+g.Slug, nil)
 			w := httptest.NewRecorder()
 			mux.ServeHTTP(w, req)
 			if w.Code != http.StatusOK {
-				t.Errorf("GET /guides/%s: expected 200, got %d", slug, w.Code)
+				t.Errorf("GET /guides/%s: expected 200, got %d", g.Slug, w.Code)
 			}
 			if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
-				t.Errorf("GET /guides/%s: expected text/html, got %q", slug, ct)
+				t.Errorf("GET /guides/%s: expected text/html, got %q", g.Slug, ct)
+			}
+			body := w.Body.String()
+			if strings.Contains(body, `class="text-gray-500 mt-2"`) {
+				t.Errorf("GET /guides/%s: appears to render placeholder instead of real content", g.Slug)
 			}
 		})
 	}
@@ -133,6 +137,25 @@ func TestHTMXContentNotFoundRedirects(t *testing.T) {
 	}
 	if w.Header().Get("HX-Redirect") != "/" {
 		t.Errorf("expected HX-Redirect: /, got %q", w.Header().Get("HX-Redirect"))
+	}
+}
+
+func TestDemoFormPostReturnsHTML(t *testing.T) {
+	mux := handlers.NewMux()
+	for _, g := range guides.All {
+		t.Run(g.Slug, func(t *testing.T) {
+			body := strings.NewReader("name=TestUser")
+			req := httptest.NewRequest(http.MethodPost, "/guides/"+g.Slug+"/demo-form", body)
+			req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+			w := httptest.NewRecorder()
+			mux.ServeHTTP(w, req)
+			if w.Code != http.StatusOK {
+				t.Errorf("POST demo-form %s: expected 200, got %d", g.Slug, w.Code)
+			}
+			if !strings.Contains(w.Body.String(), "TestUser") {
+				t.Errorf("POST demo-form %s: expected body to contain 'TestUser'", g.Slug)
+			}
+		})
 	}
 }
 

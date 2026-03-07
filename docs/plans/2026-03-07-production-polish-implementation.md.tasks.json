@@ -1,0 +1,9 @@
+{
+  "planPath": "docs/plans/2026-03-07-production-polish-implementation.md",
+  "tasks": [
+    {"id": 27, "subject": "Task 1: Sidebar — GitHub link + copyright", "status": "completed"},
+    {"id": 28, "subject": "Task 2: Landing page", "status": "completed", "blockedBy": [27]},
+    {"id": 29, "subject": "Task 3: Custom 404 page", "status": "completed", "blockedBy": [28]}
+  ],
+  "lastUpdated": "2026-03-07T09:30:00Z"
+}

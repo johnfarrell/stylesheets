@@ -1,4 +1,4 @@
-.PHONY: dev build templ tailwind clean run docker-build docker-run
+.PHONY: build templ tailwind clean run docker-build docker-run
 
 IMAGE ?= stylesheets
 
@@ -29,11 +29,11 @@ run: build
 	./bin/stylesheets
 
 # Build Docker image
-docker-build: docker-run
+docker-build:
 	docker build -t $(IMAGE) .
 
-# Run the Docker image locally
-docker-run:
+# Run the Docker image locally (builds first if needed)
+docker-run: docker-build
 	docker run --rm -p 8080:8080 $(IMAGE)
 
 # Clean generated artifacts

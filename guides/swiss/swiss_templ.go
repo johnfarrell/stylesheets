@@ -67,7 +67,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.Raw("<style>:root{"+buildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -81,6 +81,8 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			{Tech: "CSS", Description: "Strict modular scale via --font-size-* CSS custom properties"},
 			{Tech: "CSS", Description: "Baseline grid using ruled lines as structural elements"},
 			{Tech: "HTMX", Description: "hx-post form submission with editorial-style inline response"},
+			{Tech: "HTMX", Description: "hx-get search filter with hx-trigger=\"input changed delay:300ms\""},
+			{Tech: "Alpine", Description: "Button toggle demo with :class binding"},
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -164,7 +166,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("font-family: var(--font-body); font-weight: " + w.weight + "; color: var(--color-text); font-size: 1rem;")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 68, Col: 124}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 70, Col: 124}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -177,7 +179,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(w.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 68, Col: 136}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 70, Col: 136}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -210,7 +212,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<!-- 3. Grid System -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<!-- 3. Spacing Scale -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -226,21 +228,64 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"space-y-4\"><p class=\"swiss-label\">12-column modular grid — all columns have equal width, separated by borders</p><div class=\"swiss-grid\"><div class=\"swiss-col-12 p-3\" style=\"background: var(--color-primary);\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">12 col</p></div></div><div class=\"swiss-grid\"><div class=\"swiss-col-6 p-3\" style=\"background: var(--color-secondary);\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">6 col</p></div><div class=\"swiss-col-6 p-3\" style=\"background: #333;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">6 col</p></div></div><div class=\"swiss-grid\"><div class=\"swiss-col-8 p-3\" style=\"background: var(--color-secondary);\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">8 col</p></div><div class=\"swiss-col-4 p-3\" style=\"background: #444;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div></div><div class=\"swiss-grid\"><div class=\"swiss-col-4 p-3\" style=\"background: #555;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div><div class=\"swiss-col-4 p-3\" style=\"background: #333;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div><div class=\"swiss-col-4 p-3\" style=\"background: #1a1a1a;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"space-y-3\"><p class=\"swiss-label mb-4\">Base unit: 8px (matches --baseline)</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, s := range []struct{ label, width string }{
+				{"8px", "8px"},
+				{"16px", "16px"},
+				{"24px", "24px"},
+				{"32px", "32px"},
+				{"48px", "48px"},
+				{"64px", "64px"},
+			} {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<div class=\"flex items-center gap-6\"><span class=\"swiss-label w-12\" style=\"font-family: monospace; letter-spacing: 0;\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var8 string
+				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 110, Col: 97}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "</span><div style=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var9 string
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; height: 8px; background: var(--color-primary);")
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 111, Col: 91}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "\"></div></div>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = swissSection("Grid System", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = swissSection("Spacing Scale", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<!-- 4. Typographic Hierarchy [Templ composition] -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<!-- 4. Grid System -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var8 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var10 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -252,7 +297,33 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<!-- snippet:templ-composition --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<div class=\"space-y-4\"><p class=\"swiss-label\">12-column modular grid — all columns have equal width, separated by borders</p><div class=\"swiss-grid\"><div class=\"swiss-col-12 p-3\" style=\"background: var(--color-primary);\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">12 col</p></div></div><div class=\"swiss-grid\"><div class=\"swiss-col-6 p-3\" style=\"background: var(--color-secondary);\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">6 col</p></div><div class=\"swiss-col-6 p-3\" style=\"background: #333;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">6 col</p></div></div><div class=\"swiss-grid\"><div class=\"swiss-col-8 p-3\" style=\"background: var(--color-secondary);\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">8 col</p></div><div class=\"swiss-col-4 p-3\" style=\"background: #444;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div></div><div class=\"swiss-grid\"><div class=\"swiss-col-4 p-3\" style=\"background: #555;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div><div class=\"swiss-col-4 p-3\" style=\"background: #333;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div><div class=\"swiss-col-4 p-3\" style=\"background: #1a1a1a;\"><p class=\"text-xs font-bold text-white\" style=\"font-family: var(--font-body);\">4 col</p></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = swissSection("Grid System", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<!-- 5. Typographic Hierarchy [Templ composition] -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var11 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<!-- snippet:templ-composition --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -260,7 +331,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, " ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, " ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -268,7 +339,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, " ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, " ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -276,7 +347,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, " <!-- /snippet:templ-composition --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, " <!-- /snippet:templ-composition --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -286,77 +357,11 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = swissSection("Editorial Cards", "[Templ]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = swissSection("Editorial Cards", "[Templ]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var11), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<!-- 5. Pull Quotes -->")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var9 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-			if !templ_7745c5c3_IsBuffer {
-				defer func() {
-					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-					if templ_7745c5c3_Err == nil {
-						templ_7745c5c3_Err = templ_7745c5c3_BufErr
-					}
-				}()
-			}
-			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<div class=\"space-y-8\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			for _, q := range []struct{ quote, attr string }{
-				{"Good design is as little design as possible.", "Dieter Rams — Ten Principles of Good Design"},
-				{"Typography is what language looks like.", "Ellen Lupton — Thinking with Type"},
-				{"The grid system is an aid, not a guarantee.", "Josef Müller-Brockmann — Grid Systems"},
-			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<blockquote class=\"pl-6\" style=\"border-left: 4px solid var(--color-primary);\"><p class=\"text-4xl font-bold leading-none mb-1\" style=\"color: var(--color-primary); font-family: var(--font-display);\">\"</p><p class=\"text-xl font-bold mb-3\" style=\"font-family: var(--font-display); color: var(--color-secondary); line-height: 1.3;\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var10 string
-				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(q.quote)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 152, Col: 140}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "</p><p class=\"swiss-label\">— ")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var11 string
-				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(q.attr)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 153, Col: 41}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "</p></blockquote>")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "</div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			return nil
-		})
-		templ_7745c5c3_Err = swissSection("Pull Quotes", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<!-- 6. Buttons -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<!-- 6. Pull Quotes -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -372,21 +377,61 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div class=\"space-y-6\"><div><p class=\"swiss-label mb-4\">Variants</p><div class=\"flex flex-wrap gap-4\"><button class=\"swiss-btn text-sm\">Black Primary</button> <button class=\"swiss-btn-outline text-sm\">Outline</button> <button class=\"swiss-btn-red text-sm\">Red Signal</button> <button class=\"text-sm px-6 py-3 border-2 opacity-40 cursor-not-allowed\" style=\"border-color: var(--color-border); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--font-body);\" disabled>Disabled</button></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div class=\"space-y-8\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, q := range []struct{ quote, attr string }{
+				{"Good design is as little design as possible.", "Dieter Rams — Ten Principles of Good Design"},
+				{"Typography is what language looks like.", "Ellen Lupton — Thinking with Type"},
+				{"The grid system is an aid, not a guarantee.", "Josef Müller-Brockmann — Grid Systems"},
+			} {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<blockquote class=\"pl-6\" style=\"border-left: 4px solid var(--color-primary);\"><p class=\"text-4xl font-bold leading-none mb-1\" style=\"color: var(--color-primary); font-family: var(--font-display);\">\"</p><p class=\"text-xl font-bold mb-3\" style=\"font-family: var(--font-display); color: var(--color-secondary); line-height: 1.3;\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var13 string
+				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(q.quote)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 173, Col: 140}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</p><p class=\"swiss-label\">— ")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var14 string
+				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(q.attr)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 174, Col: 41}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</p></blockquote>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = swissSection("Buttons", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = swissSection("Pull Quotes", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<!-- 7. Forms [HTMX] -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "<!-- 7. Buttons -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var13 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var15 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -398,7 +443,52 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<!-- snippet:form-htmx --> <form hx-post=\"/guides/swiss/demo-form\" hx-target=\"#swiss-form-response\" hx-swap=\"innerHTML\" class=\"space-y-6\"><div><label class=\"block swiss-label mb-2\" for=\"swiss-name\">Name</label> <input id=\"swiss-name\" name=\"name\" type=\"text\" placeholder=\"Your name\" class=\"swiss-input\"></div><div><label class=\"block swiss-label mb-2\" for=\"swiss-email\">Email</label> <input id=\"swiss-email\" name=\"email\" type=\"email\" placeholder=\"your@email.com\" class=\"swiss-input\"></div><div><label class=\"block swiss-label mb-2\" for=\"swiss-role\">Role</label> <select id=\"swiss-role\" name=\"role\" class=\"swiss-input cursor-pointer\"><option value=\"\">— Select role —</option> <option value=\"designer\">Designer</option> <option value=\"developer\">Developer</option> <option value=\"director\">Art Director</option></select></div><div class=\"flex items-center gap-3\"><input type=\"checkbox\" id=\"swiss-grid\" name=\"grid\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> <label for=\"swiss-grid\" class=\"swiss-label cursor-pointer\">I believe in the grid</label></div><div class=\"swiss-rule pt-4\"><button type=\"submit\" class=\"swiss-btn text-sm\">Submit via HTMX</button></div></form><!-- /snippet:form-htmx --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "<div class=\"space-y-6\"><div><p class=\"swiss-label mb-4\">Variants</p><div class=\"flex flex-wrap gap-4\"><button class=\"swiss-btn text-sm\">Black Primary</button> <button class=\"swiss-btn-outline text-sm\">Outline</button> <button class=\"swiss-btn-red text-sm\">Red Signal</button> <button class=\"text-sm px-6 py-3 border-2 opacity-40 cursor-not-allowed\" style=\"border-color: var(--color-border); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--font-body);\" disabled>Disabled</button></div></div><!-- Toggle Demo --><div><p class=\"swiss-label mb-4\">Toggle Demo [Alpine]</p><!-- snippet:button-toggle --><div x-data=\"{ active: false }\" class=\"flex items-center gap-6\"><button class=\"text-sm\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+				":class": "active ? 'swiss-btn' : 'swiss-btn-outline'",
+				"@click": "active = !active",
+			})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "><span x-text=\"active ? 'ACTIVE' : 'INACTIVE'\">INACTIVE</span></button><p class=\"swiss-label\" x-text=\"active ? 'State: ON' : 'State: OFF'\">State: OFF</p></div><!-- /snippet:button-toggle -->")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["button-toggle"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = swissSection("Buttons", "[Alpine]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<!-- 8. Forms [HTMX] -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var16 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<!-- snippet:form-htmx --> <form hx-post=\"/guides/swiss/demo-form\" hx-target=\"#swiss-form-response\" hx-swap=\"innerHTML\" class=\"space-y-6\"><div><label class=\"block swiss-label mb-2\" for=\"swiss-name\">Name</label> <input id=\"swiss-name\" name=\"name\" type=\"text\" placeholder=\"Your name\" class=\"swiss-input\"></div><div><label class=\"block swiss-label mb-2\" for=\"swiss-email\">Email</label> <input id=\"swiss-email\" name=\"email\" type=\"email\" placeholder=\"your@email.com\" class=\"swiss-input\"></div><div><label class=\"block swiss-label mb-2\" for=\"swiss-role\">Role</label> <select id=\"swiss-role\" name=\"role\" class=\"swiss-input cursor-pointer\"><option value=\"\">— Select role —</option> <option value=\"designer\">Designer</option> <option value=\"developer\">Developer</option> <option value=\"director\">Art Director</option></select></div><div class=\"flex items-center gap-3\"><input type=\"checkbox\" id=\"swiss-grid\" name=\"grid\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> <label for=\"swiss-grid\" class=\"swiss-label cursor-pointer\">I believe in the grid</label></div><!-- Radio buttons --><div><p class=\"swiss-label mb-3\">Preferred Era</p><div class=\"space-y-2\"><label class=\"flex items-center gap-3 cursor-pointer\" style=\"font-size: 0.875rem;\"><input type=\"radio\" name=\"era\" value=\"1950s\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> 1950s — Basel School</label> <label class=\"flex items-center gap-3 cursor-pointer\" style=\"font-size: 0.875rem;\"><input type=\"radio\" name=\"era\" value=\"1960s\" checked class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> 1960s — International Style</label> <label class=\"flex items-center gap-3 cursor-pointer\" style=\"font-size: 0.875rem;\"><input type=\"radio\" name=\"era\" value=\"1970s\" class=\"w-4 h-4 cursor-pointer\" style=\"accent-color: var(--color-primary);\"> 1970s — Post-Modernist Reaction</label></div></div><div class=\"swiss-rule pt-4\"><button type=\"submit\" class=\"swiss-btn text-sm\">Submit via HTMX</button></div></form><!-- /snippet:form-htmx --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -406,21 +496,21 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, " <div id=\"swiss-form-response\" class=\"mt-4\"></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, " <div id=\"swiss-form-response\" class=\"mt-4\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = swissSection("Forms", "[HTMX]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = swissSection("Forms", "[HTMX]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var16), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<!-- 8. Cards [Alpine] -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<!-- 9. Cards [Alpine] -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var14 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var17 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -432,7 +522,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "<div class=\"space-y-4\"><!-- Static card --><div style=\"border: 2px solid var(--color-border); padding: 1.5rem;\"><div class=\"swiss-rule-red mb-4\"></div><p class=\"swiss-label mb-2\">Static Card</p><h3 class=\"text-xl font-bold mb-2\" style=\"font-family: var(--font-display); color: var(--color-secondary);\">Information Module</h3><p style=\"color: var(--color-text-muted); font-size: 0.875rem; max-width: 55ch;\">A bordered container with no radius and no shadow. The border itself creates separation. Swiss design relies on rules, not decorative flourishes.</p></div><!-- Expandable card (Alpine) --><!-- snippet:card-expand --><div style=\"border: 2px solid var(--color-border);\" x-data=\"{ expanded: false }\"><div class=\"p-5 flex items-center justify-between cursor-pointer\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<div class=\"space-y-4\"><!-- Static card --><div style=\"border: 2px solid var(--color-border); padding: 1.5rem;\"><div class=\"swiss-rule-red mb-4\"></div><p class=\"swiss-label mb-2\">Static Card</p><h3 class=\"text-xl font-bold mb-2\" style=\"font-family: var(--font-display); color: var(--color-secondary);\">Information Module</h3><p style=\"color: var(--color-text-muted); font-size: 0.875rem; max-width: 55ch;\">A bordered container with no radius and no shadow. The border itself creates separation. Swiss design relies on rules, not decorative flourishes.</p></div><!-- Expandable card (Alpine) --><!-- snippet:card-expand --><div style=\"border: 2px solid var(--color-border);\" x-data=\"{ expanded: false }\"><div class=\"p-5 flex items-center justify-between cursor-pointer\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -440,7 +530,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "><div><p class=\"swiss-label mb-1\">Expandable Module</p><h3 class=\"font-bold\" style=\"font-family: var(--font-display); color: var(--color-secondary);\">Click to expand</h3></div><span class=\"text-2xl font-bold transition-transform duration-200\" style=\"color: var(--color-primary); font-family: var(--font-body);\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "><div><p class=\"swiss-label mb-1\">Expandable Module</p><h3 class=\"font-bold\" style=\"font-family: var(--font-display); color: var(--color-secondary);\">Click to expand</h3></div><span class=\"text-2xl font-bold transition-transform duration-200\" style=\"color: var(--color-primary); font-family: var(--font-body);\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -448,7 +538,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, ">+</span></div><div x-show=\"expanded\" style=\"border-top: 2px solid var(--color-border);\"><div class=\"p-5\"><p style=\"color: var(--color-text-muted); font-size: 0.875rem; max-width: 55ch;\">The expand/collapse pattern demonstrates Alpine.js reactive state without page navigation. Content becomes visible or hidden based on a simple boolean flag — no CSS classes toggled manually.</p><div class=\"mt-4 p-3\" style=\"background: var(--color-surface-2); border-left: 3px solid var(--color-primary);\"><p class=\"swiss-label\">State: <span x-text=\"expanded ? 'EXPANDED' : 'COLLAPSED'\" style=\"color: var(--color-primary);\"></span></p></div></div></div></div><!-- /snippet:card-expand -->")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, ">+</span></div><div x-show=\"expanded\" style=\"border-top: 2px solid var(--color-border);\"><div class=\"p-5\"><p style=\"color: var(--color-text-muted); font-size: 0.875rem; max-width: 55ch;\">The expand/collapse pattern demonstrates Alpine.js reactive state without page navigation. Content becomes visible or hidden based on a simple boolean flag — no CSS classes toggled manually.</p><div class=\"mt-4 p-3\" style=\"background: var(--color-surface-2); border-left: 3px solid var(--color-primary);\"><p class=\"swiss-label\">State: <span x-text=\"expanded ? 'EXPANDED' : 'COLLAPSED'\" style=\"color: var(--color-primary);\"></span></p></div></div></div></div><!-- /snippet:card-expand -->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -456,17 +546,63 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = swissSection("Cards & Panels", "[Alpine]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = swissSection("Cards & Panels", "[Alpine]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "<!-- 10. Search Filter [HTMX] -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var18 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "<p class=\"swiss-label mb-4\">Live search with hx-get + hx-trigger=\"input changed delay:300ms\"</p><!-- snippet:search-filter --> <div><input type=\"text\" name=\"q\" placeholder=\"Filter articles...\" class=\"swiss-input mb-4\" hx-get=\"/guides/swiss/search\" hx-target=\"#swiss-search-results\" hx-swap=\"innerHTML\" hx-trigger=\"input changed delay:300ms, search\"><div id=\"swiss-search-results\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = swissArticleCard("Design Systems", "Grid as Foundation", "The grid is not a cage — it is a liberation from chaos.").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = swissArticleCard("Typography", "Weight Creates Hierarchy", "Bold speaks first. Regular speaks second. Light speaks last.").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = swissArticleCard("Color", "Red as Signal", "In Swiss design, red is never decoration. It is a signal.").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "</div></div><!-- /snippet:search-filter --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["search-filter"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = swissSection("Search Filter", "[HTMX]").Render(templ.WithChildren(ctx, templ_7745c5c3_Var18), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -492,56 +628,56 @@ func swissSection(title, badge string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var15 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var15 == nil {
-			templ_7745c5c3_Var15 = templ.NopComponent
+		templ_7745c5c3_Var19 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var19 == nil {
+			templ_7745c5c3_Var19 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<section class=\"swiss-rule\"><div class=\"swiss-layout\"><div class=\"swiss-col-3 swiss-section-label\"><p class=\"swiss-label\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "<section class=\"swiss-rule\"><div class=\"swiss-layout\"><div class=\"swiss-col-3 swiss-section-label\"><p class=\"swiss-label\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var16 string
-		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 259, Col: 34}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 341, Col: 34}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</p>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if badge != "" {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<p class=\"swiss-label mt-2\" style=\"color: var(--color-primary);\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "<p class=\"swiss-label mt-2\" style=\"color: var(--color-primary);\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var17 string
-			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(badge)
+			var templ_7745c5c3_Var21 string
+			templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(badge)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 261, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 343, Col: 77}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</div><div class=\"swiss-col-9 swiss-section-body\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</div><div class=\"swiss-col-9 swiss-section-body\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ_7745c5c3_Var15.Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = templ_7745c5c3_Var19.Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</div></div></section>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "</div></div></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -566,51 +702,51 @@ func swissArticleCard(eyebrow, headline, body string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var18 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var18 == nil {
-			templ_7745c5c3_Var18 = templ.NopComponent
+		templ_7745c5c3_Var22 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var22 == nil {
+			templ_7745c5c3_Var22 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "<div class=\"border-t-2 border-black pt-4 pb-8\"><p class=\"swiss-label mb-3\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "<div class=\"border-t-2 border-black pt-4 pb-8\"><p class=\"swiss-label mb-3\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var19 string
-		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(eyebrow)
+		var templ_7745c5c3_Var23 string
+		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(eyebrow)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 274, Col: 39}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 356, Col: 39}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</p><h3 class=\"text-2xl font-bold mb-3\" style=\"font-family: var(--font-display); color: var(--color-secondary);\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var20 string
-		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(headline)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 275, Col: 121}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "</p><h3 class=\"text-2xl font-bold mb-3\" style=\"font-family: var(--font-display); color: var(--color-secondary);\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "</h3><p class=\"text-base leading-relaxed\" style=\"color: var(--color-text); max-width: 55ch;\">")
+		var templ_7745c5c3_Var24 string
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(headline)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 357, Col: 121}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var21 string
-		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(body)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 276, Col: 96}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "</h3><p class=\"text-base leading-relaxed\" style=\"color: var(--color-text); max-width: 55ch;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "</p></div>")
+		var templ_7745c5c3_Var25 string
+		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(body)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 358, Col: 96}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -635,38 +771,38 @@ func swissSwatch(name, hex, textColor string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var22 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var22 == nil {
-			templ_7745c5c3_Var22 = templ.NopComponent
+		templ_7745c5c3_Var26 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var26 == nil {
+			templ_7745c5c3_Var26 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "<div x-data=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "<div x-data=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var23 string
-		templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
+		var templ_7745c5c3_Var27 string
+		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 283, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 365, Col: 50}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "\" class=\"p-6 cursor-pointer\" style=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var24 string
-		templ_7745c5c3_Var24, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + hex + ";")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 285, Col: 36}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "\" class=\"p-6 cursor-pointer\" style=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "\"")
+		var templ_7745c5c3_Var28 string
+		templ_7745c5c3_Var28, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + hex + ";")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 367, Col: 36}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -674,72 +810,72 @@ func swissSwatch(name, hex, textColor string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "><p class=\"text-sm font-bold\" style=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var25 string
-		templ_7745c5c3_Var25, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("color: " + textColor + "; font-family: var(--font-body); letter-spacing: 0.05em;")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 288, Col: 121}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var26 string
-		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(name)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 288, Col: 130}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "</p><p class=\"text-xs font-mono mt-1\" style=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var27 string
-		templ_7745c5c3_Var27, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("color: " + textColor + "; opacity: 0.7;")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 289, Col: 85}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "\" x-text=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var28 string
-		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 289, Col: 133}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "><p class=\"text-sm font-bold\" style=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var29 string
-		templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		templ_7745c5c3_Var29, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("color: " + textColor + "; font-family: var(--font-body); letter-spacing: 0.05em;")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 289, Col: 141}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 370, Col: 121}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var30 string
+		templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 370, Col: 130}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "</p><p class=\"text-xs font-mono mt-1\" style=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var31 string
+		templ_7745c5c3_Var31, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("color: " + textColor + "; opacity: 0.7;")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 371, Col: 85}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "\" x-text=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var32 string
+		templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 371, Col: 133}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var33 string
+		templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/swiss/swiss.templ`, Line: 371, Col: 141}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

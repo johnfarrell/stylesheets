@@ -1,21 +1,5 @@
 package brutalist
 
-import (
-	"strings"
-)
-
-// buildCSSVars generates the :root CSS variable declarations from the guide's CSSVars map.
-func buildCSSVars(vars map[string]string) string {
-	var sb strings.Builder
-	for k, v := range vars {
-		sb.WriteString(k)
-		sb.WriteString(":")
-		sb.WriteString(v)
-		sb.WriteString(";")
-	}
-	return sb.String()
-}
-
 // guideStyles returns the static CSS classes for this guide.
 func guideStyles() string {
 	return `
@@ -73,5 +57,26 @@ func guideStyles() string {
     transform: translate(-2px, -2px);
     box-shadow: 5px 5px 0px var(--border-color);
 }
+/* [custom] - tab component with active/inactive states */
+.brut-tab {
+    padding: 0.5rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid var(--color-primary);
+    border-bottom: none;
+    background: var(--color-bg);
+    color: var(--color-primary);
+    cursor: pointer;
+}
+.brut-tab-active {
+    background: var(--color-primary);
+    color: var(--color-bg);
+}
+/* [custom] - HTMX loading indicator shown during requests */
+.brut-indicator { display: none; }
+.htmx-request .brut-indicator,
+.htmx-request.brut-indicator { display: inline; }
 `
 }

@@ -17,7 +17,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		</span>
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
 	<div style="max-width: var(--content-max-width); margin: 0 auto; padding: 2rem; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
 		<!-- Guide header -->
 		<div class="mb-12 pb-6" style="border-bottom: 1px solid var(--color-border);">
@@ -265,7 +265,50 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:status-indicator -->
 			@components.SourceView(snippets["status-indicator"])
 		}
-		<!-- 8. Forms [HTMX] -->
+		<!-- 8. Cards & Panels [Alpine] -->
+		@components.Section("Cards & Panels", components.BadgeAlpine) {
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<!-- Static card -->
+				<div class="bento-card">
+					<h3 class="text-sm font-semibold mb-2" style="color: var(--color-text);">Static Card</h3>
+					<p class="text-sm" style="color: var(--color-text-muted);">A standard dashboard tile with rounded corners, subtle shadow, and clean border. Content stays minimal.</p>
+					<div class="flex gap-2 mt-4" style="border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
+						<button class="bento-btn text-xs">Action</button>
+						<button class="bento-btn bento-btn-secondary text-xs">Cancel</button>
+					</div>
+				</div>
+				<!-- Expandable card -->
+				<!-- snippet:card-expand -->
+				<div class="bento-card" style="padding: 0;" x-data="{ expanded: false }">
+					<div
+						class="p-5 flex items-center justify-between cursor-pointer"
+						{ templ.Attributes{"@click": "expanded = !expanded"}... }
+					>
+						<h3 class="text-sm font-semibold" style="color: var(--color-text);">Expandable Panel</h3>
+						<span
+							class="text-lg transition-transform duration-200"
+							style="color: var(--color-text-muted);"
+							{ templ.Attributes{":class": "expanded ? 'rotate-45' : ''"}... }
+						>+</span>
+					</div>
+					<div x-show="expanded" x-transition style="border-top: 1px solid var(--color-border);">
+						<div class="p-5">
+							<p class="text-sm mb-3" style="color: var(--color-text-muted);">
+								Revealed content with smooth transition. Alpine handles the toggle with zero server round-trips.
+							</p>
+							<div class="rounded-lg p-3 text-xs font-mono" style="background: var(--color-surface-2); color: var(--color-text-muted);">
+								<p>expanded: true</p>
+								<p>border-radius: 12px</p>
+								<p>shadow: subtle</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:card-expand -->
+				@components.SourceView(snippets["card-expand"])
+			</div>
+		}
+		<!-- 9. Forms [HTMX] -->
 		@components.Section("Forms", components.BadgeHTMX) {
 			<div class="bento-card">
 				<!-- snippet:form-htmx -->
@@ -298,11 +341,51 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<input type="checkbox" id="bento-analytics" name="analytics" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
 						<label for="bento-analytics" class="text-sm cursor-pointer" style="color: var(--color-text);">Enable analytics dashboard</label>
 					</div>
+					<!-- Radio buttons -->
+					<div>
+						<p class="text-xs font-medium mb-2" style="color: var(--color-text-muted);">Billing Cycle</p>
+						<div class="space-y-2">
+							<label class="flex items-center gap-3 cursor-pointer text-sm" style="color: var(--color-text);">
+								<input type="radio" name="billing" value="monthly" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+								Monthly
+							</label>
+							<label class="flex items-center gap-3 cursor-pointer text-sm" style="color: var(--color-text);">
+								<input type="radio" name="billing" value="annual" checked class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+								Annual (save 20%)
+							</label>
+						</div>
+					</div>
 					<button type="submit" class="bento-btn text-sm">Submit via HTMX</button>
 				</form>
 				<!-- /snippet:form-htmx -->
 				@components.SourceView(snippets["form-htmx"])
 				<div id="bento-form-response" class="mt-4"></div>
+			</div>
+		}
+		<!-- 10. Alerts & Notices -->
+		@components.Section("Alerts & Notices", components.BadgeNone) {
+			<div class="space-y-3">
+				<div class="bento-alert" style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); color: var(--color-accent);">
+					<span class="text-base">&#10003;</span>
+					<div>
+						<p class="font-medium">Success</p>
+						<p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Operation completed successfully.</p>
+					</div>
+				</div>
+				<div class="bento-alert" style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: var(--color-warning);">
+					<span class="text-base">&#9888;</span>
+					<div>
+						<p class="font-medium">Warning</p>
+						<p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Resource usage approaching limits.</p>
+					</div>
+				</div>
+				<div class="bento-alert" style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: var(--color-danger);">
+					<span class="text-base">&#10005;</span>
+					<div>
+						<p class="font-medium">Error</p>
+						<p class="text-xs mt-0.5" style="color: var(--color-text-muted);">Failed to connect to database.</p>
+					</div>
+				</div>
 			</div>
 		}
 	</div>

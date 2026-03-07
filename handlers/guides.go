@@ -1,10 +1,9 @@
 package handlers
 
 import (
-	"context"
 	"fmt"
-	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/a-h/templ"
@@ -16,6 +15,7 @@ import (
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 	swisstempl "github.com/johnfarrell/stylesheets/guides/swiss"
 	"github.com/johnfarrell/stylesheets/templates"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // NewMux creates and returns the application HTTP mux with all routes registered.
@@ -74,12 +74,13 @@ func NewMux() *http.ServeMux {
 			http.Error(w, "bad request", http.StatusBadRequest)
 			return
 		}
+		slug := r.PathValue("slug")
 		name := r.FormValue("name")
 		if name == "" {
 			name = "anonymous"
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w, `<div class="border-2 border-black p-3 bg-yellow-50 font-mono">✓ Received: <strong>%s</strong></div>`, templ.EscapeString(name))
+		components.FormResponse(slug, name).Render(r.Context(), w)
 	})
 
 	// Bento Dashboard — live metric tiles (HTMX polling every 3s)
@@ -100,10 +101,55 @@ func NewMux() *http.ServeMux {
 			if m.trend == "→" {
 				trendColor = "var(--color-text-muted)"
 			}
-			fmt.Fprintf(w,
-				`<div class="bento-card bento-span-6 flex flex-col gap-2"><p class="text-xs font-medium" style="color:var(--color-text-muted)">%s</p><p class="text-2xl font-bold" style="color:var(--color-text)">%s</p><p class="text-xs font-medium" style="color:%s">%s %s</p></div>`,
-				templ.EscapeString(m.label), templ.EscapeString(m.value), trendColor, templ.EscapeString(m.change), templ.EscapeString(m.trend),
-			)
+			bentotempl.MetricTile(m.label, m.value, m.change, m.trend, trendColor).Render(r.Context(), w)
+		}
+	})
+
+	// Glass — inline edit: show edit form
+	mux.HandleFunc("/guides/glass/edit-field", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		if r.Method == http.MethodPost {
+			if err := r.ParseForm(); err != nil {
+				http.Error(w, "bad request", http.StatusBadRequest)
+				return
+			}
+			name := r.FormValue("name")
+			if name == "" {
+				name = "Aurora Dashboard"
+			}
+			glasstempl.EditFieldDisplay(name).Render(r.Context(), w)
+			return
+		}
+		// GET with cancel — return the display view
+		if r.URL.Query().Get("cancel") == "true" {
+			glasstempl.EditFieldDisplay("Aurora Dashboard").Render(r.Context(), w)
+			return
+		}
+		// GET — return the edit form
+		glasstempl.EditFieldForm("Aurora Dashboard").Render(r.Context(), w)
+	})
+
+	// Minimal — lazy-loaded Design Principles content
+	mux.HandleFunc("/guides/minimal/principles", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		minimaltempl.Principles().Render(r.Context(), w)
+	})
+
+	// Swiss — HTMX search filter for editorial cards
+	mux.HandleFunc("/guides/swiss/search", func(w http.ResponseWriter, r *http.Request) {
+		q := r.URL.Query().Get("q")
+		type article struct{ eyebrow, headline, body string }
+		articles := []article{
+			{"Design Systems", "Grid as Foundation", "The grid is not a cage — it is a liberation from chaos."},
+			{"Typography", "Weight Creates Hierarchy", "Bold speaks first. Regular speaks second. Light speaks last."},
+			{"Color", "Red as Signal", "In Swiss design, red is never decoration. It is a signal."},
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		for _, a := range articles {
+			if q != "" && !containsFold(a.eyebrow+a.headline+a.body, q) {
+				continue
+			}
+			swisstempl.SearchResult(a.eyebrow, a.headline, a.body).Render(r.Context(), w)
 		}
 	})
 
@@ -126,10 +172,7 @@ func NewMux() *http.ServeMux {
 		e := entries[idx]
 		ts := time.Now().Format("15:04:05")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		fmt.Fprintf(w,
-			`<div class="flex gap-3" style="font-size:0.6875rem;color:var(--color-text-muted);padding:2px 0;border-bottom:1px solid var(--color-surface-2);font-family:var(--font-body)"><span style="min-width:4.5rem">[%s]</span><span style="color:var(--color-primary);font-weight:700;min-width:2.5rem">%s</span><span style="color:var(--color-text)">%s</span></div>`,
-			ts, templ.EscapeString(e.sub), templ.EscapeString(e.msg),
-		)
+		cassettetempl.LogEntry(ts, e.sub, e.msg).Render(r.Context(), w)
 	})
 
 	return mux
@@ -152,7 +195,8 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 	case "swiss":
 		return swisstempl.Page(g, htmxRequest)
 	default:
-		return placeholderContent(g)
+		return templ.Raw(fmt.Sprintf(`<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
+			templ.EscapeString(g.Name), templ.EscapeString(g.Description)))
 	}
 }
 
@@ -169,13 +213,8 @@ func renderNotFound(w http.ResponseWriter, r *http.Request) {
 	templ.Handler(page, templ.WithStatus(http.StatusNotFound)).ServeHTTP(w, r)
 }
 
-// placeholderContent renders a minimal placeholder until guide packages are implemented.
-func placeholderContent(g guides.Guide) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
-		_, err := fmt.Fprintf(w, `<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
-			templ.EscapeString(g.Name),
-			templ.EscapeString(g.Description),
-		)
-		return err
-	})
+// containsFold checks if s contains substr, case-insensitive.
+func containsFold(s, substr string) bool {
+	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
+

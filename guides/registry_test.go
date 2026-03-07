@@ -1,6 +1,7 @@
 package guides_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/johnfarrell/stylesheets/guides"
@@ -61,5 +62,19 @@ func TestSwissGuideRegistered(t *testing.T) {
 	_, ok := guides.BySlug("swiss")
 	if !ok {
 		t.Fatal("expected 'swiss' guide to be registered")
+	}
+}
+
+func TestBuildCSSVars(t *testing.T) {
+	vars := map[string]string{
+		"--color-bg":   "#fff",
+		"--color-text": "#000",
+	}
+	result := guides.BuildCSSVars(vars)
+	if !strings.Contains(result, "--color-bg:#fff;") {
+		t.Errorf("expected --color-bg:#fff; in result, got %q", result)
+	}
+	if !strings.Contains(result, "--color-text:#000;") {
+		t.Errorf("expected --color-text:#000; in result, got %q", result)
 	}
 }

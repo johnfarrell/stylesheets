@@ -1,5 +1,10 @@
 package guides
 
+import (
+	"sort"
+	"strings"
+)
+
 // Guide defines a style guide's metadata and theme tokens.
 type Guide struct {
 	Name        string
@@ -289,6 +294,24 @@ var All = []Guide{
 			"--code-attr":    "#aaaaaa",
 		},
 	},
+}
+
+// BuildCSSVars generates ":root" CSS variable declarations from a map.
+// Keys are sorted for deterministic output.
+func BuildCSSVars(vars map[string]string) string {
+	keys := make([]string, 0, len(vars))
+	for k := range vars {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	var sb strings.Builder
+	for _, k := range keys {
+		sb.WriteString(k)
+		sb.WriteString(":")
+		sb.WriteString(vars[k])
+		sb.WriteString(";")
+	}
+	return sb.String()
 }
 
 // BySlug looks up a guide by its URL slug.

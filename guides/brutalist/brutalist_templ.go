@@ -67,7 +67,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.Raw("<style>:root{"+buildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -296,7 +296,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<div class=\"brut-card p-6\"><!-- snippet:form-htmx --><form hx-post=\"/guides/brutalist/demo-form\" hx-target=\"#form-response\" hx-swap=\"innerHTML\" class=\"space-y-6\"><!-- Text input --><div><label class=\"block text-xs font-bold uppercase mb-1 font-mono\" for=\"brut-name\">Name</label> <input id=\"brut-name\" name=\"name\" type=\"text\" placeholder=\"Enter your name...\" class=\"brut-input w-full px-3 py-2 text-sm font-mono\"></div><!-- Select --><div><label class=\"block text-xs font-bold uppercase mb-1 font-mono\" for=\"brut-select\">Category</label> <select id=\"brut-select\" name=\"category\" class=\"brut-input w-full px-3 py-2 text-sm font-mono cursor-pointer\"><option value=\"\">-- Select --</option> <option value=\"architecture\">Architecture</option> <option value=\"design\">Design</option> <option value=\"engineering\">Engineering</option></select></div><!-- Checkboxes --><div><p class=\"text-xs font-bold uppercase mb-2 font-mono\">Preferences</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"checkbox\" name=\"pref\" value=\"raw\" class=\"w-4 h-4 border-2 border-black rounded-none cursor-pointer\"> Raw aesthetic</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"checkbox\" name=\"pref\" value=\"functional\" class=\"w-4 h-4 border-2 border-black rounded-none cursor-pointer\"> Function over form</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"checkbox\" name=\"pref\" value=\"honest\" class=\"w-4 h-4 border-2 border-black rounded-none cursor-pointer\"> Honest materials</label></div></div><!-- Radio buttons --><div><p class=\"text-xs font-bold uppercase mb-2 font-mono\">Weight</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"radio\" name=\"weight\" value=\"light\" class=\"w-4 h-4 border-2 border-black cursor-pointer\"> Light</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"radio\" name=\"weight\" value=\"regular\" checked class=\"w-4 h-4 border-2 border-black cursor-pointer\"> Regular</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"radio\" name=\"weight\" value=\"bold\" class=\"w-4 h-4 border-2 border-black cursor-pointer\"> Bold</label></div></div><!-- Submit --><div><button type=\"submit\" class=\"brut-btn-primary px-6 py-2 text-sm font-bold uppercase cursor-pointer\">Submit Form</button></div></form><!-- /snippet:form-htmx -->")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<div class=\"brut-card p-6\"><!-- snippet:form-htmx --><form hx-post=\"/guides/brutalist/demo-form\" hx-target=\"#form-response\" hx-swap=\"innerHTML\" hx-indicator=\"#brut-submit\" class=\"space-y-6\"><!-- Text input --><div><label class=\"block text-xs font-bold uppercase mb-1 font-mono\" for=\"brut-name\">Name</label> <input id=\"brut-name\" name=\"name\" type=\"text\" placeholder=\"Enter your name...\" class=\"brut-input w-full px-3 py-2 text-sm font-mono\"></div><!-- Select --><div><label class=\"block text-xs font-bold uppercase mb-1 font-mono\" for=\"brut-select\">Category</label> <select id=\"brut-select\" name=\"category\" class=\"brut-input w-full px-3 py-2 text-sm font-mono cursor-pointer\"><option value=\"\">-- Select --</option> <option value=\"architecture\">Architecture</option> <option value=\"design\">Design</option> <option value=\"engineering\">Engineering</option></select></div><!-- Checkboxes --><div><p class=\"text-xs font-bold uppercase mb-2 font-mono\">Preferences</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"checkbox\" name=\"pref\" value=\"raw\" class=\"w-4 h-4 border-2 border-black rounded-none cursor-pointer\"> Raw aesthetic</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"checkbox\" name=\"pref\" value=\"functional\" class=\"w-4 h-4 border-2 border-black rounded-none cursor-pointer\"> Function over form</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"checkbox\" name=\"pref\" value=\"honest\" class=\"w-4 h-4 border-2 border-black rounded-none cursor-pointer\"> Honest materials</label></div></div><!-- Radio buttons --><div><p class=\"text-xs font-bold uppercase mb-2 font-mono\">Weight</p><div class=\"space-y-2\"><label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"radio\" name=\"weight\" value=\"light\" class=\"w-4 h-4 border-2 border-black cursor-pointer\"> Light</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"radio\" name=\"weight\" value=\"regular\" checked class=\"w-4 h-4 border-2 border-black cursor-pointer\"> Regular</label> <label class=\"flex items-center gap-2 cursor-pointer text-sm font-mono\"><input type=\"radio\" name=\"weight\" value=\"bold\" class=\"w-4 h-4 border-2 border-black cursor-pointer\"> Bold</label></div></div><!-- Submit --><div><button type=\"submit\" class=\"brut-btn-primary px-6 py-2 text-sm font-bold uppercase cursor-pointer\" id=\"brut-submit\">Submit Form <span class=\"brut-indicator font-mono\">...</span></button></div></form><!-- /snippet:form-htmx -->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -353,7 +353,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs("// Raw data block")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 256, Col: 31}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 258, Col: 31}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
@@ -377,7 +377,75 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<!-- 7. Tabs -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var12 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<!-- snippet:tabs --> <div x-data=\"{ tab: 'design' }\"><div class=\"flex\" style=\"border-bottom: 2px solid var(--color-primary);\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			for _, t := range []struct{ id, label string }{
+				{"design", "DESIGN"},
+				{"code", "CODE"},
+				{"docs", "DOCS"},
+			} {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<button class=\"brut-tab\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{
+					":class": "tab==='" + t.id + "' ? 'brut-tab brut-tab-active' : 'brut-tab'",
+					"@click": "tab='" + t.id + "'",
+				})
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, ">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var13 string
+				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(t.label)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 293, Col: 16}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</button>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div><div class=\"brut-card p-6\" style=\"border-top: none;\"><div x-show=\"tab==='design'\"><p class=\"text-sm font-mono\">Design is not decoration. Design is function made visible. Every pixel, every border, every shadow must justify its existence.</p></div><div x-show=\"tab==='code'\" style=\"display: none;\"><p class=\"text-sm font-mono\">Code is structure. Like brutalist architecture, the structure is not hidden behind a facade — it is the facade. What you see is what it does.</p></div><div x-show=\"tab==='docs'\" style=\"display: none;\"><p class=\"text-sm font-mono\">Documentation is honest. It does not promise what it cannot deliver. It does not hide complexity behind friendly language.</p></div></div></div><!-- /snippet:tabs --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["tabs"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Tabs", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -402,25 +470,25 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var12 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var12 == nil {
-			templ_7745c5c3_Var12 = templ.NopComponent
+		templ_7745c5c3_Var14 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var14 == nil {
+			templ_7745c5c3_Var14 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<div x-data=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<div x-data=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var13 string
-		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
+		var templ_7745c5c3_Var15 string
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 281, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 317, Col: 50}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "\" class=\"cursor-pointer group\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\" class=\"cursor-pointer group\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -428,59 +496,59 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "><div class=\"h-16 border-2 border-black mb-2 transition-transform group-hover:-translate-y-1\" style=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var14 string
-		templ_7745c5c3_Var14, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + cssVar)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 287, Col: 34}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "\"></div><p class=\"text-xs font-bold uppercase font-mono\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var15 string
-		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(name)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 289, Col: 57}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</p><p class=\"text-xs font-mono text-gray-500\" x-text=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "><div class=\"h-16 border-2 border-black mb-2 transition-transform group-hover:-translate-y-1\" style=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var16 string
-		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
+		templ_7745c5c3_Var16, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + cssVar)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 290, Col: 90}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 323, Col: 34}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "\"></div><p class=\"text-xs font-bold uppercase font-mono\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var17 string
-		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 290, Col: 98}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 325, Col: 57}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</p><p class=\"text-xs font-mono text-gray-500\" x-text=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var18 string
+		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 326, Col: 90}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var19 string
+		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 326, Col: 98}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

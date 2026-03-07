@@ -1,0 +1,24 @@
+package glass
+
+// EditFieldDisplay renders the read-only view of the editable field.
+templ EditFieldDisplay(name string) {
+	<div class="flex items-center justify-between">
+		<div>
+			<p class="text-xs" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project Name</p>
+			<p class="text-lg font-semibold mt-1" style="color: var(--color-text);">{ name }</p>
+		</div>
+		<button class="glass-btn-ghost px-3 py-1.5 text-xs" hx-get="/guides/glass/edit-field" hx-target="#glass-editable" hx-swap="innerHTML">Edit</button>
+	</div>
+}
+
+// EditFieldForm renders the inline edit form.
+templ EditFieldForm(currentName string) {
+	<form hx-post="/guides/glass/edit-field" hx-target="#glass-editable" hx-swap="innerHTML" class="flex items-end gap-3">
+		<div class="flex-1">
+			<p class="text-xs mb-1.5" style="color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Project Name</p>
+			<input type="text" name="name" value={ currentName } class="glass-input" autofocus/>
+		</div>
+		<button type="submit" class="glass-btn-primary px-4 py-2 text-xs">Save</button>
+		<button type="button" class="glass-btn-ghost px-4 py-2 text-xs" hx-get="/guides/glass/edit-field?cancel=true" hx-target="#glass-editable" hx-swap="innerHTML">Cancel</button>
+	</form>
+}

@@ -1,18 +1,5 @@
 package glass
 
-import "strings"
-
-func buildCSSVars(vars map[string]string) string {
-	var sb strings.Builder
-	for k, v := range vars {
-		sb.WriteString(k)
-		sb.WriteString(":")
-		sb.WriteString(v)
-		sb.WriteString(";")
-	}
-	return sb.String()
-}
-
 func guideStyles() string {
 	return `
 /* [custom] - backdrop-filter not achievable with Tailwind utilities */
@@ -69,6 +56,39 @@ func guideStyles() string {
     outline: none;
     border-color: var(--color-primary);
     background: rgba(255,255,255,0.10);
+}
+/* [custom] - frosted tab pill with gradient active indicator */
+.glass-tab {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    border: none;
+    font-family: var(--font-body);
+}
+.glass-tab:hover { background: rgba(255,255,255,0.06); color: var(--color-text); }
+.glass-tab-active {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: #fff;
+}
+.glass-tab-active:hover { opacity: 0.9; }
+/* [custom] - frosted alert with gradient left border */
+.glass-alert {
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+    background: var(--frost-bg);
+    backdrop-filter: blur(var(--frost-blur));
+    -webkit-backdrop-filter: blur(var(--frost-blur));
+    border: 1px solid var(--color-border);
 }
 `
 }

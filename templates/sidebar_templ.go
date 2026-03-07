@@ -56,7 +56,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "><div class=\"p-6 border-b border-gray-200\"><h1 class=\"text-lg font-bold text-gray-900 leading-tight\">Stylesheets</h1><p class=\"text-xs text-gray-500 mt-1\">Style Guide Reference</p></div><ul class=\"flex-1 overflow-y-auto py-4\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "><div class=\"p-6 border-b border-gray-200\"><a href=\"/\"><h1 class=\"text-lg font-bold text-gray-900 leading-tight\">Stylesheets</h1></a><p class=\"text-xs text-gray-500 mt-1\">Style Guide Reference</p></div><ul class=\"flex-1 overflow-y-auto py-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -68,7 +68,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 			var templ_7745c5c3_Var3 templ.SafeURL
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(fmt.Sprintf("/guides/%s", g.Slug)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 23, Col: 61}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 25, Col: 61}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -81,7 +81,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/guides/%s/content", g.Slug))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 24, Col: 56}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 26, Col: 56}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -94,7 +94,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/guides/%s", g.Slug))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 26, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 28, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -107,7 +107,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`active === '%s' ? 'bg-gray-100 text-gray-900 font-semibold border-r-2 border-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'`, g.Slug))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 28, Col: 179}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 30, Col: 179}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -128,7 +128,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(g.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 31, Col: 20}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 33, Col: 20}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -141,7 +141,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(g.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 32, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 34, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -159,7 +159,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("© %d John Farrell", time.Now().Year()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 50, Col: 90}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/sidebar.templ`, Line: 52, Col: 90}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {

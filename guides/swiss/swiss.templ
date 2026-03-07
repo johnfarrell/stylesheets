@@ -17,7 +17,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		</span>
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
 	<div style="max-width: var(--content-max-width); margin: 0 auto; padding: 2rem; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
 		<!-- Guide header -->
 		<div class="mb-12 pb-0">
@@ -32,6 +32,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			{Tech: "CSS",    Description: "Strict modular scale via --font-size-* CSS custom properties"},
 			{Tech: "CSS",    Description: "Baseline grid using ruled lines as structural elements"},
 			{Tech: "HTMX",   Description: "hx-post form submission with editorial-style inline response"},
+		{Tech: "HTMX",   Description: "hx-get search filter with hx-trigger=\"input changed delay:300ms\""},
+		{Tech: "Alpine", Description: "Button toggle demo with :class binding"},
 		})
 		<!-- 1. Color Palette -->
 		@swissSection("Color Palette", "[Alpine]") {
@@ -92,7 +94,26 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:type-scale-demo -->
 			@components.SourceView(snippets["type-scale-demo"])
 		}
-		<!-- 3. Grid System -->
+		<!-- 3. Spacing Scale -->
+		@swissSection("Spacing Scale", "") {
+			<div class="space-y-3">
+				<p class="swiss-label mb-4">Base unit: 8px (matches --baseline)</p>
+				for _, s := range []struct{ label, width string }{
+					{"8px", "8px"},
+					{"16px", "16px"},
+					{"24px", "24px"},
+					{"32px", "32px"},
+					{"48px", "48px"},
+					{"64px", "64px"},
+				} {
+					<div class="flex items-center gap-6">
+						<span class="swiss-label w-12" style="font-family: monospace; letter-spacing: 0;">{ s.label }</span>
+						<div style={ "width: " + s.width + "; height: 8px; background: var(--color-primary);" }></div>
+					</div>
+				}
+			</div>
+		}
+		<!-- 4. Grid System -->
 		@swissSection("Grid System", "") {
 			<div class="space-y-4">
 				<p class="swiss-label">12-column modular grid — all columns have equal width, separated by borders</p>
@@ -130,7 +151,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 			</div>
 		}
-		<!-- 4. Typographic Hierarchy [Templ composition] -->
+		<!-- 5. Typographic Hierarchy [Templ composition] -->
 		@swissSection("Editorial Cards", "[Templ]") {
 			<!-- snippet:templ-composition -->
 			@swissArticleCard("Design Systems", "Grid as Foundation", "The grid is not a cage — it is a liberation from chaos. When elements align to a common module, the eye can rest and the mind can read. Structure is the invisible architecture of good design.")
@@ -139,7 +160,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:templ-composition -->
 			@components.SourceView(snippets["templ-composition"])
 		}
-		<!-- 5. Pull Quotes -->
+		<!-- 6. Pull Quotes -->
 		@swissSection("Pull Quotes", "") {
 			<div class="space-y-8">
 				for _, q := range []struct{ quote, attr string }{
@@ -155,8 +176,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				}
 			</div>
 		}
-		<!-- 6. Buttons -->
-		@swissSection("Buttons", "") {
+		<!-- 7. Buttons -->
+		@swissSection("Buttons", "[Alpine]") {
 			<div class="space-y-6">
 				<div>
 					<p class="swiss-label mb-4">Variants</p>
@@ -167,9 +188,28 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<button class="text-sm px-6 py-3 border-2 opacity-40 cursor-not-allowed" style="border-color: var(--color-border); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--font-body);" disabled>Disabled</button>
 					</div>
 				</div>
+				<!-- Toggle Demo -->
+				<div>
+					<p class="swiss-label mb-4">Toggle Demo [Alpine]</p>
+					<!-- snippet:button-toggle -->
+					<div x-data="{ active: false }" class="flex items-center gap-6">
+						<button
+							class="text-sm"
+							{ templ.Attributes{
+								":class": "active ? 'swiss-btn' : 'swiss-btn-outline'",
+								"@click": "active = !active",
+							}... }
+						>
+							<span x-text="active ? 'ACTIVE' : 'INACTIVE'">INACTIVE</span>
+						</button>
+						<p class="swiss-label" x-text="active ? 'State: ON' : 'State: OFF'">State: OFF</p>
+					</div>
+					<!-- /snippet:button-toggle -->
+					@components.SourceView(snippets["button-toggle"])
+				</div>
 			</div>
 		}
-		<!-- 7. Forms [HTMX] -->
+		<!-- 8. Forms [HTMX] -->
 		@swissSection("Forms", "[HTMX]") {
 			<!-- snippet:form-htmx -->
 			<form
@@ -199,6 +239,24 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					<input type="checkbox" id="swiss-grid" name="grid" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
 					<label for="swiss-grid" class="swiss-label cursor-pointer">I believe in the grid</label>
 				</div>
+				<!-- Radio buttons -->
+				<div>
+					<p class="swiss-label mb-3">Preferred Era</p>
+					<div class="space-y-2">
+						<label class="flex items-center gap-3 cursor-pointer" style="font-size: 0.875rem;">
+							<input type="radio" name="era" value="1950s" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+							1950s — Basel School
+						</label>
+						<label class="flex items-center gap-3 cursor-pointer" style="font-size: 0.875rem;">
+							<input type="radio" name="era" value="1960s" checked class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+							1960s — International Style
+						</label>
+						<label class="flex items-center gap-3 cursor-pointer" style="font-size: 0.875rem;">
+							<input type="radio" name="era" value="1970s" class="w-4 h-4 cursor-pointer" style="accent-color: var(--color-primary);"/>
+							1970s — Post-Modernist Reaction
+						</label>
+					</div>
+				</div>
 				<div class="swiss-rule pt-4">
 					<button type="submit" class="swiss-btn text-sm">Submit via HTMX</button>
 				</div>
@@ -207,7 +265,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			@components.SourceView(snippets["form-htmx"])
 			<div id="swiss-form-response" class="mt-4"></div>
 		}
-		<!-- 8. Cards [Alpine] -->
+		<!-- 9. Cards [Alpine] -->
 		@swissSection("Cards & Panels", "[Alpine]") {
 			<div class="space-y-4">
 				<!-- Static card -->
@@ -246,6 +304,30 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<!-- /snippet:card-expand -->
 				@components.SourceView(snippets["card-expand"])
 			</div>
+		}
+		<!-- 10. Search Filter [HTMX] -->
+		@swissSection("Search Filter", "[HTMX]") {
+			<p class="swiss-label mb-4">Live search with hx-get + hx-trigger="input changed delay:300ms"</p>
+			<!-- snippet:search-filter -->
+			<div>
+				<input
+					type="text"
+					name="q"
+					placeholder="Filter articles..."
+					class="swiss-input mb-4"
+					hx-get="/guides/swiss/search"
+					hx-target="#swiss-search-results"
+					hx-swap="innerHTML"
+					hx-trigger="input changed delay:300ms, search"
+				/>
+				<div id="swiss-search-results">
+					@swissArticleCard("Design Systems", "Grid as Foundation", "The grid is not a cage — it is a liberation from chaos.")
+					@swissArticleCard("Typography", "Weight Creates Hierarchy", "Bold speaks first. Regular speaks second. Light speaks last.")
+					@swissArticleCard("Color", "Red as Signal", "In Swiss design, red is never decoration. It is a signal.")
+				</div>
+			</div>
+			<!-- /snippet:search-filter -->
+			@components.SourceView(snippets["search-filter"])
 		}
 	</div>
 }
