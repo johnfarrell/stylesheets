@@ -79,6 +79,9 @@ func TestGetHighlightedSnippets_ReturnsNonNilForUnknownSlug(t *testing.T) {
 	if got == nil {
 		t.Error("GetHighlightedSnippets must return non-nil map")
 	}
+	if len(got) != 0 {
+		t.Errorf("expected empty map for unknown slug, got %v", got)
+	}
 }
 
 func TestGetHighlightedSnippets_HighlightedHTMLContainsSpans(t *testing.T) {

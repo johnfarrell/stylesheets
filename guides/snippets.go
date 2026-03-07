@@ -112,11 +112,12 @@ func GetSnippets(slug string) map[string]string {
 
 var (
 	highlightedCache map[string]map[string]string
-	highlightOnce   sync.Once
+	highlightOnce    sync.Once
 )
 
 func loadHighlighted() map[string]map[string]string {
-	raw := loadAll()
+	snippetOnce.Do(func() { snippetCache = loadAll() })
+	raw := snippetCache
 	out := make(map[string]map[string]string, len(raw))
 	for slug, snippets := range raw {
 		out[slug] = make(map[string]string, len(snippets))
