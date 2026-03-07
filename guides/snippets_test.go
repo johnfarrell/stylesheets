@@ -1,6 +1,7 @@
 package guides_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/johnfarrell/stylesheets/guides"
@@ -70,5 +71,25 @@ func TestGetSnippets_ReturnsEmptyMapForUnknownSlug(t *testing.T) {
 	}
 	if len(got) != 0 {
 		t.Errorf("expected empty map for unknown slug, got %v", got)
+	}
+}
+
+func TestGetHighlightedSnippets_ReturnsNonNilForUnknownSlug(t *testing.T) {
+	got := guides.GetHighlightedSnippets("does-not-exist")
+	if got == nil {
+		t.Error("GetHighlightedSnippets must return non-nil map")
+	}
+}
+
+func TestGetHighlightedSnippets_HighlightedHTMLContainsSpans(t *testing.T) {
+	// Verify that Highlight applied to a real HTML snippet produces span tags.
+	raw := guides.ParseSnippets("<!-- snippet:demo -->\n<div x-data=\"{}\">hello</div>\n<!-- /snippet:demo -->")
+	code, ok := raw["demo"]
+	if !ok {
+		t.Fatal("test fixture snippet not parsed")
+	}
+	hl := guides.Highlight(code, guides.DetectLang(code))
+	if !strings.Contains(hl, "<span") {
+		t.Errorf("highlighted HTML snippet expected to contain <span, got: %s", hl)
 	}
 }

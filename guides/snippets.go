@@ -109,3 +109,32 @@ func GetSnippets(slug string) map[string]string {
 	}
 	return map[string]string{}
 }
+
+var (
+	highlightedCache map[string]map[string]string
+	highlightOnce   sync.Once
+)
+
+func loadHighlighted() map[string]map[string]string {
+	raw := loadAll()
+	out := make(map[string]map[string]string, len(raw))
+	for slug, snippets := range raw {
+		out[slug] = make(map[string]string, len(snippets))
+		for key, code := range snippets {
+			out[slug][key] = Highlight(code, DetectLang(code))
+		}
+	}
+	return out
+}
+
+// GetHighlightedSnippets returns syntax-highlighted HTML for each snippet of the named guide.
+// Highlighting is computed once at startup and cached. Returns a non-nil map even if the slug is unknown.
+func GetHighlightedSnippets(slug string) map[string]string {
+	highlightOnce.Do(func() {
+		highlightedCache = loadHighlighted()
+	})
+	if s, ok := highlightedCache[slug]; ok {
+		return s
+	}
+	return map[string]string{}
+}
