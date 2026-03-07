@@ -2,29 +2,569 @@ package retro
 
 import (
 	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // Page renders the Retro OS style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
+	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	if htmxRequest {
+		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
 			<link rel="preconnect" href="https://fonts.googleapis.com"/>
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 			<link rel="stylesheet" href={ g.FontURL }/>
 		</span>
 	}
+	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
 	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
-	<div style="background: var(--color-bg); min-height: 100%; padding: 2rem;">
+	<div style="background: var(--color-bg); min-height: 100%; padding: 2rem; color: var(--color-text); font-family: var(--font-body);"
+		x-data x-init="Alpine.store('desktop', { topZ: 10 })">
 		<div style="max-width: var(--content-max-width); margin: 0 auto;">
-			<div class="retro-window" style="width: 400px;">
+			<!-- Guide header -->
+			<div class="retro-window mb-8" style="max-width: 500px;">
 				<div class="retro-titlebar">
-					<span>Welcome</span>
+					<span>Welcome to Retro OS</span>
+					<div class="flex gap-0.5">
+						<button class="retro-winbtn">_</button>
+						<button class="retro-winbtn">X</button>
+					</div>
 				</div>
 				<div style="padding: 1rem;">
-					<h1 style="font-family: var(--font-display); font-size: var(--font-size-display);">Retro OS</h1>
-					<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Guide under construction...</p>
+					<h1 style="font-family: var(--font-display); font-size: var(--font-size-display); line-height: 1.1;">
+						Retro OS
+					</h1>
+					<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.5rem;">
+						Windowed desktop UI &mdash; beveled borders, draggable windows, taskbar. Win95 aesthetic.
+					</p>
 				</div>
 			</div>
+			@components.TechSummary([]components.TechCallout{
+				{Tech: "Alpine", Description: "Copy-to-clipboard color swatches inside Color Picker window"},
+				{Tech: "Alpine", Description: "Start Menu toggle button with beveled press state"},
+				{Tech: "HTMX", Description: "hx-post form submission inside System Properties dialog"},
+				{Tech: "Alpine", Description: "Closeable and minimizable window panels with x-show"},
+				{Tech: "Alpine", Description: "Draggable windows with mousedown/mousemove tracking + z-stacking"},
+				{Tech: "Both", Description: "Desktop icons double-click to lazy-load mini-apps via HTMX"},
+				{Tech: "Alpine", Description: "Taskbar with Alpine.store sharing open-window state"},
+			})
+			<!-- 1. Color Palette -->
+			@components.Section("Color Palette", components.BadgeAlpine) {
+				<div class="retro-window" style="max-width: 500px;">
+					<div class="retro-titlebar">
+						<span>Color Picker</span>
+						<div class="flex gap-0.5">
+							<button class="retro-winbtn">X</button>
+						</div>
+					</div>
+					<div style="padding: 1rem;">
+						<!-- snippet:color-swatch -->
+						<div class="grid grid-cols-2 sm:grid-cols-3 gap-3"
+							x-data="{ copied: '' }">
+							for _, c := range []struct{ name, hex, usage string }{
+								{"Desktop Teal", "#008080", "Background"},
+								{"Chrome Silver", "#c0c0c0", "Window chrome"},
+								{"Title Blue", "#000080", "Title bars"},
+								{"Window White", "#ffffff", "Content area"},
+								{"Text Black", "#000000", "Body text"},
+								{"Border Gray", "#808080", "3D borders"},
+							} {
+								<div class="retro-inset" style="cursor: pointer; padding: 0.5rem;"
+									{ templ.Attributes{"@click": "navigator.clipboard.writeText('" + c.hex + "'); copied = '" + c.hex + "'; setTimeout(() => copied = '', 1500)"}... }>
+									<div style={ "background: " + c.hex + "; height: 2rem; border: 1px solid #808080; margin-bottom: 0.25rem;" }></div>
+									<p style="font-family: var(--font-mono); font-size: var(--font-size-caption); font-weight: 700;">{ c.name }</p>
+									<p style="font-size: 0.625rem; color: var(--color-text-muted);">{ c.hex } &mdash; { c.usage }</p>
+									<p x-show={ "copied === '" + c.hex + "'" } x-cloak
+										style="font-size: 0.625rem; color: var(--color-primary); font-weight: 700; margin-top: 0.15rem;">
+										Copied!
+									</p>
+								</div>
+							}
+						</div>
+						<!-- /snippet:color-swatch -->
+						<p style="margin-top: 0.75rem; font-size: var(--font-size-caption); color: var(--color-text-muted);">
+							Click any swatch to copy hex value to clipboard.
+						</p>
+					</div>
+				</div>
+				@components.SourceView(snippets["color-swatch"])
+			}
+			<!-- 2. Typography -->
+			@components.Section("Typography", components.BadgeNone) {
+				<div class="retro-window" style="max-width: 600px;">
+					<div class="retro-titlebar">
+						<span>Notepad - typography.txt</span>
+						<div class="flex gap-0.5">
+							<button class="retro-winbtn">_</button>
+							<button class="retro-winbtn">X</button>
+						</div>
+					</div>
+					<div class="retro-raised" style="padding: 0.25rem 0.5rem; font-size: 0.625rem;">
+						<span style="text-decoration: underline;">F</span>ile
+						<span style="margin-left: 0.5rem; text-decoration: underline;">E</span>dit
+						<span style="margin-left: 0.5rem; text-decoration: underline;">F</span>ormat
+						<span style="margin-left: 0.5rem; text-decoration: underline;">H</span>elp
+					</div>
+					<div class="retro-inset" style="padding: 1rem;">
+						<div style="margin-bottom: 1.25rem;">
+							<p style="font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">DISPLAY &mdash; VT323 2.5rem</p>
+							<p style="font-family: var(--font-display); font-size: var(--font-size-display); line-height: 1.1;">
+								C:\&gt; Hello World
+							</p>
+						</div>
+						<div style="margin-bottom: 1.25rem;">
+							<p style="font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">HEADING &mdash; VT323 1.25rem</p>
+							<p style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700;">
+								System Configuration Panel
+							</p>
+						</div>
+						<div style="margin-bottom: 1.25rem;">
+							<p style="font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">BODY &mdash; IBM Plex Sans 0.8125rem</p>
+							<p style="font-family: var(--font-body); font-size: var(--font-size-body);">
+								The desktop metaphor organizes digital work into familiar physical concepts: windows, folders, files, and a trash can. Every element has weight and dimension.
+							</p>
+						</div>
+						<div>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">CAPTION &mdash; IBM Plex Sans 0.6875rem</p>
+							<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+								Status: Ready | Objects: 42 | Free disk space: 1.44 MB
+							</p>
+						</div>
+					</div>
+				</div>
+			}
+			<!-- 3. Spacing Scale -->
+			@components.Section("Spacing Scale", components.BadgeNone) {
+				<div class="retro-window" style="max-width: 500px;">
+					<div class="retro-titlebar">
+						<span>Spacing Scale</span>
+						<div class="flex gap-0.5">
+							<button class="retro-winbtn">X</button>
+						</div>
+					</div>
+					<div style="padding: 1rem;">
+						<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.75rem;">BASE UNIT: 4px</p>
+						for _, s := range []struct{ label, width string }{
+							{"4px", "4px"},
+							{"8px", "8px"},
+							{"16px", "16px"},
+							{"24px", "24px"},
+							{"32px", "32px"},
+							{"48px", "48px"},
+							{"64px", "64px"},
+						} {
+							<div class="flex items-center gap-3" style="margin-bottom: 0.35rem;">
+								<span style="width: 2.5rem; font-size: var(--font-size-caption); color: var(--color-text-muted); text-align: right; font-family: var(--font-mono);">{ s.label }</span>
+								<div class="retro-raised" style={ "width: " + s.width + "; height: 1rem;" }>
+									<div style="width: 100%; height: 100%; background: var(--color-primary);"></div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			}
+			<!-- 4. Buttons -->
+			@components.Section("Buttons", components.BadgeAlpine) {
+				<!-- snippet:buttons -->
+				<div class="retro-window" style="max-width: 500px;">
+					<div class="retro-titlebar">
+						<span>Buttons</span>
+						<div class="flex gap-0.5">
+							<button class="retro-winbtn">X</button>
+						</div>
+					</div>
+					<div style="padding: 1rem;">
+						<!-- Sizes -->
+						<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;">SIZES</p>
+						<div class="flex flex-wrap items-center gap-2 mb-4">
+							<button class="retro-btn" style="font-size: 0.625rem; padding: 0.15rem 0.5rem;">Small</button>
+							<button class="retro-btn">Medium</button>
+							<button class="retro-btn" style="font-size: var(--font-size-body); padding: 0.35rem 1.5rem;">Large</button>
+						</div>
+						<!-- Variants -->
+						<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;">VARIANTS</p>
+						<div class="flex flex-wrap items-center gap-2 mb-4">
+							<button class="retro-btn">Default</button>
+							<button class="retro-btn retro-btn-primary">Primary</button>
+							<button class="retro-btn" disabled style="color: var(--color-text-muted);">Disabled</button>
+						</div>
+						<!-- Toggle: Start Menu -->
+						<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;">TOGGLE DEMO</p>
+						<div x-data="{ menuOpen: false }" style="position: relative;">
+							<button class="retro-start-btn"
+								{ templ.Attributes{"@click": "menuOpen = !menuOpen"}... }
+								{ templ.Attributes{":class": "menuOpen ? 'retro-taskbar-btn-active' : ''"}... }>
+								<span style="font-size: 1rem;">&#x1F5D4;</span> Start
+							</button>
+							<div x-show="menuOpen" x-cloak
+								class="retro-raised"
+								style="position: absolute; bottom: 100%; left: 0; width: 200px; margin-bottom: 2px;">
+								<div style="display: flex;">
+									<div style="width: 24px; background: var(--color-primary); writing-mode: vertical-rl; text-orientation: mixed; color: #fff; font-family: var(--font-display); font-size: 0.875rem; padding: 0.5rem 0.25rem; letter-spacing: 0.1em;">
+										RetroOS
+									</div>
+									<div style="flex: 1;">
+										for _, item := range []struct{ icon, label string }{
+											{"&#x1F4C1;", "Programs"},
+											{"&#x1F4C4;", "Documents"},
+											{"&#x2699;", "Settings"},
+											{"&#x1F50D;", "Find"},
+											{"&#x2753;", "Help"},
+										} {
+											<div style="padding: 0.35rem 0.5rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: var(--font-size-caption);"
+												class="hover:bg-[#000080] hover:text-white">
+												@templ.Raw(item.icon)
+												<span>{ item.label }</span>
+											</div>
+										}
+										<div style="border-top: 1px solid #808080; margin: 0.15rem 0.25rem;"></div>
+										<div style="padding: 0.35rem 0.5rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: var(--font-size-caption);"
+											class="hover:bg-[#000080] hover:text-white"
+											{ templ.Attributes{"@click": "menuOpen = false"}... }>
+											@templ.Raw("&#x1F6D1;")
+											<span>Shut Down...</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:buttons -->
+				@components.SourceView(snippets["buttons"])
+			}
+			<!-- 5. Forms -->
+			@components.Section("Forms", components.BadgeBoth) {
+				<!-- snippet:forms -->
+				<div class="retro-window" style="max-width: 450px;">
+					<div class="retro-titlebar">
+						<span>System Properties</span>
+						<div class="flex gap-0.5">
+							<button class="retro-winbtn">X</button>
+						</div>
+					</div>
+					<div style="padding: 1rem;">
+						<form hx-post="/guides/retro/demo-form" hx-target="#retro-form-result" hx-swap="innerHTML">
+							<div style="margin-bottom: 0.75rem;">
+								<label style="display: block; font-size: var(--font-size-caption); margin-bottom: 0.25rem;">Computer Name:</label>
+								<input type="text" name="name" class="retro-input" placeholder="MY-COMPUTER"/>
+							</div>
+							<div style="margin-bottom: 0.75rem;">
+								<label style="display: block; font-size: var(--font-size-caption); margin-bottom: 0.25rem;">Workgroup:</label>
+								<select name="workgroup" class="retro-input" style="padding: 0.2rem;">
+									<option>WORKGROUP</option>
+									<option>HOME</option>
+									<option>OFFICE</option>
+								</select>
+							</div>
+							<div style="margin-bottom: 0.75rem;">
+								<label style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer;">
+									<input type="checkbox" class="retro-check" checked/>
+									Enable network discovery
+								</label>
+								<label style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer; margin-top: 0.25rem;">
+									<input type="checkbox" class="retro-check"/>
+									Share printers
+								</label>
+							</div>
+							<div style="margin-bottom: 0.75rem;">
+								<p style="font-size: var(--font-size-caption); margin-bottom: 0.25rem;">Startup Mode:</p>
+								<label style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer;">
+									<input type="radio" name="startup" value="normal" class="retro-check" checked/>
+									Normal
+								</label>
+								<label style="display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer; margin-top: 0.15rem;">
+									<input type="radio" name="startup" value="safe" class="retro-check"/>
+									Safe Mode
+								</label>
+							</div>
+							<div class="flex justify-end gap-2">
+								<button type="submit" class="retro-btn retro-btn-primary" style="min-width: 75px;">OK</button>
+								<button type="reset" class="retro-btn" style="min-width: 75px;">Cancel</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- /snippet:forms -->
+				<!-- Message Box for form response -->
+				<div id="retro-form-result" style="margin-top: 0.75rem;"></div>
+				@components.SourceView(snippets["forms"])
+			}
+			<!-- 6. Cards/Panels -->
+			@components.Section("Cards / Panels", components.BadgeAlpine) {
+				<!-- snippet:cards -->
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4" style="max-width: 700px;">
+					<!-- Closeable window -->
+					<div x-data="{ open: true }">
+						<div class="retro-window" x-show="open" x-cloak>
+							<div class="retro-titlebar">
+								<span>My Computer</span>
+								<button class="retro-winbtn"
+									{ templ.Attributes{"@click": "open = false"}... }>X</button>
+							</div>
+							<div style="padding: 0.75rem; font-size: var(--font-size-caption);">
+								<div class="flex items-center gap-2" style="margin-bottom: 0.5rem;">
+									@templ.Raw("&#x1F4BE;")
+									<span>3.5 Floppy (A:)</span>
+								</div>
+								<div class="flex items-center gap-2" style="margin-bottom: 0.5rem;">
+									@templ.Raw("&#x1F4BF;")
+									<span>Local Disk (C:)</span>
+								</div>
+								<div class="flex items-center gap-2">
+									@templ.Raw("&#x1F4BF;")
+									<span>CD-ROM (D:)</span>
+								</div>
+							</div>
+						</div>
+						<button x-show="!open" class="retro-btn" style="font-size: var(--font-size-caption);"
+							{ templ.Attributes{"@click": "open = true"}... }>Reopen My Computer</button>
+					</div>
+					<!-- Minimizable window -->
+					<div x-data="{ minimized: false }">
+						<div class="retro-window">
+							<div class="retro-titlebar">
+								<span>Control Panel</span>
+								<div class="flex gap-0.5">
+									<button class="retro-winbtn"
+										{ templ.Attributes{"@click": "minimized = !minimized"}... }>_</button>
+									</div>
+							</div>
+							<div x-show="!minimized" style="padding: 0.75rem; font-size: var(--font-size-caption);">
+								<div class="grid grid-cols-3 gap-3 text-center">
+									for _, item := range []struct{ icon, label string }{
+										{"&#x1F3A8;", "Display"},
+										{"&#x1F50A;", "Sound"},
+										{"&#x2328;", "Keyboard"},
+										{"&#x1F5B1;", "Mouse"},
+										{"&#x1F310;", "Network"},
+										{"&#x1F512;", "Security"},
+									} {
+										<div style="cursor: pointer; padding: 0.35rem;" class="hover:bg-[#000080] hover:text-white">
+											<div style="font-size: 1.25rem;">@templ.Raw(item.icon)</div>
+											<div style="font-size: 0.625rem; margin-top: 0.15rem;">{ item.label }</div>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Another closeable window -->
+					<div x-data="{ open: true }">
+						<div class="retro-window" x-show="open" x-cloak>
+							<div class="retro-titlebar">
+								<span>Recycle Bin</span>
+								<button class="retro-winbtn"
+									{ templ.Attributes{"@click": "open = false"}... }>X</button>
+							</div>
+							<div style="padding: 0.75rem; font-size: var(--font-size-caption); text-align: center; color: var(--color-text-muted);">
+								@templ.Raw("&#x1F5D1;")
+								<p style="margin-top: 0.25rem;">Recycle Bin is empty.</p>
+							</div>
+						</div>
+						<button x-show="!open" class="retro-btn" style="font-size: var(--font-size-caption);"
+							{ templ.Attributes{"@click": "open = true"}... }>Reopen Recycle Bin</button>
+					</div>
+					<!-- Info panel -->
+					<div class="retro-window">
+						<div class="retro-titlebar retro-titlebar-inactive">
+							<span>System Info</span>
+						</div>
+						<div style="padding: 0.75rem; font-size: var(--font-size-caption);">
+							<table style="width: 100%; border-collapse: collapse;">
+								<tr><td style="padding: 0.15rem 0; color: var(--color-text-muted);">OS:</td><td style="padding: 0.15rem 0;">Retro OS 95</td></tr>
+								<tr><td style="padding: 0.15rem 0; color: var(--color-text-muted);">CPU:</td><td style="padding: 0.15rem 0;">Pentium 133MHz</td></tr>
+								<tr><td style="padding: 0.15rem 0; color: var(--color-text-muted);">RAM:</td><td style="padding: 0.15rem 0;">32 MB</td></tr>
+								<tr><td style="padding: 0.15rem 0; color: var(--color-text-muted);">Disk:</td><td style="padding: 0.15rem 0;">1.2 GB</td></tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:cards -->
+				@components.SourceView(snippets["cards"])
+			}
+			<!-- 7. Draggable Windows -->
+			<section class="mb-12">
+				<div class="flex items-center gap-3 mb-6">
+					<h2 class="text-lg font-semibold text-gray-700 uppercase tracking-widest" style="color: #fff; text-shadow: 1px 1px 2px #000;">Draggable Windows</h2>
+					<span class="px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200">[Alpine]</span>
+				</div>
+				<!-- snippet:draggable -->
+				<div style="position: relative; min-height: 350px; border: 2px dashed rgba(255,255,255,0.3); padding: 1rem;"
+					x-data="{
+						wins: [
+							{ id: 'drag1', title: 'README.txt', x: 10, y: 10, z: 11, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'This is a draggable Notepad window.\nTry dragging the title bar!' },
+							{ id: 'drag2', title: 'SYSTEM.LOG', x: 220, y: 50, z: 12, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'System boot completed.\nAll services running.\n640K ought to be enough.' },
+							{ id: 'drag3', title: 'HELP.TXT', x: 80, y: 120, z: 13, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'Drag windows by their title bar.\nClick a window to bring it to front.\nResize is not supported (yet).' }
+						],
+						bringToFront(win) {
+							Alpine.store('desktop').topZ++;
+							win.z = Alpine.store('desktop').topZ;
+						},
+						startDrag(win, e) {
+							this.bringToFront(win);
+							win.dragging = true;
+							win.startX = e.clientX;
+							win.startY = e.clientY;
+							win.origX = win.x;
+							win.origY = win.y;
+						},
+						onDrag(e) {
+							for (let w of this.wins) {
+								if (w.dragging) {
+									w.x = w.origX + (e.clientX - w.startX);
+									w.y = w.origY + (e.clientY - w.startY);
+								}
+							}
+						},
+						stopDrag() {
+							for (let w of this.wins) { w.dragging = false; }
+						}
+					}"
+					{ templ.Attributes{"@mousemove.window": "onDrag($event)"}... }
+					{ templ.Attributes{"@mouseup.window": "stopDrag()"}... }>
+					<template x-for="win in wins" x-bind:key="win.id">
+						<div class="retro-window"
+							style="position: absolute; width: 240px;"
+							{ templ.Attributes{":style": "'transform: translate(' + win.x + 'px,' + win.y + 'px); z-index:' + win.z + '; position: absolute; width: 240px;'"}... }
+							{ templ.Attributes{"@mousedown": "bringToFront(win)"}... }>
+							<div class="retro-titlebar" style="cursor: move;"
+								{ templ.Attributes{"@mousedown.prevent": "startDrag(win, $event)"}... }>
+								<span x-text="win.title"></span>
+								<div class="flex gap-0.5">
+									<button class="retro-winbtn">_</button>
+									<button class="retro-winbtn">X</button>
+								</div>
+							</div>
+							<div class="retro-inset" style="padding: 0.5rem; margin: 0.25rem; font-size: var(--font-size-caption); white-space: pre-line; min-height: 60px;">
+								<span x-text="win.content"></span>
+							</div>
+						</div>
+					</template>
+					<p style="position: absolute; bottom: 0.5rem; right: 0.5rem; font-size: 0.625rem; color: rgba(255,255,255,0.5);">
+						Drag title bars to move. Click to bring to front.
+					</p>
+				</div>
+				<!-- /snippet:draggable -->
+				@components.SourceView(snippets["draggable"])
+			</section>
+			<!-- 8. Desktop Icons + HTMX Load & 9. Taskbar -->
+			<section class="mb-12">
+				<div class="flex items-center gap-3 mb-6">
+					<h2 class="text-lg font-semibold text-gray-700 uppercase tracking-widest" style="color: #fff; text-shadow: 1px 1px 2px #000;">Desktop &amp; Taskbar</h2>
+					<span class="px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200">[HTMX]</span>
+					<span class="px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200">[Alpine]</span>
+				</div>
+				<!-- snippet:desktop -->
+				<div style="position: relative; background: var(--color-bg); border: 2px solid #808080; min-height: 450px; overflow: hidden;"
+					x-data="{
+						apps: [
+							{ name: 'about', label: 'About', icon: '&#x1F5A5;', open: false, x: 50, y: 30, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 },
+							{ name: 'calculator', label: 'Calculator', icon: '&#x1F522;', open: false, x: 200, y: 50, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 },
+							{ name: 'files', label: 'File Manager', icon: '&#x1F4C1;', open: false, x: 100, y: 80, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 }
+						],
+						openApp(app) {
+							app.open = true;
+							Alpine.store('desktop').topZ++;
+							app.z = Alpine.store('desktop').topZ;
+							if (!app.loaded) {
+								htmx.trigger(document.getElementById('retro-app-' + app.name), 'load-app');
+								app.loaded = true;
+							}
+						},
+						closeApp(app) {
+							app.open = false;
+						},
+						bringFront(app) {
+							Alpine.store('desktop').topZ++;
+							app.z = Alpine.store('desktop').topZ;
+						},
+						startDrag(app, e) {
+							this.bringFront(app);
+							app.dragging = true;
+							app.startX = e.clientX;
+							app.startY = e.clientY;
+							app.origX = app.x;
+							app.origY = app.y;
+						},
+						onMove(e) {
+							for (let a of this.apps) {
+								if (a.dragging) {
+									a.x = a.origX + (e.clientX - a.startX);
+									a.y = a.origY + (e.clientY - a.startY);
+								}
+							}
+						},
+						stopMove() {
+							for (let a of this.apps) { a.dragging = false; }
+						}
+					}"
+					{ templ.Attributes{"@mousemove.window": "onMove($event)"}... }
+					{ templ.Attributes{"@mouseup.window": "stopMove()"}... }
+					{ templ.Attributes{"@close-window.window": "let a = apps.find(x => x.name === $event.detail); if(a) closeApp(a);"}... }>
+					<!-- Desktop icons -->
+					<div class="flex gap-6" style="padding: 1rem;">
+						<template x-for="app in apps" x-bind:key="app.name">
+							<div class="retro-icon"
+								{ templ.Attributes{"@dblclick": "openApp(app)"}... }>
+								<div class="retro-icon-img" x-html="app.icon"></div>
+								<span x-text="app.label" style="font-size: var(--font-size-caption);"></span>
+							</div>
+						</template>
+					</div>
+					<!-- App windows -->
+					<template x-for="app in apps" x-bind:key="'win-' + app.name">
+						<div x-show="app.open" x-cloak
+							class="retro-window"
+							style="position: absolute; width: 280px;"
+							{ templ.Attributes{":style": "'transform: translate(' + app.x + 'px,' + app.y + 'px); z-index:' + app.z + '; position: absolute; width: 280px;'"}... }
+							{ templ.Attributes{"@mousedown": "bringFront(app)"}... }>
+							<div class="retro-titlebar" style="cursor: move;"
+								{ templ.Attributes{"@mousedown.prevent": "startDrag(app, $event)"}... }>
+								<span x-text="app.label"></span>
+								<div class="flex gap-0.5">
+									<button class="retro-winbtn"
+										{ templ.Attributes{"@click": "closeApp(app)"}... }>X</button>
+								</div>
+							</div>
+							<div { templ.Attributes{":id": "'retro-app-' + app.name"}... }
+								hx-swap="innerHTML"
+								{ templ.Attributes{"hx-get": ""}... }
+								{ templ.Attributes{"hx-trigger": "load-app"}... }
+								{ templ.Attributes{"x-bind:hx-get": "'/guides/retro/app/' + app.name"}... }
+								style="min-height: 60px;">
+								<div style="padding: 1rem; text-align: center; font-size: var(--font-size-caption); color: var(--color-text-muted);">
+									Loading...
+								</div>
+							</div>
+						</div>
+					</template>
+					<!-- Taskbar -->
+					<div class="retro-taskbar" style="position: absolute; bottom: 0; left: 0; right: 0;">
+						<button class="retro-start-btn">
+							@templ.Raw("&#x1F5D4;") <span style="font-weight: 700;">Start</span>
+						</button>
+						<div style="width: 1px; height: 1.25rem; background: #808080; margin: 0 0.15rem;"></div>
+						<template x-for="app in apps" x-bind:key="'tb-' + app.name">
+							<button x-show="app.open"
+								class="retro-taskbar-btn"
+								{ templ.Attributes{":class": "app.z === Alpine.store('desktop').topZ ? 'retro-taskbar-btn-active' : ''"}... }
+								{ templ.Attributes{"@click": "bringFront(app)"}... }
+								x-text="app.label">
+							</button>
+						</template>
+						<div style="flex: 1;"></div>
+						<div class="retro-inset" style="padding: 0.1rem 0.5rem; font-size: 0.625rem; font-family: var(--font-mono);">
+							12:00 PM
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:desktop -->
+				<p style="margin-top: 0.5rem; font-size: var(--font-size-caption); color: rgba(255,255,255,0.6);">
+					Double-click desktop icons to open. App content is lazy-loaded via HTMX. Drag windows by title bar. Taskbar shows open apps.
+				</p>
+				@components.SourceView(snippets["desktop"])
+			</section>
 		</div>
 	</div>
 }

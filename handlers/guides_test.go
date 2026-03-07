@@ -189,6 +189,20 @@ func TestTerminalExec(t *testing.T) {
 	}
 }
 
+func TestRetroAppLoad(t *testing.T) {
+	mux := handlers.NewMux()
+	for _, app := range []string{"about", "calculator", "files"} {
+		t.Run(app, func(t *testing.T) {
+			req := httptest.NewRequest(http.MethodGet, "/guides/retro/app/"+app, nil)
+			w := httptest.NewRecorder()
+			mux.ServeHTTP(w, req)
+			if w.Code != http.StatusOK {
+				t.Errorf("GET /guides/retro/app/%s: expected 200, got %d", app, w.Code)
+			}
+		})
+	}
+}
+
 func TestCassetteLogOK(t *testing.T) {
 	mux := handlers.NewMux()
 	req := httptest.NewRequest(http.MethodGet, "/guides/cassette/log", nil)

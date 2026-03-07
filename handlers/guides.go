@@ -232,6 +232,22 @@ func NewMux() *http.ServeMux {
 		terminaltempl.ExecResponse(cmd, output).Render(r.Context(), w)
 	})
 
+	// Retro OS — lazy-load app window content
+	mux.HandleFunc("/guides/retro/app/{name}", func(w http.ResponseWriter, r *http.Request) {
+		name := r.PathValue("name")
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		switch name {
+		case "about":
+			retrotempl.AppAbout().Render(r.Context(), w)
+		case "calculator":
+			retrotempl.AppCalculator().Render(r.Context(), w)
+		case "files":
+			retrotempl.AppFiles().Render(r.Context(), w)
+		default:
+			http.NotFound(w, r)
+		}
+	})
+
 	mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {
 		entries := []struct{ sub, msg string }{
 			{"SYS", "WCYPD COLONY SYSTEMS — HEARTBEAT NOMINAL"},
