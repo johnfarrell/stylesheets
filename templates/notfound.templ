@@ -1,0 +1,14 @@
+package templates
+
+// NotFound renders the 404 error page.
+templ NotFound() {
+	<div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-8">
+		<p class="text-8xl font-bold text-gray-100 select-none">404</p>
+		<h1 class="mt-2 text-2xl font-bold text-gray-900">Page not found</h1>
+		<p class="mt-2 text-sm text-gray-500">The page you&#39;re looking for doesn&#39;t exist.</p>
+		<a
+			href="/"
+			class="mt-6 text-sm font-medium text-gray-700 hover:text-gray-900 hover:underline transition-colors"
+		>← Back to guides</a>
+	</div>
+}

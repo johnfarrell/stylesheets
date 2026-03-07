@@ -61,6 +61,23 @@ func TestGuideNotFound(t *testing.T) {
 	if w.Code != http.StatusNotFound {
 		t.Errorf("expected 404, got %d", w.Code)
 	}
+	if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
+		t.Errorf("expected text/html for 404 page, got %q", ct)
+	}
+	if !strings.Contains(w.Body.String(), "404") {
+		t.Error("expected '404' in response body")
+	}
+}
+
+func TestUnknownPathIs404(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/this-does-not-exist", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+
+	if w.Code != http.StatusNotFound {
+		t.Errorf("expected 404, got %d", w.Code)
+	}
 }
 
 func TestAllGuidePagesOK(t *testing.T) {

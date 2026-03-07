@@ -28,7 +28,7 @@ func NewMux() *http.ServeMux {
 	// Landing page
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
-			http.NotFound(w, r)
+			renderNotFound(w, r)
 			return
 		}
 		page := templates.Layout(guides.All, "", "", templates.Home(guides.All))
@@ -41,7 +41,7 @@ func NewMux() *http.ServeMux {
 		slug := r.PathValue("slug")
 		guide, ok := guides.BySlug(slug)
 		if !ok {
-			http.NotFound(w, r)
+			renderNotFound(w, r)
 			return
 		}
 		content := guideContent(guide, false)
@@ -55,7 +55,7 @@ func NewMux() *http.ServeMux {
 		slug := r.PathValue("slug")
 		guide, ok := guides.BySlug(slug)
 		if !ok {
-			http.NotFound(w, r)
+			renderNotFound(w, r)
 			return
 		}
 		isHTMX := r.Header.Get("HX-Request") == "true"
@@ -154,6 +154,13 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 	default:
 		return placeholderContent(g)
 	}
+}
+
+// renderNotFound serves a styled 404 page inside the main layout.
+func renderNotFound(w http.ResponseWriter, r *http.Request) {
+	page := templates.Layout(guides.All, "", "", templates.NotFound())
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	templ.Handler(page, templ.WithStatus(http.StatusNotFound)).ServeHTTP(w, r)
 }
 
 // placeholderContent renders a minimal placeholder until guide packages are implemented.
