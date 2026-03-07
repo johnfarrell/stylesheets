@@ -8,7 +8,7 @@ import (
 
 // Page renders the full Cassette style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
-	{{ snippets := guides.GetSnippets(g.Slug) }}
+	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	@templ.Raw("<style>:root{" + buildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
 	if htmxRequest {
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
@@ -1442,7 +1442,10 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						></div>
 						<!-- /snippet:system-log -->
 					</div>
-					@components.SourceView("<!-- HTMX (client) -->\n" + snippets["system-log"] + "\n\n<!-- Go handler (server) -->\n" + LogHandlerSnippet)
+					<p class="text-xs mb-1" style="color: var(--color-text-muted); font-family: var(--font-body);">HTMX client — cassette.templ</p>
+				@components.SourceView(snippets["system-log"])
+				<p class="text-xs mt-4 mb-1" style="color: var(--color-text-muted); font-family: var(--font-body);">Go handler — handlers/guides.go</p>
+				@components.SourceView(guides.Highlight(LogHandlerSnippet, "go"))
 					<!-- Controls -->
 					<div class="flex gap-3 mt-3">
 						<button

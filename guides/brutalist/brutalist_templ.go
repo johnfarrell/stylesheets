@@ -35,7 +35,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		snippets := guides.GetSnippets(g.Slug)
+		snippets := guides.GetHighlightedSnippets(g.Slug)
 		if htmxRequest {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation --> <span id=\"font-loader\"")
 			if templ_7745c5c3_Err != nil {

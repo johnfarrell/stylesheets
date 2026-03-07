@@ -7,7 +7,7 @@ import (
 
 // Page renders the full Glassmorphism style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
-	{{ snippets := guides.GetSnippets(g.Slug) }}
+	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	if htmxRequest {
 		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
