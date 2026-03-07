@@ -1432,16 +1432,16 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							</div>
 						</div>
 						<!-- snippet:system-log -->
-					<!-- HTMX polling trigger -->
+						<!-- HTMX polling trigger -->
 						<div
 							hx-get="/guides/cassette/log"
 							hx-trigger="every 4s"
 							hx-target="#cass-log-output"
 							hx-swap="beforeend"
 						></div>
-					<!-- /snippet:system-log -->
+						<!-- /snippet:system-log -->
 					</div>
-					@components.SourceView(snippets["system-log"])
+					@components.SourceView("<!-- HTMX (client) -->\n" + snippets["system-log"] + "\n\n// Go handler (server)\n" + LogHandlerSnippet)
 					<!-- Controls -->
 					<div class="flex gap-3 mt-3">
 						<button

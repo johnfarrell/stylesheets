@@ -1445,7 +1445,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.SourceView(snippets["system-log"]).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = components.SourceView("<!-- HTMX (client) -->\n"+snippets["system-log"]+"\n\n// Go handler (server)\n"+LogHandlerSnippet).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

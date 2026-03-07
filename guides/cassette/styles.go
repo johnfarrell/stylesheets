@@ -2,6 +2,22 @@ package cassette
 
 import "strings"
 
+// LogHandlerSnippet is the server-side handler shown in the system log SourceView.
+// Display copy only — the live handler is in handlers/guides.go.
+const LogHandlerSnippet = `mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {
+    entries := []struct{ sub, msg string }{
+        {"SYS", "WCYPD COLONY SYSTEMS — HEARTBEAT NOMINAL"},
+        // ... more entries ...
+    }
+    idx := int(time.Now().Unix()) % len(entries)
+    e := entries[idx]
+    ts := time.Now().Format("15:04:05")
+    fmt.Fprintf(w,
+        ` + "`" + `<div ...>[%s] %s %s</div>` + "`" + `,
+        ts, templ.EscapeString(e.sub), templ.EscapeString(e.msg),
+    )
+})`
+
 func buildCSSVars(vars map[string]string) string {
 	var sb strings.Builder
 	for k, v := range vars {
