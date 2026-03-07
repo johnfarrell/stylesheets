@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
+	brutalisttempl "github.com/johnfarrell/stylesheets/guides/brutalist"
 	"github.com/johnfarrell/stylesheets/guides"
 	"github.com/johnfarrell/stylesheets/templates"
 )
@@ -79,8 +80,12 @@ func NewMux() *http.ServeMux {
 // guideContent returns the Templ component for a guide's showcase.
 // Add a case here when registering a new guide.
 func guideContent(g guides.Guide) templ.Component {
-	// Placeholder — replaced in Task 8 when guide packages are added
-	return placeholderContent(g)
+	switch g.Slug {
+	case "brutalist":
+		return brutalisttempl.Page(g)
+	default:
+		return placeholderContent(g)
+	}
 }
 
 // placeholderContent renders a minimal placeholder until guide packages are implemented.
