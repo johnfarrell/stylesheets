@@ -25,17 +25,15 @@ func NewMux() *http.ServeMux {
 	// Static files
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	// Root redirect to first guide
+	// Landing page
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
 			return
 		}
-		if len(guides.All) == 0 {
-			http.Error(w, "no guides registered", http.StatusInternalServerError)
-			return
-		}
-		http.Redirect(w, r, "/guides/"+guides.All[0].Slug, http.StatusFound)
+		page := templates.Layout(guides.All, "", "", templates.Home(guides.All))
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		templ.Handler(page).ServeHTTP(w, r)
 	})
 
 	// Full page guide render

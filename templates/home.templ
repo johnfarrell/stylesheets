@@ -1,0 +1,33 @@
+package templates
+
+import (
+	"fmt"
+	"github.com/johnfarrell/stylesheets/guides"
+)
+
+// Home renders the landing page listing all registered style guides.
+templ Home(allGuides []guides.Guide) {
+	<div class="p-8 max-w-5xl mx-auto">
+		<div class="mb-10">
+			<h1 class="text-3xl font-bold text-gray-900">Stylesheets</h1>
+			<p class="mt-2 text-gray-500 max-w-xl">
+				A reference collection of UI design languages built with Go, Templ, HTMX, Alpine.js, and Tailwind CSS.
+			</p>
+		</div>
+		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			for _, g := range allGuides {
+				<a
+					href={ templ.SafeURL(fmt.Sprintf("/guides/%s", g.Slug)) }
+					hx-get={ fmt.Sprintf("/guides/%s/content", g.Slug) }
+					hx-target="#content"
+					hx-push-url={ fmt.Sprintf("/guides/%s", g.Slug) }
+					class="block bg-white border border-gray-200 rounded p-6 hover:border-gray-400 hover:shadow-sm transition-all cursor-pointer"
+				>
+					<h2 class="text-base font-semibold text-gray-900">{ g.Name }</h2>
+					<p class="mt-1 text-sm text-gray-500">{ g.Description }</p>
+					<p class="mt-4 text-xs font-medium text-gray-700">View guide →</p>
+				</a>
+			}
+		</div>
+	</div>
+}
