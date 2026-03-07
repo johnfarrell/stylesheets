@@ -7,6 +7,7 @@ import (
 
 // Page renders the full Brutalist style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
+	{{ snippets := guides.GetSnippets(g.Slug) }}
 	if htmxRequest {
 		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
@@ -23,8 +24,15 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<h1 class="text-5xl font-bold uppercase tracking-tight mb-2" style="font-family: var(--font-display)">Brutalist</h1>
 			<p class="text-gray-600 text-sm">Raw. Functional. Unapologetic. Heavy borders, stark contrast, no rounded corners.</p>
 		</div>
+		@components.TechSummary([]components.TechCallout{
+			{Tech: "Alpine", Description: "Copy-to-clipboard with x-data + @click, state reset with setTimeout"},
+			{Tech: "Alpine", Description: "Toggle demo — x-bind:class for conditional styling"},
+			{Tech: "HTMX",   Description: "hx-post form submission with hx-target + hx-swap"},
+			{Tech: "Alpine", Description: "Collapsible card panels with x-show + x-transition"},
+		})
 		<!-- 1. Color Palette -->
 		@components.Section("Color Palette", components.BadgeAlpine) {
+			<!-- snippet:color-swatch -->
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
 				@colorSwatch("Primary", "var(--color-primary)", "#000000")
 				@colorSwatch("Secondary", "var(--color-secondary)", "#FF0000")
@@ -33,7 +41,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				@colorSwatch("Surface", "var(--color-surface)", "#F5F5F5")
 				@colorSwatch("Muted", "var(--color-text-muted)", "#555555")
 			</div>
+			<!-- /snippet:color-swatch -->
 			<p class="text-xs text-gray-500 mt-4 font-mono">Click any swatch to copy hex value to clipboard.</p>
+			@components.SourceView(snippets["color-swatch"])
 		}
 		<!-- 2. Typography -->
 		@components.Section("Typography", components.BadgeNone) {
@@ -113,6 +123,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<!-- Alpine toggle demo -->
 				<div>
 					<p class="text-xs font-mono text-gray-500 mb-3 uppercase">Toggle Demo [Alpine]</p>
+					<!-- snippet:button-toggle -->
 					<div x-data="{ active: false }" class="flex items-center gap-6">
 						<button
 							class="px-4 py-2 text-sm font-bold uppercase border-2 border-black font-mono cursor-pointer transition-all"
@@ -123,12 +134,15 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</button>
 						<p class="text-xs font-mono text-gray-500" x-text="active ? 'State: ON' : 'State: OFF'">State: OFF</p>
 					</div>
+					<!-- /snippet:button-toggle -->
+					@components.SourceView(snippets["button-toggle"])
 				</div>
 			</div>
 		}
 		<!-- 5. Forms -->
 		@components.Section("Forms", components.BadgeBoth) {
 			<div class="brut-card p-6">
+				<!-- snippet:form-htmx -->
 				<form
 					hx-post="/guides/brutalist/demo-form"
 					hx-target="#form-response"
@@ -199,6 +213,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</button>
 					</div>
 				</form>
+				<!-- /snippet:form-htmx -->
+				@components.SourceView(snippets["form-htmx"])
 				<!-- HTMX response target -->
 				<div id="form-response" class="mt-4"></div>
 			</div>
@@ -222,6 +238,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 				<!-- Expandable card (Alpine) -->
+				<!-- snippet:card-collapse -->
 				<div class="brut-card" x-data="{ expanded: false }">
 					<div
 						class="p-6 cursor-pointer flex items-center justify-between"
@@ -243,6 +260,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						</div>
 					</div>
 				</div>
+				<!-- /snippet:card-collapse -->
+				@components.SourceView(snippets["card-collapse"])
 				<!-- Alert panel -->
 				<div class="md:col-span-2 border-2 border-black p-4 flex gap-4 items-start" style="background: var(--color-accent); box-shadow: var(--shadow-card);">
 					<span class="text-2xl font-bold font-mono leading-none">!</span>
