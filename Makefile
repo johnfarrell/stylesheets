@@ -1,4 +1,6 @@
-.PHONY: dev build templ tailwind clean run
+.PHONY: dev build templ tailwind clean run docker-build docker-run
+
+IMAGE ?= stylesheets
 
 TEMPL := $(shell go env GOPATH)/bin/templ
 TAILWIND := ./node_modules/.bin/tailwindcss
@@ -25,6 +27,14 @@ watch-tailwind:
 # Build and run the server
 run: build
 	./bin/stylesheets
+
+# Build Docker image
+docker-build: docker-run
+	docker build -t $(IMAGE) .
+
+# Run the Docker image locally
+docker-run:
+	docker run --rm -p 8080:8080 $(IMAGE)
 
 # Clean generated artifacts
 clean:
