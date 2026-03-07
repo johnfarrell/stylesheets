@@ -1,21 +1,5 @@
 package brutalist
 
-import (
-	"strings"
-)
-
-// buildCSSVars generates the :root CSS variable declarations from the guide's CSSVars map.
-func buildCSSVars(vars map[string]string) string {
-	var sb strings.Builder
-	for k, v := range vars {
-		sb.WriteString(k)
-		sb.WriteString(":")
-		sb.WriteString(v)
-		sb.WriteString(";")
-	}
-	return sb.String()
-}
-
 // guideStyles returns the static CSS classes for this guide.
 func guideStyles() string {
 	return `

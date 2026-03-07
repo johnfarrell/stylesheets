@@ -1,8 +1,6 @@
 package cassette
 
 import (
-	"strings"
-
 	"github.com/johnfarrell/stylesheets/guides"
 )
 
@@ -24,17 +22,6 @@ const LogHandlerSnippet = `mux.HandleFunc("/guides/cassette/log", func(w http.Re
 
 // highlightedLogHandler is LogHandlerSnippet pre-highlighted as Go, cached at startup.
 var highlightedLogHandler = guides.Highlight(LogHandlerSnippet, "go")
-
-func buildCSSVars(vars map[string]string) string {
-	var sb strings.Builder
-	for k, v := range vars {
-		sb.WriteString(k)
-		sb.WriteString(":")
-		sb.WriteString(v)
-		sb.WriteString(";")
-	}
-	return sb.String()
-}
 
 func guideStyles() string {
 	return `

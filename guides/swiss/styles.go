@@ -1,18 +1,5 @@
 package swiss
 
-import "strings"
-
-func buildCSSVars(vars map[string]string) string {
-	var sb strings.Builder
-	for k, v := range vars {
-		sb.WriteString(k)
-		sb.WriteString(":")
-		sb.WriteString(v)
-		sb.WriteString(";")
-	}
-	return sb.String()
-}
-
 func guideStyles() string {
 	return `
 /* [custom] - strict typographic grid not achievable with Tailwind utilities alone */
