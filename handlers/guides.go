@@ -103,10 +103,7 @@ func NewMux() *http.ServeMux {
 			if m.trend == "→" {
 				trendColor = "var(--color-text-muted)"
 			}
-			fmt.Fprintf(w,
-				`<div class="bento-card bento-span-6 flex flex-col gap-2"><p class="text-xs font-medium" style="color:var(--color-text-muted)">%s</p><p class="text-2xl font-bold" style="color:var(--color-text)">%s</p><p class="text-xs font-medium" style="color:%s">%s %s</p></div>`,
-				templ.EscapeString(m.label), templ.EscapeString(m.value), trendColor, templ.EscapeString(m.change), templ.EscapeString(m.trend),
-			)
+			bentotempl.MetricTile(m.label, m.value, m.change, m.trend, trendColor).Render(r.Context(), w)
 		}
 	})
 
