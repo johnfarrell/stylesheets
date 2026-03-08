@@ -10,6 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 // Page renders the Mission Control style guide showcase.
@@ -34,6 +35,11 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		snippets := guides.GetHighlightedSnippets(g.Slug)
+		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		if htmxRequest {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<span id=\"font-loader\"")
 			if templ_7745c5c3_Err != nil {
@@ -50,7 +56,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var2 templ.SafeURL
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(g.FontURL)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/tracker/tracker.templ`, Line: 13, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/tracker/tracker.templ`, Line: 16, Col: 42}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -61,11 +67,355 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div style=\"background: var(--color-bg); min-height: 100%; padding: var(--section-padding); color: var(--color-text); font-family: var(--font-body);\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><!-- HEADER --><h1 class=\"trk-glow mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);\">Mission Control</h1><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">OSRS Goal Tracker — Dark-mode dashboard for account progression.</p><div class=\"trk-rule mt-4 mb-8\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div style=\"background: var(--color-bg); min-height: 100%; padding: var(--section-padding); color: var(--color-text); font-family: var(--font-body);\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><h1 class=\"trk-glow mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);\">Mission Control</h1><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">OSRS Goal Tracker — Dark-mode dashboard for account progression.</p></div></div>")
+		templ_7745c5c3_Err = components.TechSummary([]components.TechCallout{
+			{Tech: "HTMX", Description: "Live search filter + lazy-loaded detail panels for OSRS content browser"},
+			{Tech: "Alpine", Description: "Sidebar tree navigation, dependency graph, combat level calculator"},
+			{Tech: "CSS", Description: "Dark-mode design tokens with gold accent — trk- prefixed component classes"},
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<!-- SECTION 1: Color Palette -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var3 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<div x-data=\"{ copied: '' }\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">INTERFACE COLORS</p><div class=\"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4\"><!-- snippet:color-swatch --><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#0d1117'); copied='bg'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='bg' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "><div style=\"height: 48px; background: #0d1117; border: 1px solid var(--color-border); border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Background</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='bg' ? 'COPIED' : '#0d1117'\">#0d1117</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Page background</p></div><!-- /snippet:color-swatch --><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#161b22'); copied='surface'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='surface' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "><div style=\"height: 48px; background: #161b22; border: 1px solid var(--color-border); border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Surface</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='surface' ? 'COPIED' : '#161b22'\">#161b22</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Panel / Card</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#1c2128'); copied='surface2'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='surface2' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "><div style=\"height: 48px; background: #1c2128; border: 1px solid var(--color-border); border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Surface 2</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='surface2' ? 'COPIED' : '#1c2128'\">#1c2128</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Headers / Elevated</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#c8aa6e'); copied='primary'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='primary' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "><div style=\"height: 48px; background: #c8aa6e; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Primary / Gold</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='primary' ? 'COPIED' : '#c8aa6e'\">#c8aa6e</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Accent / Headings</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#2ea043'); copied='success'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='success' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "><div style=\"height: 48px; background: #2ea043; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Success / Green</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='success' ? 'COPIED' : '#2ea043'\">#2ea043</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Complete status</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#d29922'); copied='warning'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='warning' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "><div style=\"height: 48px; background: #d29922; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Warning / Amber</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='warning' ? 'COPIED' : '#d29922'\">#d29922</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">In-progress</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#da3633'); copied='danger'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='danger' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "><div style=\"height: 48px; background: #da3633; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Danger / Red</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='danger' ? 'COPIED' : '#da3633'\">#da3633</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Locked / Error</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#58a6ff'); copied='info'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='info' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "><div style=\"height: 48px; background: #58a6ff; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Info / Blue</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='info' ? 'COPIED' : '#58a6ff'\">#58a6ff</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Links / Skill tags</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#e6edf3'); copied='text'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='text' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "><div style=\"height: 48px; background: #e6edf3; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Text</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='text' ? 'COPIED' : '#e6edf3'\">#e6edf3</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Body text</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#7d8590'); copied='muted'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='muted' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "><div style=\"height: 48px; background: #7d8590; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Muted</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='muted' ? 'COPIED' : '#7d8590'\">#7d8590</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Secondary text</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#30363d'); copied='border'; setTimeout(()=>copied='',1500)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='border' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "><div style=\"height: 48px; background: #30363d; border-radius: var(--radius-sm);\"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Border</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='border' ? 'COPIED' : '#30363d'\">#30363d</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Dividers / Edges</p></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["color-swatch"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("1.0  Color Palette", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<!-- SECTION 2: Typography -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var4 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<div class=\"trk-panel p-6 mb-6\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">DISPLAY — SPACE MONO</p><p class=\"trk-glow mb-3\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);\">Mission Control</p><p class=\"mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; color: var(--color-text);\">HEADING — Account Overview</p><p class=\"mb-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-body); font-weight: 400; color: var(--color-text);\">Body Mono — Total Level: 1,854</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 400; color: var(--color-text-muted);\">Caption Mono — LAST UPDATED: 2026-03-07T14:30:00Z</p></div><div class=\"trk-panel p-6 mb-6\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">BODY — DM SANS</p><p class=\"mb-2\" style=\"font-family: var(--font-body); font-size: var(--font-size-heading); font-weight: 700;\">Heading Weight 700</p><p class=\"mb-2\" style=\"font-family: var(--font-body); font-size: var(--font-size-heading); font-weight: 500;\">Heading Weight 500</p><p class=\"mb-2\" style=\"font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 400;\">Body text at regular weight. Track your goals, monitor quest completion, and visualize your account progression with the Mission Control dashboard.</p><p class=\"mb-2\" style=\"font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 300; color: var(--color-text-muted);\">Light weight — secondary descriptions and helper text.</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Caption — Updated 2 hours ago</p></div><div class=\"trk-panel p-6\"><div class=\"trk-panel-header mb-0\" style=\"margin: -1.5rem -1.5rem 1rem; border-radius: var(--radius-md) var(--radius-md) 0 0;\">DATA READOUT PANEL</div><div class=\"grid grid-cols-2 sm:grid-cols-4 gap-4\"><div><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;\">TOTAL LEVEL:</p><p class=\"trk-readout\">1,854</p></div><div><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;\">QUEST POINTS:</p><p class=\"trk-readout\">245</p></div><div><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;\">COMBAT LVL:</p><p class=\"trk-readout\">118</p></div><div><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;\">DIARIES:</p><p class=\"trk-readout\">32</p></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("2.0  Typography", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<!-- SECTION 3: Spacing Scale -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var5 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "<div class=\"trk-panel p-6\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">XP BAR SCALE — BASE UNIT 4PX</p><div class=\"space-y-3\"><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">4px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 6.25%;\"></div></div></div><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">8px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 12.5%;\"></div></div></div><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">12px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 18.75%;\"></div></div></div><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">16px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 25%;\"></div></div></div><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">24px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 37.5%;\"></div></div></div><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">32px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 50%;\"></div></div></div><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">48px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 75%;\"></div></div></div><div class=\"flex items-center gap-4\"><span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;\">64px</span><div class=\"trk-progress-bar flex-1\"><div class=\"trk-progress-fill\" style=\"width: 100%;\"></div></div></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("3.0  Spacing Scale", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<!-- SECTION 4: Buttons -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var6 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<div class=\"trk-panel p-6 mb-6\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">SIZE VARIANTS</p><div class=\"flex flex-wrap items-center gap-3 mb-6\"><button class=\"trk-btn\" style=\"font-size: 0.625rem; padding: 0.25rem 0.75rem;\">SM</button> <button class=\"trk-btn\">MD</button> <button class=\"trk-btn\" style=\"font-size: var(--font-size-body); padding: 0.6rem 1.5rem;\">LG</button></div><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">STYLE VARIANTS</p><div class=\"flex flex-wrap items-center gap-3\"><button class=\"trk-btn\">Default</button> <button class=\"trk-btn trk-btn-primary\">Primary</button> <button class=\"trk-btn trk-btn-danger\">Danger</button> <button class=\"trk-btn\" disabled style=\"opacity: 0.4; cursor: not-allowed;\">Disabled</button></div></div><div class=\"trk-panel p-6\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">TOGGLE DEMO</p><!-- snippet:btn-toggle --><div x-data=\"{ tracking: false }\" class=\"flex items-center gap-4\"><button class=\"trk-btn\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "tracking = !tracking"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "tracking ? 'trk-btn-primary' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, " x-text=\"tracking ? 'Untrack' : 'Track'\">Track</button><div class=\"flex items-center gap-2\"><span class=\"trk-status-light\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "tracking ? 'trk-status-complete' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "></span> <span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"tracking ? 'TRACKING' : 'NOT TRACKED'\">NOT TRACKED</span></div></div><!-- /snippet:btn-toggle --></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["btn-toggle"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("4.0  Buttons", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var6), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<!-- SECTION 5: Forms -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var7 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<div class=\"trk-panel\"><div class=\"trk-panel-header\">ADD GOAL</div><div class=\"p-6\"><form hx-post=\"/guides/tracker/demo-form\" hx-target=\"#trk-form-response\" hx-swap=\"innerHTML\"><div class=\"space-y-4\"><div><label style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.04em; display: block; margin-bottom: 0.25rem;\">GOAL NAME</label> <input type=\"text\" name=\"name\" class=\"trk-input\" placeholder=\"e.g. 99 Slayer\"></div><div><label style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.04em; display: block; margin-bottom: 0.25rem;\">CATEGORY</label> <select name=\"category\" class=\"trk-input\"><option value=\"skill\">Skill</option> <option value=\"quest\">Quest</option> <option value=\"diary\">Diary</option> <option value=\"boss\">Boss</option> <option value=\"collection\">Collection</option></select></div><div><label style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.04em; display: block; margin-bottom: 0.5rem;\">PRIORITY</label><div class=\"flex items-center gap-6\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"priority\" value=\"low\"> <span>Low</span></label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"priority\" value=\"normal\" checked> <span>Normal</span></label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"priority\" value=\"high\"> <span>High</span></label></div></div><div><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"notifications\" value=\"on\"> <span>Enable notifications</span></label></div><div><button type=\"submit\" class=\"trk-btn trk-btn-primary\">Submit Goal</button></div></div></form><div id=\"trk-form-response\" class=\"mt-4\"></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("5.0  Forms", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var7), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<!-- SECTION 6: Cards / Panels -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var8 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<div class=\"grid grid-cols-1 md:grid-cols-2 gap-6 mb-6\"><!-- Basic panel: quest summary --><div class=\"trk-panel p-5\"><div class=\"flex items-center gap-2 mb-3\"><span class=\"trk-tag trk-tag-quest\">QUEST</span> <span style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Grandmaster</span></div><p style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; color: var(--color-text); margin-bottom: 0.5rem;\">Dragon Slayer II</p><p style=\"font-size: var(--font-size-body); color: var(--color-text-muted); margin-bottom: 1rem;\">Defeat Vorkath and uncover the secrets of the Dragonkin.</p><div class=\"trk-progress-bar mb-2\"><div class=\"trk-progress-fill\" style=\"width: 65%;\"></div></div><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);\">65% COMPLETE</p></div><!-- Panel with header bar --><div class=\"trk-panel\"><div class=\"trk-panel-header\">SONG OF THE ELVES</div><div class=\"p-5\"><div class=\"space-y-3\"><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">70 Agility</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">70 Construction</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span style=\"font-size: var(--font-size-body);\">70 Herblore</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-locked\"></span> <span style=\"font-size: var(--font-size-body);\">70 Mining</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">Mourning's End Part II</span></div></div></div></div></div><!-- Status summary panel: skill status grid --> <div class=\"trk-panel p-5 mb-6\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">SKILL STATUS OVERVIEW</p><div class=\"grid grid-cols-4 sm:grid-cols-6 gap-3\"><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-caption);\">Attack</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-caption);\">Strength</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-caption);\">Defence</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span style=\"font-size: var(--font-size-caption);\">Ranged</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-caption);\">Prayer</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-caption);\">Magic</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span style=\"font-size: var(--font-size-caption);\">Runecraft</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-locked\"></span> <span style=\"font-size: var(--font-size-caption);\">Construction</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-caption);\">Hitpoints</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-caption);\">Agility</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span style=\"font-size: var(--font-size-caption);\">Herblore</span></div><div class=\"flex items-center gap-2\"><span class=\"trk-status-light trk-status-locked\"></span> <span style=\"font-size: var(--font-size-caption);\">Thieving</span></div></div></div><!-- Expandable card --> <!-- snippet:expandable-card --> <div class=\"trk-panel\" x-data=\"{ open: false }\"><div class=\"trk-panel-header flex items-center justify-between cursor-pointer\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "open = !open"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "><span>RECIPE FOR DISASTER — REQUIREMENTS</span> <span style=\"font-size: 0.625rem; transition: transform 0.15s;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "open ? 'transform: rotate(90deg)' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, ">&#9654;</span></div><div x-show=\"open\" x-transition x-cloak class=\"p-5\"><div class=\"space-y-3\"><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">Cook's Assistant</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">Fishing Contest</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">Goblin Diplomacy</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span style=\"font-size: var(--font-size-body);\">Big Chompy Bird Hunting</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-locked\"></span> <span style=\"font-size: var(--font-size-body);\">Desert Treasure</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-locked\"></span> <span style=\"font-size: var(--font-size-body);\">Horror from the Deep</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">Shadow of the Storm</span></div><div class=\"flex items-center gap-3\"><span class=\"trk-status-light trk-status-complete\"></span> <span style=\"font-size: var(--font-size-body);\">175 Quest Points</span></div></div><div class=\"trk-rule mt-4 pt-3\"><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);\">5/8 sub-quests complete — 2 locked</p></div></div></div><!-- /snippet:expandable-card --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["expandable-card"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("6.0  Cards / Panels", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
