@@ -509,7 +509,361 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "<!-- SECTION 8: Dependency Graph -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var10 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<!-- snippet:dep-graph --> <div x-data=\"{ selected: 'barrows', highlighted: null, graphs: { barrows: { name: 'Barrows Gloves', category: 'quest', status: 'locked', deps: [ { id: 'bg1', name: '175 Quest Points', category: 'quest', status: 'progress', deps: [] }, { id: 'bg2', name: '70 Cooking', category: 'skill', status: 'complete', level: 70, deps: [] }, { id: 'bg3', name: 'Desert Treasure', category: 'quest', status: 'locked', deps: [ { id: 'bg3a', name: '53 Thieving', category: 'skill', status: 'complete', level: 53, deps: [] }, { id: 'bg3b', name: '50 Magic', category: 'skill', status: 'complete', level: 50, deps: [] }, { id: 'bg3c', name: '50 Firemaking', category: 'skill', status: 'complete', level: 50, deps: [] } ] }, { id: 'bg4', name: '53 Fishing', category: 'skill', status: 'complete', level: 53, deps: [] }, { id: 'bg5', name: '50 Mining', category: 'skill', status: 'progress', level: 45, deps: [] } ] }, questcape: { name: 'Quest Cape', category: 'quest', status: 'locked', deps: [ { id: 'qc1', name: 'All Quests Complete', category: 'quest', status: 'progress', deps: [] }, { id: 'qc2', name: '70 Prayer', category: 'skill', status: 'locked', level: 52, deps: [] }, { id: 'qc3', name: '75 Magic', category: 'skill', status: 'complete', level: 85, deps: [] }, { id: 'qc4', name: '70 Smithing', category: 'skill', status: 'progress', level: 62, deps: [] }, { id: 'qc5', name: 'Song of the Elves', category: 'quest', status: 'locked', deps: [ { id: 'qc5a', name: '70 Agility', category: 'skill', status: 'progress', level: 55, deps: [] }, { id: 'qc5b', name: '70 Construction', category: 'skill', status: 'locked', level: 40, deps: [] }, { id: 'qc5c', name: '70 Herblore', category: 'skill', status: 'progress', level: 60, deps: [] } ] } ] }, ardougne: { name: 'Ardougne Elite Diary', category: 'diary', status: 'locked', deps: [ { id: 'ae1', name: '91 Thieving', category: 'skill', status: 'progress', level: 72, deps: [] }, { id: 'ae2', name: '90 Smithing', category: 'skill', status: 'locked', level: 62, deps: [] }, { id: 'ae3', name: '85 Farming', category: 'skill', status: 'progress', level: 70, deps: [] }, { id: 'ae4', name: '85 Cooking', category: 'skill', status: 'complete', level: 99, deps: [] }, { id: 'ae5', name: '82 Fletching', category: 'skill', status: 'complete', level: 84, deps: [] } ] } } }\"><!-- Goal selector buttons --><div class=\"flex gap-2 mb-6 flex-wrap\"><button class=\"trk-btn\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "selected = 'barrows'; highlighted = null"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "selected === 'barrows' ? 'trk-btn-primary' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, ">Barrows Gloves</button> <button class=\"trk-btn\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "selected = 'questcape'; highlighted = null"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "selected === 'questcape' ? 'trk-btn-primary' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, ">Quest Cape</button> <button class=\"trk-btn\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "selected = 'ardougne'; highlighted = null"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "selected === 'ardougne' ? 'trk-btn-primary' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, ">Ardougne Elite</button></div><!-- Barrows Gloves graph --><div x-show=\"selected === 'barrows'\" x-transition class=\"flex items-start gap-0 overflow-x-auto pb-4\"><!-- Sub-deps column (Desert Treasure deps) --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg3a' ? null : 'bg3a'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg3a' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">53 Thieving</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 53</div></div><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg3b' ? null : 'bg3b'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg3b' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">50 Magic</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 50</div></div><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg3c' ? null : 'bg3c'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg3c' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">50 Firemaking</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 50</div></div></div><!-- Connecting lines: sub-deps to Desert Treasure --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div></div><!-- Deps column (middle) --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg1' ? null : 'bg1'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg1' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">175 Quest Points</div><span class=\"trk-tag trk-tag-quest\">QUEST</span></div><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg2' ? null : 'bg2'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg2' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">70 Cooking</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 70</div></div><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg3' ? null : 'bg3'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg3' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">Desert Treasure</div><span class=\"trk-tag trk-tag-quest\">QUEST</span></div><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg4' ? null : 'bg4'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg4' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">53 Fishing</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 53</div></div><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'bg5' ? null : 'bg5'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'bg5' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">50 Mining</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 45</div></div></div><!-- Connecting lines: deps to goal --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div></div><!-- Goal node (right) --><div class=\"flex items-center\"><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'barrows-goal' ? null : 'barrows-goal'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'barrows-goal' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, " style=\"cursor: pointer; padding: 1rem 1.25rem; min-width: 160px;\"><div style=\"font-weight: 700; font-size: var(--font-size-body);\">Barrows Gloves</div><span class=\"trk-tag trk-tag-quest\">QUEST</span></div></div></div><!-- Quest Cape graph --><div x-show=\"selected === 'questcape'\" x-transition class=\"flex items-start gap-0 overflow-x-auto pb-4\"><!-- Sub-deps column (Song of the Elves deps) --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc5a' ? null : 'qc5a'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc5a' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">70 Agility</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 55</div></div><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc5b' ? null : 'qc5b'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc5b' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">70 Construction</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 40</div></div><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc5c' ? null : 'qc5c'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc5c' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">70 Herblore</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 60</div></div></div><!-- Connecting lines: sub-deps to Song of the Elves --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div></div><!-- Deps column (middle) --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc1' ? null : 'qc1'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc1' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">All Quests Complete</div><span class=\"trk-tag trk-tag-quest\">QUEST</span></div><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc2' ? null : 'qc2'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc2' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">70 Prayer</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 52</div></div><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc3' ? null : 'qc3'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc3' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">75 Magic</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 85</div></div><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc4' ? null : 'qc4'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc4' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">70 Smithing</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 62</div></div><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'qc5' ? null : 'qc5'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'qc5' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">Song of the Elves</div><span class=\"trk-tag trk-tag-quest\">QUEST</span></div></div><!-- Connecting lines: deps to goal --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div></div><!-- Goal node (right) --><div class=\"flex items-center\"><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'questcape-goal' ? null : 'questcape-goal'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'questcape-goal' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, " style=\"cursor: pointer; padding: 1rem 1.25rem; min-width: 160px;\"><div style=\"font-weight: 700; font-size: var(--font-size-body);\">Quest Cape</div><span class=\"trk-tag trk-tag-quest\">QUEST</span></div></div></div><!-- Ardougne Elite graph --><div x-show=\"selected === 'ardougne'\" x-transition class=\"flex items-start gap-0 overflow-x-auto pb-4\"><!-- No sub-deps for Ardougne, so skip that column --><!-- Deps column --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'ae1' ? null : 'ae1'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'ae1' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">91 Thieving</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 72</div></div><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'ae2' ? null : 'ae2'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'ae2' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">90 Smithing</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 62</div></div><div class=\"trk-dep-node trk-dep-node-progress\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'ae3' ? null : 'ae3'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'ae3' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">85 Farming</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 70</div></div><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'ae4' ? null : 'ae4'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'ae4' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">85 Cooking</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 99</div></div><div class=\"trk-dep-node trk-dep-node-complete\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'ae5' ? null : 'ae5'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'ae5' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, " style=\"cursor: pointer;\"><div style=\"font-weight: 600;\">82 Fletching</div><span class=\"trk-tag trk-tag-skill\">SKILL</span><div style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Lv 84</div></div></div><!-- Connecting lines: deps to goal --><div class=\"flex flex-col gap-2 justify-center\"><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div><div class=\"trk-dep-line\"></div></div><!-- Goal node (right) --><div class=\"flex items-center\"><div class=\"trk-dep-node trk-dep-node-locked\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "highlighted = highlighted === 'ardougne-goal' ? null : 'ardougne-goal'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "highlighted && highlighted !== 'ardougne-goal' ? 'trk-dep-node-dimmed' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, " style=\"cursor: pointer; padding: 1rem 1.25rem; min-width: 160px;\"><div style=\"font-weight: 700; font-size: var(--font-size-body);\">Ardougne Elite Diary</div><span class=\"trk-tag trk-tag-diary\">DIARY</span></div></div></div></div><!-- /snippet:dep-graph --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["dep-graph"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("8.0  Dependency Graph", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
