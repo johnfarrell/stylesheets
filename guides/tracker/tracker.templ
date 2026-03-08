@@ -1,0 +1,27 @@
+package tracker
+
+import (
+	"github.com/johnfarrell/stylesheets/guides"
+)
+
+// Page renders the Mission Control style guide showcase.
+templ Page(g guides.Guide, htmxRequest bool) {
+	if htmxRequest {
+		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link rel="stylesheet" href={ g.FontURL }/>
+		</span>
+	}
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	<div style="background: var(--color-bg); min-height: 100%; padding: var(--section-padding); color: var(--color-text); font-family: var(--font-body);">
+		<div style="max-width: var(--content-max-width); margin: 0 auto;">
+			<h1 class="trk-glow mb-2" style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);">
+				Mission Control
+			</h1>
+			<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
+				OSRS Goal Tracker — Dark-mode dashboard for account progression.
+			</p>
+		</div>
+	</div>
+}

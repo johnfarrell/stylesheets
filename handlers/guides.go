@@ -16,6 +16,7 @@ import (
 	glasstempl "github.com/johnfarrell/stylesheets/guides/glass"
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 	newspapertempl "github.com/johnfarrell/stylesheets/guides/newspaper"
+	trackertempl "github.com/johnfarrell/stylesheets/guides/tracker"
 	retrotempl "github.com/johnfarrell/stylesheets/guides/retro"
 	swisstempl "github.com/johnfarrell/stylesheets/guides/swiss"
 	terminaltempl "github.com/johnfarrell/stylesheets/guides/terminal"
@@ -370,6 +371,8 @@ func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
 		return retrotempl.Page(g, htmxRequest)
 	case "newspaper":
 		return newspapertempl.Page(g, htmxRequest)
+	case "tracker":
+		return trackertempl.Page(g, htmxRequest)
 	default:
 		return templ.Raw(fmt.Sprintf(`<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
 			templ.EscapeString(g.Name), templ.EscapeString(g.Description)))
