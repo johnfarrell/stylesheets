@@ -1,0 +1,13 @@
+package tracker
+
+// SearchResult renders a single matching item in the search results.
+templ SearchResult(id, category, name, status string) {
+	<div class="trk-tree-node"
+		hx-get={ "/guides/tracker/detail/" + category + "/" + id }
+		hx-target="#trk-detail-panel"
+		hx-swap="innerHTML">
+		<span class={ "trk-status-light " + statusClass(status) }></span>
+		<span class={ "trk-tag trk-tag-" + category }>{ category }</span>
+		<span>{ name }</span>
+	</div>
+}

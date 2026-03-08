@@ -415,7 +415,101 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<!-- SECTION 7: Content Browser -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var9 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "<!-- snippet:content-browser --> <div class=\"flex flex-col md:flex-row gap-6\" x-data=\"{ open: { skills: true, quests: false, diaries: false, bosses: false } }\"><!-- Sidebar --><div class=\"trk-panel\" style=\"width: 100%; max-width: 280px; flex-shrink: 0;\"><div class=\"trk-panel-header\">BROWSE</div><div class=\"p-3\"><!-- Search input --><input type=\"text\" class=\"trk-search mb-3\" placeholder=\"Search items...\" name=\"q\" hx-get=\"/guides/tracker/search\" hx-trigger=\"input changed delay:300ms\" hx-target=\"#trk-search-results\"><!-- Search results container --><div id=\"trk-search-results\"></div><!-- Tree navigation --><div class=\"trk-tree\"><!-- Skills --><div class=\"trk-tree-node\" style=\"font-weight: 700;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "open.skills = !open.skills"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "><span class=\"trk-tree-toggle\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "open.skills ? 'trk-tree-toggle-open' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, ">&#9654;</span> <span>Skills</span></div><div x-show=\"open.skills\" x-transition x-cloak style=\"padding-left: 1rem;\"><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/attack\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Attack</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/strength\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Strength</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/defence\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-complete\"></span> <span>Defence</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/ranged\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Ranged</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/prayer\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Prayer</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/magic\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Magic</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/mining\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Mining</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/skill/cooking\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-complete\"></span> <span>Cooking</span></div></div><!-- Quests --><div class=\"trk-tree-node\" style=\"font-weight: 700;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "open.quests = !open.quests"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "><span class=\"trk-tree-toggle\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "open.quests ? 'trk-tree-toggle-open' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, ">&#9654;</span> <span>Quests</span></div><div x-show=\"open.quests\" x-transition x-cloak style=\"padding-left: 1rem;\"><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/quest/cooks-assistant\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-complete\"></span> <span>Cook's Assistant</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/quest/dragon-slayer\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-complete\"></span> <span>Dragon Slayer</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/quest/monkey-madness\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Monkey Madness</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/quest/recipe-for-disaster\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-locked\"></span> <span>Recipe for Disaster</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/quest/desert-treasure\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-locked\"></span> <span>Desert Treasure</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/quest/song-of-the-elves\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-locked\"></span> <span>Song of the Elves</span></div></div><!-- Diaries --><div class=\"trk-tree-node\" style=\"font-weight: 700;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "open.diaries = !open.diaries"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "><span class=\"trk-tree-toggle\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "open.diaries ? 'trk-tree-toggle-open' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, ">&#9654;</span> <span>Diaries</span></div><div x-show=\"open.diaries\" x-transition x-cloak style=\"padding-left: 1rem;\"><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/diary/lumbridge-easy\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-complete\"></span> <span>Lumbridge Easy Diary</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/diary/ardougne-medium\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Ardougne Medium Diary</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/diary/karamja-elite\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-locked\"></span> <span>Karamja Elite Diary</span></div></div><!-- Bosses --><div class=\"trk-tree-node\" style=\"font-weight: 700;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "open.bosses = !open.bosses"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "><span class=\"trk-tree-toggle\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "open.bosses ? 'trk-tree-toggle-open' : ''"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, ">&#9654;</span> <span>Bosses</span></div><div x-show=\"open.bosses\" x-transition x-cloak style=\"padding-left: 1rem;\"><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/boss/giant-mole\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-complete\"></span> <span>Giant Mole</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/boss/zulrah\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-progress trk-status-pulse\"></span> <span>Zulrah</span></div><div class=\"trk-tree-node\" hx-get=\"/guides/tracker/detail/boss/vorkath\" hx-target=\"#trk-detail-panel\" hx-swap=\"innerHTML\"><span class=\"trk-status-light trk-status-locked\"></span> <span>Vorkath</span></div></div></div></div></div><!-- Detail Panel --><div id=\"trk-detail-panel\" class=\"trk-panel p-6\" style=\"flex: 1; min-height: 300px;\"><p style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Select an item to view details</p></div></div><!-- /snippet:content-browser --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["content-browser"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("7.0  Content Browser", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,0 +1,48 @@
+package tracker
+
+import "fmt"
+
+// Detail renders the full detail panel for a selected item.
+templ Detail(name, category, status, description string, level, target int, requirements, unlocks []string) {
+	<div>
+		<div class="flex items-center gap-3 mb-4">
+			<span class={ "trk-status-light " + statusClass(status) }></span>
+			<h3 style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; color: var(--color-text);">{ name }</h3>
+			<span class={ "trk-tag trk-tag-" + category }>{ category }</span>
+		</div>
+		<p style="font-size: var(--font-size-body); color: var(--color-text-muted); margin-bottom: 1rem;">{ description }</p>
+		if target > 0 {
+			<div class="mb-4">
+				<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+					<span>LEVEL</span>
+					<span style="color: var(--color-primary);">{ fmt.Sprintf("%d / %d", level, target) }</span>
+				</div>
+				<div class="trk-progress-bar">
+					<div class="trk-progress-fill" style={ fmt.Sprintf("width: %d%%", level*100/target) }></div>
+				</div>
+			</div>
+		}
+		if len(requirements) > 0 {
+			<div class="mb-4">
+				<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;">REQUIREMENTS</p>
+				for _, req := range requirements {
+					<div class="flex items-center gap-2 mb-1" style="font-size: var(--font-size-caption);">
+						<span class="trk-status-light trk-status-complete"></span>
+						<span>{ req }</span>
+					</div>
+				}
+			</div>
+		}
+		if len(unlocks) > 0 {
+			<div>
+				<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;">UNLOCKS</p>
+				for _, u := range unlocks {
+					<div class="flex items-center gap-2 mb-1" style="font-size: var(--font-size-caption); color: var(--color-info);">
+						<span>→</span>
+						<span>{ u }</span>
+					</div>
+				}
+			</div>
+		}
+	</div>
+}

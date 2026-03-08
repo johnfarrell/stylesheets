@@ -24,6 +24,41 @@ import (
 	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
+type trackerItem struct {
+	ID           string
+	Category     string // "skill", "quest", "diary", "boss"
+	Name         string
+	Status       string // "complete", "progress", "locked"
+	Level        int    // current level or 0
+	Target       int    // target level or 0
+	Description  string
+	Requirements []string
+	Unlocks      []string
+}
+
+var trackerItems = []trackerItem{
+	{ID: "attack", Category: "skill", Name: "Attack", Status: "progress", Level: 75, Target: 99, Description: "Determines accuracy with melee weapons.", Requirements: nil, Unlocks: []string{"Abyssal Whip at 70", "Dragon Claws at 60"}},
+	{ID: "strength", Category: "skill", Name: "Strength", Status: "progress", Level: 82, Target: 99, Description: "Determines max hit with melee weapons.", Requirements: nil, Unlocks: []string{"Bandos Godsword spec at 70"}},
+	{ID: "defence", Category: "skill", Name: "Defence", Status: "complete", Level: 70, Target: 70, Description: "Determines armour effectiveness.", Requirements: nil, Unlocks: []string{"Barrows equipment at 70"}},
+	{ID: "ranged", Category: "skill", Name: "Ranged", Status: "progress", Level: 80, Target: 99, Description: "Determines accuracy and damage with ranged weapons.", Requirements: nil, Unlocks: []string{"Toxic Blowpipe at 75", "Armadyl Crossbow at 70"}},
+	{ID: "prayer", Category: "skill", Name: "Prayer", Status: "progress", Level: 52, Target: 77, Description: "Unlocks combat prayers.", Requirements: nil, Unlocks: []string{"Protect from Melee at 43", "Rigour at 74", "Augury at 77"}},
+	{ID: "magic", Category: "skill", Name: "Magic", Status: "progress", Level: 85, Target: 99, Description: "Determines accuracy with magic spells.", Requirements: nil, Unlocks: []string{"Ice Barrage at 94", "Trident of the Swamp at 75"}},
+	{ID: "mining", Category: "skill", Name: "Mining", Status: "progress", Level: 72, Target: 85, Description: "Allows mining ore from rocks.", Requirements: nil, Unlocks: []string{"Amethyst at 92", "Runite at 85"}},
+	{ID: "cooking", Category: "skill", Name: "Cooking", Status: "complete", Level: 70, Target: 70, Description: "Cook food to restore hitpoints.", Requirements: nil, Unlocks: []string{"Sharks at 80", "Anglerfish at 84"}},
+	{ID: "cooks-assistant", Category: "quest", Name: "Cook's Assistant", Status: "complete", Level: 0, Target: 0, Description: "Help the Lumbridge cook gather ingredients for a cake.", Requirements: nil, Unlocks: []string{"300 Cooking XP", "Use of Cook-o-matic"}},
+	{ID: "dragon-slayer", Category: "quest", Name: "Dragon Slayer", Status: "complete", Level: 0, Target: 0, Description: "Prove yourself a champion by slaying Elvarg.", Requirements: []string{"32 Quest Points", "8 Crafting", "34 Cooking (or good food)"}, Unlocks: []string{"Rune Platebody", "Access to Crandor"}},
+	{ID: "monkey-madness", Category: "quest", Name: "Monkey Madness", Status: "progress", Level: 0, Target: 0, Description: "Rescue a squadron of Royal Guard from Ape Atoll.", Requirements: []string{"Tree Gnome Village", "Grand Tree", "35 Agility"}, Unlocks: []string{"Dragon Scimitar", "Access to Ape Atoll"}},
+	{ID: "recipe-for-disaster", Category: "quest", Name: "Recipe for Disaster", Status: "locked", Level: 0, Target: 0, Description: "Save the Lumbridge Council from the Culinaromancer.", Requirements: []string{"175 Quest Points", "70 Cooking", "53 Thieving", "53 Fishing", "50 Mining", "50 Smithing"}, Unlocks: []string{"Barrows Gloves", "Culinaromancer's Chest"}},
+	{ID: "desert-treasure", Category: "quest", Name: "Desert Treasure", Status: "locked", Level: 0, Target: 0, Description: "Uncover the secrets of the ancient element altars.", Requirements: []string{"50 Magic", "53 Thieving", "50 Firemaking", "10 Slayer", "The Digsite quest"}, Unlocks: []string{"Ancient Magicks", "Ice spells"}},
+	{ID: "song-of-the-elves", Category: "quest", Name: "Song of the Elves", Status: "locked", Level: 0, Target: 0, Description: "Restore the city of Prifddinas to its former glory.", Requirements: []string{"70 Agility", "70 Construction", "70 Farming", "70 Herblore", "70 Hunter", "70 Mining", "70 Smithing", "70 Woodcutting"}, Unlocks: []string{"Access to Prifddinas", "Crystal equipment"}},
+	{ID: "lumbridge-easy", Category: "diary", Name: "Lumbridge Easy Diary", Status: "complete", Level: 0, Target: 0, Description: "Complete easy tasks around Lumbridge and Draynor.", Requirements: []string{"15 Fishing", "15 Mining", "Rune Mysteries quest"}, Unlocks: []string{"Explorer's Ring 1", "Free cabbage teleports"}},
+	{ID: "ardougne-medium", Category: "diary", Name: "Ardougne Medium Diary", Status: "progress", Level: 0, Target: 0, Description: "Complete medium tasks around Ardougne.", Requirements: []string{"51 Thieving", "35 Woodcutting", "Tribal Totem quest"}, Unlocks: []string{"Ardougne Cloak 2", "Improved pickpocketing"}},
+	{ID: "karamja-elite", Category: "diary", Name: "Karamja Elite Diary", Status: "locked", Level: 0, Target: 0, Description: "Complete elite tasks on Karamja.", Requirements: []string{"91 Runecraft", "87 Herblore", "86 Smithing"}, Unlocks: []string{"Karamja Gloves 4", "Unlimited gem mine teleports"}},
+	{ID: "giant-mole", Category: "boss", Name: "Giant Mole", Status: "complete", Level: 0, Target: 0, Description: "A large mole dwelling beneath Falador Park.", Requirements: []string{"Dharok's set recommended", "Falador Hard Diary (locator)"}, Unlocks: []string{"Mole parts (Clingy mole pet)", "Baby mole pet"}},
+	{ID: "zulrah", Category: "boss", Name: "Zulrah", Status: "progress", Level: 0, Target: 0, Description: "A solo snake boss with multiple phases.", Requirements: []string{"Regicide quest", "75+ Magic/Ranged recommended"}, Unlocks: []string{"Tanzanite Fang → Blowpipe", "Magic Fang → Trident", "Serpentine Visage → Helm"}},
+	{ID: "vorkath", Category: "boss", Name: "Vorkath", Status: "locked", Level: 0, Target: 0, Description: "An undead dragon boss on Ungael.", Requirements: []string{"Dragon Slayer II quest", "90+ Ranged recommended"}, Unlocks: []string{"Dragonbone Necklace", "Vorkath's Head → Assembler", "Vorki pet"}},
+}
+
 // NewMux creates and returns the application HTTP mux with all routes registered.
 func NewMux() *http.ServeMux {
 	mux := http.NewServeMux()
@@ -322,6 +357,31 @@ func NewMux() *http.ServeMux {
 	// Newspaper — initial feed (back to front page)
 	mux.HandleFunc("/guides/newspaper/feed", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/guides/newspaper/headlines?page=0", http.StatusSeeOther)
+	})
+
+	// Mission Control — search across OSRS items
+	mux.HandleFunc("/guides/tracker/search", func(w http.ResponseWriter, r *http.Request) {
+		q := r.URL.Query().Get("q")
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		for _, item := range trackerItems {
+			if q != "" && !containsFold(item.Name, q) {
+				continue
+			}
+			trackertempl.SearchResult(item.ID, item.Category, item.Name, item.Status).Render(r.Context(), w)
+		}
+	})
+
+	// Mission Control — detail panel for selected item
+	mux.HandleFunc("/guides/tracker/detail/{category}/{id}", func(w http.ResponseWriter, r *http.Request) {
+		id := r.PathValue("id")
+		for _, item := range trackerItems {
+			if item.ID == id {
+				w.Header().Set("Content-Type", "text/html; charset=utf-8")
+				trackertempl.Detail(item.Name, item.Category, item.Status, item.Description, item.Level, item.Target, item.Requirements, item.Unlocks).Render(r.Context(), w)
+				return
+			}
+		}
+		http.NotFound(w, r)
 	})
 
 	mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {
