@@ -1096,6 +1096,190 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<!-- /snippet:dep-graph -->
 				@components.SourceView(snippets["dep-graph"])
 			}
+
+			<!-- SECTION 9: Account Overview Dashboard -->
+			@components.Section("9.0  Account Overview", components.BadgeAlpine) {
+				<!-- Top row: Total Level + Quest Points -->
+				<div class="flex flex-col sm:flex-row gap-6 mb-6">
+					<!-- Total Level -->
+					<div class="trk-panel p-6 flex-1">
+						<div class="trk-readout">1847 / 2277</div>
+						<div class="trk-progress-bar mt-3">
+							<div class="trk-progress-fill" style="width: 81%;"></div>
+						</div>
+						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+							TOTAL LEVEL
+						</p>
+					</div>
+					<!-- Quest Points -->
+					<div class="trk-panel p-6 flex-1">
+						<div class="trk-readout">198 / 300</div>
+						<div class="trk-progress-bar mt-3">
+							<div class="trk-progress-fill" style="width: 66%;"></div>
+						</div>
+						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+							QUEST POINTS
+						</p>
+					</div>
+				</div>
+
+				<!-- Middle row: Skill Completion Grid + Diary Summary -->
+				<div class="flex flex-col sm:flex-row gap-6 mb-6">
+					<!-- Skill Completion Grid -->
+					<div class="trk-panel p-6 flex-1">
+						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+							SKILL COMPLETION
+						</p>
+						<div class="flex flex-wrap gap-3">
+							<!-- Attack 75: 70-98 = green -->
+							<span class="trk-status-light trk-status-complete" title="Attack — 75"></span>
+							<!-- Strength 82: green -->
+							<span class="trk-status-light trk-status-complete" title="Strength — 82"></span>
+							<!-- Defence 70: green -->
+							<span class="trk-status-light trk-status-complete" title="Defence — 70"></span>
+							<!-- Ranged 80: green -->
+							<span class="trk-status-light trk-status-complete" title="Ranged — 80"></span>
+							<!-- Prayer 52: 50-69 = amber -->
+							<span class="trk-status-light trk-status-progress" title="Prayer — 52"></span>
+							<!-- Magic 85: green -->
+							<span class="trk-status-light trk-status-complete" title="Magic — 85"></span>
+							<!-- Runecraft 44: 1-49 = red -->
+							<span class="trk-status-light trk-status-locked" title="Runecraft — 44"></span>
+							<!-- Construction 55: amber -->
+							<span class="trk-status-light trk-status-progress" title="Construction — 55"></span>
+							<!-- Hitpoints 83: green -->
+							<span class="trk-status-light trk-status-complete" title="Hitpoints — 83"></span>
+							<!-- Agility 62: amber -->
+							<span class="trk-status-light trk-status-progress" title="Agility — 62"></span>
+							<!-- Herblore 60: amber -->
+							<span class="trk-status-light trk-status-progress" title="Herblore — 60"></span>
+							<!-- Thieving 72: green -->
+							<span class="trk-status-light trk-status-complete" title="Thieving — 72"></span>
+							<!-- Crafting 61: amber -->
+							<span class="trk-status-light trk-status-progress" title="Crafting — 61"></span>
+							<!-- Fletching 84: green -->
+							<span class="trk-status-light trk-status-complete" title="Fletching — 84"></span>
+							<!-- Slayer 68: amber -->
+							<span class="trk-status-light trk-status-progress" title="Slayer — 68"></span>
+							<!-- Hunter 55: amber -->
+							<span class="trk-status-light trk-status-progress" title="Hunter — 55"></span>
+							<!-- Mining 72: green -->
+							<span class="trk-status-light trk-status-complete" title="Mining — 72"></span>
+							<!-- Smithing 62: amber -->
+							<span class="trk-status-light trk-status-progress" title="Smithing — 62"></span>
+							<!-- Fishing 71: green -->
+							<span class="trk-status-light trk-status-complete" title="Fishing — 71"></span>
+							<!-- Cooking 99: gold glow -->
+							<span class="trk-status-light trk-status-complete trk-glow" title="Cooking — 99"></span>
+							<!-- Firemaking 78: green -->
+							<span class="trk-status-light trk-status-complete" title="Firemaking — 78"></span>
+							<!-- Woodcutting 73: green -->
+							<span class="trk-status-light trk-status-complete" title="Woodcutting — 73"></span>
+							<!-- Farming 65: amber -->
+							<span class="trk-status-light trk-status-progress" title="Farming — 65"></span>
+						</div>
+					</div>
+
+					<!-- Achievement Diary Summary -->
+					<div class="trk-panel p-6 flex-1">
+						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+							ACHIEVEMENT DIARIES
+						</p>
+						<div class="flex flex-col gap-4">
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Easy</span>
+									<span style="color: var(--color-text-muted);">8 / 12</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 66.7%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Medium</span>
+									<span style="color: var(--color-text-muted);">4 / 12</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 33.3%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Hard</span>
+									<span style="color: var(--color-text-muted);">2 / 12</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 16.7%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Elite</span>
+									<span style="color: var(--color-text-muted);">0 / 12</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 0%;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Bottom row: Combat Level Calculator -->
+				<!-- snippet:combat-calc -->
+				<div
+					class="trk-panel p-6"
+					x-data="{
+						attack: 75, strength: 82, defence: 70, hitpoints: 83,
+						ranged: 80, prayer: 52, magic: 85,
+						get combatLevel() {
+							let base = 0.25 * (this.defence + this.hitpoints + Math.floor(this.prayer / 2));
+							let melee = 0.325 * (this.attack + this.strength);
+							let rng = 0.325 * (Math.floor(this.ranged * 3 / 2));
+							let mag = 0.325 * (Math.floor(this.magic * 3 / 2));
+							return Math.floor(base + Math.max(melee, rng, mag));
+						}
+					}"
+				>
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+						COMBAT LEVEL
+					</p>
+					<div class="trk-readout mb-4" x-text="combatLevel"></div>
+					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Attack</label>
+							<input type="number" min="1" max="99" class="trk-input" x-model.number="attack"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Strength</label>
+							<input type="number" min="1" max="99" class="trk-input" x-model.number="strength"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Defence</label>
+							<input type="number" min="1" max="99" class="trk-input" x-model.number="defence"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Hitpoints</label>
+							<input type="number" min="1" max="99" class="trk-input" x-model.number="hitpoints"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Ranged</label>
+							<input type="number" min="1" max="99" class="trk-input" x-model.number="ranged"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Prayer</label>
+							<input type="number" min="1" max="99" class="trk-input" x-model.number="prayer"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Magic</label>
+							<input type="number" min="1" max="99" class="trk-input" x-model.number="magic"/>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:combat-calc -->
+				@components.SourceView(snippets["combat-calc"])
+			}
 		</div>
 	</div>
 }
