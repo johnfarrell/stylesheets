@@ -17,10 +17,16 @@ func guideStyles() string {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-muted);
-    padding: 0.75rem 1rem;
+    padding: 0.4rem 0.75rem;
     border-bottom: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-primary);
+    border-top: 2px solid var(--color-primary);
     background: var(--color-surface-2);
+}
+.trk-panel-header-gold {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border-bottom: none;
+    border-top: none;
 }
 .trk-panel-elevated {
     background: var(--color-surface-2);
@@ -54,17 +60,16 @@ func guideStyles() string {
 .trk-status-pulse {
     animation: trk-pulse 2s ease-in-out infinite;
 }
-/* [custom] - progress bar with gold fill */
+/* [custom] - progress bar with bordered track like technical readout */
 .trk-progress-bar {
-    height: 6px;
+    height: 1rem;
     background: var(--color-surface-2);
-    border-radius: 3px;
+    border: 1px solid var(--color-border);
     overflow: hidden;
 }
 .trk-progress-fill {
     height: 100%;
     background: var(--color-primary);
-    border-radius: 3px;
     transition: width 0.3s ease;
 }
 /* [custom] - sidebar tree navigation */
@@ -76,10 +81,11 @@ func guideStyles() string {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.35rem 0.5rem;
+    padding: 0.25rem 0.5rem;
     cursor: pointer;
     color: var(--color-text);
     border-left: 2px solid transparent;
+    border-bottom: 1px solid var(--color-surface-2);
     transition: background 0.1s, border-color 0.1s;
 }
 .trk-tree-node:hover {
@@ -108,14 +114,14 @@ func guideStyles() string {
     font-family: var(--font-display);
     font-size: var(--font-size-caption);
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--color-primary);
     background: transparent;
     border: 1px solid var(--color-primary);
-    border-radius: var(--radius-sm);
     padding: 0.4rem 1rem;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.1s, color 0.1s;
 }
 .trk-btn:hover {
     background: var(--color-primary);
@@ -179,9 +185,11 @@ func guideStyles() string {
 .trk-readout {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.375rem;
     color: var(--color-primary);
     letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
 }
 /* [custom] - small category tag pills */
 .trk-tag {
@@ -226,9 +234,33 @@ func guideStyles() string {
 .trk-rule {
     border-top: 1px solid var(--color-border);
 }
+/* [custom] - gold top rule for section breaks (cassette-inspired) */
+.trk-section-rule {
+    border-top: 3px solid var(--color-primary);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+}
 /* [custom] - gold text glow for emphasis */
 .trk-glow {
     text-shadow: 0 0 8px rgba(200,170,110,0.4);
+}
+/* [custom] - bordered input fields like fillable form fields */
+.trk-input-underline {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-text-muted);
+    color: var(--color-text);
+    padding: 0.375rem 0;
+    width: 100%;
+}
+.trk-input-underline:focus {
+    outline: none;
+    border-bottom: 2px solid var(--color-primary);
+}
+.trk-input-underline::placeholder {
+    color: var(--color-text-muted);
 }
 `
 }

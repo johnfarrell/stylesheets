@@ -46,7 +46,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#0d1117'); copied='bg'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='bg' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #0d1117; border: 1px solid var(--color-border); border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #0d1117; border: 1px solid var(--color-border); "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Background</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='bg' ? 'COPIED' : '#0d1117'">#0d1117</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Page background</p>
@@ -58,7 +58,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#161b22'); copied='surface'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='surface' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #161b22; border: 1px solid var(--color-border); border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #161b22; border: 1px solid var(--color-border); "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Surface</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface' ? 'COPIED' : '#161b22'">#161b22</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Panel / Card</p>
@@ -69,7 +69,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#1c2128'); copied='surface2'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='surface2' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #1c2128; border: 1px solid var(--color-border); border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #1c2128; border: 1px solid var(--color-border); "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Surface 2</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface2' ? 'COPIED' : '#1c2128'">#1c2128</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Headers / Elevated</p>
@@ -80,7 +80,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#c8aa6e'); copied='primary'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='primary' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #c8aa6e; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #c8aa6e; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Primary / Gold</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='primary' ? 'COPIED' : '#c8aa6e'">#c8aa6e</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Accent / Headings</p>
@@ -91,7 +91,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#2ea043'); copied='success'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='success' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #2ea043; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #2ea043; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Success / Green</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='success' ? 'COPIED' : '#2ea043'">#2ea043</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Complete status</p>
@@ -102,7 +102,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#d29922'); copied='warning'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='warning' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #d29922; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #d29922; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Warning / Amber</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='warning' ? 'COPIED' : '#d29922'">#d29922</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">In-progress</p>
@@ -113,7 +113,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#da3633'); copied='danger'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='danger' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #da3633; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #da3633; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Danger / Red</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='danger' ? 'COPIED' : '#da3633'">#da3633</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Locked / Error</p>
@@ -124,7 +124,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#58a6ff'); copied='info'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='info' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #58a6ff; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #58a6ff; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Info / Blue</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='info' ? 'COPIED' : '#58a6ff'">#58a6ff</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Links / Skill tags</p>
@@ -135,7 +135,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#e6edf3'); copied='text'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='text' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #e6edf3; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #e6edf3; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Text</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='text' ? 'COPIED' : '#e6edf3'">#e6edf3</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Body text</p>
@@ -146,7 +146,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#7d8590'); copied='muted'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='muted' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #7d8590; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #7d8590; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Muted</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='muted' ? 'COPIED' : '#7d8590'">#7d8590</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Secondary text</p>
@@ -157,7 +157,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#30363d'); copied='border'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='border' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #30363d; border-radius: var(--radius-sm);"></div>
+							<div style="height: 48px; background: #30363d; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Border</p>
 							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='border' ? 'COPIED' : '#30363d'">#30363d</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Dividers / Edges</p>
@@ -188,26 +188,20 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 				<div class="trk-panel p-6 mb-6">
 					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						BODY — DM SANS
+						BODY — SPACE MONO
 					</p>
 					<p class="mb-2" style="font-family: var(--font-body); font-size: var(--font-size-heading); font-weight: 700;">
 						Heading Weight 700
 					</p>
-					<p class="mb-2" style="font-family: var(--font-body); font-size: var(--font-size-heading); font-weight: 500;">
-						Heading Weight 500
-					</p>
 					<p class="mb-2" style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 400;">
-						Body text at regular weight. Track your goals, monitor quest completion, and visualize your account progression with the Mission Control dashboard.
-					</p>
-					<p class="mb-2" style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 300; color: var(--color-text-muted);">
-						Light weight — secondary descriptions and helper text.
+						Body text at regular weight. Track your goals, monitor quest completion, and visualize account progression.
 					</p>
 					<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
 						Caption — Updated 2 hours ago
 					</p>
 				</div>
 				<div class="trk-panel p-6">
-					<div class="trk-panel-header mb-0" style="margin: -1.5rem -1.5rem 1rem; border-radius: var(--radius-md) var(--radius-md) 0 0;">
+					<div class="trk-panel-header mb-0" style="margin: -1.5rem -1.5rem 1rem;">
 						DATA READOUT PANEL
 					</div>
 					<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
