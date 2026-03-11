@@ -18,7 +18,7 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 substitutions:
-  _REGION: us-central1
+  _REGION: us-west1
 
 images:
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/stylesheets/app:$COMMIT_SHA'
