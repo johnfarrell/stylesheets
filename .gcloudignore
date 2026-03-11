@@ -1,0 +1,23 @@
+# Version control
+.git/
+.gitignore
+
+# Build outputs — regenerated inside Docker
+bin/
+static/css/output.css
+*_templ.go
+
+# Node — installed fresh inside Docker
+node_modules/
+
+# Editor / IDE
+.idea/
+.vscode/
+
+# Docs and non-runtime files
+docs/
+*.md
+LICENSE
+
+# Cloud Build config (not needed inside the build)
+cloudbuild.yaml
