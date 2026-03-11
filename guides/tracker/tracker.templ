@@ -5,7 +5,7 @@ import (
 	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
-// Page renders the Mission Control style guide showcase.
+// Page renders the Tracker style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
@@ -19,147 +19,147 @@ templ Page(g guides.Guide, htmxRequest bool) {
 	<div style="background: var(--color-bg); min-height: 100%; padding: var(--section-padding); color: var(--color-text); font-family: var(--font-body);">
 		<div style="max-width: var(--content-max-width); margin: 0 auto;">
 			<!-- HEADER -->
-			<h1 class="trk-glow mb-2" style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);">
-				Mission Control
+			<h1 class="mb-2" style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);">
+				Tracker
 			</h1>
 			<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-				Goal Tracker — Dark-mode dashboard for learning progression.
+				Goal tracker. Clarity through restraint.
 			</p>
 			<div class="trk-rule mt-4 mb-8"></div>
 			@components.TechSummary([]components.TechCallout{
 				{Tech: "HTMX", Description: "Live search filter + lazy-loaded detail panels for content browser"},
 				{Tech: "Alpine", Description: "Sidebar tree navigation, dependency graph, readiness score calculator"},
-				{Tech: "CSS", Description: "Dark-mode design tokens with gold accent — trk- prefixed component classes"},
+				{Tech: "CSS", Description: "Warm light-mode tokens with purposeful accent — trk- prefixed component classes"},
 			})
 
 			<!-- SECTION 1: Color Palette -->
 			@components.Section("1.0  Color Palette", components.BadgeAlpine) {
 				<div x-data="{ copied: '' }">
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						INTERFACE COLORS
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Interface colors
 					</p>
 					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
 						<!-- snippet:color-swatch -->
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#0d1117'); copied='bg'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#f7f6f3'); copied='bg'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='bg' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #0d1117; border: 1px solid var(--color-border); "></div>
+							<div style="height: 48px; background: #f7f6f3; border: 1px solid var(--color-border); "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Background</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='bg' ? 'COPIED' : '#0d1117'">#0d1117</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='bg' ? 'COPIED' : '#f7f6f3'">#f7f6f3</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Page background</p>
 						</div>
 						<!-- /snippet:color-swatch -->
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#161b22'); copied='surface'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#ffffff'); copied='surface'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='surface' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #161b22; border: 1px solid var(--color-border); "></div>
+							<div style="height: 48px; background: #ffffff; border: 1px solid var(--color-border); "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Surface</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface' ? 'COPIED' : '#161b22'">#161b22</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface' ? 'COPIED' : '#ffffff'">#ffffff</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Panel / Card</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#1c2128'); copied='surface2'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#edecea'); copied='surface2'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='surface2' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #1c2128; border: 1px solid var(--color-border); "></div>
+							<div style="height: 48px; background: #edecea; border: 1px solid var(--color-border); "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Surface 2</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface2' ? 'COPIED' : '#1c2128'">#1c2128</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface2' ? 'COPIED' : '#edecea'">#edecea</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Headers / Elevated</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#c8aa6e'); copied='primary'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#d45b2c'); copied='primary'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='primary' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #c8aa6e; "></div>
-							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Primary / Gold</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='primary' ? 'COPIED' : '#c8aa6e'">#c8aa6e</p>
+							<div style="height: 48px; background: #d45b2c; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Primary / Orange</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='primary' ? 'COPIED' : '#d45b2c'">#d45b2c</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Accent / Headings</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#2ea043'); copied='success'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#3a8a5c'); copied='success'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='success' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #2ea043; "></div>
-							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Success / Green</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='success' ? 'COPIED' : '#2ea043'">#2ea043</p>
+							<div style="height: 48px; background: #3a8a5c; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Complete</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='success' ? 'COPIED' : '#3a8a5c'">#3a8a5c</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Complete status</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#d29922'); copied='warning'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#c4880b'); copied='warning'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='warning' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #d29922; "></div>
-							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Warning / Amber</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='warning' ? 'COPIED' : '#d29922'">#d29922</p>
+							<div style="height: 48px; background: #c4880b; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Progress</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='warning' ? 'COPIED' : '#c4880b'">#c4880b</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">In-progress</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#da3633'); copied='danger'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#b53d2e'); copied='danger'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='danger' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #da3633; "></div>
-							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Danger / Red</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='danger' ? 'COPIED' : '#da3633'">#da3633</p>
+							<div style="height: 48px; background: #b53d2e; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Locked</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='danger' ? 'COPIED' : '#b53d2e'">#b53d2e</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Locked / Error</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#58a6ff'); copied='info'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#3d7ec7'); copied='info'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='info' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #58a6ff; "></div>
-							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Info / Blue</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='info' ? 'COPIED' : '#58a6ff'">#58a6ff</p>
-							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Links / Skill tags</p>
+							<div style="height: 48px; background: #3d7ec7; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Info / Links</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='info' ? 'COPIED' : '#3d7ec7'">#3d7ec7</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Links / Info</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#e6edf3'); copied='text'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#2c2c2c'); copied='text'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='text' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #e6edf3; "></div>
+							<div style="height: 48px; background: #2c2c2c; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Text</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='text' ? 'COPIED' : '#e6edf3'">#e6edf3</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='text' ? 'COPIED' : '#2c2c2c'">#2c2c2c</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Body text</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#7d8590'); copied='muted'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#8a8780'); copied='muted'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='muted' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #7d8590; "></div>
+							<div style="height: 48px; background: #8a8780; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Muted</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='muted' ? 'COPIED' : '#7d8590'">#7d8590</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='muted' ? 'COPIED' : '#8a8780'">#8a8780</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Secondary text</p>
 						</div>
 						<div
 							class="trk-panel p-3 cursor-pointer transition-all"
 							style="border-color: transparent;"
-							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#30363d'); copied='border'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#dddbd6'); copied='border'; setTimeout(()=>copied='',1500)"}... }
 							{ templ.Attributes{":style": "copied==='border' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
 						>
-							<div style="height: 48px; background: #30363d; "></div>
+							<div style="height: 48px; background: #dddbd6; "></div>
 							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Border</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='border' ? 'COPIED' : '#30363d'">#30363d</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='border' ? 'COPIED' : '#dddbd6'">#dddbd6</p>
 							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Dividers / Edges</p>
 						</div>
 					</div>
@@ -170,14 +170,14 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- SECTION 2: Typography -->
 			@components.Section("2.0  Typography", components.BadgeNone) {
 				<div class="trk-panel p-6 mb-6">
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						DISPLAY — SPACE MONO
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Display — Plus Jakarta Sans
 					</p>
-					<p class="trk-glow mb-3" style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);">
-						Mission Control
+					<p class="mb-3" style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);">
+						Tracker
 					</p>
 					<p class="mb-2" style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; color: var(--color-text);">
-						HEADING — Account Overview
+						Heading — Account Overview
 					</p>
 					<p class="mb-2" style="font-family: var(--font-display); font-size: var(--font-size-body); font-weight: 400; color: var(--color-text);">
 						Body Mono — Skills Tracked: 8
@@ -187,8 +187,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</p>
 				</div>
 				<div class="trk-panel p-6 mb-6">
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						BODY — SPACE MONO
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Body — Plus Jakarta Sans
 					</p>
 					<p class="mb-2" style="font-family: var(--font-body); font-size: var(--font-size-heading); font-weight: 700;">
 						Heading Weight 700
@@ -202,7 +202,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 				<div class="trk-panel p-6">
 					<div class="trk-panel-header mb-0" style="margin: -1.5rem -1.5rem 1rem;">
-						DATA READOUT PANEL
+						Data readout panel
 					</div>
 					<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
 						<div>
@@ -228,57 +228,41 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- SECTION 3: Spacing Scale -->
 			@components.Section("3.0  Spacing Scale", components.BadgeNone) {
 				<div class="trk-panel p-6">
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						PROGRESS BAR SCALE — BASE UNIT 4PX
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Progress bar scale — base unit 4px
 					</p>
 					<div class="space-y-3">
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">4px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 6.25%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 4px; height: 6px; border-radius: 3px;"></div>
 						</div>
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">8px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 12.5%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 8px; height: 6px; border-radius: 3px;"></div>
 						</div>
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">12px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 18.75%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 12px; height: 6px; border-radius: 3px;"></div>
 						</div>
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">16px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 25%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 16px; height: 6px; border-radius: 3px;"></div>
 						</div>
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">24px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 37.5%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 24px; height: 6px; border-radius: 3px;"></div>
 						</div>
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">32px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 50%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 32px; height: 6px; border-radius: 3px;"></div>
 						</div>
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">48px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 75%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 48px; height: 6px; border-radius: 3px;"></div>
 						</div>
 						<div class="flex items-center gap-4">
 							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">64px</span>
-							<div class="trk-progress-bar flex-1">
-								<div class="trk-progress-fill" style="width: 100%;"></div>
-							</div>
+							<div class="trk-progress-fill" style="width: 64px; height: 6px; border-radius: 3px;"></div>
 						</div>
 					</div>
 				</div>
@@ -287,16 +271,16 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- SECTION 4: Buttons -->
 			@components.Section("4.0  Buttons", components.BadgeAlpine) {
 				<div class="trk-panel p-6 mb-6">
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						SIZE VARIANTS
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Size variants
 					</p>
 					<div class="flex flex-wrap items-center gap-3 mb-6">
 						<button class="trk-btn" style="font-size: 0.625rem; padding: 0.25rem 0.75rem;">SM</button>
 						<button class="trk-btn">MD</button>
 						<button class="trk-btn" style="font-size: var(--font-size-body); padding: 0.6rem 1.5rem;">LG</button>
 					</div>
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						STYLE VARIANTS
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Style variants
 					</p>
 					<div class="flex flex-wrap items-center gap-3">
 						<button class="trk-btn">Default</button>
@@ -306,8 +290,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 				</div>
 				<div class="trk-panel p-6">
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						TOGGLE DEMO
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Toggle demo
 					</p>
 					<!-- snippet:btn-toggle -->
 					<div x-data="{ tracking: false }" class="flex items-center gap-4">
@@ -341,20 +325,20 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			@components.Section("5.0  Forms", components.BadgeBoth) {
 				<div class="trk-panel">
 					<div class="trk-panel-header">
-						ADD GOAL
+						Add goal
 					</div>
 					<div class="p-6">
 						<form hx-post="/guides/tracker/demo-form" hx-target="#trk-form-response" hx-swap="innerHTML">
 							<div class="space-y-4">
 								<div>
-									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.04em; display: block; margin-bottom: 0.25rem;">
-										GOAL NAME
+									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em; display: block; margin-bottom: 0.25rem;">
+										Goal name
 									</label>
 									<input type="text" name="name" class="trk-input" placeholder="e.g. Learn Kubernetes"/>
 								</div>
 								<div>
-									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.04em; display: block; margin-bottom: 0.25rem;">
-										CATEGORY
+									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em; display: block; margin-bottom: 0.25rem;">
+										Category
 									</label>
 									<select name="category" class="trk-input">
 										<option value="skill">Skill</option>
@@ -365,8 +349,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 									</select>
 								</div>
 								<div>
-									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.04em; display: block; margin-bottom: 0.5rem;">
-										PRIORITY
+									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em; display: block; margin-bottom: 0.5rem;">
+										Priority
 									</label>
 									<div class="flex items-center gap-6">
 										<label class="flex items-center gap-2 cursor-pointer" style="font-size: var(--font-size-body);">
@@ -424,7 +408,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					<!-- Panel with header bar -->
 					<div class="trk-panel">
 						<div class="trk-panel-header">
-							BLOG ENGINE — REQUIREMENTS
+							Blog engine — requirements
 						</div>
 						<div class="p-5">
 							<div class="space-y-3">
@@ -450,8 +434,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 				<!-- Status summary panel: tech skill status grid -->
 				<div class="trk-panel p-5 mb-6">
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						SKILL STATUS OVERVIEW
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Skill status overview
 					</p>
 					<div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
 						<div class="flex items-center gap-2">
@@ -495,7 +479,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						class="trk-panel-header flex items-center justify-between cursor-pointer"
 						{ templ.Attributes{"@click": "open = !open"}... }
 					>
-						<span>SEARCH ENGINE — REQUIREMENTS</span>
+						<span>Search engine — requirements</span>
 						<span
 							style="font-size: 0.625rem; transition: transform 0.15s;"
 							{ templ.Attributes{":style": "open ? 'transform: rotate(90deg)' : ''"}... }
@@ -542,7 +526,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					<!-- Sidebar -->
 					<div class="trk-panel" style="width: 100%; max-width: 280px; flex-shrink: 0;">
 						<div class="trk-panel-header">
-							BROWSE
+							Browse
 						</div>
 						<div class="p-3">
 							<!-- Search input -->
@@ -1042,8 +1026,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<div class="trk-progress-bar mt-3">
 							<div class="trk-progress-fill" style="width: 25%;"></div>
 						</div>
-						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-							SKILLS MASTERED
+						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Skills mastered
 						</p>
 					</div>
 					<!-- Projects Complete -->
@@ -1052,8 +1036,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<div class="trk-progress-bar mt-3">
 							<div class="trk-progress-fill" style="width: 33%;"></div>
 						</div>
-						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-							PROJECTS COMPLETE
+						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Projects complete
 						</p>
 					</div>
 				</div>
@@ -1062,8 +1046,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<div class="flex flex-col sm:flex-row gap-6 mb-6">
 					<!-- Skill Completion Grid -->
 					<div class="trk-panel p-6 flex-1">
-						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-							SKILL COMPLETION
+						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Skill completion
 						</p>
 						<div class="flex flex-wrap gap-3">
 							<!-- Go 75/99: progress -->
@@ -1071,7 +1055,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							<!-- JavaScript 82/99: progress -->
 							<span class="trk-status-light trk-status-progress" title="JavaScript — 82/99"></span>
 							<!-- Python 70/70: complete -->
-							<span class="trk-status-light trk-status-complete trk-glow" title="Python — 70/70"></span>
+							<span class="trk-status-light trk-status-complete" title="Python — 70/70"></span>
 							<!-- Rust 80/99: progress -->
 							<span class="trk-status-light trk-status-progress" title="Rust — 80/99"></span>
 							<!-- SQL 52/77: progress -->
@@ -1081,14 +1065,14 @@ templ Page(g guides.Guide, htmxRequest bool) {
 							<!-- Git 72/85: progress -->
 							<span class="trk-status-light trk-status-progress" title="Git — 72/85"></span>
 							<!-- TypeScript 70/70: complete -->
-							<span class="trk-status-light trk-status-complete trk-glow" title="TypeScript — 70/70"></span>
+							<span class="trk-status-light trk-status-complete" title="TypeScript — 70/70"></span>
 						</div>
 					</div>
 
 					<!-- Certification Tiers -->
 					<div class="trk-panel p-6 flex-1">
-						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-							CERTIFICATION TIERS
+						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Certification tiers
 						</p>
 						<div class="flex flex-col gap-4">
 							<div>
@@ -1145,8 +1129,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						}
 					}"
 				>
-					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-						READINESS SCORE
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Readiness score
 					</p>
 					<div class="trk-readout mb-4" x-text="readinessScore"></div>
 					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
