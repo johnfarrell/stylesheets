@@ -35,8 +35,6 @@ go.work.sum
 static/css/output.css
 tailwindcss
 node_modules/
-package.json
-package-lock.json
 
 # Build output
 bin/
