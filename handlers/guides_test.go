@@ -226,6 +226,29 @@ func TestNewspaperArticle(t *testing.T) {
 	}
 }
 
+func TestTrackerSearch(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/guides/tracker/search?q=attack", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+	if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
+		t.Errorf("expected text/html, got %q", ct)
+	}
+}
+
+func TestTrackerDetail(t *testing.T) {
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/guides/tracker/detail/skill/golang", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+}
+
 func TestCassetteLogOK(t *testing.T) {
 	mux := handlers.NewMux()
 	req := httptest.NewRequest(http.MethodGet, "/guides/cassette/log", nil)

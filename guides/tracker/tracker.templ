@@ -1,0 +1,1172 @@
+package tracker
+
+import (
+	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
+)
+
+// Page renders the Tracker style guide showcase.
+templ Page(g guides.Guide, htmxRequest bool) {
+	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	if htmxRequest {
+		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+			<link rel="stylesheet" href={ g.FontURL }/>
+		</span>
+	}
+	<div style="background: var(--color-bg); min-height: 100%; padding: var(--section-padding); color: var(--color-text); font-family: var(--font-body);">
+		<div style="max-width: var(--content-max-width); margin: 0 auto;">
+			<!-- HEADER -->
+			<h1 class="mb-2" style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);">
+				Tracker
+			</h1>
+			<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
+				Goal tracker. Clarity through restraint.
+			</p>
+			<div class="trk-rule mt-4 mb-8"></div>
+			@components.TechSummary([]components.TechCallout{
+				{Tech: "HTMX", Description: "Live search filter + lazy-loaded detail panels for content browser"},
+				{Tech: "Alpine", Description: "Sidebar tree navigation, dependency graph, readiness score calculator"},
+				{Tech: "CSS", Description: "Warm light-mode tokens with purposeful accent — trk- prefixed component classes"},
+			})
+
+			<!-- SECTION 1: Color Palette -->
+			@components.Section("1.0  Color Palette", components.BadgeAlpine) {
+				<div x-data="{ copied: '' }">
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Interface colors
+					</p>
+					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+						<!-- snippet:color-swatch -->
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#f7f6f3'); copied='bg'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='bg' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #f7f6f3; border: 1px solid var(--color-border); "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Background</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='bg' ? 'COPIED' : '#f7f6f3'">#f7f6f3</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Page background</p>
+						</div>
+						<!-- /snippet:color-swatch -->
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#ffffff'); copied='surface'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='surface' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #ffffff; border: 1px solid var(--color-border); "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Surface</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface' ? 'COPIED' : '#ffffff'">#ffffff</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Panel / Card</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#edecea'); copied='surface2'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='surface2' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #edecea; border: 1px solid var(--color-border); "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Surface 2</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='surface2' ? 'COPIED' : '#edecea'">#edecea</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Headers / Elevated</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#d45b2c'); copied='primary'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='primary' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #d45b2c; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Primary / Orange</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='primary' ? 'COPIED' : '#d45b2c'">#d45b2c</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Accent / Headings</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#3a8a5c'); copied='success'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='success' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #3a8a5c; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Complete</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='success' ? 'COPIED' : '#3a8a5c'">#3a8a5c</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Complete status</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#c4880b'); copied='warning'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='warning' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #c4880b; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Progress</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='warning' ? 'COPIED' : '#c4880b'">#c4880b</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">In-progress</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#b53d2e'); copied='danger'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='danger' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #b53d2e; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Locked</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='danger' ? 'COPIED' : '#b53d2e'">#b53d2e</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Locked / Error</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#3d7ec7'); copied='info'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='info' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #3d7ec7; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Info / Links</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='info' ? 'COPIED' : '#3d7ec7'">#3d7ec7</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Links / Info</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#2c2c2c'); copied='text'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='text' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #2c2c2c; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Text</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='text' ? 'COPIED' : '#2c2c2c'">#2c2c2c</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Body text</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#8a8780'); copied='muted'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='muted' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #8a8780; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Muted</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='muted' ? 'COPIED' : '#8a8780'">#8a8780</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Secondary text</p>
+						</div>
+						<div
+							class="trk-panel p-3 cursor-pointer transition-all"
+							style="border-color: transparent;"
+							{ templ.Attributes{"@click": "navigator.clipboard.writeText('#dddbd6'); copied='border'; setTimeout(()=>copied='',1500)"}... }
+							{ templ.Attributes{":style": "copied==='border' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"}... }
+						>
+							<div style="height: 48px; background: #dddbd6; "></div>
+							<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;">Border</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied==='border' ? 'COPIED' : '#dddbd6'">#dddbd6</p>
+							<p style="font-size: 0.625rem; color: var(--color-text-muted);">Dividers / Edges</p>
+						</div>
+					</div>
+				</div>
+				@components.SourceView(snippets["color-swatch"])
+			}
+
+			<!-- SECTION 2: Typography -->
+			@components.Section("2.0  Typography", components.BadgeNone) {
+				<div class="trk-panel p-6 mb-6">
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Display — Plus Jakarta Sans
+					</p>
+					<p class="mb-3" style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; color: var(--color-primary);">
+						Tracker
+					</p>
+					<p class="mb-2" style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; color: var(--color-text);">
+						Heading — Account Overview
+					</p>
+					<p class="mb-2" style="font-family: var(--font-display); font-size: var(--font-size-body); font-weight: 400; color: var(--color-text);">
+						Body Mono — Skills Tracked: 8
+					</p>
+					<p style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 400; color: var(--color-text-muted);">
+						Caption Mono — LAST UPDATED: 2026-03-07T14:30:00Z
+					</p>
+				</div>
+				<div class="trk-panel p-6 mb-6">
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Body — Plus Jakarta Sans
+					</p>
+					<p class="mb-2" style="font-family: var(--font-body); font-size: var(--font-size-heading); font-weight: 700;">
+						Heading Weight 700
+					</p>
+					<p class="mb-2" style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 400;">
+						Body text at regular weight. Track your goals, monitor project completion, and visualize learning progression.
+					</p>
+					<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+						Caption — Updated 2 hours ago
+					</p>
+				</div>
+				<div class="trk-panel p-6">
+					<div class="trk-panel-header mb-0" style="margin: -1.5rem -1.5rem 1rem;">
+						Data readout panel
+					</div>
+					<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+						<div>
+							<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;">SKILLS:</p>
+							<p class="trk-readout">8</p>
+						</div>
+						<div>
+							<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;">PROJECTS:</p>
+							<p class="trk-readout">6</p>
+						</div>
+						<div>
+							<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;">CERTS:</p>
+							<p class="trk-readout">3</p>
+						</div>
+						<div>
+							<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700;">CHALLENGES:</p>
+							<p class="trk-readout">3</p>
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- SECTION 3: Spacing Scale -->
+			@components.Section("3.0  Spacing Scale", components.BadgeNone) {
+				<div class="trk-panel p-6">
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Progress bar scale — base unit 4px
+					</p>
+					<div class="space-y-3">
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">4px</span>
+							<div class="trk-progress-fill" style="width: 4px; height: 6px; border-radius: 3px;"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">8px</span>
+							<div class="trk-progress-fill" style="width: 8px; height: 6px; border-radius: 3px;"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">12px</span>
+							<div class="trk-progress-fill" style="width: 12px; height: 6px; border-radius: 3px;"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">16px</span>
+							<div class="trk-progress-fill" style="width: 16px; height: 6px; border-radius: 3px;"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">24px</span>
+							<div class="trk-progress-fill" style="width: 24px; height: 6px; border-radius: 3px;"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">32px</span>
+							<div class="trk-progress-fill" style="width: 32px; height: 6px; border-radius: 3px;"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">48px</span>
+							<div class="trk-progress-fill" style="width: 48px; height: 6px; border-radius: 3px;"></div>
+						</div>
+						<div class="flex items-center gap-4">
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3.5rem; text-align: right; flex-shrink: 0;">64px</span>
+							<div class="trk-progress-fill" style="width: 64px; height: 6px; border-radius: 3px;"></div>
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- SECTION 4: Buttons -->
+			@components.Section("4.0  Buttons", components.BadgeAlpine) {
+				<div class="trk-panel p-6 mb-6">
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Size variants
+					</p>
+					<div class="flex flex-wrap items-center gap-3 mb-6">
+						<button class="trk-btn" style="font-size: 0.625rem; padding: 0.25rem 0.75rem;">SM</button>
+						<button class="trk-btn">MD</button>
+						<button class="trk-btn" style="font-size: var(--font-size-body); padding: 0.6rem 1.5rem;">LG</button>
+					</div>
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Style variants
+					</p>
+					<div class="flex flex-wrap items-center gap-3">
+						<button class="trk-btn">Default</button>
+						<button class="trk-btn trk-btn-primary">Primary</button>
+						<button class="trk-btn trk-btn-danger">Danger</button>
+						<button class="trk-btn" disabled style="opacity: 0.4; cursor: not-allowed;">Disabled</button>
+					</div>
+				</div>
+				<div class="trk-panel p-6">
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Toggle demo
+					</p>
+					<!-- snippet:btn-toggle -->
+					<div x-data="{ tracking: false }" class="flex items-center gap-4">
+						<button
+							class="trk-btn"
+							{ templ.Attributes{"@click": "tracking = !tracking"}... }
+							{ templ.Attributes{":class": "tracking ? 'trk-btn-primary' : ''"}... }
+							x-text="tracking ? 'Untrack' : 'Track'"
+						>
+							Track
+						</button>
+						<div class="flex items-center gap-2">
+							<span
+								class="trk-status-light"
+								{ templ.Attributes{":class": "tracking ? 'trk-status-complete' : ''"}... }
+							></span>
+							<span
+								style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);"
+								x-text="tracking ? 'TRACKING' : 'NOT TRACKED'"
+							>
+								NOT TRACKED
+							</span>
+						</div>
+					</div>
+					<!-- /snippet:btn-toggle -->
+				</div>
+				@components.SourceView(snippets["btn-toggle"])
+			}
+
+			<!-- SECTION 5: Forms -->
+			@components.Section("5.0  Forms", components.BadgeBoth) {
+				<div class="trk-panel">
+					<div class="trk-panel-header">
+						Add goal
+					</div>
+					<div class="p-6">
+						<form hx-post="/guides/tracker/demo-form" hx-target="#trk-form-response" hx-swap="innerHTML">
+							<div class="space-y-4">
+								<div>
+									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em; display: block; margin-bottom: 0.25rem;">
+										Goal name
+									</label>
+									<input type="text" name="name" class="trk-input" placeholder="e.g. Learn Kubernetes"/>
+								</div>
+								<div>
+									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em; display: block; margin-bottom: 0.25rem;">
+										Category
+									</label>
+									<select name="category" class="trk-input">
+										<option value="skill">Skill</option>
+										<option value="project">Project</option>
+										<option value="certification">Certification</option>
+										<option value="challenge">Challenge</option>
+										<option value="other">Other</option>
+									</select>
+								</div>
+								<div>
+									<label style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em; display: block; margin-bottom: 0.5rem;">
+										Priority
+									</label>
+									<div class="flex items-center gap-6">
+										<label class="flex items-center gap-2 cursor-pointer" style="font-size: var(--font-size-body);">
+											<input type="radio" name="priority" value="low"/>
+											<span>Low</span>
+										</label>
+										<label class="flex items-center gap-2 cursor-pointer" style="font-size: var(--font-size-body);">
+											<input type="radio" name="priority" value="normal" checked/>
+											<span>Normal</span>
+										</label>
+										<label class="flex items-center gap-2 cursor-pointer" style="font-size: var(--font-size-body);">
+											<input type="radio" name="priority" value="high"/>
+											<span>High</span>
+										</label>
+									</div>
+								</div>
+								<div>
+									<label class="flex items-center gap-2 cursor-pointer" style="font-size: var(--font-size-body);">
+										<input type="checkbox" name="notifications" value="on"/>
+										<span>Enable notifications</span>
+									</label>
+								</div>
+								<div>
+									<button type="submit" class="trk-btn trk-btn-primary">Submit Goal</button>
+								</div>
+							</div>
+						</form>
+						<div id="trk-form-response" class="mt-4"></div>
+					</div>
+				</div>
+			}
+
+			<!-- SECTION 6: Cards / Panels -->
+			@components.Section("6.0  Cards / Panels", components.BadgeAlpine) {
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+					<!-- Basic panel: project summary -->
+					<div class="trk-panel p-5">
+						<div class="flex items-center gap-2 mb-3">
+							<span class="trk-tag trk-tag-project">PROJECT</span>
+							<span style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);">Full-Stack</span>
+						</div>
+						<p style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700; color: var(--color-text); margin-bottom: 0.5rem;">
+							REST API
+						</p>
+						<p style="font-size: var(--font-size-body); color: var(--color-text-muted); margin-bottom: 1rem;">
+							Design and implement a RESTful API with auth and rate limiting.
+						</p>
+						<div class="trk-progress-bar mb-2">
+							<div class="trk-progress-fill" style="width: 65%;"></div>
+						</div>
+						<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+							65% COMPLETE
+						</p>
+					</div>
+					<!-- Panel with header bar -->
+					<div class="trk-panel">
+						<div class="trk-panel-header">
+							Blog engine — requirements
+						</div>
+						<div class="p-5">
+							<div class="space-y-3">
+								<div class="flex items-center gap-3">
+									<span class="trk-status-light trk-status-complete"></span>
+									<span style="font-size: var(--font-size-body);">Go proficiency</span>
+								</div>
+								<div class="flex items-center gap-3">
+									<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+									<span style="font-size: var(--font-size-body);">Database design</span>
+								</div>
+								<div class="flex items-center gap-3">
+									<span class="trk-status-light trk-status-complete"></span>
+									<span style="font-size: var(--font-size-body);">REST API project</span>
+								</div>
+								<div class="flex items-center gap-3">
+									<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+									<span style="font-size: var(--font-size-body);">Docker basics</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Status summary panel: tech skill status grid -->
+				<div class="trk-panel p-5 mb-6">
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Skill status overview
+					</p>
+					<div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+							<span style="font-size: var(--font-size-caption);">Go</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+							<span style="font-size: var(--font-size-caption);">JavaScript</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-complete"></span>
+							<span style="font-size: var(--font-size-caption);">Python</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+							<span style="font-size: var(--font-size-caption);">Rust</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+							<span style="font-size: var(--font-size-caption);">SQL</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+							<span style="font-size: var(--font-size-caption);">Docker</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+							<span style="font-size: var(--font-size-caption);">Git</span>
+						</div>
+						<div class="flex items-center gap-2">
+							<span class="trk-status-light trk-status-complete"></span>
+							<span style="font-size: var(--font-size-caption);">TypeScript</span>
+						</div>
+					</div>
+				</div>
+				<!-- Expandable card -->
+				<!-- snippet:expandable-card -->
+				<div class="trk-panel" x-data="{ open: false }">
+					<div
+						class="trk-panel-header flex items-center justify-between cursor-pointer"
+						{ templ.Attributes{"@click": "open = !open"}... }
+					>
+						<span>Search engine — requirements</span>
+						<span
+							style="font-size: 0.625rem; transition: transform 0.15s;"
+							{ templ.Attributes{":style": "open ? 'transform: rotate(90deg)' : ''"}... }
+						>&#9654;</span>
+					</div>
+					<div x-show="open" x-transition x-cloak class="p-5">
+						<div class="space-y-3">
+							<div class="flex items-center gap-3">
+								<span class="trk-status-light trk-status-complete"></span>
+								<span style="font-size: var(--font-size-body);">CLI Todo App</span>
+							</div>
+							<div class="flex items-center gap-3">
+								<span class="trk-status-light trk-status-complete"></span>
+								<span style="font-size: var(--font-size-body);">REST API</span>
+							</div>
+							<div class="flex items-center gap-3">
+								<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+								<span style="font-size: var(--font-size-body);">Go or Rust proficiency</span>
+							</div>
+							<div class="flex items-center gap-3">
+								<span class="trk-status-light trk-status-complete"></span>
+								<span style="font-size: var(--font-size-body);">Data structures</span>
+							</div>
+							<div class="flex items-center gap-3">
+								<span class="trk-status-light trk-status-complete"></span>
+								<span style="font-size: var(--font-size-body);">File I/O</span>
+							</div>
+						</div>
+						<div class="trk-rule mt-4 pt-3">
+							<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+								4/5 requirements met — 1 in progress
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:expandable-card -->
+				@components.SourceView(snippets["expandable-card"])
+			}
+
+			<!-- SECTION 7: Content Browser -->
+			@components.Section("7.0  Content Browser", components.BadgeBoth) {
+				<!-- snippet:content-browser -->
+				<div class="flex flex-col md:flex-row gap-6" x-data="{ open: { skills: true, projects: false, certifications: false, challenges: false } }">
+					<!-- Sidebar -->
+					<div class="trk-panel" style="width: 100%; max-width: 280px; flex-shrink: 0;">
+						<div class="trk-panel-header">
+							Browse
+						</div>
+						<div class="p-3">
+							<!-- Search input -->
+							<input
+								type="text"
+								class="trk-search mb-3"
+								placeholder="Search items..."
+								name="q"
+								hx-get="/guides/tracker/search"
+								hx-trigger="input changed delay:300ms"
+								hx-target="#trk-search-results"
+							/>
+							<!-- Search results container -->
+							<div id="trk-search-results"></div>
+							<!-- Tree navigation -->
+							<div class="trk-tree">
+								<!-- Skills -->
+								<div
+									class="trk-tree-node"
+									style="font-weight: 700;"
+									{ templ.Attributes{"@click": "open.skills = !open.skills"}... }
+								>
+									<span
+										class="trk-tree-toggle"
+										{ templ.Attributes{":class": "open.skills ? 'trk-tree-toggle-open' : ''"}... }
+									>&#9654;</span>
+									<span>Skills</span>
+								</div>
+								<div x-show="open.skills" x-transition x-cloak style="padding-left: 1rem;">
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/golang" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>Go</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/javascript" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>JavaScript</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/python" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-complete"></span>
+										<span>Python</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/rust" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>Rust</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/sql" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>SQL</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/docker" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>Docker</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/git" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>Git</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/skill/typescript" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-complete"></span>
+										<span>TypeScript</span>
+									</div>
+								</div>
+								<!-- Projects -->
+								<div
+									class="trk-tree-node"
+									style="font-weight: 700;"
+									{ templ.Attributes{"@click": "open.projects = !open.projects"}... }
+								>
+									<span
+										class="trk-tree-toggle"
+										{ templ.Attributes{":class": "open.projects ? 'trk-tree-toggle-open' : ''"}... }
+									>&#9654;</span>
+									<span>Projects</span>
+								</div>
+								<div x-show="open.projects" x-transition x-cloak style="padding-left: 1rem;">
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/project/todo-cli" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-complete"></span>
+										<span>CLI Todo App</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/project/rest-api" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-complete"></span>
+										<span>REST API</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/project/chat-app" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>Real-time Chat</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/project/blog-engine" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-locked"></span>
+										<span>Blog Engine</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/project/search-engine" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-locked"></span>
+										<span>Search Engine</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/project/compiler" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-locked"></span>
+										<span>Toy Compiler</span>
+									</div>
+								</div>
+								<!-- Certifications -->
+								<div
+									class="trk-tree-node"
+									style="font-weight: 700;"
+									{ templ.Attributes{"@click": "open.certifications = !open.certifications"}... }
+								>
+									<span
+										class="trk-tree-toggle"
+										{ templ.Attributes{":class": "open.certifications ? 'trk-tree-toggle-open' : ''"}... }
+									>&#9654;</span>
+									<span>Certifications</span>
+								</div>
+								<div x-show="open.certifications" x-transition x-cloak style="padding-left: 1rem;">
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/certification/aws-ccp" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-complete"></span>
+										<span>AWS Cloud Practitioner</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/certification/aws-saa" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>AWS Solutions Architect</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/certification/k8s-cka" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-locked"></span>
+										<span>CKA (Kubernetes)</span>
+									</div>
+								</div>
+								<!-- Challenges -->
+								<div
+									class="trk-tree-node"
+									style="font-weight: 700;"
+									{ templ.Attributes{"@click": "open.challenges = !open.challenges"}... }
+								>
+									<span
+										class="trk-tree-toggle"
+										{ templ.Attributes{":class": "open.challenges ? 'trk-tree-toggle-open' : ''"}... }
+									>&#9654;</span>
+									<span>Challenges</span>
+								</div>
+								<div x-show="open.challenges" x-transition x-cloak style="padding-left: 1rem;">
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/challenge/advent-of-code" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-complete"></span>
+										<span>Advent of Code</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/challenge/leetcode-75" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-progress trk-status-pulse"></span>
+										<span>LeetCode 75</span>
+									</div>
+									<div class="trk-tree-node" hx-get="/guides/tracker/detail/challenge/system-design" hx-target="#trk-detail-panel" hx-swap="innerHTML">
+										<span class="trk-status-light trk-status-locked"></span>
+										<span>System Design</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Detail Panel -->
+					<div id="trk-detail-panel" class="trk-panel p-6" style="flex: 1; min-height: 300px;">
+						<p style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted);">
+							Select an item to view details
+						</p>
+					</div>
+				</div>
+				<!-- /snippet:content-browser -->
+				@components.SourceView(snippets["content-browser"])
+			}
+
+			<!-- SECTION 8: Dependency Graph -->
+			@components.Section("8.0  Dependency Graph", components.BadgeAlpine) {
+				<!-- snippet:dep-graph -->
+				<div x-data="{ selected: 'fullstack', highlighted: null }">
+					<!-- Goal selector buttons -->
+					<div class="flex gap-2 mb-6 flex-wrap">
+						<button
+							class="trk-btn"
+							{ templ.Attributes{"@click": "selected = 'fullstack'; highlighted = null"}... }
+							{ templ.Attributes{":class": "selected === 'fullstack' ? 'trk-btn-primary' : ''"}... }
+						>
+							Full-Stack App
+						</button>
+						<button
+							class="trk-btn"
+							{ templ.Attributes{"@click": "selected = 'senior'; highlighted = null"}... }
+							{ templ.Attributes{":class": "selected === 'senior' ? 'trk-btn-primary' : ''"}... }
+						>
+							Senior Engineer
+						</button>
+						<button
+							class="trk-btn"
+							{ templ.Attributes{"@click": "selected = 'awssa'; highlighted = null"}... }
+							{ templ.Attributes{":class": "selected === 'awssa' ? 'trk-btn-primary' : ''"}... }
+						>
+							AWS Solutions Architect
+						</button>
+					</div>
+
+					<!-- Full-Stack App graph -->
+					<div x-show="selected === 'fullstack'" x-transition class="flex items-start gap-0 overflow-x-auto pb-4">
+						<!-- Sub-deps column (REST API deps) -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs3a' ? null : 'fs3a'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs3a' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">JavaScript</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs3b' ? null : 'fs3b'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs3b' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">SQL</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs3c' ? null : 'fs3c'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs3c' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">TypeScript</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+						</div>
+
+						<!-- Connecting lines: sub-deps to REST API -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+						</div>
+
+						<!-- Deps column (middle) -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs1' ? null : 'fs1'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs1' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Go proficiency</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs2' ? null : 'fs2'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs2' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Database design</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs3' ? null : 'fs3'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs3' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">REST API</div>
+								<span class="trk-tag trk-tag-project">PROJECT</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs4' ? null : 'fs4'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs4' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Docker</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fs5' ? null : 'fs5'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fs5' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Git workflow</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+						</div>
+
+						<!-- Connecting lines: deps to goal -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+						</div>
+
+						<!-- Goal node (right) -->
+						<div class="flex items-center">
+							<div
+								class="trk-dep-node trk-dep-node-locked"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'fullstack-goal' ? null : 'fullstack-goal'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'fullstack-goal' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer; padding: 1rem 1.25rem; min-width: 160px;"
+							>
+								<div style="font-weight: 700; font-size: var(--font-size-body);">Full-Stack App</div>
+								<span class="trk-tag trk-tag-project">PROJECT</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Senior Engineer graph -->
+					<div x-show="selected === 'senior'" x-transition class="flex items-start gap-0 overflow-x-auto pb-4">
+						<!-- Sub-deps column (CKA deps) -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'se4a' ? null : 'se4a'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'se4a' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Docker</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'se4b' ? null : 'se4b'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'se4b' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Linux admin</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'se4c' ? null : 'se4c'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'se4c' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Networking</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+						</div>
+
+						<!-- Connecting lines: sub-deps to CKA -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+						</div>
+
+						<!-- Deps column (middle) -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'se1' ? null : 'se1'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'se1' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">All projects complete</div>
+								<span class="trk-tag trk-tag-project">PROJECT</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-locked"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'se2' ? null : 'se2'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'se2' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">System design</div>
+								<span class="trk-tag trk-tag-challenge">CHALLENGE</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'se3' ? null : 'se3'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'se3' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Docker mastery</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-locked"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'se4' ? null : 'se4'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'se4' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">CKA cert</div>
+								<span class="trk-tag trk-tag-certification">CERT</span>
+							</div>
+						</div>
+
+						<!-- Connecting lines: deps to goal -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+						</div>
+
+						<!-- Goal node (right) -->
+						<div class="flex items-center">
+							<div
+								class="trk-dep-node trk-dep-node-locked"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'senior-goal' ? null : 'senior-goal'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'senior-goal' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer; padding: 1rem 1.25rem; min-width: 160px;"
+							>
+								<div style="font-weight: 700; font-size: var(--font-size-body);">Senior Engineer</div>
+								<span class="trk-tag trk-tag-challenge">CHALLENGE</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- AWS Solutions Architect graph -->
+					<div x-show="selected === 'awssa'" x-transition class="flex items-start gap-0 overflow-x-auto pb-4">
+						<!-- No sub-deps for AWS SA, so skip that column -->
+
+						<!-- Deps column -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'aw1' ? null : 'aw1'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'aw1' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">AWS CCP</div>
+								<span class="trk-tag trk-tag-certification">CERT</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'aw2' ? null : 'aw2'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'aw2' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Networking</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'aw3' ? null : 'aw3'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'aw3' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Security</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-complete"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'aw4' ? null : 'aw4'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'aw4' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Database design</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'aw5' ? null : 'aw5'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'aw5' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer;"
+							>
+								<div style="font-weight: 600;">Cost optimization</div>
+								<span class="trk-tag trk-tag-skill">SKILL</span>
+							</div>
+						</div>
+
+						<!-- Connecting lines: deps to goal -->
+						<div class="flex flex-col gap-2 justify-center">
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+							<div class="trk-dep-line"></div>
+						</div>
+
+						<!-- Goal node (right) -->
+						<div class="flex items-center">
+							<div
+								class="trk-dep-node trk-dep-node-progress"
+								{ templ.Attributes{"@click": "highlighted = highlighted === 'awssa-goal' ? null : 'awssa-goal'"}... }
+								{ templ.Attributes{":class": "highlighted && highlighted !== 'awssa-goal' ? 'trk-dep-node-dimmed' : ''"}... }
+								style="cursor: pointer; padding: 1rem 1.25rem; min-width: 160px;"
+							>
+								<div style="font-weight: 700; font-size: var(--font-size-body);">AWS Solutions Architect</div>
+								<span class="trk-tag trk-tag-certification">CERT</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:dep-graph -->
+				@components.SourceView(snippets["dep-graph"])
+			}
+
+			<!-- SECTION 9: Learning Overview Dashboard -->
+			@components.Section("9.0  Learning Overview", components.BadgeAlpine) {
+				<!-- Top row: Skills Mastered + Projects Complete -->
+				<div class="flex flex-col sm:flex-row gap-6 mb-6">
+					<!-- Skills Mastered -->
+					<div class="trk-panel p-6 flex-1">
+						<div class="trk-readout">2 / 8</div>
+						<div class="trk-progress-bar mt-3">
+							<div class="trk-progress-fill" style="width: 25%;"></div>
+						</div>
+						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Skills mastered
+						</p>
+					</div>
+					<!-- Projects Complete -->
+					<div class="trk-panel p-6 flex-1">
+						<div class="trk-readout">2 / 6</div>
+						<div class="trk-progress-bar mt-3">
+							<div class="trk-progress-fill" style="width: 33%;"></div>
+						</div>
+						<p class="mt-2" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Projects complete
+						</p>
+					</div>
+				</div>
+
+				<!-- Middle row: Skill Completion Grid + Certification Tiers -->
+				<div class="flex flex-col sm:flex-row gap-6 mb-6">
+					<!-- Skill Completion Grid -->
+					<div class="trk-panel p-6 flex-1">
+						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Skill completion
+						</p>
+						<div class="flex flex-wrap gap-3">
+							<!-- Go 75/99: progress -->
+							<span class="trk-status-light trk-status-progress" title="Go — 75/99"></span>
+							<!-- JavaScript 82/99: progress -->
+							<span class="trk-status-light trk-status-progress" title="JavaScript — 82/99"></span>
+							<!-- Python 70/70: complete -->
+							<span class="trk-status-light trk-status-complete" title="Python — 70/70"></span>
+							<!-- Rust 80/99: progress -->
+							<span class="trk-status-light trk-status-progress" title="Rust — 80/99"></span>
+							<!-- SQL 52/77: progress -->
+							<span class="trk-status-light trk-status-progress" title="SQL — 52/77"></span>
+							<!-- Docker 85/99: progress -->
+							<span class="trk-status-light trk-status-progress" title="Docker — 85/99"></span>
+							<!-- Git 72/85: progress -->
+							<span class="trk-status-light trk-status-progress" title="Git — 72/85"></span>
+							<!-- TypeScript 70/70: complete -->
+							<span class="trk-status-light trk-status-complete" title="TypeScript — 70/70"></span>
+						</div>
+					</div>
+
+					<!-- Certification Tiers -->
+					<div class="trk-panel p-6 flex-1">
+						<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+							Certification tiers
+						</p>
+						<div class="flex flex-col gap-4">
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Foundational</span>
+									<span style="color: var(--color-text-muted);">1 / 1</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 100%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Associate</span>
+									<span style="color: var(--color-text-muted);">0 / 1</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 0%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Professional</span>
+									<span style="color: var(--color-text-muted);">0 / 1</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 0%;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="flex justify-between mb-1" style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600;">
+									<span>Specialty</span>
+									<span style="color: var(--color-text-muted);">0 / 0</span>
+								</div>
+								<div class="trk-progress-bar">
+									<div class="trk-progress-fill" style="width: 0%;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Bottom row: Readiness Score Calculator -->
+				<!-- snippet:readiness-calc -->
+				<div
+					class="trk-panel p-6"
+					x-data="{
+						golang: 75, javascript: 82, python: 70, sql: 52,
+						docker: 85, git: 72, systemDesign: 30,
+						get readinessScore() {
+							let w = { golang: 0.20, javascript: 0.15, python: 0.10, sql: 0.15, docker: 0.15, git: 0.10, systemDesign: 0.15 };
+							let score = this.golang * w.golang + this.javascript * w.javascript + this.python * w.python + this.sql * w.sql + this.docker * w.docker + this.git * w.git + this.systemDesign * w.systemDesign;
+							return Math.round(score);
+						}
+					}"
+				>
+					<p class="mb-4" style="font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;">
+						Readiness score
+					</p>
+					<div class="trk-readout mb-4" x-text="readinessScore"></div>
+					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Go</label>
+							<input type="number" min="1" max="100" class="trk-input" x-model.number="golang"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">JavaScript</label>
+							<input type="number" min="1" max="100" class="trk-input" x-model.number="javascript"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Python</label>
+							<input type="number" min="1" max="100" class="trk-input" x-model.number="python"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">SQL</label>
+							<input type="number" min="1" max="100" class="trk-input" x-model.number="sql"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Docker</label>
+							<input type="number" min="1" max="100" class="trk-input" x-model.number="docker"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">Git</label>
+							<input type="number" min="1" max="100" class="trk-input" x-model.number="git"/>
+						</div>
+						<div>
+							<label style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 600; display: block; margin-bottom: 0.25rem;">System Design</label>
+							<input type="number" min="1" max="100" class="trk-input" x-model.number="systemDesign"/>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:readiness-calc -->
+				@components.SourceView(snippets["readiness-calc"])
+			}
+		</div>
+	</div>
+}
