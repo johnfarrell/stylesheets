@@ -3,7 +3,7 @@ package tracker
 // guideStyles returns the guide-specific CSS classes.
 func guideStyles() string {
 	return `
-/* [custom] - dark panel with subtle border and shadow */
+/* [custom] - clean panel with subtle shadow */
 .trk-panel {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -13,14 +13,18 @@ func guideStyles() string {
 .trk-panel-header {
     font-family: var(--font-display);
     font-size: var(--font-size-caption);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     color: var(--color-text-muted);
-    padding: 0.75rem 1rem;
+    padding: 0.4rem 0.75rem;
     border-bottom: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
     background: var(--color-surface-2);
+}
+.trk-panel-header-gold {
+    background: var(--color-primary);
+    color: #ffffff;
+    border-bottom: none;
 }
 .trk-panel-elevated {
     background: var(--color-surface-2);
@@ -36,25 +40,17 @@ func guideStyles() string {
 }
 .trk-status-complete {
     background: var(--color-accent);
-    box-shadow: 0 0 6px var(--color-accent);
 }
 .trk-status-progress {
     background: var(--color-warning);
-    box-shadow: 0 0 6px var(--color-warning);
 }
 .trk-status-locked {
     background: var(--color-danger);
-    box-shadow: 0 0 4px var(--color-danger);
 }
-/* [custom] - pulsing animation for in-progress items */
-@keyframes trk-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-}
+/* [custom] - empty pulse class (animation removed for quiet aesthetic) */
 .trk-status-pulse {
-    animation: trk-pulse 2s ease-in-out infinite;
 }
-/* [custom] - progress bar with gold fill */
+/* [custom] - slim progress bar */
 .trk-progress-bar {
     height: 6px;
     background: var(--color-surface-2);
@@ -76,10 +72,12 @@ func guideStyles() string {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.35rem 0.5rem;
+    padding: 0.35rem 0.75rem;
     cursor: pointer;
     color: var(--color-text);
     border-left: 2px solid transparent;
+    border-bottom: 1px solid var(--color-surface-2);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     transition: background 0.1s, border-color 0.1s;
 }
 .trk-tree-node:hover {
@@ -103,32 +101,33 @@ func guideStyles() string {
 .trk-tree-toggle-open {
     transform: rotate(90deg);
 }
-/* [custom] - buttons with gold border accent */
+/* [custom] - clean buttons with subtle border */
 .trk-btn {
     font-family: var(--font-display);
     font-size: var(--font-size-caption);
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     color: var(--color-primary);
-    background: transparent;
-    border: 1px solid var(--color-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     padding: 0.4rem 1rem;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
+    transition: background 0.1s, color 0.1s, border-color 0.1s;
 }
 .trk-btn:hover {
     background: var(--color-primary);
-    color: var(--color-bg);
+    color: #ffffff;
+    border-color: var(--color-primary);
 }
 .trk-btn-primary {
     background: var(--color-primary);
-    color: var(--color-bg);
+    color: #ffffff;
     border-color: var(--color-primary);
 }
 .trk-btn-primary:hover {
-    background: #b8993e;
-    border-color: #b8993e;
+    background: #bf5026;
+    border-color: #bf5026;
 }
 .trk-btn-danger {
     color: var(--color-danger);
@@ -136,13 +135,13 @@ func guideStyles() string {
 }
 .trk-btn-danger:hover {
     background: var(--color-danger);
-    color: var(--color-text);
+    color: #ffffff;
 }
-/* [custom] - dark inset input fields */
+/* [custom] - clean input fields */
 .trk-input {
     font-family: var(--font-body);
     font-size: var(--font-size-body);
-    background: var(--color-bg);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     color: var(--color-text);
@@ -161,7 +160,7 @@ func guideStyles() string {
 .trk-search {
     font-family: var(--font-display);
     font-size: var(--font-size-caption);
-    background: var(--color-bg);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     color: var(--color-text);
@@ -175,32 +174,33 @@ func guideStyles() string {
 .trk-search::placeholder {
     color: var(--color-text-muted);
 }
-/* [custom] - large monospace readout values */
+/* [custom] - large readout values */
 .trk-readout {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.375rem;
     color: var(--color-primary);
     letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
 }
-/* [custom] - small category tag pills */
+/* [custom] - pill-shaped category tags */
 .trk-tag {
     display: inline-block;
     font-family: var(--font-display);
     font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     padding: 0.15rem 0.5rem;
-    border-radius: 2px;
+    border-radius: 10px;
     background: var(--color-surface-2);
     color: var(--color-text-muted);
-    border: 1px solid var(--color-border);
+    border: none;
 }
-.trk-tag-skill { color: var(--color-info); border-color: var(--color-info); }
-.trk-tag-quest { color: var(--color-primary); border-color: var(--color-primary); }
-.trk-tag-diary { color: var(--color-accent); border-color: var(--color-accent); }
-.trk-tag-boss { color: var(--color-danger); border-color: var(--color-danger); }
+.trk-tag-skill { color: var(--color-info); background: rgba(61,126,199,0.08); }
+.trk-tag-project { color: var(--color-primary); background: rgba(212,91,44,0.08); }
+.trk-tag-certification { color: var(--color-accent); background: rgba(58,138,92,0.08); }
+.trk-tag-challenge { color: var(--color-danger); background: rgba(181,61,46,0.08); }
 /* [custom] - dependency graph nodes */
 .trk-dep-node {
     background: var(--color-surface);
@@ -213,11 +213,11 @@ func guideStyles() string {
 }
 .trk-dep-node-complete { border-left: 3px solid var(--color-accent); }
 .trk-dep-node-progress { border-left: 3px solid var(--color-warning); }
-.trk-dep-node-locked { border-left: 3px solid var(--color-danger); }
-.trk-dep-node-dimmed { opacity: 0.3; }
+.trk-dep-node-locked { border-color: var(--color-text-muted); opacity: 0.5; }
+.trk-dep-node-dimmed { opacity: 0.2; }
 /* [custom] - connecting lines between dep nodes */
 .trk-dep-line {
-    border-top: 1px dashed var(--color-border);
+    border-top: 1px solid var(--color-border);
     width: 2rem;
     align-self: center;
     flex-shrink: 0;
@@ -226,9 +226,32 @@ func guideStyles() string {
 .trk-rule {
     border-top: 1px solid var(--color-border);
 }
-/* [custom] - gold text glow for emphasis */
+/* [custom] - accent top rule for section breaks */
+.trk-section-rule {
+    border-top: 2px solid var(--color-primary);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+}
+/* [custom] - empty glow class (removed for quiet aesthetic) */
 .trk-glow {
-    text-shadow: 0 0 8px rgba(200,170,110,0.4);
+}
+/* [custom] - bordered input fields like fillable form fields */
+.trk-input-underline {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-text-muted);
+    color: var(--color-text);
+    padding: 0.375rem 0;
+    width: 100%;
+}
+.trk-input-underline:focus {
+    outline: none;
+    border-bottom: 2px solid var(--color-primary);
+}
+.trk-input-underline::placeholder {
+    color: var(--color-text-muted);
 }
 `
 }

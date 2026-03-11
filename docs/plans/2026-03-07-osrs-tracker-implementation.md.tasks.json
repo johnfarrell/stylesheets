@@ -1,12 +1,13 @@
 {
   "planPath": "docs/plans/2026-03-07-osrs-tracker-implementation.md",
   "tasks": [
-    {"id": 0, "subject": "Task 0: Register Mission Control guide", "status": "pending"},
-    {"id": 1, "subject": "Task 1: Build full page — required sections 1-6", "status": "pending", "blockedBy": [0]},
-    {"id": 2, "subject": "Task 2: Build Section 7 — Sidebar Tree + HTMX Search & Detail", "status": "pending", "blockedBy": [1]},
-    {"id": 3, "subject": "Task 3: Build Section 8 — Dependency Graph", "status": "pending", "blockedBy": [1]},
-    {"id": 4, "subject": "Task 4: Build Section 9 — Account Overview Dashboard", "status": "pending", "blockedBy": [1]},
-    {"id": 5, "subject": "Task 5: Final verification and tailwind rebuild", "status": "pending", "blockedBy": [2, 3, 4]}
+    {"id": 0, "subject": "Task 0: Register Mission Control guide", "status": "completed"},
+    {"id": 1, "subject": "Task 1: Build full page — required sections 1-6", "status": "completed", "blockedBy": [0]},
+    {"id": 2, "subject": "Task 2: Build Section 7 — Sidebar Tree + HTMX Search & Detail", "status": "completed", "blockedBy": [1]},
+    {"id": 3, "subject": "Task 3: Build Section 8 — Dependency Graph", "status": "completed", "blockedBy": [1]},
+    {"id": 4, "subject": "Task 4: Build Section 9 — Account Overview Dashboard", "status": "completed", "blockedBy": [1]},
+    {"id": 5, "subject": "Task 5: Final verification and tailwind rebuild", "status": "completed", "blockedBy": [2, 3, 4]},
+    {"id": 6, "subject": "Task 6: Refactor OSRS → Generic Goal Tracker", "status": "completed", "blockedBy": [5]}
   ],
-  "lastUpdated": "2026-03-07T13:00:00Z"
+  "lastUpdated": "2026-03-10T12:00:00Z"
 }
