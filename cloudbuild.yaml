@@ -14,6 +14,9 @@ steps:
       - '--region'
       - '${_REGION}'
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 substitutions:
   _REGION: us-central1
 
