@@ -206,9 +206,9 @@ func guideStyles() string {
     border: 1px solid var(--color-border);
 }
 .trk-tag-skill { color: var(--color-info); border-color: var(--color-info); }
-.trk-tag-quest { color: var(--color-primary); border-color: var(--color-primary); }
-.trk-tag-diary { color: var(--color-accent); border-color: var(--color-accent); }
-.trk-tag-boss { color: var(--color-danger); border-color: var(--color-danger); }
+.trk-tag-project { color: var(--color-primary); border-color: var(--color-primary); }
+.trk-tag-certification { color: var(--color-accent); border-color: var(--color-accent); }
+.trk-tag-challenge { color: var(--color-danger); border-color: var(--color-danger); }
 /* [custom] - dependency graph nodes */
 .trk-dep-node {
     background: var(--color-surface);

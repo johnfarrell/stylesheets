@@ -16,17 +16,17 @@ import (
 	glasstempl "github.com/johnfarrell/stylesheets/guides/glass"
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 	newspapertempl "github.com/johnfarrell/stylesheets/guides/newspaper"
-	trackertempl "github.com/johnfarrell/stylesheets/guides/tracker"
 	retrotempl "github.com/johnfarrell/stylesheets/guides/retro"
 	swisstempl "github.com/johnfarrell/stylesheets/guides/swiss"
 	terminaltempl "github.com/johnfarrell/stylesheets/guides/terminal"
+	trackertempl "github.com/johnfarrell/stylesheets/guides/tracker"
 	"github.com/johnfarrell/stylesheets/templates"
 	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
 type trackerItem struct {
 	ID           string
-	Category     string // "skill", "quest", "diary", "boss"
+	Category     string // "skill", "project", "certification", "challenge"
 	Name         string
 	Status       string // "complete", "progress", "locked"
 	Level        int    // current level or 0
@@ -37,26 +37,30 @@ type trackerItem struct {
 }
 
 var trackerItems = []trackerItem{
-	{ID: "attack", Category: "skill", Name: "Attack", Status: "progress", Level: 75, Target: 99, Description: "Determines accuracy with melee weapons.", Requirements: nil, Unlocks: []string{"Abyssal Whip at 70", "Dragon Claws at 60"}},
-	{ID: "strength", Category: "skill", Name: "Strength", Status: "progress", Level: 82, Target: 99, Description: "Determines max hit with melee weapons.", Requirements: nil, Unlocks: []string{"Bandos Godsword spec at 70"}},
-	{ID: "defence", Category: "skill", Name: "Defence", Status: "complete", Level: 70, Target: 70, Description: "Determines armour effectiveness.", Requirements: nil, Unlocks: []string{"Barrows equipment at 70"}},
-	{ID: "ranged", Category: "skill", Name: "Ranged", Status: "progress", Level: 80, Target: 99, Description: "Determines accuracy and damage with ranged weapons.", Requirements: nil, Unlocks: []string{"Toxic Blowpipe at 75", "Armadyl Crossbow at 70"}},
-	{ID: "prayer", Category: "skill", Name: "Prayer", Status: "progress", Level: 52, Target: 77, Description: "Unlocks combat prayers.", Requirements: nil, Unlocks: []string{"Protect from Melee at 43", "Rigour at 74", "Augury at 77"}},
-	{ID: "magic", Category: "skill", Name: "Magic", Status: "progress", Level: 85, Target: 99, Description: "Determines accuracy with magic spells.", Requirements: nil, Unlocks: []string{"Ice Barrage at 94", "Trident of the Swamp at 75"}},
-	{ID: "mining", Category: "skill", Name: "Mining", Status: "progress", Level: 72, Target: 85, Description: "Allows mining ore from rocks.", Requirements: nil, Unlocks: []string{"Amethyst at 92", "Runite at 85"}},
-	{ID: "cooking", Category: "skill", Name: "Cooking", Status: "complete", Level: 70, Target: 70, Description: "Cook food to restore hitpoints.", Requirements: nil, Unlocks: []string{"Sharks at 80", "Anglerfish at 84"}},
-	{ID: "cooks-assistant", Category: "quest", Name: "Cook's Assistant", Status: "complete", Level: 0, Target: 0, Description: "Help the Lumbridge cook gather ingredients for a cake.", Requirements: nil, Unlocks: []string{"300 Cooking XP", "Use of Cook-o-matic"}},
-	{ID: "dragon-slayer", Category: "quest", Name: "Dragon Slayer", Status: "complete", Level: 0, Target: 0, Description: "Prove yourself a champion by slaying Elvarg.", Requirements: []string{"32 Quest Points", "8 Crafting", "34 Cooking (or good food)"}, Unlocks: []string{"Rune Platebody", "Access to Crandor"}},
-	{ID: "monkey-madness", Category: "quest", Name: "Monkey Madness", Status: "progress", Level: 0, Target: 0, Description: "Rescue a squadron of Royal Guard from Ape Atoll.", Requirements: []string{"Tree Gnome Village", "Grand Tree", "35 Agility"}, Unlocks: []string{"Dragon Scimitar", "Access to Ape Atoll"}},
-	{ID: "recipe-for-disaster", Category: "quest", Name: "Recipe for Disaster", Status: "locked", Level: 0, Target: 0, Description: "Save the Lumbridge Council from the Culinaromancer.", Requirements: []string{"175 Quest Points", "70 Cooking", "53 Thieving", "53 Fishing", "50 Mining", "50 Smithing"}, Unlocks: []string{"Barrows Gloves", "Culinaromancer's Chest"}},
-	{ID: "desert-treasure", Category: "quest", Name: "Desert Treasure", Status: "locked", Level: 0, Target: 0, Description: "Uncover the secrets of the ancient element altars.", Requirements: []string{"50 Magic", "53 Thieving", "50 Firemaking", "10 Slayer", "The Digsite quest"}, Unlocks: []string{"Ancient Magicks", "Ice spells"}},
-	{ID: "song-of-the-elves", Category: "quest", Name: "Song of the Elves", Status: "locked", Level: 0, Target: 0, Description: "Restore the city of Prifddinas to its former glory.", Requirements: []string{"70 Agility", "70 Construction", "70 Farming", "70 Herblore", "70 Hunter", "70 Mining", "70 Smithing", "70 Woodcutting"}, Unlocks: []string{"Access to Prifddinas", "Crystal equipment"}},
-	{ID: "lumbridge-easy", Category: "diary", Name: "Lumbridge Easy Diary", Status: "complete", Level: 0, Target: 0, Description: "Complete easy tasks around Lumbridge and Draynor.", Requirements: []string{"15 Fishing", "15 Mining", "Rune Mysteries quest"}, Unlocks: []string{"Explorer's Ring 1", "Free cabbage teleports"}},
-	{ID: "ardougne-medium", Category: "diary", Name: "Ardougne Medium Diary", Status: "progress", Level: 0, Target: 0, Description: "Complete medium tasks around Ardougne.", Requirements: []string{"51 Thieving", "35 Woodcutting", "Tribal Totem quest"}, Unlocks: []string{"Ardougne Cloak 2", "Improved pickpocketing"}},
-	{ID: "karamja-elite", Category: "diary", Name: "Karamja Elite Diary", Status: "locked", Level: 0, Target: 0, Description: "Complete elite tasks on Karamja.", Requirements: []string{"91 Runecraft", "87 Herblore", "86 Smithing"}, Unlocks: []string{"Karamja Gloves 4", "Unlimited gem mine teleports"}},
-	{ID: "giant-mole", Category: "boss", Name: "Giant Mole", Status: "complete", Level: 0, Target: 0, Description: "A large mole dwelling beneath Falador Park.", Requirements: []string{"Dharok's set recommended", "Falador Hard Diary (locator)"}, Unlocks: []string{"Mole parts (Clingy mole pet)", "Baby mole pet"}},
-	{ID: "zulrah", Category: "boss", Name: "Zulrah", Status: "progress", Level: 0, Target: 0, Description: "A solo snake boss with multiple phases.", Requirements: []string{"Regicide quest", "75+ Magic/Ranged recommended"}, Unlocks: []string{"Tanzanite Fang → Blowpipe", "Magic Fang → Trident", "Serpentine Visage → Helm"}},
-	{ID: "vorkath", Category: "boss", Name: "Vorkath", Status: "locked", Level: 0, Target: 0, Description: "An undead dragon boss on Ungael.", Requirements: []string{"Dragon Slayer II quest", "90+ Ranged recommended"}, Unlocks: []string{"Dragonbone Necklace", "Vorkath's Head → Assembler", "Vorki pet"}},
+	// Skills (8)
+	{ID: "golang", Category: "skill", Name: "Go", Status: "progress", Level: 75, Target: 99, Description: "Statically typed compiled language for backend services.", Requirements: nil, Unlocks: []string{"Backend APIs", "CLI tools", "Microservices"}},
+	{ID: "javascript", Category: "skill", Name: "JavaScript", Status: "progress", Level: 82, Target: 99, Description: "Dynamic language for web frontends and Node.js backends.", Requirements: nil, Unlocks: []string{"React/Vue apps", "Node.js servers"}},
+	{ID: "python", Category: "skill", Name: "Python", Status: "complete", Level: 70, Target: 70, Description: "General-purpose language for scripting and data science.", Requirements: nil, Unlocks: []string{"Automation scripts", "Data pipelines"}},
+	{ID: "rust", Category: "skill", Name: "Rust", Status: "progress", Level: 80, Target: 99, Description: "Systems language with memory safety guarantees.", Requirements: nil, Unlocks: []string{"Systems programming", "WebAssembly"}},
+	{ID: "sql", Category: "skill", Name: "SQL", Status: "progress", Level: 52, Target: 77, Description: "Query language for relational databases.", Requirements: nil, Unlocks: []string{"Database design", "Query optimization", "Migrations"}},
+	{ID: "docker", Category: "skill", Name: "Docker", Status: "progress", Level: 85, Target: 99, Description: "Container platform for packaging applications.", Requirements: nil, Unlocks: []string{"Container orchestration", "CI/CD pipelines"}},
+	{ID: "git", Category: "skill", Name: "Git", Status: "progress", Level: 72, Target: 85, Description: "Distributed version control system.", Requirements: nil, Unlocks: []string{"Branch strategies", "Rebasing workflows"}},
+	{ID: "typescript", Category: "skill", Name: "TypeScript", Status: "complete", Level: 70, Target: 70, Description: "Typed superset of JavaScript.", Requirements: nil, Unlocks: []string{"Type-safe frontends", "Shared API types"}},
+	// Projects (6)
+	{ID: "todo-cli", Category: "project", Name: "CLI Todo App", Status: "complete", Level: 0, Target: 0, Description: "Build a command-line task manager with file persistence.", Requirements: nil, Unlocks: []string{"CLI patterns", "File I/O experience"}},
+	{ID: "rest-api", Category: "project", Name: "REST API", Status: "complete", Level: 0, Target: 0, Description: "Design and implement a RESTful API with authentication.", Requirements: []string{"Go proficiency", "SQL basics", "HTTP fundamentals"}, Unlocks: []string{"API design patterns", "Auth flows"}},
+	{ID: "chat-app", Category: "project", Name: "Real-time Chat", Status: "progress", Level: 0, Target: 0, Description: "WebSocket-based chat application with rooms.", Requirements: []string{"JavaScript proficiency", "REST API project", "Basic networking"}, Unlocks: []string{"Real-time protocols", "Event-driven design"}},
+	{ID: "blog-engine", Category: "project", Name: "Blog Engine", Status: "locked", Level: 0, Target: 0, Description: "Full-stack blog with SSR, markdown, and comments.", Requirements: []string{"Go proficiency", "Database design", "REST API project", "Docker basics"}, Unlocks: []string{"Full-stack patterns", "SSR experience"}},
+	{ID: "search-engine", Category: "project", Name: "Search Engine", Status: "locked", Level: 0, Target: 0, Description: "Build a basic search engine with indexing and ranking.", Requirements: []string{"Go or Rust proficiency", "Data structures", "File I/O", "CLI Todo App project", "REST API project"}, Unlocks: []string{"Information retrieval", "Indexing algorithms"}},
+	{ID: "compiler", Category: "project", Name: "Toy Compiler", Status: "locked", Level: 0, Target: 0, Description: "Write a compiler for a small programming language.", Requirements: []string{"Rust proficiency", "Data structures", "Parsing theory"}, Unlocks: []string{"Language design", "Code generation"}},
+	// Certifications (3)
+	{ID: "aws-ccp", Category: "certification", Name: "AWS Cloud Practitioner", Status: "complete", Level: 0, Target: 0, Description: "Foundational AWS cloud certification.", Requirements: []string{"Cloud computing basics"}, Unlocks: []string{"AWS fundamentals", "Cloud vocabulary"}},
+	{ID: "aws-saa", Category: "certification", Name: "AWS Solutions Architect", Status: "progress", Level: 0, Target: 0, Description: "Associate-level AWS architecture certification.", Requirements: []string{"AWS Cloud Practitioner", "Networking basics", "Security fundamentals"}, Unlocks: []string{"Architecture patterns", "AWS service mastery"}},
+	{ID: "k8s-cka", Category: "certification", Name: "CKA (Kubernetes)", Status: "locked", Level: 0, Target: 0, Description: "Certified Kubernetes Administrator exam.", Requirements: []string{"Docker proficiency", "Linux administration", "Networking"}, Unlocks: []string{"K8s cluster management", "Container orchestration"}},
+	// Challenges (3)
+	{ID: "advent-of-code", Category: "challenge", Name: "Advent of Code", Status: "complete", Level: 0, Target: 0, Description: "Annual 25-day coding challenge event.", Requirements: []string{"Any programming language"}, Unlocks: []string{"Algorithm practice", "Problem-solving skills"}},
+	{ID: "leetcode-75", Category: "challenge", Name: "LeetCode 75", Status: "progress", Level: 0, Target: 0, Description: "Curated list of 75 essential algorithm problems.", Requirements: []string{"Data structures knowledge", "Algorithm basics"}, Unlocks: []string{"Interview readiness", "Pattern recognition"}},
+	{ID: "system-design", Category: "challenge", Name: "System Design", Status: "locked", Level: 0, Target: 0, Description: "Design scalable distributed systems.", Requirements: []string{"Networking", "Database design", "Docker proficiency"}, Unlocks: []string{"Architecture skills", "Senior-level interviews"}},
 }
 
 // NewMux creates and returns the application HTTP mux with all routes registered.
@@ -288,7 +292,7 @@ func NewMux() *http.ServeMux {
 	// Newspaper — infinite scroll headlines
 	mux.HandleFunc("/guides/newspaper/headlines", func(w http.ResponseWriter, r *http.Request) {
 		type headline struct {
-			id                                int
+			id                               int
 			category, title, summary, byline string
 		}
 		allHeadlines := []headline{
@@ -328,7 +332,7 @@ func NewMux() *http.ServeMux {
 			newspapertempl.HeadlineCard(strconv.Itoa(h.id), h.category, h.title, h.summary, h.byline).Render(r.Context(), w)
 		}
 		if end < len(allHeadlines) {
-			newspapertempl.HeadlineSentinel(strconv.Itoa(page + 1)).Render(r.Context(), w)
+			newspapertempl.HeadlineSentinel(strconv.Itoa(page+1)).Render(r.Context(), w)
 		}
 	})
 
@@ -338,11 +342,11 @@ func NewMux() *http.ServeMux {
 			category, title, byline, body string
 		}
 		articles := map[string]article{
-			"0":  {"Design", "The Grid Is Dead, Long Live the Grid", "By Jane Chen · March 7, 2026", "The grid has been the backbone of graphic design since the Bauhaus movement. For nearly a century, designers have relied on invisible lines to create order from chaos. But as digital interfaces have grown more fluid and responsive, the rigid grid has begun to feel like a constraint rather than a tool. Modern CSS layout systems — Flexbox, Grid, and now container queries — have given designers unprecedented freedom. Yet paradoxically, this freedom has led many back to the grid, not as a cage, but as a starting point. The best modern layouts use the grid as a foundation, then deliberately break it to create visual tension and hierarchy. The grid is dead. Long live the grid."},
-			"1":  {"Typography", "Why Your Font Choice Is Wrong", "By Marcus Webb · March 6, 2026", "Every designer has a favorite typeface. For some it is Helvetica, that Swiss army knife of type. For others, it is something more expressive — a Didot, perhaps, or a carefully crafted variable font. But here is the uncomfortable truth: your font choice probably matters less than you think. Research consistently shows that readers adapt to virtually any well-set typeface within seconds. What matters far more is the typographic system — the relationships between sizes, weights, and spacing. A mediocre font set beautifully will always outperform a beautiful font set poorly. Stop agonizing over the typeface. Start obsessing over the system."},
-			"2":  {"Color Theory", "The Case Against Color", "By Sarah Kim · March 5, 2026", "In a world of vibrant gradients and bold color palettes, there is something radical about restraint. The most powerful designs often use color sparingly — a single accent against a field of neutrals. This newspaper-inspired aesthetic proves the point: with just cream, black, and a touch of red, we can create hierarchy, emphasis, and emotional resonance. Color is not decoration. It is signal. And when everything is colorful, nothing stands out. The next time you reach for a rainbow palette, ask yourself: what if I used just one color instead?"},
-			"3":  {"CSS", "Container Queries Changed Everything", "By Dev Patel · March 4, 2026", "For years, responsive design meant media queries — asking the viewport how wide it was, then making decisions based on that answer. But components do not live in viewports. They live in containers. A card might appear in a sidebar, a main column, or a modal, each with different available widths. Container queries finally let us ask the right question: how much space does my parent give me? This changes everything about how we think about component design. No more breakpoint gymnastics. No more wrapper divs to simulate container awareness. Just components that know their context and respond accordingly."},
-			"4":  {"Editorial", "Print Is Not Dead, It Evolved", "By The Editors · March 3, 2026", "Every few years, someone declares print dead. And every few years, print proves them wrong — not by staying the same, but by evolving. The newspaper aesthetic you see on this page is not nostalgia. It is a recognition that centuries of typographic refinement produced principles that transcend medium. Column layouts, drop caps, pull quotes, careful leading — these are not print artifacts. They are solutions to the universal problem of making text readable and engaging. The web did not kill print. It gave print new life."},
+			"0": {"Design", "The Grid Is Dead, Long Live the Grid", "By Jane Chen · March 7, 2026", "The grid has been the backbone of graphic design since the Bauhaus movement. For nearly a century, designers have relied on invisible lines to create order from chaos. But as digital interfaces have grown more fluid and responsive, the rigid grid has begun to feel like a constraint rather than a tool. Modern CSS layout systems — Flexbox, Grid, and now container queries — have given designers unprecedented freedom. Yet paradoxically, this freedom has led many back to the grid, not as a cage, but as a starting point. The best modern layouts use the grid as a foundation, then deliberately break it to create visual tension and hierarchy. The grid is dead. Long live the grid."},
+			"1": {"Typography", "Why Your Font Choice Is Wrong", "By Marcus Webb · March 6, 2026", "Every designer has a favorite typeface. For some it is Helvetica, that Swiss army knife of type. For others, it is something more expressive — a Didot, perhaps, or a carefully crafted variable font. But here is the uncomfortable truth: your font choice probably matters less than you think. Research consistently shows that readers adapt to virtually any well-set typeface within seconds. What matters far more is the typographic system — the relationships between sizes, weights, and spacing. A mediocre font set beautifully will always outperform a beautiful font set poorly. Stop agonizing over the typeface. Start obsessing over the system."},
+			"2": {"Color Theory", "The Case Against Color", "By Sarah Kim · March 5, 2026", "In a world of vibrant gradients and bold color palettes, there is something radical about restraint. The most powerful designs often use color sparingly — a single accent against a field of neutrals. This newspaper-inspired aesthetic proves the point: with just cream, black, and a touch of red, we can create hierarchy, emphasis, and emotional resonance. Color is not decoration. It is signal. And when everything is colorful, nothing stands out. The next time you reach for a rainbow palette, ask yourself: what if I used just one color instead?"},
+			"3": {"CSS", "Container Queries Changed Everything", "By Dev Patel · March 4, 2026", "For years, responsive design meant media queries — asking the viewport how wide it was, then making decisions based on that answer. But components do not live in viewports. They live in containers. A card might appear in a sidebar, a main column, or a modal, each with different available widths. Container queries finally let us ask the right question: how much space does my parent give me? This changes everything about how we think about component design. No more breakpoint gymnastics. No more wrapper divs to simulate container awareness. Just components that know their context and respond accordingly."},
+			"4": {"Editorial", "Print Is Not Dead, It Evolved", "By The Editors · March 3, 2026", "Every few years, someone declares print dead. And every few years, print proves them wrong — not by staying the same, but by evolving. The newspaper aesthetic you see on this page is not nostalgia. It is a recognition that centuries of typographic refinement produced principles that transcend medium. Column layouts, drop caps, pull quotes, careful leading — these are not print artifacts. They are solutions to the universal problem of making text readable and engaging. The web did not kill print. It gave print new life."},
 		}
 		id := r.PathValue("id")
 		a, ok := articles[id]
@@ -359,7 +363,7 @@ func NewMux() *http.ServeMux {
 		http.Redirect(w, r, "/guides/newspaper/headlines?page=0", http.StatusSeeOther)
 	})
 
-	// Mission Control — search across OSRS items
+	// Mission Control — search across tracker items
 	mux.HandleFunc("/guides/tracker/search", func(w http.ResponseWriter, r *http.Request) {
 		q := r.URL.Query().Get("q")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -456,4 +460,3 @@ func renderNotFound(w http.ResponseWriter, r *http.Request) {
 func containsFold(s, substr string) bool {
 	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }
-

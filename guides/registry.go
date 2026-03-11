@@ -422,7 +422,7 @@ var All = []Guide{
 	{
 		Name:        "Mission Control",
 		Slug:        "tracker",
-		Description: "Dark-mode OSRS goal tracker — sidebar tree, dependency graphs, progress dashboards.",
+		Description: "Dark-mode goal tracker — sidebar tree, dependency graphs, progress dashboards.",
 		FontURL:     "https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap",
 		CSSVars: map[string]string{
 			"--color-bg":          "#0d1117",

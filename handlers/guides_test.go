@@ -241,7 +241,7 @@ func TestTrackerSearch(t *testing.T) {
 
 func TestTrackerDetail(t *testing.T) {
 	mux := handlers.NewMux()
-	req := httptest.NewRequest(http.MethodGet, "/guides/tracker/detail/skill/attack", nil)
+	req := httptest.NewRequest(http.MethodGet, "/guides/tracker/detail/skill/golang", nil)
 	w := httptest.NewRecorder()
 	mux.ServeHTTP(w, req)
 	if w.Code != http.StatusOK {
