@@ -48,92 +48,25 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		@components.Section("1.0  Color Palette", components.BadgeAlpine) {
 			<!-- snippet:color-swatch -->
 			<div>
-				<div class="mb-4">
-					<p class="mb-2" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">DOCUMENT COLORS</p>
-					<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
-						<div class="cursor-pointer" x-data="colorSwatch('--color-bg')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-bg); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-bg</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Page Background</p>
-						</div>
-						<div class="cursor-pointer" x-data="colorSwatch('--color-surface')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-surface); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-surface</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Panel / Card Surface</p>
-						</div>
-						<div class="cursor-pointer" x-data="colorSwatch('--color-surface-2')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-surface-2); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-surface-2</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Table Headers / Inputs</p>
-						</div>
-					</div>
-				</div>
-				<div class="mb-4">
-					<p class="mb-2" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">PRIMARY PALETTE</p>
-					<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
-						<div class="cursor-pointer" x-data="colorSwatch('--color-primary')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-primary); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-primary</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Primary / Rules / Labels</p>
-						</div>
-						<div class="cursor-pointer" x-data="colorSwatch('--color-secondary')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-secondary); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-secondary</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Hover / Secondary Actions</p>
-						</div>
-					</div>
-				</div>
-				<div class="mb-4">
-					<p class="mb-2" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">STATUS COLORS</p>
-					<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
-						<div class="cursor-pointer" x-data="colorSwatch('--color-danger')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-danger); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-danger</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Fault / Warning / KIA</p>
-						</div>
-						<div class="cursor-pointer" x-data="colorSwatch('--color-caution')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-caution); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-caution</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Caution / Degraded</p>
-						</div>
-					</div>
-				</div>
-				<div class="mb-4">
-					<p class="mb-2" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">TEXT &amp; BORDERS</p>
-					<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-						<div class="cursor-pointer" x-data="colorSwatch('--color-text')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-text); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-text</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Body Text</p>
-						</div>
-						<div class="cursor-pointer" x-data="colorSwatch('--color-text-muted')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-text-muted); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-text-muted</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Labels / Metadata</p>
-						</div>
-						<div class="cursor-pointer" x-data="colorSwatch('--color-border')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-border); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-border</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Borders / Dividers</p>
-						</div>
-						<div class="cursor-pointer" x-data="colorSwatch('--color-rule')" { templ.Attributes{"@click": "copy()"}... }>
-							<div style="height: 48px; background: var(--color-rule); border: 1px solid var(--color-border);"></div>
-							<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">--color-rule</p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
-							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Section Rules</p>
-						</div>
-					</div>
-				</div>
+				@swatchGroup("DOCUMENT COLORS", "grid-cols-2 sm:grid-cols-3") {
+					@swatch("--color-bg", "Page Background")
+					@swatch("--color-surface", "Panel / Card Surface")
+					@swatch("--color-surface-2", "Table Headers / Inputs")
+				}
+				@swatchGroup("PRIMARY PALETTE", "grid-cols-2 sm:grid-cols-3") {
+					@swatch("--color-primary", "Primary / Rules / Labels")
+					@swatch("--color-secondary", "Hover / Secondary Actions")
+				}
+				@swatchGroup("STATUS COLORS", "grid-cols-2 sm:grid-cols-3") {
+					@swatch("--color-danger", "Fault / Warning / KIA")
+					@swatch("--color-caution", "Caution / Degraded")
+				}
+				@swatchGroup("TEXT &amp; BORDERS", "grid-cols-2 sm:grid-cols-4") {
+					@swatch("--color-text", "Body Text")
+					@swatch("--color-text-muted", "Labels / Metadata")
+					@swatch("--color-border", "Borders / Dividers")
+					@swatch("--color-rule", "Section Rules")
+				}
 				<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.75rem;">Click any swatch to copy hex value to clipboard.</p>
 			</div>
 			<!-- /snippet:color-swatch -->
