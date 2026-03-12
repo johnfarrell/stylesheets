@@ -17,7 +17,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		</span>
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
 	<div style="max-width: var(--content-max-width); margin: 0 auto; padding: 2rem; font-family: var(--font-body); color: var(--color-text); background: var(--color-bg);">
 		<!-- Guide header -->
 		<div class="mb-12 pb-0">

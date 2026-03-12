@@ -9,7 +9,7 @@ import (
 // Page renders the full Cassette style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
 	if htmxRequest {
 		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
 			<link rel="preconnect" href="https://fonts.googleapis.com"/>

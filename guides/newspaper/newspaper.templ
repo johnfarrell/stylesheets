@@ -16,7 +16,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<link rel="stylesheet" href={ g.FontURL }/>
 		</span>
 	}
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
 	<!-- 9. Reading Progress Bar (fixed at top) -->
 	<!-- snippet:reading-progress -->
 	<div x-data="{ progress: 0 }"
