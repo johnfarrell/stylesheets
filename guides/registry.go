@@ -651,11 +651,6 @@ func BuildDarkCSS(darkVars map[string]string) string {
 	return "[data-theme=\"dark\"]{" + BuildCSSVars(darkVars) + "}"
 }
 
-// HasDarkMode reports whether this guide supports dark mode toggling.
-func (g Guide) HasDarkMode() bool {
-	return g.DarkCSSVars != nil
-}
-
 // BySlug looks up a guide by its URL slug.
 func BySlug(slug string) (Guide, bool) {
 	for _, g := range All {

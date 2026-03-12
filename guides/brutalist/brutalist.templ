@@ -20,9 +20,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
 	<div class="p-8 max-w-4xl mx-auto font-mono">
 		<!-- Guide header -->
-		<div class="mb-12 border-b-4 border-black pb-6">
+		<div class="mb-12 border-b-4 pb-6" style="border-color: var(--border-color)">
 			<h1 class="text-5xl font-bold uppercase tracking-tight mb-2" style="font-family: var(--font-display)">Brutalist</h1>
-			<p class="text-gray-600 text-sm">Raw. Functional. Unapologetic. Heavy borders, stark contrast, no rounded corners.</p>
+			<p class="text-sm" style="color: var(--color-text-muted)">Raw. Functional. Unapologetic. Heavy borders, stark contrast, no rounded corners.</p>
 		</div>
 		@components.TechSummary([]components.TechCallout{
 			{Tech: "Alpine", Description: "Copy-to-clipboard with x-data + @click, state reset with setTimeout"},
@@ -42,35 +42,35 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				@colorSwatch("Muted", "var(--color-text-muted)", "#555555")
 			</div>
 			<!-- /snippet:color-swatch -->
-			<p class="text-xs text-gray-500 mt-4 font-mono">Click any swatch to copy hex value to clipboard.</p>
+			<p class="text-xs mt-4 font-mono" style="color: var(--color-text-muted)">Click any swatch to copy hex value to clipboard.</p>
 			@components.SourceView(snippets["color-swatch"])
 		}
 		<!-- 2. Typography -->
 		@components.Section("Typography", components.BadgeNone) {
 			<div class="space-y-6">
 				<div class="brut-card p-6">
-					<p class="text-xs font-mono text-gray-500 mb-1 uppercase">Display — 3.5rem / Bold</p>
+					<p class="text-xs font-mono mb-1 uppercase" style="color: var(--color-text-muted)">Display — 3.5rem / Bold</p>
 					<p style="font-family: var(--font-display); font-size: var(--font-size-display); font-weight: 700; line-height: 1.1;">BRUTALISM</p>
 				</div>
 				<div class="brut-card p-6">
-					<p class="text-xs font-mono text-gray-500 mb-1 uppercase">Heading — 1.75rem / Bold</p>
+					<p class="text-xs font-mono mb-1 uppercase" style="color: var(--color-text-muted)">Heading — 1.75rem / Bold</p>
 					<p style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700;">The Grid Is Your Canvas</p>
 				</div>
 				<div class="brut-card p-6">
-					<p class="text-xs font-mono text-gray-500 mb-1 uppercase">Body — 1rem / Regular</p>
+					<p class="text-xs font-mono mb-1 uppercase" style="color: var(--color-text-muted)">Body — 1rem / Regular</p>
 					<p style="font-family: var(--font-body); font-size: var(--font-size-body);">
 						Brutalist design strips away decoration to expose function.
 						Every element serves a purpose. Nothing is hidden. Everything is raw.
 					</p>
 				</div>
 				<div class="brut-card p-6">
-					<p class="text-xs font-mono text-gray-500 mb-1 uppercase">Body Italic — 1rem / Italic</p>
+					<p class="text-xs font-mono mb-1 uppercase" style="color: var(--color-text-muted)">Body Italic — 1rem / Italic</p>
 					<p style="font-family: var(--font-body); font-size: var(--font-size-body); font-style: italic;">
 						"Form ever follows function." — Louis Sullivan
 					</p>
 				</div>
 				<div class="brut-card p-6">
-					<p class="text-xs font-mono text-gray-500 mb-1 uppercase">Caption — 0.75rem / Regular</p>
+					<p class="text-xs font-mono mb-1 uppercase" style="color: var(--color-text-muted)">Caption — 0.75rem / Regular</p>
 					<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
 						Figure 1. — Raw concrete texture, unfinished surfaces, exposed structure.
 					</p>
@@ -80,7 +80,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		<!-- 3. Spacing Scale -->
 		@components.Section("Spacing Scale", components.BadgeNone) {
 			<div class="brut-card p-6 space-y-4">
-				<p class="text-xs font-mono text-gray-500 mb-4 uppercase">Base unit: 4px</p>
+				<p class="text-xs font-mono mb-4 uppercase" style="color: var(--color-text-muted)">Base unit: 4px</p>
 				for _, s := range []struct{ label, width string }{
 					{"4px", "4px"},
 					{"8px", "8px"},
@@ -91,8 +91,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					{"64px", "64px"},
 				} {
 					<div class="flex items-center gap-4">
-						<span class="text-xs font-mono text-gray-500 w-16">{ s.label }</span>
-						<div class="bg-black h-4" style={ "width: " + s.width }></div>
+						<span class="text-xs font-mono w-16" style="color: var(--color-text-muted)">{ s.label }</span>
+						<div class="h-4" style={ "background: var(--color-primary); width: " + s.width }></div>
 					</div>
 				}
 			</div>
@@ -102,7 +102,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<div class="space-y-8">
 				<!-- Sizes -->
 				<div>
-					<p class="text-xs font-mono text-gray-500 mb-3 uppercase">Sizes</p>
+					<p class="text-xs font-mono mb-3 uppercase" style="color: var(--color-text-muted)">Sizes</p>
 					<div class="flex flex-wrap items-end gap-4">
 						<button class="brut-btn-primary px-2 py-1 text-xs font-bold uppercase cursor-pointer">XS Button</button>
 						<button class="brut-btn-primary px-3 py-1.5 text-sm font-bold uppercase cursor-pointer">SM Button</button>
@@ -112,27 +112,31 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 				<!-- Variants -->
 				<div>
-					<p class="text-xs font-mono text-gray-500 mb-3 uppercase">Variants</p>
+					<p class="text-xs font-mono mb-3 uppercase" style="color: var(--color-text-muted)">Variants</p>
 					<div class="flex flex-wrap gap-4">
 						<button class="brut-btn-primary px-4 py-2 text-sm font-bold uppercase cursor-pointer">Primary</button>
 						<button class="brut-btn-secondary px-4 py-2 text-sm font-bold uppercase cursor-pointer">Secondary</button>
 						<button class="brut-btn-accent px-4 py-2 text-sm font-bold uppercase cursor-pointer">Accent</button>
-						<button class="px-4 py-2 text-sm font-bold uppercase cursor-not-allowed opacity-40 border-2 border-black font-mono" disabled>Disabled</button>
+						<button class="px-4 py-2 text-sm font-bold uppercase cursor-not-allowed opacity-40 border-2 font-mono" style="border-color: var(--border-color)" disabled>Disabled</button>
 					</div>
 				</div>
 				<!-- Alpine toggle demo -->
 				<div>
-					<p class="text-xs font-mono text-gray-500 mb-3 uppercase">Toggle Demo [Alpine]</p>
+					<p class="text-xs font-mono mb-3 uppercase" style="color: var(--color-text-muted)">Toggle Demo [Alpine]</p>
 					<!-- snippet:button-toggle -->
 					<div x-data="{ active: false }" class="flex items-center gap-6">
 						<button
-							class="px-4 py-2 text-sm font-bold uppercase border-2 border-black font-mono cursor-pointer transition-all"
-							x-bind:class="active ? 'bg-black text-white shadow-none translate-x-0 translate-y-0' : 'bg-white text-black brut-btn-secondary'"
-							{ templ.Attributes{"@click": "active = !active"}... }
+							class="px-4 py-2 text-sm font-bold uppercase border-2 font-mono cursor-pointer transition-all"
+							style="border-color: var(--border-color)"
+							{ templ.Attributes{
+								"@click": "active = !active",
+								":style": "active ? 'border-color: var(--border-color); background: var(--color-primary); color: var(--color-bg); box-shadow: none; transform: translate(0,0)' : 'border-color: var(--border-color); background: var(--color-bg); color: var(--color-primary)'",
+								":class": "active ? '' : 'brut-btn-secondary'",
+							}... }
 						>
 							<span x-text="active ? 'ACTIVE' : 'INACTIVE'">INACTIVE</span>
 						</button>
-						<p class="text-xs font-mono text-gray-500" x-text="active ? 'State: ON' : 'State: OFF'">State: OFF</p>
+						<p class="text-xs font-mono" style="color: var(--color-text-muted)" x-text="active ? 'State: ON' : 'State: OFF'">State: OFF</p>
 					</div>
 					<!-- /snippet:button-toggle -->
 					@components.SourceView(snippets["button-toggle"])
@@ -176,15 +180,15 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<p class="text-xs font-bold uppercase mb-2 font-mono">Preferences</p>
 						<div class="space-y-2">
 							<label class="flex items-center gap-2 cursor-pointer text-sm font-mono">
-								<input type="checkbox" name="pref" value="raw" class="w-4 h-4 border-2 border-black rounded-none cursor-pointer"/>
+								<input type="checkbox" name="pref" value="raw" class="w-4 h-4 border-2 rounded-none cursor-pointer" style="border-color: var(--border-color)"/>
 								Raw aesthetic
 							</label>
 							<label class="flex items-center gap-2 cursor-pointer text-sm font-mono">
-								<input type="checkbox" name="pref" value="functional" class="w-4 h-4 border-2 border-black rounded-none cursor-pointer"/>
+								<input type="checkbox" name="pref" value="functional" class="w-4 h-4 border-2 rounded-none cursor-pointer" style="border-color: var(--border-color)"/>
 								Function over form
 							</label>
 							<label class="flex items-center gap-2 cursor-pointer text-sm font-mono">
-								<input type="checkbox" name="pref" value="honest" class="w-4 h-4 border-2 border-black rounded-none cursor-pointer"/>
+								<input type="checkbox" name="pref" value="honest" class="w-4 h-4 border-2 rounded-none cursor-pointer" style="border-color: var(--border-color)"/>
 								Honest materials
 							</label>
 						</div>
@@ -194,15 +198,15 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<p class="text-xs font-bold uppercase mb-2 font-mono">Weight</p>
 						<div class="space-y-2">
 							<label class="flex items-center gap-2 cursor-pointer text-sm font-mono">
-								<input type="radio" name="weight" value="light" class="w-4 h-4 border-2 border-black cursor-pointer"/>
+								<input type="radio" name="weight" value="light" class="w-4 h-4 border-2 cursor-pointer" style="border-color: var(--border-color)"/>
 								Light
 							</label>
 							<label class="flex items-center gap-2 cursor-pointer text-sm font-mono">
-								<input type="radio" name="weight" value="regular" checked class="w-4 h-4 border-2 border-black cursor-pointer"/>
+								<input type="radio" name="weight" value="regular" checked class="w-4 h-4 border-2 cursor-pointer" style="border-color: var(--border-color)"/>
 								Regular
 							</label>
 							<label class="flex items-center gap-2 cursor-pointer text-sm font-mono">
-								<input type="radio" name="weight" value="bold" class="w-4 h-4 border-2 border-black cursor-pointer"/>
+								<input type="radio" name="weight" value="bold" class="w-4 h-4 border-2 cursor-pointer" style="border-color: var(--border-color)"/>
 								Bold
 							</label>
 						</div>
@@ -228,13 +232,13 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<div class="brut-card p-6">
 					<div class="flex items-start justify-between mb-3">
 						<h3 class="text-base font-bold uppercase font-mono">Basic Card</h3>
-						<span class="text-xs font-mono border border-black px-2 py-0.5">STATIC</span>
+						<span class="text-xs font-mono border px-2 py-0.5" style="border-color: var(--border-color)">STATIC</span>
 					</div>
-					<p class="text-sm font-mono text-gray-600 mb-4">
+					<p class="text-sm font-mono mb-4" style="color: var(--color-text-muted)">
 						A standard content container. Hard borders, flat shadow, zero radius.
 						No decoration. Pure structure.
 					</p>
-					<div class="border-t-2 border-black pt-3 flex gap-3">
+					<div class="border-t-2 pt-3 flex gap-3" style="border-color: var(--border-color)">
 						<button class="brut-btn-primary px-3 py-1 text-xs font-bold uppercase cursor-pointer">Action</button>
 						<button class="brut-btn-secondary px-3 py-1 text-xs font-bold uppercase cursor-pointer">Cancel</button>
 					</div>
@@ -249,12 +253,12 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<h3 class="text-base font-bold uppercase font-mono">Expandable Panel</h3>
 						<span class="text-xl font-bold font-mono transition-transform" { templ.Attributes{":class": "expanded ? 'rotate-45' : ''"}... }>+</span>
 					</div>
-					<div x-show="expanded" class="px-6 pb-6 border-t-2 border-black">
-						<p class="text-sm font-mono text-gray-600 pt-4">
+					<div x-show="expanded" class="px-6 pb-6 border-t-2" style="border-color: var(--border-color)">
+						<p class="text-sm font-mono pt-4" style="color: var(--color-text-muted)">
 							Hidden content revealed on expand. Alpine.js powers the toggle
 							with no server round-trip needed.
 						</p>
-						<div class="mt-4 bg-black text-white p-3 font-mono text-xs">
+						<div class="mt-4 p-3 font-mono text-xs" style="background: var(--color-primary); color: var(--color-bg)">
 							<p>{ "// Raw data block" }</p>
 							<p>status: EXPANDED</p>
 							<p>type: brutalist</p>
@@ -265,7 +269,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<!-- /snippet:card-collapse -->
 				@components.SourceView(snippets["card-collapse"])
 				<!-- Alert panel -->
-				<div class="md:col-span-2 border-2 border-black p-4 flex gap-4 items-start" style="background: var(--color-accent); box-shadow: var(--shadow-card);">
+				<div class="md:col-span-2 border-2 p-4 flex gap-4 items-start" style="border-color: var(--border-color); background: var(--color-accent); box-shadow: var(--shadow-card);">
 					<span class="text-2xl font-bold font-mono leading-none">!</span>
 					<div>
 						<p class="text-sm font-bold uppercase font-mono mb-1">Warning Panel</p>
@@ -319,10 +323,10 @@ templ colorSwatch(name, cssVar, hex string) {
 		{ templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"}... }
 	>
 		<div
-			class="h-16 border-2 border-black mb-2 transition-transform group-hover:-translate-y-1"
-			style={ "background: " + cssVar }
+			class="h-16 border-2 mb-2 transition-transform group-hover:-translate-y-1"
+			style={ "border-color: var(--border-color); background: " + cssVar }
 		></div>
 		<p class="text-xs font-bold uppercase font-mono">{ name }</p>
-		<p class="text-xs font-mono text-gray-500" x-text={ "copied ? 'Copied!' : '" + hex + "'" }>{ hex }</p>
+		<p class="text-xs font-mono" style="color: var(--color-text-muted)" x-text={ "copied ? 'Copied!' : '" + hex + "'" }>{ hex }</p>
 	</div>
 }

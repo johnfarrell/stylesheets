@@ -352,7 +352,7 @@ templ swissSection(title, badge string) {
 
 // swissArticleCard renders a typographic editorial card component.
 templ swissArticleCard(eyebrow, headline, body string) {
-	<div class="border-t-2 border-black pt-4 pb-8">
+	<div class="border-t-2 pt-4 pb-8" style="border-color: var(--color-border)">
 		<p class="swiss-label mb-3">{ eyebrow }</p>
 		<h3 class="text-2xl font-bold mb-3" style="font-family: var(--font-display); color: var(--color-secondary);">{ headline }</h3>
 		<p class="text-base leading-relaxed" style="color: var(--color-text); max-width: 55ch;">{ body }</p>

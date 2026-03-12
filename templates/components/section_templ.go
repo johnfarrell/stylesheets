@@ -41,14 +41,14 @@ func Section(title string, badge TechBadge) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold text-gray-700 uppercase tracking-widest\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-widest\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/section.templ`, Line: 18, Col: 84}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/components/section.templ`, Line: 18, Col: 103}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -60,17 +60,17 @@ func Section(title string, badge TechBadge) templ.Component {
 		}
 		switch badge {
 		case BadgeHTMX:
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200\">[HTMX]</span>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800\">[HTMX]</span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		case BadgeAlpine:
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200\">[Alpine]</span>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800\">[Alpine]</span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		case BadgeBoth:
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200\">[HTMX]</span> <span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200\">[Alpine]</span>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800\">[HTMX]</span> <span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800\">[Alpine]</span>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

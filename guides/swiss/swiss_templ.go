@@ -707,7 +707,7 @@ func swissArticleCard(eyebrow, headline, body string) templ.Component {
 			templ_7745c5c3_Var22 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "<div class=\"border-t-2 border-black pt-4 pb-8\"><p class=\"swiss-label mb-3\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "<div class=\"border-t-2 pt-4 pb-8\" style=\"border-color: var(--color-border)\"><p class=\"swiss-label mb-3\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
