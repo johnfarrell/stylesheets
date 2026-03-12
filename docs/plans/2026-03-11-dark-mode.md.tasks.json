@@ -1,0 +1,14 @@
+{
+  "planPath": "docs/plans/2026-03-11-dark-mode.md",
+  "tasks": [
+    {"id": 1, "subject": "Task 1: Add DarkCSSVars field and BuildDarkCSS helper", "status": "pending"},
+    {"id": 2, "subject": "Task 2: Define dark CSS vars for 7 guides", "status": "pending", "blockedBy": [1]},
+    {"id": 3, "subject": "Task 3: Update style injection in 7 guide templ files", "status": "pending", "blockedBy": [1, 2]},
+    {"id": 4, "subject": "Task 4: Add dark mode toggle to sidebar", "status": "pending", "blockedBy": [1]},
+    {"id": 5, "subject": "Task 5: Add theme initialization to layout", "status": "pending", "blockedBy": [4]},
+    {"id": 6, "subject": "Task 6: Dark mode styles for sidebar, layout, home, section", "status": "pending", "blockedBy": [4, 5]},
+    {"id": 7, "subject": "Task 7: Build, run, and manually verify", "status": "pending", "blockedBy": [3, 6]},
+    {"id": 8, "subject": "Task 8: Run linters and tests", "status": "pending", "blockedBy": [7]}
+  ],
+  "lastUpdated": "2026-03-11T00:00:00Z"
+}

@@ -15,8 +15,14 @@ templ Layout(allGuides []guides.Guide, activeSlug string, fontURL string, conten
 			<script src="https://unpkg.com/htmx-ext-sse@2.2.2/sse.js" integrity="sha384-fw+eTlCc7suMV/1w/7fr2/PmwElUIt5i82bi+qTiLXvjRXZ2/FkiTNA/w0MhXnGI" crossorigin="anonymous"></script>
 			<!-- Alpine.js -->
 			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js" integrity="sha384-9Ax3MmS9AClxJyd5/zafcXXjxmwFhZCdsT6HJoJjarvCaAkJlk5QDzjLJm+Wdx5F" crossorigin="anonymous"></script>
+			<!-- Prevent flash of wrong theme on page load -->
+			<script>
+				if (localStorage.getItem('theme') === 'dark') {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			</script>
 		</head>
-		<body class="flex h-screen bg-gray-100 overflow-hidden" x-data="{ sidebarOpen: false }">
+		<body class="flex h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden" x-data="{ sidebarOpen: false }">
 			<!-- Font loader: HTMX out-of-band target for swapping Google Fonts on guide navigation -->
 			<span id="font-loader" hidden>
 				if fontURL != "" {
@@ -27,11 +33,11 @@ templ Layout(allGuides []guides.Guide, activeSlug string, fontURL string, conten
 			</span>
 			<!-- Mobile hamburger -->
 			<button
-				class="fixed top-4 left-4 z-50 md:hidden bg-white border border-gray-200 rounded-lg p-2 shadow-sm"
+				class="fixed top-4 left-4 z-50 md:hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 shadow-sm"
 				{ templ.Attributes{"@click": "sidebarOpen = !sidebarOpen"}... }
 				aria-label="Toggle menu"
 			>
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
 				</svg>
 			</button>

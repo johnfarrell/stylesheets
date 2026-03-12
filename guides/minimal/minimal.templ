@@ -17,7 +17,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		</span>
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guideStyles() + "</style>")
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	<div style="background: var(--color-bg); color: var(--color-text); min-height: 100%;">
 	<div class="mx-auto px-6 py-16" style="max-width: var(--content-max-width); font-family: var(--font-body);">
 		<!-- Guide header -->
 		<div class="mb-16">
@@ -117,7 +118,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						<button class="min-btn-primary px-5 py-2 text-sm cursor-pointer">Primary</button>
 						<button class="min-btn-secondary px-5 py-2 text-sm cursor-pointer">Secondary</button>
 						<button class="min-btn-ghost px-5 py-2 text-sm cursor-pointer">Ghost</button>
-						<button class="px-5 py-2 text-sm cursor-not-allowed opacity-40 border border-gray-200 rounded-lg font-medium" style="font-family: var(--font-body);" disabled>Disabled</button>
+						<button class="px-5 py-2 text-sm cursor-not-allowed opacity-40 border rounded-lg font-medium" style="font-family: var(--font-body); border-color: var(--border-color);" disabled>Disabled</button>
 					</div>
 				</div>
 				<!-- Alpine toggle demo -->
@@ -125,9 +126,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					<p class="text-xs uppercase tracking-widest mb-4" style="color: var(--color-text-muted);">Toggle Demo [Alpine]</p>
 					<div x-data="{ active: false }" class="flex items-center gap-5">
 						<button
-							class="px-5 py-2 text-sm font-medium cursor-pointer transition-all"
+							class="px-5 py-2 text-sm font-medium cursor-pointer transition-all border"
 							style="border-radius: var(--radius-md); font-family: var(--font-body);"
-							{ templ.Attributes{":class": "active ? 'bg-gray-900 text-white border border-gray-900' : 'bg-white text-gray-700 border border-gray-200 shadow-sm'"}... }
+							{ templ.Attributes{":style": "active ? 'background: var(--color-primary); color: var(--color-bg); border-color: var(--color-primary)' : 'background: var(--color-bg); color: var(--color-text); border-color: var(--border-color); box-shadow: 0 1px 2px rgba(0,0,0,0.05)'"}... }
 							{ templ.Attributes{"@click": "active = !active"}... }
 						>
 							<span x-text="active ? 'Enabled' : 'Disabled'">Disabled</span>
@@ -303,6 +304,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:lazy-load -->
 			@components.SourceView(snippets["lazy-load"])
 		}
+	</div>
 	</div>
 }
 

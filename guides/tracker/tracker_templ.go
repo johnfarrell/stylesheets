@@ -36,7 +36,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		snippets := guides.GetHighlightedSnippets(g.Slug)
-		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guides.BuildDarkCSS(g.DarkCSSVars)+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

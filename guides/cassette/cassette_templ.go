@@ -37,7 +37,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		snippets := guides.GetHighlightedSnippets(g.Slug)
-		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guides.BuildDarkCSS(g.DarkCSSVars)+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -68,7 +68,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"cass-body min-h-screen\" style=\"padding: var(--section-padding); max-width: var(--content-max-width); margin: 0 auto;\"><!-- MASTHEAD --><div class=\"mb-8 pb-4\" style=\"border-bottom: 2px solid var(--color-text);\"><div class=\"flex items-start justify-between\"><div><p class=\"font-bold tracking-widest mb-1\" style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">USCSS TECHNICAL REFERENCE // WCYPD COLONY SYSTEMS</p><h1 class=\"font-bold\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); color: var(--color-primary); letter-spacing: 0.05em;\">CASSETTE FUTURISM</h1><p style=\"font-size: var(--font-size-body); color: var(--color-text-muted); margin-top: 0.25rem;\">Design System Reference — NASA/TM-2026-CSS-001 — Revision D</p></div><div class=\"text-right\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.8;\"><div>DOC NO. CSS-4.2.1</div><div>REV. D</div><div>2026-03-06</div><div style=\"color: var(--color-primary); font-weight: 700; margin-top: 0.25rem;\">&#9654; APPROVED</div></div></div><div class=\"mt-3\" style=\"height: 3px; background: var(--color-primary);\"></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"cass-body min-h-screen\"><div style=\"padding: var(--section-padding); max-width: var(--content-max-width); margin: 0 auto;\"><!-- MASTHEAD --><div class=\"mb-8 pb-4\" style=\"border-bottom: 2px solid var(--color-text);\"><div class=\"flex items-start justify-between\"><div><p class=\"font-bold tracking-widest mb-1\" style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">USCSS TECHNICAL REFERENCE // WCYPD COLONY SYSTEMS</p><h1 class=\"font-bold\" style=\"font-family: var(--font-display); font-size: var(--font-size-display); color: var(--color-primary); letter-spacing: 0.05em;\">CASSETTE FUTURISM</h1><p style=\"font-size: var(--font-size-body); color: var(--color-text-muted); margin-top: 0.25rem;\">Design System Reference — NASA/TM-2026-CSS-001 — Revision D</p></div><div class=\"text-right\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); line-height: 1.8;\"><div>DOC NO. CSS-4.2.1</div><div>REV. D</div><div>2026-03-06</div><div style=\"color: var(--color-primary); font-weight: 700; margin-top: 0.25rem;\">&#9654; APPROVED</div></div></div><div class=\"mt-3\" style=\"height: 3px; background: var(--color-primary);\"></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -274,7 +274,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues(fmt.Sprintf("font-size: var(--font-size-caption); color: var(--color-text-muted); width: 9rem; flex-shrink: 0;"))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 232, Col: 133}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 233, Col: 133}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -287,7 +287,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(step.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 232, Col: 148}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 233, Col: 148}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -300,7 +300,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var8 string
 				templ_7745c5c3_Var8, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues(fmt.Sprintf("width: %dpx; height: 12px; background: var(--color-primary);", step.px))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 233, Col: 104}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 234, Col: 104}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -313,7 +313,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var9 string
 				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(step.twClass)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 234, Col: 104}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 235, Col: 104}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -456,7 +456,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var13 string
 				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(row.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 478, Col: 147}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 479, Col: 147}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 				if templ_7745c5c3_Err != nil {
@@ -469,7 +469,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var14 string
 				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(row.value)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 479, Col: 67}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 480, Col: 67}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 				if templ_7745c5c3_Err != nil {
@@ -498,7 +498,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var15 string
 				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(row.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 496, Col: 147}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 497, Col: 147}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 				if templ_7745c5c3_Err != nil {
@@ -511,7 +511,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var16 string
 				templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(row.value)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 497, Col: 67}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 498, Col: 67}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 				if templ_7745c5c3_Err != nil {
@@ -547,7 +547,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var17 string
 				templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(row.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 517, Col: 148}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 518, Col: 148}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 				if templ_7745c5c3_Err != nil {
@@ -560,7 +560,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var18 string
 				templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(row.value)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 518, Col: 68}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 519, Col: 68}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 				if templ_7745c5c3_Err != nil {
@@ -588,7 +588,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var19 string
 				templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(row.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 572, Col: 147}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 573, Col: 147}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 				if templ_7745c5c3_Err != nil {
@@ -607,7 +607,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					}
 				}())
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 573, Col: 181}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 574, Col: 181}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 				if templ_7745c5c3_Err != nil {
@@ -620,7 +620,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var21 string
 				templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(row.value)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 573, Col: 195}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 574, Col: 195}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 				if templ_7745c5c3_Err != nil {
@@ -689,7 +689,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var23 string
 				templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(crew.id)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 613, Col: 99}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 614, Col: 99}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 				if templ_7745c5c3_Err != nil {
@@ -702,7 +702,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var24 string
 				templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(crew.name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 614, Col: 50}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 615, Col: 50}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 				if templ_7745c5c3_Err != nil {
@@ -715,7 +715,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var25 string
 				templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(crew.rank)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 615, Col: 69}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 616, Col: 69}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 				if templ_7745c5c3_Err != nil {
@@ -728,7 +728,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var26 string
 				templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(crew.dept)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 616, Col: 69}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 617, Col: 69}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 				if templ_7745c5c3_Err != nil {
@@ -746,7 +746,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var27 string
 					templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(crew.status)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 619, Col: 115}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 620, Col: 115}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
 					if templ_7745c5c3_Err != nil {
@@ -764,7 +764,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var28 string
 					templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(crew.status)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 621, Col: 119}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 622, Col: 119}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 					if templ_7745c5c3_Err != nil {
@@ -782,7 +782,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var29 string
 					templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(crew.status)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 623, Col: 107}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 624, Col: 107}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 					if templ_7745c5c3_Err != nil {
@@ -800,7 +800,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var30 string
 				templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(crew.clearance)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 626, Col: 74}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 627, Col: 74}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
 				if templ_7745c5c3_Err != nil {
@@ -997,7 +997,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var35 string
 				templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(t.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 937, Col: 17}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 938, Col: 17}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
 				if templ_7745c5c3_Err != nil {
@@ -1024,7 +1024,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var36 string
 				templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(c.name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 970, Col: 83}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 971, Col: 83}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
 				if templ_7745c5c3_Err != nil {
@@ -1037,7 +1037,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var37 string
 				templ_7745c5c3_Var37, templ_7745c5c3_Err = templ.JoinStringErrs(c.role)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 971, Col: 100}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 972, Col: 100}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var37))
 				if templ_7745c5c3_Err != nil {
@@ -1050,7 +1050,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var38 string
 				templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(c.status)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 973, Col: 129}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 974, Col: 129}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
 				if templ_7745c5c3_Err != nil {
@@ -1079,7 +1079,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var39 string
 				templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(log.ts)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1001, Col: 80}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1002, Col: 80}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 				if templ_7745c5c3_Err != nil {
@@ -1092,7 +1092,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var40 string
 				templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(log.code)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1002, Col: 99}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1003, Col: 99}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 				if templ_7745c5c3_Err != nil {
@@ -1105,7 +1105,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var41 string
 				templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(log.msg)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1003, Col: 24}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1004, Col: 24}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
 				if templ_7745c5c3_Err != nil {
@@ -1147,7 +1147,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var42 string
 				templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(item.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1029, Col: 71}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1030, Col: 71}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
 				if templ_7745c5c3_Err != nil {
@@ -1365,7 +1365,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var45 string
 					templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", i+1))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1285, Col: 35}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1286, Col: 35}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
 					if templ_7745c5c3_Err != nil {
@@ -1375,7 +1375,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var46 string
 					templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinStringErrs("5")
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1287, Col: 16}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1288, Col: 16}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var46))
 					if templ_7745c5c3_Err != nil {
@@ -1389,7 +1389,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var47 string
 				templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1290, Col: 140}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1291, Col: 140}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var47))
 				if templ_7745c5c3_Err != nil {
@@ -1574,7 +1574,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 148, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 148, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
