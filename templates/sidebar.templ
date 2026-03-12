@@ -38,6 +38,24 @@ templ Sidebar(allGuides []guides.Guide, activeSlug string) {
 			}
 		</ul>
 		<div class="p-4 border-t border-gray-200 flex flex-col gap-2">
+			<div
+				x-data="{ dark: localStorage.getItem('theme') === 'dark' }"
+				x-init="if (dark) document.documentElement.setAttribute('data-theme', 'dark')"
+				class="flex items-center justify-between"
+			>
+				<span class="text-xs text-gray-400">Theme</span>
+				<button
+					class="relative w-10 h-5 rounded-full transition-colors duration-200"
+					{ templ.Attributes{":class": "dark ? 'bg-gray-600' : 'bg-gray-300'"}... }
+					{ templ.Attributes{"@click": "dark = !dark; if (dark) { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark') } else { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light') }"}... }
+					aria-label="Toggle dark mode"
+				>
+					<span
+						class="absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200"
+						{ templ.Attributes{":class": "dark && 'translate-x-5'"}... }
+					></span>
+				</button>
+			</div>
 			<a
 				href="https://github.com/johnfarrell/stylesheets"
 				target="_blank"
