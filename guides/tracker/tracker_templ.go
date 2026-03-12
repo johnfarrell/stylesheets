@@ -74,139 +74,139 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div x-data=\"{ copied: '' }\"><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;\">Interface colors</p><div class=\"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4\"><!-- snippet:color-swatch --><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div><p class=\"mb-4\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.01em;\">Interface colors</p><div class=\"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4\"><!-- snippet:color-swatch --><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-bg')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#f7f6f3'); copied='bg'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='bg' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "><div style=\"height: 48px; background: #f7f6f3; border: 1px solid var(--color-border); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Background</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='bg' ? 'COPIED' : '#f7f6f3'\">#f7f6f3</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Page background</p></div><!-- /snippet:color-swatch --><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "><div style=\"height: 48px; background: var(--color-bg); border: 1px solid var(--color-border); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Background</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Page background</p></div><!-- /snippet:color-swatch --><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-surface')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#ffffff'); copied='surface'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='surface' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "><div style=\"height: 48px; background: #ffffff; border: 1px solid var(--color-border); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Surface</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='surface' ? 'COPIED' : '#ffffff'\">#ffffff</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Panel / Card</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "><div style=\"height: 48px; background: var(--color-surface); border: 1px solid var(--color-border); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Surface</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Panel / Card</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-surface-2')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#edecea'); copied='surface2'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='surface2' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "><div style=\"height: 48px; background: #edecea; border: 1px solid var(--color-border); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Surface 2</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='surface2' ? 'COPIED' : '#edecea'\">#edecea</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Headers / Elevated</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "><div style=\"height: 48px; background: var(--color-surface-2); border: 1px solid var(--color-border); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Surface 2</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Headers / Elevated</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-primary')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#d45b2c'); copied='primary'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='primary' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "><div style=\"height: 48px; background: #d45b2c; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Primary / Orange</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='primary' ? 'COPIED' : '#d45b2c'\">#d45b2c</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Accent / Headings</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "><div style=\"height: 48px; background: var(--color-primary); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Primary / Orange</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Accent / Headings</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-accent')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#3a8a5c'); copied='success'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='success' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "><div style=\"height: 48px; background: #3a8a5c; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Complete</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='success' ? 'COPIED' : '#3a8a5c'\">#3a8a5c</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Complete status</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "><div style=\"height: 48px; background: var(--color-accent); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Complete</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Complete status</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-warning')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#c4880b'); copied='warning'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='warning' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "><div style=\"height: 48px; background: #c4880b; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Progress</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='warning' ? 'COPIED' : '#c4880b'\">#c4880b</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">In-progress</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "><div style=\"height: 48px; background: var(--color-warning); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Progress</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">In-progress</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-danger')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#b53d2e'); copied='danger'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='danger' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "><div style=\"height: 48px; background: #b53d2e; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Locked</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='danger' ? 'COPIED' : '#b53d2e'\">#b53d2e</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Locked / Error</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "><div style=\"height: 48px; background: var(--color-danger); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Locked</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Locked / Error</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-info')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#3d7ec7'); copied='info'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='info' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "><div style=\"height: 48px; background: #3d7ec7; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Info / Links</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='info' ? 'COPIED' : '#3d7ec7'\">#3d7ec7</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Links / Info</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "><div style=\"height: 48px; background: var(--color-info); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Info / Links</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Links / Info</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-text')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#2c2c2c'); copied='text'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='text' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "><div style=\"height: 48px; background: #2c2c2c; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Text</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='text' ? 'COPIED' : '#2c2c2c'\">#2c2c2c</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Body text</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "><div style=\"height: 48px; background: var(--color-text); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Text</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Body text</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-text-muted')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#8a8780'); copied='muted'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='muted' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "><div style=\"height: 48px; background: #8a8780; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Muted</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='muted' ? 'COPIED' : '#8a8780'\">#8a8780</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Secondary text</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "><div style=\"height: 48px; background: var(--color-text-muted); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Muted</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Secondary text</p></div><div class=\"trk-panel p-3 cursor-pointer transition-all\" style=\"border-color: transparent;\" x-data=\"colorSwatch('--color-border')\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText('#dddbd6'); copied='border'; setTimeout(()=>copied='',1500)"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied==='border' ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "copied ? 'border-color: var(--color-primary)' : 'border-color: transparent'"})
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "><div style=\"height: 48px; background: #dddbd6; \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Border</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied==='border' ? 'COPIED' : '#dddbd6'\">#dddbd6</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Dividers / Edges</p></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "><div style=\"height: 48px; background: var(--color-border); \"></div><p class=\"mt-2\" style=\"font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700;\">Border</p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"copied ? 'COPIED' : hex\"></p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">Dividers / Edges</p></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

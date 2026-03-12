@@ -29,12 +29,12 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		@components.Section("Color Palette", components.BadgeAlpine) {
 			<!-- snippet:color-swatch -->
 			<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-				@minColorSwatch("Primary", "var(--color-primary)", "#1a1a1a")
-				@minColorSwatch("Secondary", "var(--color-secondary)", "#6b7280")
-				@minColorSwatch("Accent", "var(--color-accent)", "#3b82f6")
-				@minColorSwatch("Background", "var(--color-bg)", "#fafafa")
-				@minColorSwatch("Surface", "var(--color-surface)", "#ffffff")
-				@minColorSwatch("Muted", "var(--color-text-muted)", "#9ca3af")
+				@minColorSwatch("Primary", "--color-primary")
+				@minColorSwatch("Secondary", "--color-secondary")
+				@minColorSwatch("Accent", "--color-accent")
+				@minColorSwatch("Background", "--color-bg")
+				@minColorSwatch("Surface", "--color-surface")
+				@minColorSwatch("Muted", "--color-text-muted")
 			</div>
 			<!-- /snippet:color-swatch -->
 			<p class="mt-4 text-sm" style="color: var(--color-text-muted);">Click any swatch to copy the hex value to clipboard.</p>
@@ -303,17 +303,17 @@ templ Page(g guides.Guide, htmxRequest bool) {
 }
 
 // minColorSwatch renders a single minimal color swatch with copy-to-clipboard (Alpine).
-templ minColorSwatch(name, cssVar, hex string) {
+templ minColorSwatch(name, prop string) {
 	<div
-		x-data={ "{ copied: false, hex: '" + hex + "' }" }
+		x-data={ "colorSwatch('" + prop + "')" }
 		class="cursor-pointer group"
-		{ templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"}... }
+		{ templ.Attributes{"@click": "copy()"}... }
 	>
 		<div
 			class="h-14 mb-2 transition-transform duration-150 group-hover:-translate-y-0.5"
-			style={ "background: " + cssVar + "; border-radius: var(--radius-md); border: var(--border-width) solid var(--border-color);" }
+			style={ "background: var(" + prop + "); border-radius: var(--radius-md); border: var(--border-width) solid var(--border-color);" }
 		></div>
 		<p class="text-xs font-medium" style="color: var(--color-primary);">{ name }</p>
-		<p class="text-xs" style="color: var(--color-text-muted);" x-text={ "copied ? 'Copied!' : '" + hex + "'" }>{ hex }</p>
+		<p class="text-xs" style="color: var(--color-text-muted);" x-text="copied ? 'Copied!' : hex"></p>
 	</div>
 }

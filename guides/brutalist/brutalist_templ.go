@@ -79,27 +79,27 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = colorSwatch("Primary", "var(--color-primary)", "#000000").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = colorSwatch("Primary", "--color-primary").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = colorSwatch("Secondary", "var(--color-secondary)", "#FF0000").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = colorSwatch("Secondary", "--color-secondary").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = colorSwatch("Accent", "var(--color-accent)", "#FFFF00").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = colorSwatch("Accent", "--color-accent").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = colorSwatch("BG", "var(--color-bg)", "#FFFFFF").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = colorSwatch("BG", "--color-bg").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = colorSwatch("Surface", "var(--color-surface)", "#F5F5F5").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = colorSwatch("Surface", "--color-surface").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = colorSwatch("Muted", "var(--color-text-muted)", "#555555").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = colorSwatch("Muted", "--color-text-muted").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -433,7 +433,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 }
 
 // colorSwatch renders a single color swatch with copy-to-clipboard (Alpine).
-func colorSwatch(name, cssVar, hex string) templ.Component {
+func colorSwatch(name, prop string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -459,9 +459,9 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var14 string
-		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
+		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs("colorSwatch('" + prop + "')")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 317, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 317, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -471,7 +471,7 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"})
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "copy()"})
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -480,9 +480,9 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var15 string
-		templ_7745c5c3_Var15, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("border-color: var(--border-color); background: " + cssVar)
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("border-color: var(--border-color); background: var(" + prop + ")")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 323, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 323, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -501,33 +501,7 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</p><p class=\"text-xs font-mono\" style=\"color: var(--color-text-muted)\" x-text=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var17 string
-		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 326, Col: 115}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var18 string
-		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 326, Col: 123}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</p><p class=\"text-xs font-mono\" style=\"color: var(--color-text-muted)\" x-text=\"copied ? 'Copied!' : hex\"></p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

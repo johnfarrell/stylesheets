@@ -48,10 +48,10 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<div class="news-rule-thick mb-6"></div>
 				<!-- snippet:color-swatch -->
 				<div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-					@newsColorSwatch("Cream Paper", "var(--color-bg)", "#faf9f6")
-					@newsColorSwatch("Ink Black", "var(--color-secondary)", "#1a1a1a")
-					@newsColorSwatch("Spot Red", "var(--color-primary)", "#c41e1e")
-					@newsColorSwatch("Paper White", "var(--color-surface)", "#ffffff")
+					@newsColorSwatch("Cream Paper", "--color-bg")
+					@newsColorSwatch("Ink Black", "--color-secondary")
+					@newsColorSwatch("Spot Red", "--color-primary")
+					@newsColorSwatch("Paper White", "--color-surface")
 				</div>
 				<!-- /snippet:color-swatch -->
 				<p class="mt-4" style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">
@@ -355,17 +355,17 @@ templ Page(g guides.Guide, htmxRequest bool) {
 }
 
 // newsColorSwatch renders a newspaper-styled ink swatch with copy-to-clipboard.
-templ newsColorSwatch(name, cssVar, hex string) {
+templ newsColorSwatch(name, prop string) {
 	<div
-		x-data={ "{ copied: false, hex: '" + hex + "' }" }
+		x-data={ "colorSwatch('" + prop + "')" }
 		class="cursor-pointer group"
-		{ templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"}... }
+		{ templ.Attributes{"@click": "copy()"}... }
 	>
 		<div
 			class="h-20 mb-3 transition-transform group-hover:-translate-y-1"
-			style={ "background: " + cssVar + "; border: 1px solid var(--color-border);" }
+			style={ "background: var(" + prop + "); border: 1px solid var(--color-border);" }
 		></div>
 		<p style="font-family: var(--font-display); font-size: var(--font-size-caption); font-weight: 700; color: var(--color-secondary);">{ name }</p>
-		<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text={ "copied ? 'Copied!' : '" + hex + "'" }>{ hex }</p>
+		<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'Copied!' : hex"></p>
 	</div>
 }
