@@ -1,0 +1,21 @@
+package cassette
+
+templ typeSpecimenRow(fontName, sizeLabel, sampleText, style string, last bool) {
+	if last {
+		<div style="padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
+			<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
+				<div>{ fontName }</div>
+				<div>{ sizeLabel }</div>
+			</div>
+			<div style={ style }>{ sampleText }</div>
+		</div>
+	} else {
+		<div style="border-bottom: 1px solid var(--color-border); padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
+			<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
+				<div>{ fontName }</div>
+				<div>{ sizeLabel }</div>
+			</div>
+			<div style={ style }>{ sampleText }</div>
+		</div>
+	}
+}

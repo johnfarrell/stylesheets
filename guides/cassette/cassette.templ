@@ -80,55 +80,13 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					<span style="font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted);">TYPE SPECIMEN TABLE — IBM PLEX MONO + ORBITRON</span>
 				</div>
 				<!-- Specimen rows -->
-				<div style="border-bottom: 1px solid var(--color-border); padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
-					<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-						<div>Orbitron 700</div>
-						<div>2rem / Display</div>
-					</div>
-					<div style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--color-primary);">TECHNICAL REFERENCE MANUAL</div>
-				</div>
-				<div style="border-bottom: 1px solid var(--color-border); padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
-					<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-						<div>IBM Plex Mono 700</div>
-						<div>0.875rem / Heading</div>
-					</div>
-					<div style="font-size: 0.875rem; font-weight: 700; letter-spacing: 0.02em;">SYSTEM STATUS: ALL SUBSYSTEMS NOMINAL</div>
-				</div>
-				<div style="border-bottom: 1px solid var(--color-border); padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
-					<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-						<div>IBM Plex Mono 500</div>
-						<div>0.8125rem / Body Medium</div>
-					</div>
-					<div style="font-size: 0.8125rem; font-weight: 500;">Crew manifest updated 2183-06-03 at 0347 UTC</div>
-				</div>
-				<div style="border-bottom: 1px solid var(--color-border); padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
-					<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-						<div>IBM Plex Mono 400</div>
-						<div>0.8125rem / Body Regular</div>
-					</div>
-					<div style="font-size: 0.8125rem; font-weight: 400; line-height: 1.6;">The atmospheric processor regulates colony life support across all 72 decks. Nominal operating pressure is 101.3 kPa with a tolerance of ±2.5 kPa.</div>
-				</div>
-				<div style="border-bottom: 1px solid var(--color-border); padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
-					<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-						<div>IBM Plex Mono 300</div>
-						<div>0.8125rem / Body Light</div>
-					</div>
-					<div style="font-size: 0.8125rem; font-weight: 300; color: var(--color-text-muted);">Secondary system documentation, footnotes, and supplementary reference materials.</div>
-				</div>
-				<div style="border-bottom: 1px solid var(--color-border); padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
-					<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-						<div>IBM Plex Mono 400i</div>
-						<div>0.8125rem / Body Italic</div>
-					</div>
-					<div style="font-size: 0.8125rem; font-weight: 400; font-style: italic; color: var(--color-text-muted);">Note: This document supersedes all prior revisions. Consult engineering before making any modifications.</div>
-				</div>
-				<div style="padding: 0.75rem; display: grid; grid-template-columns: 200px 1fr; gap: 1rem; align-items: center;">
-					<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
-						<div>IBM Plex Mono 700</div>
-						<div>0.6875rem / Caption Uppercase</div>
-					</div>
-					<div style="font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted);">CLASSIFICATION: COMPANY CONFIDENTIAL</div>
-				</div>
+				@typeSpecimenRow("Orbitron 700", "2rem / Display", "TECHNICAL REFERENCE MANUAL", "font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--color-primary);", false)
+				@typeSpecimenRow("IBM Plex Mono 700", "0.875rem / Heading", "SYSTEM STATUS: ALL SUBSYSTEMS NOMINAL", "font-size: 0.875rem; font-weight: 700; letter-spacing: 0.02em;", false)
+				@typeSpecimenRow("IBM Plex Mono 500", "0.8125rem / Body Medium", "Crew manifest updated 2183-06-03 at 0347 UTC", "font-size: 0.8125rem; font-weight: 500;", false)
+				@typeSpecimenRow("IBM Plex Mono 400", "0.8125rem / Body Regular", "The atmospheric processor regulates colony life support across all 72 decks. Nominal operating pressure is 101.3 kPa with a tolerance of ±2.5 kPa.", "font-size: 0.8125rem; font-weight: 400; line-height: 1.6;", false)
+				@typeSpecimenRow("IBM Plex Mono 300", "0.8125rem / Body Light", "Secondary system documentation, footnotes, and supplementary reference materials.", "font-size: 0.8125rem; font-weight: 300; color: var(--color-text-muted);", false)
+				@typeSpecimenRow("IBM Plex Mono 400i", "0.8125rem / Body Italic", "Note: This document supersedes all prior revisions. Consult engineering before making any modifications.", "font-size: 0.8125rem; font-weight: 400; font-style: italic; color: var(--color-text-muted);", false)
+				@typeSpecimenRow("IBM Plex Mono 700", "0.6875rem / Caption Uppercase", "CLASSIFICATION: COMPANY CONFIDENTIAL", "font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted);", true)
 			</div>
 			<!-- Full paragraph sample -->
 			<div class="mt-4 cass-panel" style="padding: 1.25rem;">
