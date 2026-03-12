@@ -17,6 +17,11 @@ type Guide struct {
 	// Any visual property that differs between guides belongs here:
 	// colors, typography, radius, shadows, borders, layout tokens, etc.
 	CSSVars map[string]string
+	// DarkCSSVars holds dark-mode overrides for CSS custom properties.
+	// When non-nil, the guide supports a dark mode toggle.
+	// Only color/shadow/border tokens that change need to be specified —
+	// typography, layout, and radius tokens carry over from CSSVars.
+	DarkCSSVars map[string]string
 	// PageFunc renders the guide's full showcase page.
 	PageFunc func(Guide, bool) templ.Component
 }
@@ -485,6 +490,20 @@ func BuildCSSVars(vars map[string]string) string {
 		sb.WriteString(";")
 	}
 	return sb.String()
+}
+
+// BuildDarkCSS generates a [data-theme="dark"] block for guides with dark variants.
+// Returns an empty string if darkVars is nil.
+func BuildDarkCSS(darkVars map[string]string) string {
+	if darkVars == nil {
+		return ""
+	}
+	return "[data-theme=\"dark\"]{" + BuildCSSVars(darkVars) + "}"
+}
+
+// HasDarkMode reports whether this guide supports dark mode toggling.
+func (g Guide) HasDarkMode() bool {
+	return g.DarkCSSVars != nil
 }
 
 // BySlug looks up a guide by its URL slug.
