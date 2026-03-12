@@ -964,42 +964,10 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<div class="cass-panel mb-6" x-data="{ fuel: 67, o2: 89, coolant: 23, power: 78 }">
 				<div class="cass-panel-header">BAR GAUGE DISPLAY</div>
 				<div style="padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
-					<div>
-						<div class="flex justify-between mb-1">
-							<span style="font-size: var(--font-size-caption); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">FUEL CELLS</span>
-							<span class="cass-value" x-text="fuel + '%'">67%</span>
-						</div>
-						<div class="cass-progress-track">
-							<div class="cass-progress-fill" { templ.Attributes{":style": "'width:' + fuel + '%'"}... }></div>
-						</div>
-					</div>
-					<div>
-						<div class="flex justify-between mb-1">
-							<span style="font-size: var(--font-size-caption); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">OXYGEN RESERVES</span>
-							<span class="cass-value" x-text="o2 + '%'">89%</span>
-						</div>
-						<div class="cass-progress-track">
-							<div class="cass-progress-fill cass-progress-fill-green" { templ.Attributes{":style": "'width:' + o2 + '%'"}... }></div>
-						</div>
-					</div>
-					<div>
-						<div class="flex justify-between mb-1">
-							<span style="font-size: var(--font-size-caption); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">COOLANT LEVEL</span>
-							<span class="cass-value-danger" style="font-weight: 700;" x-text="coolant + '%'">23%</span>
-						</div>
-						<div class="cass-progress-track">
-							<div class="cass-progress-fill cass-progress-fill-red" { templ.Attributes{":style": "'width:' + coolant + '%'"}... }></div>
-						</div>
-					</div>
-					<div>
-						<div class="flex justify-between mb-1">
-							<span style="font-size: var(--font-size-caption); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">POWER DISTRIBUTION</span>
-							<span class="cass-value" x-text="power + '%'">78%</span>
-						</div>
-						<div class="cass-progress-track">
-							<div class="cass-progress-fill" { templ.Attributes{":style": "'width:' + power + '%'"}... }></div>
-						</div>
-					</div>
+					@barGauge("FUEL CELLS", "fuel", "", "cass-value")
+					@barGauge("OXYGEN RESERVES", "o2", "cass-progress-fill-green", "cass-value")
+					@barGauge("COOLANT LEVEL", "coolant", "cass-progress-fill-red", "cass-value-danger")
+					@barGauge("POWER DISTRIBUTION", "power", "", "cass-value")
 					<div style="margin-top: 0.5rem;">
 						<button
 							class="cass-btn"
