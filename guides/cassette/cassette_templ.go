@@ -224,7 +224,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = swatchGroup("TEXT &amp; BORDERS", "grid-cols-2 sm:grid-cols-4").Render(templ.WithChildren(ctx, templ_7745c5c3_Var6), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = swatchGroup("TEXT & BORDERS", "grid-cols-2 sm:grid-cols-4").Render(templ.WithChildren(ctx, templ_7745c5c3_Var6), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
