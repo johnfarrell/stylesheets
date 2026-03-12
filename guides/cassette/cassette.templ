@@ -654,27 +654,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				</div>
 				<!-- Dismissible variants -->
 				<div style="margin-top: 0.5rem; font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">DISMISSIBLE VARIANTS</div>
-				<div x-data="{ visible: true }" x-show="visible" class="cass-notice cass-notice-note">
-					<div class="flex justify-between items-start">
-						<div class="cass-notice-label" style="color: var(--color-primary);">NOTE</div>
-						<button { templ.Attributes{"@click": "visible=false"}... } style="background: none; border: none; cursor: pointer; color: var(--color-text-muted); font-size: 1rem; line-height: 1; padding: 0;">&#215;</button>
-					</div>
-					<p>Hypersleep revival protocol requires a minimum 4-hour monitoring period. Medical Officer must be present for all revivals. Reference: MED-HS-001.</p>
-				</div>
-				<div x-data="{ visible: true }" x-show="visible" class="cass-notice cass-notice-caution">
-					<div class="flex justify-between items-start">
-						<div class="cass-notice-label" style="color: var(--color-caution);">CAUTION</div>
-						<button { templ.Attributes{"@click": "visible=false"}... } style="background: none; border: none; cursor: pointer; color: var(--color-text-muted); font-size: 1rem; line-height: 1; padding: 0;">&#215;</button>
-					</div>
-					<p>Motion sensor array sector 7G reporting intermittent signal loss. Maintenance crew dispatched. Estimated resolution: 2 hours. Do not rely on sector 7G coverage during this period.</p>
-				</div>
-				<div x-data="{ visible: true }" x-show="visible" class="cass-notice cass-notice-warning">
-					<div class="flex justify-between items-start">
-						<div class="cass-notice-label" style="color: var(--color-danger);">WARNING</div>
-						<button { templ.Attributes{"@click": "visible=false"}... } style="background: none; border: none; cursor: pointer; color: var(--color-text-muted); font-size: 1rem; line-height: 1; padding: 0;">&#215;</button>
-					</div>
-					<p>AIRLOCK CYCLE DETECTED — DECK A EMERGENCY AIRLOCK. No crew authorization on record. Investigate immediately. Security to report to Deck A airlock station.</p>
-				</div>
+				@dismissibleNotice("note", "Hypersleep revival protocol requires a minimum 4-hour monitoring period. Medical Officer must be present for all revivals. Reference: MED-HS-001.")
+				@dismissibleNotice("caution", "Motion sensor array sector 7G reporting intermittent signal loss. Maintenance crew dispatched. Estimated resolution: 2 hours. Do not rely on sector 7G coverage during this period.")
+				@dismissibleNotice("warning", "AIRLOCK CYCLE DETECTED — DECK A EMERGENCY AIRLOCK. No crew authorization on record. Investigate immediately. Security to report to Deck A airlock station.")
 			</div>
 		}
 
