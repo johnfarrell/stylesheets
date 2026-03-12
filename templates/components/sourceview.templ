@@ -2,6 +2,8 @@ package components
 
 // SourceView renders an inline "View Source" toggle for a code snippet.
 // Renders nothing if code is empty — safe to call unconditionally.
+// The code parameter is pre-escaped HTML from chroma's class-based syntax highlighter.
+// templ.Raw is safe here because chroma HTML-escapes all source content.
 templ SourceView(code string) {
 	if code != "" {
 		<div x-data="{ open: false }" class="mt-4">

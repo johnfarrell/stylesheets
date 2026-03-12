@@ -3,6 +3,7 @@ package handlers
 import (
 	"bytes"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"strconv"
 	"strings"
@@ -24,43 +25,31 @@ import (
 	"github.com/johnfarrell/stylesheets/templates/components"
 )
 
-type trackerItem struct {
-	ID           string
-	Category     string // "skill", "project", "certification", "challenge"
-	Name         string
-	Status       string // "complete", "progress", "locked"
-	Level        int    // current level or 0
-	Target       int    // target level or 0
-	Description  string
-	Requirements []string
-	Unlocks      []string
-}
-
-var trackerItems = []trackerItem{
-	// Skills (8)
-	{ID: "golang", Category: "skill", Name: "Go", Status: "progress", Level: 75, Target: 99, Description: "Statically typed compiled language for backend services.", Requirements: nil, Unlocks: []string{"Backend APIs", "CLI tools", "Microservices"}},
-	{ID: "javascript", Category: "skill", Name: "JavaScript", Status: "progress", Level: 82, Target: 99, Description: "Dynamic language for web frontends and Node.js backends.", Requirements: nil, Unlocks: []string{"React/Vue apps", "Node.js servers"}},
-	{ID: "python", Category: "skill", Name: "Python", Status: "complete", Level: 70, Target: 70, Description: "General-purpose language for scripting and data science.", Requirements: nil, Unlocks: []string{"Automation scripts", "Data pipelines"}},
-	{ID: "rust", Category: "skill", Name: "Rust", Status: "progress", Level: 80, Target: 99, Description: "Systems language with memory safety guarantees.", Requirements: nil, Unlocks: []string{"Systems programming", "WebAssembly"}},
-	{ID: "sql", Category: "skill", Name: "SQL", Status: "progress", Level: 52, Target: 77, Description: "Query language for relational databases.", Requirements: nil, Unlocks: []string{"Database design", "Query optimization", "Migrations"}},
-	{ID: "docker", Category: "skill", Name: "Docker", Status: "progress", Level: 85, Target: 99, Description: "Container platform for packaging applications.", Requirements: nil, Unlocks: []string{"Container orchestration", "CI/CD pipelines"}},
-	{ID: "git", Category: "skill", Name: "Git", Status: "progress", Level: 72, Target: 85, Description: "Distributed version control system.", Requirements: nil, Unlocks: []string{"Branch strategies", "Rebasing workflows"}},
-	{ID: "typescript", Category: "skill", Name: "TypeScript", Status: "complete", Level: 70, Target: 70, Description: "Typed superset of JavaScript.", Requirements: nil, Unlocks: []string{"Type-safe frontends", "Shared API types"}},
-	// Projects (6)
-	{ID: "todo-cli", Category: "project", Name: "CLI Todo App", Status: "complete", Level: 0, Target: 0, Description: "Build a command-line task manager with file persistence.", Requirements: nil, Unlocks: []string{"CLI patterns", "File I/O experience"}},
-	{ID: "rest-api", Category: "project", Name: "REST API", Status: "complete", Level: 0, Target: 0, Description: "Design and implement a RESTful API with authentication.", Requirements: []string{"Go proficiency", "SQL basics", "HTTP fundamentals"}, Unlocks: []string{"API design patterns", "Auth flows"}},
-	{ID: "chat-app", Category: "project", Name: "Real-time Chat", Status: "progress", Level: 0, Target: 0, Description: "WebSocket-based chat application with rooms.", Requirements: []string{"JavaScript proficiency", "REST API project", "Basic networking"}, Unlocks: []string{"Real-time protocols", "Event-driven design"}},
-	{ID: "blog-engine", Category: "project", Name: "Blog Engine", Status: "locked", Level: 0, Target: 0, Description: "Full-stack blog with SSR, markdown, and comments.", Requirements: []string{"Go proficiency", "Database design", "REST API project", "Docker basics"}, Unlocks: []string{"Full-stack patterns", "SSR experience"}},
-	{ID: "search-engine", Category: "project", Name: "Search Engine", Status: "locked", Level: 0, Target: 0, Description: "Build a basic search engine with indexing and ranking.", Requirements: []string{"Go or Rust proficiency", "Data structures", "File I/O", "CLI Todo App project", "REST API project"}, Unlocks: []string{"Information retrieval", "Indexing algorithms"}},
-	{ID: "compiler", Category: "project", Name: "Toy Compiler", Status: "locked", Level: 0, Target: 0, Description: "Write a compiler for a small programming language.", Requirements: []string{"Rust proficiency", "Data structures", "Parsing theory"}, Unlocks: []string{"Language design", "Code generation"}},
-	// Certifications (3)
-	{ID: "aws-ccp", Category: "certification", Name: "AWS Cloud Practitioner", Status: "complete", Level: 0, Target: 0, Description: "Foundational AWS cloud certification.", Requirements: []string{"Cloud computing basics"}, Unlocks: []string{"AWS fundamentals", "Cloud vocabulary"}},
-	{ID: "aws-saa", Category: "certification", Name: "AWS Solutions Architect", Status: "progress", Level: 0, Target: 0, Description: "Associate-level AWS architecture certification.", Requirements: []string{"AWS Cloud Practitioner", "Networking basics", "Security fundamentals"}, Unlocks: []string{"Architecture patterns", "AWS service mastery"}},
-	{ID: "k8s-cka", Category: "certification", Name: "CKA (Kubernetes)", Status: "locked", Level: 0, Target: 0, Description: "Certified Kubernetes Administrator exam.", Requirements: []string{"Docker proficiency", "Linux administration", "Networking"}, Unlocks: []string{"K8s cluster management", "Container orchestration"}},
-	// Challenges (3)
-	{ID: "advent-of-code", Category: "challenge", Name: "Advent of Code", Status: "complete", Level: 0, Target: 0, Description: "Annual 25-day coding challenge event.", Requirements: []string{"Any programming language"}, Unlocks: []string{"Algorithm practice", "Problem-solving skills"}},
-	{ID: "leetcode-75", Category: "challenge", Name: "LeetCode 75", Status: "progress", Level: 0, Target: 0, Description: "Curated list of 75 essential algorithm problems.", Requirements: []string{"Data structures knowledge", "Algorithm basics"}, Unlocks: []string{"Interview readiness", "Pattern recognition"}},
-	{ID: "system-design", Category: "challenge", Name: "System Design", Status: "locked", Level: 0, Target: 0, Description: "Design scalable distributed systems.", Requirements: []string{"Networking", "Database design", "Docker proficiency"}, Unlocks: []string{"Architecture skills", "Senior-level interviews"}},
+func init() {
+	for i := range guides.All {
+		switch guides.All[i].Slug {
+		case "brutalist":
+			guides.All[i].PageFunc = brutalisttempl.Page
+		case "cassette":
+			guides.All[i].PageFunc = cassettetempl.Page
+		case "minimal":
+			guides.All[i].PageFunc = minimaltempl.Page
+		case "glass":
+			guides.All[i].PageFunc = glasstempl.Page
+		case "bento":
+			guides.All[i].PageFunc = bentotempl.Page
+		case "swiss":
+			guides.All[i].PageFunc = swisstempl.Page
+		case "terminal":
+			guides.All[i].PageFunc = terminaltempl.Page
+		case "retro":
+			guides.All[i].PageFunc = retrotempl.Page
+		case "newspaper":
+			guides.All[i].PageFunc = newspapertempl.Page
+		case "tracker":
+			guides.All[i].PageFunc = trackertempl.Page
+		}
+	}
 }
 
 // NewMux creates and returns the application HTTP mux with all routes registered.
@@ -68,7 +57,11 @@ func NewMux() *http.ServeMux {
 	mux := http.NewServeMux()
 
 	// Static files
-	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	staticFS := http.StripPrefix("/static/", http.FileServer(http.Dir("static")))
+	mux.Handle("/static/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+		staticFS.ServeHTTP(w, r)
+	}))
 
 	// Landing page
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -89,7 +82,13 @@ func NewMux() *http.ServeMux {
 			renderNotFound(w, r)
 			return
 		}
-		content := guideContent(guide, false)
+		var content templ.Component
+		if guide.PageFunc != nil {
+			content = guide.PageFunc(guide, false)
+		} else {
+			content = templ.Raw(fmt.Sprintf(`<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
+				templ.EscapeString(guide.Name), templ.EscapeString(guide.Description)))
+		}
 		page := templates.Layout(guides.All, guide.Slug, guide.FontURL, content)
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		templ.Handler(page).ServeHTTP(w, r)
@@ -104,7 +103,13 @@ func NewMux() *http.ServeMux {
 			return
 		}
 		isHTMX := r.Header.Get("HX-Request") == "true"
-		partial := guideContent(guide, isHTMX)
+		var partial templ.Component
+		if guide.PageFunc != nil {
+			partial = guide.PageFunc(guide, isHTMX)
+		} else {
+			partial = templ.Raw(fmt.Sprintf(`<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
+				templ.EscapeString(guide.Name), templ.EscapeString(guide.Description)))
+		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		templ.Handler(partial).ServeHTTP(w, r)
 	})
@@ -125,7 +130,9 @@ func NewMux() *http.ServeMux {
 			name = "anonymous"
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		components.FormResponse(slug, name).Render(r.Context(), w)
+		if err := components.FormResponse(slug, name).Render(r.Context(), w); err != nil {
+			slog.Error("render failed", "error", err)
+		}
 	})
 
 	// Bento Dashboard — live metric tiles (HTMX polling every 3s)
@@ -146,7 +153,9 @@ func NewMux() *http.ServeMux {
 			if m.trend == "→" {
 				trendColor = "var(--color-text-muted)"
 			}
-			bentotempl.MetricTile(m.label, m.value, m.change, m.trend, trendColor).Render(r.Context(), w)
+			if err := bentotempl.MetricTile(m.label, m.value, m.change, m.trend, trendColor).Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		}
 	})
 
@@ -162,22 +171,30 @@ func NewMux() *http.ServeMux {
 			if name == "" {
 				name = "Aurora Dashboard"
 			}
-			glasstempl.EditFieldDisplay(name).Render(r.Context(), w)
+			if err := glasstempl.EditFieldDisplay(name).Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 			return
 		}
 		// GET with cancel — return the display view
 		if r.URL.Query().Get("cancel") == "true" {
-			glasstempl.EditFieldDisplay("Aurora Dashboard").Render(r.Context(), w)
+			if err := glasstempl.EditFieldDisplay("Aurora Dashboard").Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 			return
 		}
 		// GET — return the edit form
-		glasstempl.EditFieldForm("Aurora Dashboard").Render(r.Context(), w)
+		if err := glasstempl.EditFieldForm("Aurora Dashboard").Render(r.Context(), w); err != nil {
+			slog.Error("render failed", "error", err)
+		}
 	})
 
 	// Minimal — lazy-loaded Design Principles content
 	mux.HandleFunc("/guides/minimal/principles", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		minimaltempl.Principles().Render(r.Context(), w)
+		if err := minimaltempl.Principles().Render(r.Context(), w); err != nil {
+			slog.Error("render failed", "error", err)
+		}
 	})
 
 	// Swiss — HTMX search filter for editorial cards
@@ -194,7 +211,9 @@ func NewMux() *http.ServeMux {
 			if q != "" && !containsFold(a.eyebrow+a.headline+a.body, q) {
 				continue
 			}
-			swisstempl.SearchResult(a.eyebrow, a.headline, a.body).Render(r.Context(), w)
+			if err := swisstempl.SearchResult(a.eyebrow, a.headline, a.body).Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		}
 	})
 
@@ -236,8 +255,14 @@ func NewMux() *http.ServeMux {
 			}
 			bootTS := ts.Add(time.Duration(i*200) * time.Millisecond).Format("15:04:05.000")
 			var buf bytes.Buffer
-			terminaltempl.BootMessage(bootTS, m.sub, m.msg, m.color).Render(r.Context(), &buf)
-			fmt.Fprintf(w, "data: %s\n\n", strings.ReplaceAll(buf.String(), "\n", ""))
+			if err := terminaltempl.BootMessage(bootTS, m.sub, m.msg, m.color).Render(r.Context(), &buf); err != nil {
+				slog.Error("render boot message", "error", err)
+				continue
+			}
+			if _, err := fmt.Fprintf(w, "data: %s\n\n", strings.ReplaceAll(buf.String(), "\n", "")); err != nil {
+				slog.Error("write SSE event", "error", err)
+				return
+			}
 			flusher.Flush()
 			time.Sleep(300 * time.Millisecond)
 		}
@@ -270,7 +295,9 @@ func NewMux() *http.ServeMux {
 			output = "command not found: " + templ.EscapeString(cmd) + "\nType 'help' for available commands."
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		terminaltempl.ExecResponse(cmd, output).Render(r.Context(), w)
+		if err := terminaltempl.ExecResponse(cmd, output).Render(r.Context(), w); err != nil {
+			slog.Error("render failed", "error", err)
+		}
 	})
 
 	// Retro OS — lazy-load app window content
@@ -279,11 +306,17 @@ func NewMux() *http.ServeMux {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		switch name {
 		case "about":
-			retrotempl.AppAbout().Render(r.Context(), w)
+			if err := retrotempl.AppAbout().Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		case "calculator":
-			retrotempl.AppCalculator().Render(r.Context(), w)
+			if err := retrotempl.AppCalculator().Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		case "files":
-			retrotempl.AppFiles().Render(r.Context(), w)
+			if err := retrotempl.AppFiles().Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		default:
 			http.NotFound(w, r)
 		}
@@ -291,27 +324,7 @@ func NewMux() *http.ServeMux {
 
 	// Newspaper — infinite scroll headlines
 	mux.HandleFunc("/guides/newspaper/headlines", func(w http.ResponseWriter, r *http.Request) {
-		type headline struct {
-			id                               int
-			category, title, summary, byline string
-		}
-		allHeadlines := []headline{
-			{0, "Design", "The Grid Is Dead, Long Live the Grid", "Modern layout systems have made the rigid grid obsolete — or have they? A look at the evolution of page structure.", "By Jane Chen · 8 min read"},
-			{1, "Typography", "Why Your Font Choice Is Wrong", "A provocative look at the assumptions designers make about typeface selection and readability.", "By Marcus Webb · 5 min read"},
-			{2, "Color Theory", "The Case Against Color", "When restraint becomes the most powerful tool in a designer's arsenal.", "By Sarah Kim · 6 min read"},
-			{3, "CSS", "Container Queries Changed Everything", "How the newest CSS specification is reshaping component-driven design.", "By Dev Patel · 7 min read"},
-			{4, "Editorial", "Print Is Not Dead, It Evolved", "The newspaper aesthetic finds new life in digital interfaces.", "By The Editors · 4 min read"},
-			{5, "Architecture", "Whitespace Is Not Empty Space", "Understanding the active role of negative space in visual hierarchy.", "By Yuki Tanaka · 5 min read"},
-			{6, "Web Standards", "The Semantic Web We Were Promised", "Two decades later, are we any closer to the original vision?", "By Alex Rivera · 9 min read"},
-			{7, "Design Systems", "One Component to Rule Them All", "The pursuit of the perfect reusable component — and why it's a trap.", "By Priya Sharma · 6 min read"},
-			{8, "Typography", "The Golden Ratio Is Overrated", "Mathematical beauty does not always equal visual beauty.", "By Marcus Webb · 4 min read"},
-			{9, "Accessibility", "Designing for Everyone Means Designing for No One", "A counterpoint to universal design — and why specificity matters.", "By Jordan Lee · 7 min read"},
-			{10, "CSS", "Flexbox vs Grid: The Final Answer", "Spoiler: the answer is both. But knowing when to use which is the real skill.", "By Dev Patel · 5 min read"},
-			{11, "Editorial", "The Attention Economy Broke Design", "How metrics-driven design is undermining craft.", "By The Editors · 3 min read"},
-			{12, "Color Theory", "Red Means Stop (Except When It Doesn't)", "Cultural context and the unreliability of color as communication.", "By Sarah Kim · 6 min read"},
-			{13, "Architecture", "Every Layout Is a Compromise", "The tensions between content, aesthetics, and engineering.", "By Yuki Tanaka · 8 min read"},
-			{14, "Web Standards", "HTML Is a Programming Language", "A deliberately provocative position, rigorously defended.", "By Alex Rivera · 5 min read"},
-		}
+		allHeadlines := newspapertempl.Headlines
 		pageStr := r.URL.Query().Get("page")
 		page := 0
 		if p, err := strconv.Atoi(pageStr); err == nil && p >= 0 {
@@ -329,33 +342,29 @@ func NewMux() *http.ServeMux {
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		for _, h := range allHeadlines[start:end] {
-			newspapertempl.HeadlineCard(strconv.Itoa(h.id), h.category, h.title, h.summary, h.byline).Render(r.Context(), w)
+			if err := newspapertempl.HeadlineCard(strconv.Itoa(h.ID), h.Category, h.Title, h.Summary, h.Byline).Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		}
 		if end < len(allHeadlines) {
-			newspapertempl.HeadlineSentinel(strconv.Itoa(page+1)).Render(r.Context(), w)
+			if err := newspapertempl.HeadlineSentinel(strconv.Itoa(page+1)).Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		}
 	})
 
 	// Newspaper — article view
 	mux.HandleFunc("/guides/newspaper/article/{id}", func(w http.ResponseWriter, r *http.Request) {
-		type article struct {
-			category, title, byline, body string
-		}
-		articles := map[string]article{
-			"0": {"Design", "The Grid Is Dead, Long Live the Grid", "By Jane Chen · March 7, 2026", "The grid has been the backbone of graphic design since the Bauhaus movement. For nearly a century, designers have relied on invisible lines to create order from chaos. But as digital interfaces have grown more fluid and responsive, the rigid grid has begun to feel like a constraint rather than a tool. Modern CSS layout systems — Flexbox, Grid, and now container queries — have given designers unprecedented freedom. Yet paradoxically, this freedom has led many back to the grid, not as a cage, but as a starting point. The best modern layouts use the grid as a foundation, then deliberately break it to create visual tension and hierarchy. The grid is dead. Long live the grid."},
-			"1": {"Typography", "Why Your Font Choice Is Wrong", "By Marcus Webb · March 6, 2026", "Every designer has a favorite typeface. For some it is Helvetica, that Swiss army knife of type. For others, it is something more expressive — a Didot, perhaps, or a carefully crafted variable font. But here is the uncomfortable truth: your font choice probably matters less than you think. Research consistently shows that readers adapt to virtually any well-set typeface within seconds. What matters far more is the typographic system — the relationships between sizes, weights, and spacing. A mediocre font set beautifully will always outperform a beautiful font set poorly. Stop agonizing over the typeface. Start obsessing over the system."},
-			"2": {"Color Theory", "The Case Against Color", "By Sarah Kim · March 5, 2026", "In a world of vibrant gradients and bold color palettes, there is something radical about restraint. The most powerful designs often use color sparingly — a single accent against a field of neutrals. This newspaper-inspired aesthetic proves the point: with just cream, black, and a touch of red, we can create hierarchy, emphasis, and emotional resonance. Color is not decoration. It is signal. And when everything is colorful, nothing stands out. The next time you reach for a rainbow palette, ask yourself: what if I used just one color instead?"},
-			"3": {"CSS", "Container Queries Changed Everything", "By Dev Patel · March 4, 2026", "For years, responsive design meant media queries — asking the viewport how wide it was, then making decisions based on that answer. But components do not live in viewports. They live in containers. A card might appear in a sidebar, a main column, or a modal, each with different available widths. Container queries finally let us ask the right question: how much space does my parent give me? This changes everything about how we think about component design. No more breakpoint gymnastics. No more wrapper divs to simulate container awareness. Just components that know their context and respond accordingly."},
-			"4": {"Editorial", "Print Is Not Dead, It Evolved", "By The Editors · March 3, 2026", "Every few years, someone declares print dead. And every few years, print proves them wrong — not by staying the same, but by evolving. The newspaper aesthetic you see on this page is not nostalgia. It is a recognition that centuries of typographic refinement produced principles that transcend medium. Column layouts, drop caps, pull quotes, careful leading — these are not print artifacts. They are solutions to the universal problem of making text readable and engaging. The web did not kill print. It gave print new life."},
-		}
 		id := r.PathValue("id")
-		a, ok := articles[id]
+		a, ok := newspapertempl.Articles[id]
 		if !ok {
 			http.NotFound(w, r)
 			return
 		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		newspapertempl.Article(a.category, a.title, a.byline, a.body).Render(r.Context(), w)
+		if err := newspapertempl.Article(a.Category, a.Title, a.Byline, a.Body).Render(r.Context(), w); err != nil {
+			slog.Error("render failed", "error", err)
+		}
 	})
 
 	// Newspaper — initial feed (back to front page)
@@ -367,21 +376,25 @@ func NewMux() *http.ServeMux {
 	mux.HandleFunc("/guides/tracker/search", func(w http.ResponseWriter, r *http.Request) {
 		q := r.URL.Query().Get("q")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		for _, item := range trackerItems {
+		for _, item := range trackertempl.Items {
 			if q != "" && !containsFold(item.Name, q) {
 				continue
 			}
-			trackertempl.SearchResult(item.ID, item.Category, item.Name, item.Status).Render(r.Context(), w)
+			if err := trackertempl.SearchResult(item.ID, item.Category, item.Name, item.Status).Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
+			}
 		}
 	})
 
 	// Mission Control — detail panel for selected item
 	mux.HandleFunc("/guides/tracker/detail/{category}/{id}", func(w http.ResponseWriter, r *http.Request) {
 		id := r.PathValue("id")
-		for _, item := range trackerItems {
+		for _, item := range trackertempl.Items {
 			if item.ID == id {
 				w.Header().Set("Content-Type", "text/html; charset=utf-8")
-				trackertempl.Detail(item.Name, item.Category, item.Status, item.Description, item.Level, item.Target, item.Requirements, item.Unlocks).Render(r.Context(), w)
+				if err := trackertempl.Detail(item.Name, item.Category, item.Status, item.Description, item.Level, item.Target, item.Requirements, item.Unlocks).Render(r.Context(), w); err != nil {
+					slog.Error("render failed", "error", err)
+				}
 				return
 			}
 		}
@@ -407,40 +420,12 @@ func NewMux() *http.ServeMux {
 		e := entries[idx]
 		ts := time.Now().Format("15:04:05")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		cassettetempl.LogEntry(ts, e.sub, e.msg).Render(r.Context(), w)
+		if err := cassettetempl.LogEntry(ts, e.sub, e.msg).Render(r.Context(), w); err != nil {
+			slog.Error("render failed", "error", err)
+		}
 	})
 
 	return mux
-}
-
-// guideContent returns the Templ component for a guide's showcase.
-// Add a case here when registering a new guide.
-func guideContent(g guides.Guide, htmxRequest bool) templ.Component {
-	switch g.Slug {
-	case "brutalist":
-		return brutalisttempl.Page(g, htmxRequest)
-	case "cassette":
-		return cassettetempl.Page(g, htmxRequest)
-	case "minimal":
-		return minimaltempl.Page(g, htmxRequest)
-	case "glass":
-		return glasstempl.Page(g, htmxRequest)
-	case "bento":
-		return bentotempl.Page(g, htmxRequest)
-	case "swiss":
-		return swisstempl.Page(g, htmxRequest)
-	case "terminal":
-		return terminaltempl.Page(g, htmxRequest)
-	case "retro":
-		return retrotempl.Page(g, htmxRequest)
-	case "newspaper":
-		return newspapertempl.Page(g, htmxRequest)
-	case "tracker":
-		return trackertempl.Page(g, htmxRequest)
-	default:
-		return templ.Raw(fmt.Sprintf(`<div class="p-8"><h1 class="text-2xl font-bold">%s</h1><p class="text-gray-500 mt-2">%s</p></div>`,
-			templ.EscapeString(g.Name), templ.EscapeString(g.Description)))
-	}
 }
 
 // renderNotFound serves a styled 404 page inside the main layout.

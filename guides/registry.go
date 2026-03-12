@@ -1,8 +1,10 @@
 package guides
 
 import (
-	"sort"
+	"slices"
 	"strings"
+
+	"github.com/a-h/templ"
 )
 
 // Guide defines a style guide's metadata and theme tokens.
@@ -15,6 +17,8 @@ type Guide struct {
 	// Any visual property that differs between guides belongs here:
 	// colors, typography, radius, shadows, borders, layout tokens, etc.
 	CSSVars map[string]string
+	// PageFunc renders the guide's full showcase page.
+	PageFunc func(Guide, bool) templ.Component
 }
 
 // All is the ordered list of registered style guides.
@@ -472,7 +476,7 @@ func BuildCSSVars(vars map[string]string) string {
 	for k := range vars {
 		keys = append(keys, k)
 	}
-	sort.Strings(keys)
+	slices.Sort(keys)
 	var sb strings.Builder
 	for _, k := range keys {
 		sb.WriteString(k)
