@@ -135,7 +135,7 @@ func swatchGroup(title, cols string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var8 = []any{"grid gap-3 mb-6", cols}
+		var templ_7745c5c3_Var8 = []any{"grid gap-3", cols}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var8...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
