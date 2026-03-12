@@ -355,36 +355,22 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<div class="cass-panel">
 					<div class="cass-panel-header">MISSION DATA</div>
 					<div style="padding: 0.75rem;">
-						for _, row := range []struct{ label, value string }{
-							{"VESSEL", "USCSS NOSTROMO"},
-							{"REGISTRATION", "MSV-180286"},
-							{"DESTINATION", "LV-426 / ZETA RETICULI"},
-							{"MISSION PHASE", "APPROACH VECTOR"},
-							{"ETD", "2183-06-01 0600 UTC"},
-						} {
-							<div class="flex justify-between" style="padding: 0.25rem 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase;">{ row.label }</span>
-								<span style="font-size: var(--font-size-body);">{ row.value }</span>
-							</div>
-						}
+						@dataRow("VESSEL", "USCSS NOSTROMO")
+						@dataRow("REGISTRATION", "MSV-180286")
+						@dataRow("DESTINATION", "LV-426 / ZETA RETICULI")
+						@dataRow("MISSION PHASE", "APPROACH VECTOR")
+						@dataRow("ETD", "2183-06-01 0600 UTC")
 					</div>
 				</div>
 				<!-- 2. Blue-header Panel -->
 				<div class="cass-panel">
 					<div class="cass-panel-header cass-panel-header-blue">SPECIAL ORDER 937 — ACTIVE</div>
 					<div style="padding: 0.75rem;">
-						for _, row := range []struct{ label, value string }{
-							{"PRIORITY", "WEYLAND-YUTANI CORP."},
-							{"CLASSIFICATION", "EYES ONLY"},
-							{"OBJECTIVE", "RETRIEVE SPECIMEN"},
-							{"CREW AWARENESS", "SCIENCE OFFICER ONLY"},
-							{"ACTIVATED BY", "MOTHER — MU/TH/UR 6000"},
-						} {
-							<div class="flex justify-between" style="padding: 0.25rem 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase;">{ row.label }</span>
-								<span style="font-size: var(--font-size-body);">{ row.value }</span>
-							</div>
-						}
+						@dataRow("PRIORITY", "WEYLAND-YUTANI CORP.")
+						@dataRow("CLASSIFICATION", "EYES ONLY")
+						@dataRow("OBJECTIVE", "RETRIEVE SPECIMEN")
+						@dataRow("CREW AWARENESS", "SCIENCE OFFICER ONLY")
+						@dataRow("ACTIVATED BY", "MOTHER — MU/TH/UR 6000")
 					</div>
 				</div>
 				<!-- 3. Collapsible Panel -->
@@ -395,17 +381,10 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					</div>
 					<div x-show="open">
 						<div style="padding: 0.75rem;">
-							for _, row := range []struct{ label, value string }{
-								{"REACTOR STATUS", "ONLINE — 98.7%"},
-								{"COOLANT TEMP.", "487°C — NOMINAL"},
-								{"FUEL RESERVE", "67.4%"},
-								{"THRUST CAPACITY", "100% AVAILABLE"},
-							} {
-								<div class="flex justify-between" style="padding: 0.25rem 0; border-bottom: 1px solid var(--color-surface-2);">
-									<span style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase;">{ row.label }</span>
-									<span style="font-size: var(--font-size-body);">{ row.value }</span>
-								</div>
-							}
+							@dataRow("REACTOR STATUS", "ONLINE — 98.7%")
+							@dataRow("COOLANT TEMP.", "487°C — NOMINAL")
+							@dataRow("FUEL RESERVE", "67.4%")
+							@dataRow("THRUST CAPACITY", "100% AVAILABLE")
 						</div>
 					</div>
 				</div>
@@ -450,17 +429,10 @@ templ Page(g guides.Guide, htmxRequest bool) {
 				<div class="cass-panel" style="border-color: var(--color-danger);">
 					<div class="cass-panel-header" style="background: var(--color-danger); color: #fff; border-color: var(--color-danger);">CRITICAL ALERT — XENOMORPH CONTAINMENT BREACH</div>
 					<div style="padding: 0.75rem;">
-						for _, row := range []struct{ label, value, color string }{
-							{"THREAT LEVEL", "EXTREME", "#c0392b"},
-							{"LOCATION", "DECK C — MEDICAL BAY", ""},
-							{"PERSONNEL AT RISK", "7 CREW MEMBERS", "#c0392b"},
-							{"RECOMMENDED ACTION", "INITIATE PROTOCOL", ""},
-						} {
-							<div class="flex justify-between" style="padding: 0.25rem 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase;">{ row.label }</span>
-								<span style={ "font-size: var(--font-size-body); font-weight: 700; color: " + func() string { if row.color != "" { return row.color } else { return "var(--color-text)" } }() }>{ row.value }</span>
-							</div>
-						}
+						@dataRowColored("THREAT LEVEL", "EXTREME", "#c0392b")
+						@dataRowColored("LOCATION", "DECK C — MEDICAL BAY", "")
+						@dataRowColored("PERSONNEL AT RISK", "7 CREW MEMBERS", "#c0392b")
+						@dataRowColored("RECOMMENDED ACTION", "INITIATE PROTOCOL", "")
 					</div>
 				</div>
 			</div>
