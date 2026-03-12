@@ -117,7 +117,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 						{96, "96px / 6rem", "p-24"},
 					} {
 						<div class="flex items-center gap-4 mb-2">
-							<span style={ fmt.Sprintf("font-size: var(--font-size-caption); color: var(--color-text-muted); width: 9rem; flex-shrink: 0;") }>{ step.label }</span>
+							<span style="font-size: var(--font-size-caption); color: var(--color-text-muted); width: 9rem; flex-shrink: 0;">{ step.label }</span>
 							<div style={ fmt.Sprintf("width: %dpx; height: 12px; background: var(--color-primary);", step.px) }></div>
 							<span style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ step.twClass }</span>
 						</div>

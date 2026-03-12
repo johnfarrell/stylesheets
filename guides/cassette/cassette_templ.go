@@ -338,64 +338,51 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{80, "80px / 5rem", "p-20"},
 				{96, "96px / 6rem", "p-24"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"flex items-center gap-4 mb-2\"><span style=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"flex items-center gap-4 mb-2\"><span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); width: 9rem; flex-shrink: 0;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var9 string
-				templ_7745c5c3_Var9, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues(fmt.Sprintf("font-size: var(--font-size-caption); color: var(--color-text-muted); width: 9rem; flex-shrink: 0;"))
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(step.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 120, Col: 133}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 120, Col: 131}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "</span><div style=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var10 string
-				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(step.label)
+				templ_7745c5c3_Var10, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues(fmt.Sprintf("width: %dpx; height: 12px; background: var(--color-primary);", step.px))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 120, Col: 148}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 121, Col: 104}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "</span><div style=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "\"></div><span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var11 string
-				templ_7745c5c3_Var11, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues(fmt.Sprintf("width: %dpx; height: 12px; background: var(--color-primary);", step.px))
+				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(step.twClass)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 121, Col: 104}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 122, Col: 104}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "\"></div><span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var12 string
-				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(step.twClass)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 122, Col: 104}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</span></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "</span></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "</div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -405,7 +392,61 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<!-- SECTION 4: Buttons -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "<!-- SECTION 4: Buttons -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var12 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<!-- Variant Matrix Table --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header\">VARIANT SPECIFICATION MATRIX</div><table class=\"cass-table\"><thead><tr><th>VARIANT</th><th>PREVIEW</th><th>USE CASE</th></tr></thead> <tbody><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Outline Primary</td><td><button class=\"cass-btn\">INITIATE SCAN</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Standard actions, secondary operations</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Filled Primary</td><td><button class=\"cass-btn cass-btn-filled\">CONFIRM ACTION</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Primary CTA, high-priority actions</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Outline Danger</td><td><button class=\"cass-btn cass-btn-danger\">ABORT SEQUENCE</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Destructive secondary action</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Filled Danger</td><td><button class=\"cass-btn cass-btn-danger-filled\">JETTISON CARGO</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Irreversible destructive action</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Disabled</td><td><button class=\"cass-btn\" disabled>RESTRICTED</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Locked / insufficient clearance</td></tr></tbody></table></div><!-- Size Variants --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header\">SIZE VARIANTS</div><div style=\"padding: 1rem; display: flex; align-items: flex-end; gap: 1rem; flex-wrap: wrap;\"><div class=\"text-center\"><button class=\"cass-btn\" style=\"font-size: 0.6875rem; padding: 0.25rem 0.75rem;\">INITIATE</button><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\">SM</p></div><div class=\"text-center\"><button class=\"cass-btn\">TRANSMIT DATA</button><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\">MD (default)</p></div><div class=\"text-center\"><button class=\"cass-btn\" style=\"font-size: 0.875rem; padding: 0.6rem 1.5rem;\">EXECUTE PROTOCOL</button><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\">LG</p></div></div></div><!-- Interactive: Armed/Safe Toggle --> <!-- snippet:button-toggle --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header\">INTERACTIVE — ARMED / SAFE TOGGLE</div><div style=\"padding: 1rem;\"><div x-data=\"{ armed: false }\" class=\"flex items-center gap-4\"><button")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "armed = !armed"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "armed ? 'cass-btn cass-btn-danger-filled' : 'cass-btn'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "><span x-text=\"armed ? '&#9689; ARMED' : '&#9675; SAFE'\">&#9675; SAFE</span></button> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"armed ? 'WEAPONS HOT — CONFIRM TARGET BEFORE FIRING' : 'WEAPONS SAFE — CLICK TO ARM'\">WEAPONS SAFE — CLICK TO ARM</span></div></div></div><!-- /snippet:button-toggle --> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["button-toggle"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, " <!-- Interactive: Confirm with feedback --> <div class=\"cass-panel\"><div class=\"cass-panel-header\">INTERACTIVE — CONFIRM WITH FEEDBACK</div><div style=\"padding: 1rem;\"><div x-data=\"{ confirmed: false }\" class=\"flex items-center gap-4\"><button class=\"cass-btn cass-btn-filled\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "confirmed=true; setTimeout(()=>confirmed=false,2000)"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, " x-text=\"confirmed ? '&#10003; CONFIRMED' : 'CONFIRM SEQUENCE'\">CONFIRM SEQUENCE</button> <span x-show=\"confirmed\" style=\"font-size: var(--font-size-caption); color: #27ae60; font-weight: 700;\">SEQUENCE ACKNOWLEDGED — EXECUTING</span></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("4.0  Button Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<!-- SECTION 5: Forms -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -421,45 +462,25 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<!-- Variant Matrix Table --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header\">VARIANT SPECIFICATION MATRIX</div><table class=\"cass-table\"><thead><tr><th>VARIANT</th><th>PREVIEW</th><th>USE CASE</th></tr></thead> <tbody><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Outline Primary</td><td><button class=\"cass-btn\">INITIATE SCAN</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Standard actions, secondary operations</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Filled Primary</td><td><button class=\"cass-btn cass-btn-filled\">CONFIRM ACTION</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Primary CTA, high-priority actions</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Outline Danger</td><td><button class=\"cass-btn cass-btn-danger\">ABORT SEQUENCE</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Destructive secondary action</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Filled Danger</td><td><button class=\"cass-btn cass-btn-danger-filled\">JETTISON CARGO</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Irreversible destructive action</td></tr><tr><td style=\"font-size: var(--font-size-caption); font-weight: 700;\">Disabled</td><td><button class=\"cass-btn\" disabled>RESTRICTED</button></td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Locked / insufficient clearance</td></tr></tbody></table></div><!-- Size Variants --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header\">SIZE VARIANTS</div><div style=\"padding: 1rem; display: flex; align-items: flex-end; gap: 1rem; flex-wrap: wrap;\"><div class=\"text-center\"><button class=\"cass-btn\" style=\"font-size: 0.6875rem; padding: 0.25rem 0.75rem;\">INITIATE</button><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\">SM</p></div><div class=\"text-center\"><button class=\"cass-btn\">TRANSMIT DATA</button><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\">MD (default)</p></div><div class=\"text-center\"><button class=\"cass-btn\" style=\"font-size: 0.875rem; padding: 0.6rem 1.5rem;\">EXECUTE PROTOCOL</button><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\">LG</p></div></div></div><!-- Interactive: Armed/Safe Toggle --> <!-- snippet:button-toggle --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header\">INTERACTIVE — ARMED / SAFE TOGGLE</div><div style=\"padding: 1rem;\"><div x-data=\"{ armed: false }\" class=\"flex items-center gap-4\"><button")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<div class=\"cass-panel\"><div class=\"cass-panel-header cass-panel-header-blue\">MISSION REQUEST FORM — MRF-2183-A</div><div style=\"padding: 1.25rem;\"><!-- snippet:form-htmx --><form hx-post=\"/guides/cassette/demo-form\" hx-target=\"#cass-form-response\" hx-swap=\"innerHTML\" style=\"display: grid; gap: 1.25rem;\"><!-- Personnel Designation --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">PERSONNEL DESIGNATION</span> <label class=\"cass-label\" for=\"cass-personnel\">Full Name / ID</label> <input id=\"cass-personnel\" name=\"name\" type=\"text\" class=\"cass-input\" placeholder=\"RIPLEY, E. — WO-NOS-002\"></div><!-- Authorization Code --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">AUTHORIZATION CODE</span> <label class=\"cass-label\" for=\"cass-auth\">Access Code (L-4 or above)</label> <input id=\"cass-auth\" name=\"auth\" type=\"password\" class=\"cass-input cass-input-box\" placeholder=\"••••••••\"></div><!-- Mission Classification --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">MISSION CLASSIFICATION</span> <label class=\"cass-label\" for=\"cass-class\">Select Classification Level</label> <select id=\"cass-class\" name=\"classification\" class=\"cass-input cass-input-box\" style=\"cursor: pointer;\"><option value=\"routine\">ROUTINE</option> <option value=\"priority\">PRIORITY</option> <option value=\"classified\">CLASSIFIED</option> <option value=\"eyes-only\">EYES ONLY</option></select></div><!-- Mission Briefing with char counter --><div class=\"cass-field-group\" x-data=\"{ chars: 0 }\"><span class=\"cass-field-group-label\">MISSION BRIEFING</span><div class=\"flex justify-between items-center mb-1\"><label class=\"cass-label\" for=\"cass-briefing\">Operational Summary</label> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"chars + ' chars'\">0 chars</span></div><textarea id=\"cass-briefing\" name=\"briefing\" rows=\"3\" class=\"cass-input cass-input-box\" style=\"resize: vertical;\" placeholder=\"Describe mission objectives, hazards, and special orders...\" x-on:input=\"chars = $el.value.length\"></textarea></div><!-- Systems Verified checkboxes --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">SYSTEMS VERIFIED</span><div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap;\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"systems\" value=\"life-support\" class=\"cass-check\"> LIFE SUPPORT</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"systems\" value=\"propulsion\" class=\"cass-check\"> PROPULSION</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"systems\" value=\"comms\" class=\"cass-check\"> COMMUNICATIONS</label></div></div><!-- Crew Status radios --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">CREW STATUS</span><div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap;\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"crew-status\" value=\"nominal\" class=\"cass-check\" checked> <span class=\"cass-value-ok\">NOMINAL</span></label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"crew-status\" value=\"degraded\" class=\"cass-check\"> <span class=\"cass-value-warn\">DEGRADED</span></label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"crew-status\" value=\"critical\" class=\"cass-check\"> <span class=\"cass-value-danger\">CRITICAL</span></label></div></div><!-- Thrust Allocation range --><div class=\"cass-field-group\" x-data=\"{ thrust: 75 }\"><span class=\"cass-field-group-label\">THRUST ALLOCATION</span><div class=\"flex justify-between items-center mb-2\"><label class=\"cass-label\">Engine Power Output</label> <span class=\"cass-value\" x-text=\"thrust + '%'\">75%</span></div><input type=\"range\" name=\"thrust\" min=\"0\" max=\"100\" x-model=\"thrust\" style=\"width: 100%; accent-color: var(--color-primary);\"><div class=\"flex justify-between\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\"><span>0% — OFFLINE</span> <span>50% — CRUISE</span> <span>100% — MAX</span></div></div><!-- Submit --><div class=\"flex justify-end gap-3\"><button type=\"reset\" class=\"cass-btn\">CLEAR FORM</button> <button type=\"submit\" class=\"cass-btn cass-btn-filled\">TRANSMIT REPORT</button></div></form><!-- /snippet:form-htmx -->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "armed = !armed"})
+			templ_7745c5c3_Err = components.SourceView(snippets["form-htmx"]).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "armed ? 'cass-btn cass-btn-danger-filled' : 'cass-btn'"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "><span x-text=\"armed ? '&#9689; ARMED' : '&#9675; SAFE'\">&#9675; SAFE</span></button> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"armed ? 'WEAPONS HOT — CONFIRM TARGET BEFORE FIRING' : 'WEAPONS SAFE — CLICK TO ARM'\">WEAPONS SAFE — CLICK TO ARM</span></div></div></div><!-- /snippet:button-toggle --> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = components.SourceView(snippets["button-toggle"]).Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, " <!-- Interactive: Confirm with feedback --> <div class=\"cass-panel\"><div class=\"cass-panel-header\">INTERACTIVE — CONFIRM WITH FEEDBACK</div><div style=\"padding: 1rem;\"><div x-data=\"{ confirmed: false }\" class=\"flex items-center gap-4\"><button class=\"cass-btn cass-btn-filled\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "confirmed=true; setTimeout(()=>confirmed=false,2000)"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, " x-text=\"confirmed ? '&#10003; CONFIRMED' : 'CONFIRM SEQUENCE'\">CONFIRM SEQUENCE</button> <span x-show=\"confirmed\" style=\"font-size: var(--font-size-caption); color: #27ae60; font-weight: 700;\">SEQUENCE ACKNOWLEDGED — EXECUTING</span></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<div id=\"cass-form-response\" class=\"mt-4\"></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("4.0  Button Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("5.0  Form Components", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<!-- SECTION 5: Forms -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<!-- SECTION 6: Cards/Panels -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -475,41 +496,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<div class=\"cass-panel\"><div class=\"cass-panel-header cass-panel-header-blue\">MISSION REQUEST FORM — MRF-2183-A</div><div style=\"padding: 1.25rem;\"><!-- snippet:form-htmx --><form hx-post=\"/guides/cassette/demo-form\" hx-target=\"#cass-form-response\" hx-swap=\"innerHTML\" style=\"display: grid; gap: 1.25rem;\"><!-- Personnel Designation --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">PERSONNEL DESIGNATION</span> <label class=\"cass-label\" for=\"cass-personnel\">Full Name / ID</label> <input id=\"cass-personnel\" name=\"name\" type=\"text\" class=\"cass-input\" placeholder=\"RIPLEY, E. — WO-NOS-002\"></div><!-- Authorization Code --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">AUTHORIZATION CODE</span> <label class=\"cass-label\" for=\"cass-auth\">Access Code (L-4 or above)</label> <input id=\"cass-auth\" name=\"auth\" type=\"password\" class=\"cass-input cass-input-box\" placeholder=\"••••••••\"></div><!-- Mission Classification --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">MISSION CLASSIFICATION</span> <label class=\"cass-label\" for=\"cass-class\">Select Classification Level</label> <select id=\"cass-class\" name=\"classification\" class=\"cass-input cass-input-box\" style=\"cursor: pointer;\"><option value=\"routine\">ROUTINE</option> <option value=\"priority\">PRIORITY</option> <option value=\"classified\">CLASSIFIED</option> <option value=\"eyes-only\">EYES ONLY</option></select></div><!-- Mission Briefing with char counter --><div class=\"cass-field-group\" x-data=\"{ chars: 0 }\"><span class=\"cass-field-group-label\">MISSION BRIEFING</span><div class=\"flex justify-between items-center mb-1\"><label class=\"cass-label\" for=\"cass-briefing\">Operational Summary</label> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"chars + ' chars'\">0 chars</span></div><textarea id=\"cass-briefing\" name=\"briefing\" rows=\"3\" class=\"cass-input cass-input-box\" style=\"resize: vertical;\" placeholder=\"Describe mission objectives, hazards, and special orders...\" x-on:input=\"chars = $el.value.length\"></textarea></div><!-- Systems Verified checkboxes --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">SYSTEMS VERIFIED</span><div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap;\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"systems\" value=\"life-support\" class=\"cass-check\"> LIFE SUPPORT</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"systems\" value=\"propulsion\" class=\"cass-check\"> PROPULSION</label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"checkbox\" name=\"systems\" value=\"comms\" class=\"cass-check\"> COMMUNICATIONS</label></div></div><!-- Crew Status radios --><div class=\"cass-field-group\"><span class=\"cass-field-group-label\">CREW STATUS</span><div style=\"display: flex; gap: 1.5rem; flex-wrap: wrap;\"><label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"crew-status\" value=\"nominal\" class=\"cass-check\" checked> <span class=\"cass-value-ok\">NOMINAL</span></label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"crew-status\" value=\"degraded\" class=\"cass-check\"> <span class=\"cass-value-warn\">DEGRADED</span></label> <label class=\"flex items-center gap-2 cursor-pointer\" style=\"font-size: var(--font-size-body);\"><input type=\"radio\" name=\"crew-status\" value=\"critical\" class=\"cass-check\"> <span class=\"cass-value-danger\">CRITICAL</span></label></div></div><!-- Thrust Allocation range --><div class=\"cass-field-group\" x-data=\"{ thrust: 75 }\"><span class=\"cass-field-group-label\">THRUST ALLOCATION</span><div class=\"flex justify-between items-center mb-2\"><label class=\"cass-label\">Engine Power Output</label> <span class=\"cass-value\" x-text=\"thrust + '%'\">75%</span></div><input type=\"range\" name=\"thrust\" min=\"0\" max=\"100\" x-model=\"thrust\" style=\"width: 100%; accent-color: var(--color-primary);\"><div class=\"flex justify-between\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;\"><span>0% — OFFLINE</span> <span>50% — CRUISE</span> <span>100% — MAX</span></div></div><!-- Submit --><div class=\"flex justify-end gap-3\"><button type=\"reset\" class=\"cass-btn\">CLEAR FORM</button> <button type=\"submit\" class=\"cass-btn cass-btn-filled\">TRANSMIT REPORT</button></div></form><!-- /snippet:form-htmx -->")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = components.SourceView(snippets["form-htmx"]).Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div id=\"cass-form-response\" class=\"mt-4\"></div></div></div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			return nil
-		})
-		templ_7745c5c3_Err = components.Section("5.0  Form Components", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<!-- SECTION 6: Cards/Panels -->")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var15 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-			if !templ_7745c5c3_IsBuffer {
-				defer func() {
-					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-					if templ_7745c5c3_Err == nil {
-						templ_7745c5c3_Err = templ_7745c5c3_BufErr
-					}
-				}()
-			}
-			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"><!-- 1. Basic Panel --><div class=\"cass-panel\"><div class=\"cass-panel-header\">MISSION DATA</div><div style=\"padding: 0.75rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"><!-- 1. Basic Panel --><div class=\"cass-panel\"><div class=\"cass-panel-header\">MISSION DATA</div><div style=\"padding: 0.75rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -533,7 +520,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</div></div><!-- 2. Blue-header Panel --><div class=\"cass-panel\"><div class=\"cass-panel-header cass-panel-header-blue\">SPECIAL ORDER 937 — ACTIVE</div><div style=\"padding: 0.75rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "</div></div><!-- 2. Blue-header Panel --><div class=\"cass-panel\"><div class=\"cass-panel-header cass-panel-header-blue\">SPECIAL ORDER 937 — ACTIVE</div><div style=\"padding: 0.75rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -557,7 +544,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "</div></div><!-- 3. Collapsible Panel --><div class=\"cass-panel\" x-data=\"{ open: true }\"><div class=\"cass-panel-header flex justify-between items-center cursor-pointer\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "</div></div><!-- 3. Collapsible Panel --><div class=\"cass-panel\" x-data=\"{ open: true }\"><div class=\"cass-panel-header flex justify-between items-center cursor-pointer\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -565,7 +552,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "><span>ENGINEERING SUBSYSTEMS</span> <button class=\"cass-btn\" style=\"padding: 0.1rem 0.5rem; font-size: var(--font-size-caption);\" x-text=\"open ? '&#9650; COLLAPSE' : '&#9660; EXPAND'\">&#9650; COLLAPSE</button></div><div x-show=\"open\"><div style=\"padding: 0.75rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "><span>ENGINEERING SUBSYSTEMS</span> <button class=\"cass-btn\" style=\"padding: 0.1rem 0.5rem; font-size: var(--font-size-caption);\" x-text=\"open ? '&#9650; COLLAPSE' : '&#9660; EXPAND'\">&#9650; COLLAPSE</button></div><div x-show=\"open\"><div style=\"padding: 0.75rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -585,7 +572,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div></div></div><!-- 4. Left-border Accent Panel --><div class=\"cass-panel\" style=\"border-left: 4px solid var(--color-primary);\"><div style=\"padding: 0.75rem 1rem;\"><p style=\"font-size: var(--font-size-caption); font-weight: 700; color: var(--color-primary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;\">NAVIGATIONAL NOTE</p><p style=\"font-size: var(--font-size-body); line-height: 1.6; color: var(--color-text);\">The Nostromo has been diverted from its registered course by automated subroutine activation. Navigation override is locked pending Science Officer authorization. ETA to LV-426: 18 hours at current velocity.</p></div></div><!-- 5. Status Summary Panel --><div class=\"cass-panel\"><div class=\"cass-panel-header\">VESSEL STATUS SUMMARY</div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">HULL INTEGRITY</div><div class=\"cass-doc-cell-value cass-value-ok\">100%</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">SHIELDS</div><div class=\"cass-doc-cell-value\">N/A</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">LIFE SUPPORT</div><div class=\"cass-doc-cell-value cass-value-ok\">NOMINAL</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">REACTOR</div><div class=\"cass-doc-cell-value cass-value-ok\">98.7%</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">NAVIGATION</div><div class=\"cass-doc-cell-value cass-value-warn\">OVERRIDE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">CREW STATUS</div><div class=\"cass-doc-cell-value cass-value-ok\">7/7</div></div></div></div><!-- 6. Danger Panel --><div class=\"cass-panel\" style=\"border-color: var(--color-danger);\"><div class=\"cass-panel-header\" style=\"background: var(--color-danger); color: #fff; border-color: var(--color-danger);\">CRITICAL ALERT — XENOMORPH CONTAINMENT BREACH</div><div style=\"padding: 0.75rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div></div></div><!-- 4. Left-border Accent Panel --><div class=\"cass-panel\" style=\"border-left: 4px solid var(--color-primary);\"><div style=\"padding: 0.75rem 1rem;\"><p style=\"font-size: var(--font-size-caption); font-weight: 700; color: var(--color-primary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;\">NAVIGATIONAL NOTE</p><p style=\"font-size: var(--font-size-body); line-height: 1.6; color: var(--color-text);\">The Nostromo has been diverted from its registered course by automated subroutine activation. Navigation override is locked pending Science Officer authorization. ETA to LV-426: 18 hours at current velocity.</p></div></div><!-- 5. Status Summary Panel --><div class=\"cass-panel\"><div class=\"cass-panel-header\">VESSEL STATUS SUMMARY</div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">HULL INTEGRITY</div><div class=\"cass-doc-cell-value cass-value-ok\">100%</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">SHIELDS</div><div class=\"cass-doc-cell-value\">N/A</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">LIFE SUPPORT</div><div class=\"cass-doc-cell-value cass-value-ok\">NOMINAL</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">REACTOR</div><div class=\"cass-doc-cell-value cass-value-ok\">98.7%</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">NAVIGATION</div><div class=\"cass-doc-cell-value cass-value-warn\">OVERRIDE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">CREW STATUS</div><div class=\"cass-doc-cell-value cass-value-ok\">7/7</div></div></div></div><!-- 6. Danger Panel --><div class=\"cass-panel\" style=\"border-color: var(--color-danger);\"><div class=\"cass-panel-header\" style=\"background: var(--color-danger); color: #fff; border-color: var(--color-danger);\">CRITICAL ALERT — XENOMORPH CONTAINMENT BREACH</div><div style=\"padding: 0.75rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -605,21 +592,21 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "</div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("6.0  Panel Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("6.0  Panel Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<!-- SECTION 7: Data Tables -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, "<!-- SECTION 7: Data Tables -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var16 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var15 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -631,7 +618,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<!-- Table 1: Crew Manifest --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header cass-panel-header-blue\">USCSS NOSTROMO — CREW MANIFEST (MSV-180286)</div><div x-data=\"{ selected: null }\" style=\"overflow-x: auto;\"><table class=\"cass-table\"><thead><tr><th>ID</th><th>DESIGNATION</th><th>RANK</th><th>DEPARTMENT</th><th>STATUS</th><th>CLEARANCE</th></tr></thead> <tbody>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<!-- Table 1: Crew Manifest --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header cass-panel-header-blue\">USCSS NOSTROMO — CREW MANIFEST (MSV-180286)</div><div x-data=\"{ selected: null }\" style=\"overflow-x: auto;\"><table class=\"cass-table\"><thead><tr><th>ID</th><th>DESIGNATION</th><th>RANK</th><th>DEPARTMENT</th><th>STATUS</th><th>CLEARANCE</th></tr></thead> <tbody>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -644,7 +631,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"NOS-006", "BRETT, S.", "ENGINEER", "ENGINEERING", "KIA", "L-2"},
 				{"NOS-007", "PARKER, D.", "CHIEF ENGINEER", "ENGINEERING", "KIA", "L-2"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<tr style=\"cursor: pointer;\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<tr style=\"cursor: pointer;\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -656,27 +643,40 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var16 string
+				templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(crew.id)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 473, Col: 99}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</td><td style=\"font-weight: 500;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var17 string
-				templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(crew.id)
+				templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(crew.name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 473, Col: 99}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 474, Col: 50}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</td><td style=\"font-weight: 500;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</td><td style=\"font-size: var(--font-size-caption);\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var18 string
-				templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(crew.name)
+				templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(crew.rank)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 474, Col: 50}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 475, Col: 69}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 				if templ_7745c5c3_Err != nil {
@@ -687,115 +687,156 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var19 string
-				templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(crew.rank)
+				templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(crew.dept)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 475, Col: 69}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 476, Col: 69}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</td><td style=\"font-size: var(--font-size-caption);\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var20 string
-				templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(crew.dept)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 476, Col: 69}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</td><td>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</td><td>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				if crew.status == "ACTIVE" {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "<span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "<span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					var templ_7745c5c3_Var20 string
+					templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(crew.status)
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 479, Col: 115}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</span>")
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				} else if crew.status == "KIA" {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "<span class=\"cass-value-danger\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var21 string
 					templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(crew.status)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 479, Col: 115}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 481, Col: 119}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-				} else if crew.status == "KIA" {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "<span class=\"cass-value-danger\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">")
+				} else {
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "<span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var22 string
 					templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(crew.status)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 481, Col: 119}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 483, Col: 107}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "</span>")
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-				} else {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "<span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-					var templ_7745c5c3_Var23 string
-					templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(crew.status)
-					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 483, Col: 107}
-					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "</span>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "</span>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</td><td style=\"font-size: var(--font-size-caption);\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "</td><td style=\"font-size: var(--font-size-caption);\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var24 string
-				templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(crew.clearance)
+				var templ_7745c5c3_Var23 string
+				templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(crew.clearance)
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 486, Col: 74}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "</td></tr>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "</td></tr>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</tbody></table></div></div><!-- Table 2: System Status Matrix --> <div class=\"cass-panel\"><div class=\"cass-panel-header\">ENVIRONMENTAL SYSTEMS STATUS MATRIX</div><div style=\"overflow-x: auto;\"><table class=\"cass-table\"><thead><tr><th>SYSTEM</th><th>CURRENT READING</th><th>NOMINAL RANGE</th><th>STATUS</th></tr></thead> <tbody><tr><td>Atmospheric Pressure</td><td class=\"cass-td-num\">101.3 kPa</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">99.0–103.0 kPa</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Cabin Temperature</td><td class=\"cass-td-num\">19.7 °C</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">18.0–22.0 °C</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Oxygen Partial Press.</td><td class=\"cass-td-num\">21.3 kPa</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">20.5–22.0 kPa</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Reactor Coolant</td><td class=\"cass-td-num\">94.1%</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">&#60; 95%</td><td><span class=\"cass-value-warn\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">CAUTION</span></td></tr><tr><td>Fuel Cell Capacity</td><td class=\"cass-td-num\">67.4%</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">&gt; 20%</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Hypersleep Units</td><td class=\"cass-td-num\">7/7</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">7/7</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr></tbody></table></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "</tbody></table></div></div><!-- Table 2: System Status Matrix --> <div class=\"cass-panel\"><div class=\"cass-panel-header\">ENVIRONMENTAL SYSTEMS STATUS MATRIX</div><div style=\"overflow-x: auto;\"><table class=\"cass-table\"><thead><tr><th>SYSTEM</th><th>CURRENT READING</th><th>NOMINAL RANGE</th><th>STATUS</th></tr></thead> <tbody><tr><td>Atmospheric Pressure</td><td class=\"cass-td-num\">101.3 kPa</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">99.0–103.0 kPa</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Cabin Temperature</td><td class=\"cass-td-num\">19.7 °C</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">18.0–22.0 °C</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Oxygen Partial Press.</td><td class=\"cass-td-num\">21.3 kPa</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">20.5–22.0 kPa</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Reactor Coolant</td><td class=\"cass-td-num\">94.1%</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">&#60; 95%</td><td><span class=\"cass-value-warn\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">CAUTION</span></td></tr><tr><td>Fuel Cell Capacity</td><td class=\"cass-td-num\">67.4%</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">&gt; 20%</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr><tr><td>Hypersleep Units</td><td class=\"cass-td-num\">7/7</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">7/7</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td></tr></tbody></table></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("7.0  Data Tables", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var16), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("7.0  Data Tables", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "<!-- SECTION 8: Status Board -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "<!-- SECTION 8: Status Board -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var24 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "<div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"><!-- Part A: System Grid --><!-- snippet:status-board --><div class=\"cass-panel\" x-data=\"{ systems: [{n:'LIFE SUPPORT',s:'ok'},{n:'PROPULSION',s:'ok'},{n:'NAVIGATION',s:'warn'},{n:'COMMUNICATIONS',s:'ok'},{n:'POWER GRID',s:'ok'},{n:'HYPERSLEEP',s:'ok'},{n:'MOTION SENSORS',s:'err'},{n:'ATMOSPHERIC',s:'ok'},{n:'FIRE SUPPRESSION',s:'ok'},{n:'CARGO LOCKS',s:'warn'}] }\"><div class=\"cass-panel-header\">SYSTEM STATUS GRID — CLICK TO CYCLE</div><div style=\"padding: 0.5rem;\"><template x-for=\"(sys, i) in systems\" x-key=\"i\"><div class=\"flex items-center gap-3 cursor-pointer\" style=\"padding: 0.4rem 0.25rem; border-bottom: 1px solid var(--color-surface-2);\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sys.s = sys.s==='ok'?'warn':sys.s==='warn'?'err':'ok'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "><span")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "sys.s==='ok'?'cass-light cass-light-green cass-pulse':sys.s==='warn'?'cass-light cass-light-amber':sys.s==='err'?'cass-light cass-light-red cass-blink':'cass-light cass-light-off'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "></span> <span style=\"flex: 1; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.04em;\" x-text=\"sys.n\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "sys.s==='ok'?'color:#27ae60':sys.s==='warn'?'color:var(--color-caution)':'color:var(--color-danger)'"})
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, " x-text=\"sys.s==='ok'?'NOMINAL':sys.s==='warn'?'DEGRADED':'FAULT'\"></span></div></template></div></div><!-- /snippet:status-board --><!-- Right column: MET + Personnel --><div style=\"display: flex; flex-direction: column; gap: 1rem;\"><!-- Part B: Mission Elapsed Time --><div class=\"cass-panel\" x-data=\"{ t: 0 }\" x-init=\"setInterval(() => t++, 1000)\"><div class=\"cass-panel-header\">MISSION ELAPSED TIME</div><div style=\"padding: 1rem; text-align: center;\"><div class=\"cass-readout-value\" style=\"font-size: 2rem; letter-spacing: 0.1em;\" x-text=\"Math.floor(t/3600).toString().padStart(2,'0')+':'+Math.floor((t%3600)/60).toString().padStart(2,'0')+':'+(t%60).toString().padStart(2,'0')\">00:00:00</div><div class=\"cass-readout-unit\" style=\"margin-top: 0.25rem;\">HH:MM:SS — ELAPSED SINCE WAKE</div></div></div><!-- Part C: Personnel Tracking --><div class=\"cass-panel\"><div class=\"cass-panel-header\">PERSONNEL TRACKING — ACTIVE CREW</div><table class=\"cass-table\"><thead><tr><th>NAME</th><th>LOCATION</th><th>STATUS</th></tr></thead> <tbody><tr><td style=\"font-weight: 500; font-size: var(--font-size-caption);\">RIPLEY, E.</td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">DECK C — MEDICAL</td><td><div class=\"flex items-center gap-2\"><span class=\"cass-light cass-light-green cass-pulse\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">ACTIVE</span></div></td></tr><tr><td style=\"font-weight: 500; font-size: var(--font-size-caption);\">BISHOP</td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">SCIENCE LAB</td><td><div class=\"flex items-center gap-2\"><span class=\"cass-light cass-light-green cass-pulse\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">ACTIVE</span></div></td></tr><tr><td style=\"font-weight: 500; font-size: var(--font-size-caption);\">HICKS, D.</td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">ARMORY</td><td><div class=\"flex items-center gap-2\"><span class=\"cass-light cass-light-green cass-pulse\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">ACTIVE</span></div></td></tr></tbody></table></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["status-board"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("8.0  System Status Monitor", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var24), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, "<!-- SECTION 9: Notices -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -811,61 +852,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "<div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\"><!-- Part A: System Grid --><!-- snippet:status-board --><div class=\"cass-panel\" x-data=\"{ systems: [{n:'LIFE SUPPORT',s:'ok'},{n:'PROPULSION',s:'ok'},{n:'NAVIGATION',s:'warn'},{n:'COMMUNICATIONS',s:'ok'},{n:'POWER GRID',s:'ok'},{n:'HYPERSLEEP',s:'ok'},{n:'MOTION SENSORS',s:'err'},{n:'ATMOSPHERIC',s:'ok'},{n:'FIRE SUPPRESSION',s:'ok'},{n:'CARGO LOCKS',s:'warn'}] }\"><div class=\"cass-panel-header\">SYSTEM STATUS GRID — CLICK TO CYCLE</div><div style=\"padding: 0.5rem;\"><template x-for=\"(sys, i) in systems\" x-key=\"i\"><div class=\"flex items-center gap-3 cursor-pointer\" style=\"padding: 0.4rem 0.25rem; border-bottom: 1px solid var(--color-surface-2);\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"@click": "sys.s = sys.s==='ok'?'warn':sys.s==='warn'?'err':'ok'"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "><span")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":class": "sys.s==='ok'?'cass-light cass-light-green cass-pulse':sys.s==='warn'?'cass-light cass-light-amber':sys.s==='err'?'cass-light cass-light-red cass-blink':'cass-light cass-light-off'"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "></span> <span style=\"flex: 1; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.04em;\" x-text=\"sys.n\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{":style": "sys.s==='ok'?'color:#27ae60':sys.s==='warn'?'color:var(--color-caution)':'color:var(--color-danger)'"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, " x-text=\"sys.s==='ok'?'NOMINAL':sys.s==='warn'?'DEGRADED':'FAULT'\"></span></div></template></div></div><!-- /snippet:status-board --><!-- Right column: MET + Personnel --><div style=\"display: flex; flex-direction: column; gap: 1rem;\"><!-- Part B: Mission Elapsed Time --><div class=\"cass-panel\" x-data=\"{ t: 0 }\" x-init=\"setInterval(() => t++, 1000)\"><div class=\"cass-panel-header\">MISSION ELAPSED TIME</div><div style=\"padding: 1rem; text-align: center;\"><div class=\"cass-readout-value\" style=\"font-size: 2rem; letter-spacing: 0.1em;\" x-text=\"Math.floor(t/3600).toString().padStart(2,'0')+':'+Math.floor((t%3600)/60).toString().padStart(2,'0')+':'+(t%60).toString().padStart(2,'0')\">00:00:00</div><div class=\"cass-readout-unit\" style=\"margin-top: 0.25rem;\">HH:MM:SS — ELAPSED SINCE WAKE</div></div></div><!-- Part C: Personnel Tracking --><div class=\"cass-panel\"><div class=\"cass-panel-header\">PERSONNEL TRACKING — ACTIVE CREW</div><table class=\"cass-table\"><thead><tr><th>NAME</th><th>LOCATION</th><th>STATUS</th></tr></thead> <tbody><tr><td style=\"font-weight: 500; font-size: var(--font-size-caption);\">RIPLEY, E.</td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">DECK C — MEDICAL</td><td><div class=\"flex items-center gap-2\"><span class=\"cass-light cass-light-green cass-pulse\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">ACTIVE</span></div></td></tr><tr><td style=\"font-weight: 500; font-size: var(--font-size-caption);\">BISHOP</td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">SCIENCE LAB</td><td><div class=\"flex items-center gap-2\"><span class=\"cass-light cass-light-green cass-pulse\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">ACTIVE</span></div></td></tr><tr><td style=\"font-weight: 500; font-size: var(--font-size-caption);\">HICKS, D.</td><td style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">ARMORY</td><td><div class=\"flex items-center gap-2\"><span class=\"cass-light cass-light-green cass-pulse\"></span> <span style=\"font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">ACTIVE</span></div></td></tr></tbody></table></div></div></div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = components.SourceView(snippets["status-board"]).Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			return nil
-		})
-		templ_7745c5c3_Err = components.Section("8.0  System Status Monitor", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var25), templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "<!-- SECTION 9: Notices -->")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var26 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-			if !templ_7745c5c3_IsBuffer {
-				defer func() {
-					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-					if templ_7745c5c3_Err == nil {
-						templ_7745c5c3_Err = templ_7745c5c3_BufErr
-					}
-				}()
-			}
-			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "<div style=\"display: flex; flex-direction: column; gap: 0.75rem;\"><!-- Static notices --><div class=\"cass-notice cass-notice-note\"><div class=\"cass-notice-label\" style=\"color: var(--color-primary);\">NOTE</div><p>All personnel must complete atmospheric decompression protocol before entering Deck C. Standard decompression time is 15 minutes. Reference: SOP-ATM-042, Revision 3.</p></div><div class=\"cass-notice cass-notice-caution\"><div class=\"cass-notice-label\" style=\"color: var(--color-caution);\">CAUTION</div><p>Reactor coolant pressure is operating at 94.1% of nominal limits. Monitor pressure gauge readings every 15 minutes. Initiate venting procedure if readings exceed 97% nominal. Contact Chief Engineer immediately.</p></div><div class=\"cass-notice cass-notice-warning\"><div class=\"cass-notice-label\" style=\"color: var(--color-danger);\">WARNING</div><p>UNAUTHORIZED ACCESS TO SCIENCE DIVISION LABORATORY IS STRICTLY PROHIBITED. Special Order 937 is in effect. Violation is subject to immediate contract termination and criminal prosecution under ICC Charter Article 14, Section 9.</p></div><!-- Dismissible variants --><div style=\"margin-top: 0.5rem; font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;\">DISMISSIBLE VARIANTS</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "<div style=\"display: flex; flex-direction: column; gap: 0.75rem;\"><!-- Static notices --><div class=\"cass-notice cass-notice-note\"><div class=\"cass-notice-label\" style=\"color: var(--color-primary);\">NOTE</div><p>All personnel must complete atmospheric decompression protocol before entering Deck C. Standard decompression time is 15 minutes. Reference: SOP-ATM-042, Revision 3.</p></div><div class=\"cass-notice cass-notice-caution\"><div class=\"cass-notice-label\" style=\"color: var(--color-caution);\">CAUTION</div><p>Reactor coolant pressure is operating at 94.1% of nominal limits. Monitor pressure gauge readings every 15 minutes. Initiate venting procedure if readings exceed 97% nominal. Contact Chief Engineer immediately.</p></div><div class=\"cass-notice cass-notice-warning\"><div class=\"cass-notice-label\" style=\"color: var(--color-danger);\">WARNING</div><p>UNAUTHORIZED ACCESS TO SCIENCE DIVISION LABORATORY IS STRICTLY PROHIBITED. Special Order 937 is in effect. Violation is subject to immediate contract termination and criminal prosecution under ICC Charter Article 14, Section 9.</p></div><!-- Dismissible variants --><div style=\"margin-top: 0.5rem; font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;\">DISMISSIBLE VARIANTS</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -881,17 +868,43 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, "</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("9.0  Notice Components", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var26), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("9.0  Notice Components", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var25), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "<!-- SECTION 10: Document Header Block -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "<!-- SECTION 10: Document Header Block -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var26 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, "<div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;\"><!-- Doc 1 --><div class=\"cass-doc-header\"><div style=\"background: var(--color-primary); color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">WEYLAND-YUTANI CORPORATION // TECHNICAL OPERATIONS DIVISION</div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">DOC NO.</div><div class=\"cass-doc-cell-value\">WY-TECH-2183-CSS-001</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">REVISION</div><div class=\"cass-doc-cell-value\">D</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">DATE</div><div class=\"cass-doc-cell-value\">2026-03-06</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">CLASSIFICATION</div><div class=\"cass-doc-cell-value cass-value-danger\">COMPANY CONFIDENTIAL</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">AUTHOR</div><div class=\"cass-doc-cell-value\">M.BISHOP, SYNTHETIC DIV</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">APPROVED</div><div class=\"cass-doc-cell-value\">CARTER J. BURKE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">PROJECT</div><div class=\"cass-doc-cell-value\">HADLEY&#39;S HOPE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">STATUS</div><div class=\"cass-doc-cell-value cass-value-ok\">ACTIVE</div></div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">DESCRIPTION</div><div class=\"cass-doc-cell-value\" style=\"margin-top: 0.25rem; line-height: 1.5;\">Comprehensive technical reference and design system specification for Weyland-Yutani colony management interfaces. Covers all UI components, color systems, and interaction patterns for colony administration terminals.</div></div></div><!-- Doc 2 --><div class=\"cass-doc-header\"><div style=\"background: var(--color-text); color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">COLONIAL MARINE CORPS // OPERATIONS COMMAND — MISSION ORDERS</div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">ORDER NO.</div><div class=\"cass-doc-cell-value\">CMC-OPS-2183-447</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">PRIORITY</div><div class=\"cass-doc-cell-value cass-value-danger\">CLASSIFIED</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">ISSUED</div><div class=\"cass-doc-cell-value\">2183-05-28</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">EXPIRY</div><div class=\"cass-doc-cell-value\">ON COMPLETION</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">UNIT</div><div class=\"cass-doc-cell-value\">2ND BN / ALPHA CO</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">CO</div><div class=\"cass-doc-cell-value\">LT. GORMAN, S.</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">OBJECTIVE</div><div class=\"cass-doc-cell-value\">RESCUE &amp; INVESTIGATE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">STATUS</div><div class=\"cass-doc-cell-value cass-value-ok\">ACTIVE</div></div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">MISSION SUMMARY</div><div class=\"cass-doc-cell-value\" style=\"margin-top: 0.25rem; line-height: 1.5;\">Proceed to LV-426, Hadley&#39;s Hope colony. Investigate loss of contact with 158 colonists. Secure perimeter, assess threat, and recover any survivors. Coordinate with Weyland-Yutani civilian representative.</div></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("10.0  Document Metadata", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var26), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "<!-- SECTION 11: Navigation Tabs -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -907,33 +920,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "<div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;\"><!-- Doc 1 --><div class=\"cass-doc-header\"><div style=\"background: var(--color-primary); color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">WEYLAND-YUTANI CORPORATION // TECHNICAL OPERATIONS DIVISION</div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">DOC NO.</div><div class=\"cass-doc-cell-value\">WY-TECH-2183-CSS-001</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">REVISION</div><div class=\"cass-doc-cell-value\">D</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">DATE</div><div class=\"cass-doc-cell-value\">2026-03-06</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">CLASSIFICATION</div><div class=\"cass-doc-cell-value cass-value-danger\">COMPANY CONFIDENTIAL</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">AUTHOR</div><div class=\"cass-doc-cell-value\">M.BISHOP, SYNTHETIC DIV</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">APPROVED</div><div class=\"cass-doc-cell-value\">CARTER J. BURKE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">PROJECT</div><div class=\"cass-doc-cell-value\">HADLEY&#39;S HOPE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">STATUS</div><div class=\"cass-doc-cell-value cass-value-ok\">ACTIVE</div></div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">DESCRIPTION</div><div class=\"cass-doc-cell-value\" style=\"margin-top: 0.25rem; line-height: 1.5;\">Comprehensive technical reference and design system specification for Weyland-Yutani colony management interfaces. Covers all UI components, color systems, and interaction patterns for colony administration terminals.</div></div></div><!-- Doc 2 --><div class=\"cass-doc-header\"><div style=\"background: var(--color-text); color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;\">COLONIAL MARINE CORPS // OPERATIONS COMMAND — MISSION ORDERS</div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">ORDER NO.</div><div class=\"cass-doc-cell-value\">CMC-OPS-2183-447</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">PRIORITY</div><div class=\"cass-doc-cell-value cass-value-danger\">CLASSIFIED</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">ISSUED</div><div class=\"cass-doc-cell-value\">2183-05-28</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">EXPIRY</div><div class=\"cass-doc-cell-value\">ON COMPLETION</div></div></div><div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">UNIT</div><div class=\"cass-doc-cell-value\">2ND BN / ALPHA CO</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">CO</div><div class=\"cass-doc-cell-value\">LT. GORMAN, S.</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">OBJECTIVE</div><div class=\"cass-doc-cell-value\">RESCUE &amp; INVESTIGATE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">STATUS</div><div class=\"cass-doc-cell-value cass-value-ok\">ACTIVE</div></div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">MISSION SUMMARY</div><div class=\"cass-doc-cell-value\" style=\"margin-top: 0.25rem; line-height: 1.5;\">Proceed to LV-426, Hadley&#39;s Hope colony. Investigate loss of contact with 158 colonists. Secure perimeter, assess threat, and recover any survivors. Coordinate with Weyland-Yutani civilian representative.</div></div></div></div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			return nil
-		})
-		templ_7745c5c3_Err = components.Section("10.0  Document Metadata", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var27), templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "<!-- SECTION 11: Navigation Tabs -->")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var28 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-			if !templ_7745c5c3_IsBuffer {
-				defer func() {
-					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-					if templ_7745c5c3_Err == nil {
-						templ_7745c5c3_Err = templ_7745c5c3_BufErr
-					}
-				}()
-			}
-			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "<!-- Part A: Horizontal Tabs --> <div class=\"cass-panel mb-6\" x-data=\"{ tab: 'overview' }\"><div class=\"cass-panel-header\">HORIZONTAL TAB NAVIGATION</div><div style=\"padding: 0.75rem 0.75rem 0;\"><div class=\"flex\" style=\"border-bottom: 1px solid var(--color-border);\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 65, "<!-- Part A: Horizontal Tabs --> <div class=\"cass-panel mb-6\" x-data=\"{ tab: 'overview' }\"><div class=\"cass-panel-header\">HORIZONTAL TAB NAVIGATION</div><div style=\"padding: 0.75rem 0.75rem 0;\"><div class=\"flex\" style=\"border-bottom: 1px solid var(--color-border);\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -944,7 +931,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"cargo", "CARGO"},
 				{"logs", "LOGS"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, "<button class=\"cass-tab\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 66, "<button class=\"cass-tab\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -956,25 +943,25 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, ">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 67, ">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var29 string
-				templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(t.label)
+				var templ_7745c5c3_Var28 string
+				templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(t.label)
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 779, Col: 17}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "</button>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 68, "</button>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "</div></div><div style=\"padding: 1rem;\"><!-- OVERVIEW --><div x-show=\"tab==='overview'\"><p style=\"font-size: var(--font-size-body); line-height: 1.7; margin-bottom: 0.75rem;\">The USCSS Nostromo (registration MSV-180286) is a modified Lockmart CM-88B Bison M-Class starfreighter, commissioned 2116 and currently assigned commercial haulage routes under contract ref. CMO-180286. The vessel has been diverted from its registered transit route by automated command subroutine Mother, acting under Special Order 937.</p><p style=\"font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text-muted);\">All crew have been revived from hypersleep at grid reference Zeta II Reticuli. Navigation shows current position 34 light years from Earth. Mission duration estimate: 10 months transit to LV-426. All systems reading nominal except Navigation (override engaged) and Science Lab (access restricted under SO-937).</p></div><!-- SYSTEMS --><div x-show=\"tab==='systems'\" style=\"display: none;\"><table class=\"cass-table\"><thead><tr><th>SYSTEM</th><th>STATUS</th><th>READING</th><th>NOTES</th></tr></thead> <tbody><tr><td>Life Support</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td><td>101.3 kPa</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">All within tolerances</td></tr><tr><td>Propulsion</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td><td>98.7%</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Cruise configuration</td></tr><tr><td>Navigation</td><td><span class=\"cass-value-warn\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">OVERRIDE</span></td><td>SO-937</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Locked by Mother</td></tr><tr><td>Communications</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">ACTIVE</span></td><td>Relay B</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Long-range active</td></tr></tbody></table></div><!-- CREW --><div x-show=\"tab==='crew'\" style=\"display: none;\"><div style=\"display: flex; flex-direction: column; gap: 0.5rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 69, "</div></div><div style=\"padding: 1rem;\"><!-- OVERVIEW --><div x-show=\"tab==='overview'\"><p style=\"font-size: var(--font-size-body); line-height: 1.7; margin-bottom: 0.75rem;\">The USCSS Nostromo (registration MSV-180286) is a modified Lockmart CM-88B Bison M-Class starfreighter, commissioned 2116 and currently assigned commercial haulage routes under contract ref. CMO-180286. The vessel has been diverted from its registered transit route by automated command subroutine Mother, acting under Special Order 937.</p><p style=\"font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text-muted);\">All crew have been revived from hypersleep at grid reference Zeta II Reticuli. Navigation shows current position 34 light years from Earth. Mission duration estimate: 10 months transit to LV-426. All systems reading nominal except Navigation (override engaged) and Science Lab (access restricted under SO-937).</p></div><!-- SYSTEMS --><div x-show=\"tab==='systems'\" style=\"display: none;\"><table class=\"cass-table\"><thead><tr><th>SYSTEM</th><th>STATUS</th><th>READING</th><th>NOTES</th></tr></thead> <tbody><tr><td>Life Support</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td><td>101.3 kPa</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">All within tolerances</td></tr><tr><td>Propulsion</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">NOMINAL</span></td><td>98.7%</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Cruise configuration</td></tr><tr><td>Navigation</td><td><span class=\"cass-value-warn\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">OVERRIDE</span></td><td>SO-937</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Locked by Mother</td></tr><tr><td>Communications</td><td><span class=\"cass-value-ok\" style=\"font-weight: 700; font-size: var(--font-size-caption);\">ACTIVE</span></td><td>Relay B</td><td style=\"color: var(--color-text-muted); font-size: var(--font-size-caption);\">Long-range active</td></tr></tbody></table></div><!-- CREW --><div x-show=\"tab==='crew'\" style=\"display: none;\"><div style=\"display: flex; flex-direction: column; gap: 0.5rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -983,51 +970,51 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"BISHOP", "Synthetic / Science Division", "ACTIVE"},
 				{"HICKS, D.", "Corporal / Colonial Marines", "ACTIVE"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "<div class=\"flex items-center gap-3\" style=\"padding: 0.5rem; border: 1px solid var(--color-border);\"><span class=\"cass-light cass-light-green cass-pulse\"></span><div><div style=\"font-size: var(--font-size-body); font-weight: 500;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 70, "<div class=\"flex items-center gap-3\" style=\"padding: 0.5rem; border: 1px solid var(--color-border);\"><span class=\"cass-light cass-light-green cass-pulse\"></span><div><div style=\"font-size: var(--font-size-body); font-weight: 500;\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var29 string
+				templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(c.name)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 812, Col: 83}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 71, "</div><div style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var30 string
-				templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(c.name)
+				templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(c.role)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 812, Col: 83}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 813, Col: 100}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "</div><div style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 72, "</div></div><span class=\"cass-value-ok\" style=\"margin-left: auto; font-size: var(--font-size-caption); font-weight: 700;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var31 string
-				templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(c.role)
+				templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(c.status)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 813, Col: 100}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 815, Col: 129}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 73, "</div></div><span class=\"cass-value-ok\" style=\"margin-left: auto; font-size: var(--font-size-caption); font-weight: 700;\">")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var32 string
-				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(c.status)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 815, Col: 129}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "</span></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 73, "</span></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 75, "</div></div><!-- CARGO --><div x-show=\"tab==='cargo'\" style=\"display: none;\"><table class=\"cass-table\"><thead><tr><th>ITEM</th><th>QTY</th><th>MASS</th><th>STATUS</th></tr></thead> <tbody><tr><td>Ore Processing Equipment</td><td class=\"cass-td-num\">1 set</td><td class=\"cass-td-num\">20,000 MT</td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SECURED</span></td></tr><tr><td>Refinery Consumables</td><td class=\"cass-td-num\">42 units</td><td class=\"cass-td-num\">8,400 MT</td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SECURED</span></td></tr><tr><td>Personnel Equipment</td><td class=\"cass-td-num\">7 kits</td><td class=\"cass-td-num\">350 kg</td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SECURED</span></td></tr><tr><td>Science Lab Samples</td><td class=\"cass-td-num\">CLASSIFIED</td><td class=\"cass-td-num\">CLASSIFIED</td><td><span class=\"cass-value-warn\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SO-937</span></td></tr></tbody></table></div><!-- LOGS --><div x-show=\"tab==='logs'\" style=\"display: none;\"><div style=\"display: flex; flex-direction: column; gap: 0.25rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 74, "</div></div><!-- CARGO --><div x-show=\"tab==='cargo'\" style=\"display: none;\"><table class=\"cass-table\"><thead><tr><th>ITEM</th><th>QTY</th><th>MASS</th><th>STATUS</th></tr></thead> <tbody><tr><td>Ore Processing Equipment</td><td class=\"cass-td-num\">1 set</td><td class=\"cass-td-num\">20,000 MT</td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SECURED</span></td></tr><tr><td>Refinery Consumables</td><td class=\"cass-td-num\">42 units</td><td class=\"cass-td-num\">8,400 MT</td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SECURED</span></td></tr><tr><td>Personnel Equipment</td><td class=\"cass-td-num\">7 kits</td><td class=\"cass-td-num\">350 kg</td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SECURED</span></td></tr><tr><td>Science Lab Samples</td><td class=\"cass-td-num\">CLASSIFIED</td><td class=\"cass-td-num\">CLASSIFIED</td><td><span class=\"cass-value-warn\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">SO-937</span></td></tr></tbody></table></div><!-- LOGS --><div x-show=\"tab==='logs'\" style=\"display: none;\"><div style=\"display: flex; flex-direction: column; gap: 0.25rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1038,51 +1025,51 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"2183-06-01 06:22", "COM", "Long-range signal detected — grid ref: Zeta Reticuli"},
 				{"2183-06-01 07:55", "SYS", "Crew briefing complete — descent vehicle prepped"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 76, "<div class=\"flex gap-3\" style=\"font-size: var(--font-size-caption); padding: 0.25rem 0; border-bottom: 1px solid var(--color-surface-2);\"><span style=\"color: var(--color-text-muted); min-width: 9rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 75, "<div class=\"flex gap-3\" style=\"font-size: var(--font-size-caption); padding: 0.25rem 0; border-bottom: 1px solid var(--color-surface-2);\"><span style=\"color: var(--color-text-muted); min-width: 9rem;\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var32 string
+				templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(log.ts)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 843, Col: 80}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 76, "</span> <span style=\"color: var(--color-primary); font-weight: 700; min-width: 2.5rem;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var33 string
-				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(log.ts)
+				templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(log.code)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 843, Col: 80}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 844, Col: 99}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "</span> <span style=\"color: var(--color-primary); font-weight: 700; min-width: 2.5rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 77, "</span> <span>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var34 string
-				templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(log.code)
+				templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(log.msg)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 844, Col: 99}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 845, Col: 24}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 78, "</span> <span>")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var35 string
-				templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(log.msg)
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 845, Col: 24}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 79, "</span></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 78, "</span></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 80, "</div></div></div></div><!-- Part B: Vertical Sidebar Nav --> <div class=\"cass-panel\" x-data=\"{ active: '1' }\"><div class=\"cass-panel-header\">VERTICAL DOCUMENT NAVIGATION — TABLE OF CONTENTS</div><div class=\"flex\"><div style=\"min-width: 240px; border-right: 1px solid var(--color-border); padding: 0.5rem 0;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 79, "</div></div></div></div><!-- Part B: Vertical Sidebar Nav --> <div class=\"cass-panel\" x-data=\"{ active: '1' }\"><div class=\"cass-panel-header\">VERTICAL DOCUMENT NAVIGATION — TABLE OF CONTENTS</div><div class=\"flex\"><div style=\"min-width: 240px; border-right: 1px solid var(--color-border); padding: 0.5rem 0;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1094,7 +1081,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"5", "5.0  Form Components"},
 				{"6", "6.0  Panel Components"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 81, "<div class=\"cursor-pointer\" style=\"padding: 0.5rem 1rem;\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 80, "<div class=\"cursor-pointer\" style=\"padding: 0.5rem 1rem;\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1106,39 +1093,39 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 82, "><span style=\"font-size: var(--font-size-caption);\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 81, "><span style=\"font-size: var(--font-size-caption);\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var36 string
-				templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(item.label)
+				var templ_7745c5c3_Var35 string
+				templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(item.label)
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 871, Col: 71}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 83, "</span></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 82, "</span></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 84, "</div><div style=\"padding: 1rem; flex: 1;\"><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Selected section:</p><p class=\"cass-value\" style=\"font-size: var(--font-size-body); margin-top: 0.25rem;\" x-text=\"active\"></p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.5rem;\">Click any section in the nav to change the active state. In a production document, this would scroll to or load that section.</p></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 83, "</div><div style=\"padding: 1rem; flex: 1;\"><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Selected section:</p><p class=\"cass-value\" style=\"font-size: var(--font-size-body); margin-top: 0.25rem;\" x-text=\"active\"></p><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.5rem;\">Click any section in the nav to change the active state. In a production document, this would scroll to or load that section.</p></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("11.0  Navigation Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var28), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("11.0  Navigation Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var27), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 85, "<!-- SECTION 12: Technical Readouts -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 84, "<!-- SECTION 12: Technical Readouts -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var37 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var36 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -1150,7 +1137,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 86, "<!-- Part A: Readout Grid --> <!-- snippet:instrument-readout --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header cass-panel-header-blue\">ENVIRONMENTAL INSTRUMENT READOUTS — LIVE</div><div style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 0.75rem; gap: 0.5rem;\"><!-- 1. Cabin Pressure --><div class=\"cass-readout\" x-data=\"{ v: 101.3 }\" x-init=\"setInterval(()=>{ v=parseFloat((101.3+(Math.random()-0.5)*0.4).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">CABIN PRESSURE</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"v\">101.3</span> <span class=\"cass-readout-unit\">kPa</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">NOMINAL</div></div><!-- 2. O2 Partial Pressure --><div class=\"cass-readout\" x-data=\"{ v: 21.3 }\" x-init=\"setInterval(()=>{ v=parseFloat((21.3+(Math.random()-0.5)*0.3).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">O&#8322; PARTIAL PRESS.</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"v\">21.3</span> <span class=\"cass-readout-unit\">kPa</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">NOMINAL</div></div><!-- 3. Cabin Temp --><div class=\"cass-readout\" x-data=\"{ v: 19.7 }\" x-init=\"setInterval(()=>{ v=parseFloat((19.7+(Math.random()-0.5)*0.5).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">CABIN TEMP.</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"v\">19.7</span> <span class=\"cass-readout-unit\">&#176;C</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">NOMINAL</div></div><!-- 4. Reactor Output --><div class=\"cass-readout\" x-data=\"{ v: 98.7 }\" x-init=\"setInterval(()=>{ v=parseFloat((98.7+(Math.random()-0.5)*2).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">REACTOR OUTPUT</div><div class=\"flex items-baseline gap-1\"><span")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 85, "<!-- Part A: Readout Grid --> <!-- snippet:instrument-readout --> <div class=\"cass-panel mb-6\"><div class=\"cass-panel-header cass-panel-header-blue\">ENVIRONMENTAL INSTRUMENT READOUTS — LIVE</div><div style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 0.75rem; gap: 0.5rem;\"><!-- 1. Cabin Pressure --><div class=\"cass-readout\" x-data=\"{ v: 101.3 }\" x-init=\"setInterval(()=>{ v=parseFloat((101.3+(Math.random()-0.5)*0.4).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">CABIN PRESSURE</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"v\">101.3</span> <span class=\"cass-readout-unit\">kPa</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">NOMINAL</div></div><!-- 2. O2 Partial Pressure --><div class=\"cass-readout\" x-data=\"{ v: 21.3 }\" x-init=\"setInterval(()=>{ v=parseFloat((21.3+(Math.random()-0.5)*0.3).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">O&#8322; PARTIAL PRESS.</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"v\">21.3</span> <span class=\"cass-readout-unit\">kPa</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">NOMINAL</div></div><!-- 3. Cabin Temp --><div class=\"cass-readout\" x-data=\"{ v: 19.7 }\" x-init=\"setInterval(()=>{ v=parseFloat((19.7+(Math.random()-0.5)*0.5).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">CABIN TEMP.</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"v\">19.7</span> <span class=\"cass-readout-unit\">&#176;C</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">NOMINAL</div></div><!-- 4. Reactor Output --><div class=\"cass-readout\" x-data=\"{ v: 98.7 }\" x-init=\"setInterval(()=>{ v=parseFloat((98.7+(Math.random()-0.5)*2).toFixed(1)) },2500)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">REACTOR OUTPUT</div><div class=\"flex items-baseline gap-1\"><span")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1158,7 +1145,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 87, " x-text=\"v\">98.7</span> <span class=\"cass-readout-unit\">%</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 86, " x-text=\"v\">98.7</span> <span class=\"cass-readout-unit\">%</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1166,7 +1153,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 88, " x-text=\"v < 80 ? 'FAULT' : 'NOMINAL'\">NOMINAL</div></div><!-- 5. Velocity (static) --><div class=\"cass-readout\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">VELOCITY</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\">12.4</span> <span class=\"cass-readout-unit\">km/s</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">CRUISE</div></div><!-- 6. Fuel Remaining --><div class=\"cass-readout\" x-data=\"{ v: 67.4 }\" x-init=\"setInterval(()=>{ v=parseFloat((67.4+(Math.random()-0.5)*0.2).toFixed(1)) },3000)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">FUEL REMAINING</div><div class=\"flex items-baseline gap-1\"><span")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 87, " x-text=\"v < 80 ? 'FAULT' : 'NOMINAL'\">NOMINAL</div></div><!-- 5. Velocity (static) --><div class=\"cass-readout\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">VELOCITY</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\">12.4</span> <span class=\"cass-readout-unit\">km/s</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\" class=\"cass-value-ok\">CRUISE</div></div><!-- 6. Fuel Remaining --><div class=\"cass-readout\" x-data=\"{ v: 67.4 }\" x-init=\"setInterval(()=>{ v=parseFloat((67.4+(Math.random()-0.5)*0.2).toFixed(1)) },3000)\"><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">FUEL REMAINING</div><div class=\"flex items-baseline gap-1\"><span")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1174,7 +1161,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 89, " x-text=\"v\">67.4</span> <span class=\"cass-readout-unit\">%</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 88, " x-text=\"v\">67.4</span> <span class=\"cass-readout-unit\">%</span></div><div style=\"margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1182,7 +1169,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 90, " x-text=\"v < 30 ? 'LOW' : 'NOMINAL'\">NOMINAL</div></div></div></div><!-- /snippet:instrument-readout --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 89, " x-text=\"v < 30 ? 'LOW' : 'NOMINAL'\">NOMINAL</div></div></div></div><!-- /snippet:instrument-readout --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1190,7 +1177,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 91, " <!-- Part B: Bar Gauges --> <div class=\"cass-panel mb-6\" x-data=\"{ fuel: 67, o2: 89, coolant: 23, power: 78 }\"><div class=\"cass-panel-header\">BAR GAUGE DISPLAY</div><div style=\"padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 90, " <!-- Part B: Bar Gauges --> <div class=\"cass-panel mb-6\" x-data=\"{ fuel: 67, o2: 89, coolant: 23, power: 78 }\"><div class=\"cass-panel-header\">BAR GAUGE DISPLAY</div><div style=\"padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1210,7 +1197,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 92, "<div style=\"margin-top: 0.5rem;\"><button class=\"cass-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 91, "<div style=\"margin-top: 0.5rem;\"><button class=\"cass-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1218,7 +1205,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, ">REFRESH READINGS</button></div></div></div><!-- Part C: Threshold Monitor --> <div class=\"cass-panel\" x-data=\"{ val: 78, limit: 85 }\"><div class=\"cass-panel-header\">COOLANT PRESSURE — THRESHOLD MONITOR</div><div style=\"padding: 1rem;\"><div class=\"flex items-start gap-6 flex-wrap\"><div><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">CURRENT PRESSURE</div><div class=\"flex items-baseline gap-1\"><span")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 92, ">REFRESH READINGS</button></div></div></div><!-- Part C: Threshold Monitor --> <div class=\"cass-panel\" x-data=\"{ val: 78, limit: 85 }\"><div class=\"cass-panel-header\">COOLANT PRESSURE — THRESHOLD MONITOR</div><div style=\"padding: 1rem;\"><div class=\"flex items-start gap-6 flex-wrap\"><div><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">CURRENT PRESSURE</div><div class=\"flex items-baseline gap-1\"><span")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1226,21 +1213,21 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 94, " x-text=\"val\">78</span> <span class=\"cass-readout-unit\">kPa</span></div></div><div><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">THRESHOLD LIMIT</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"limit\">85</span> <span class=\"cass-readout-unit\">kPa</span></div></div><div x-show=\"val > limit\" style=\"display: none;\"><div style=\"background: var(--color-danger); color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.5rem;\">&#9888; THRESHOLD EXCEEDED</div></div></div><div style=\"margin-top: 1rem;\"><div class=\"flex justify-between mb-1\"><label class=\"cass-label\" for=\"cass-thresh\">ADJUST PRESSURE (0–120 kPa)</label> <span x-text=\"val + ' kPa'\" class=\"cass-value\">78 kPa</span></div><input id=\"cass-thresh\" type=\"range\" min=\"0\" max=\"120\" x-model=\"val\" style=\"width: 100%; accent-color: var(--color-primary);\"></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 93, " x-text=\"val\">78</span> <span class=\"cass-readout-unit\">kPa</span></div></div><div><div class=\"cass-readout-unit\" style=\"margin-bottom: 0.25rem;\">THRESHOLD LIMIT</div><div class=\"flex items-baseline gap-1\"><span class=\"cass-readout-value\" x-text=\"limit\">85</span> <span class=\"cass-readout-unit\">kPa</span></div></div><div x-show=\"val > limit\" style=\"display: none;\"><div style=\"background: var(--color-danger); color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.5rem;\">&#9888; THRESHOLD EXCEEDED</div></div></div><div style=\"margin-top: 1rem;\"><div class=\"flex justify-between mb-1\"><label class=\"cass-label\" for=\"cass-thresh\">ADJUST PRESSURE (0–120 kPa)</label> <span x-text=\"val + ' kPa'\" class=\"cass-value\">78 kPa</span></div><input id=\"cass-thresh\" type=\"range\" min=\"0\" max=\"120\" x-model=\"val\" style=\"width: 100%; accent-color: var(--color-primary);\"></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("12.0  Instrument Readouts", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var37), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("12.0  Instrument Readouts", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var36), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 95, "<!-- SECTION 13: Progress Trackers -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 94, "<!-- SECTION 13: Progress Trackers -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var38 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var37 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -1252,7 +1239,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 96, "<div style=\"display: flex; flex-direction: column; gap: 1.5rem;\"><!-- Style A: Mission Phase Bars --><div class=\"cass-panel\"><div class=\"cass-panel-header\">MISSION PHASE PROGRESS BARS</div><div style=\"padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;\"><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">PRE-LAUNCH CHECKLIST</span> <span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">100%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill cass-progress-fill-green\" style=\"width: 100%;\"></div></div></div><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">TRANSIT TO LV-426</span> <span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">67%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 67%;\"></div></div></div><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">SURFACE SURVEY</span> <span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">12%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 12%;\"></div></div></div><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">SPECIMEN RECOVERY</span> <span style=\"font-size: var(--font-size-caption); font-weight: 700; color: var(--color-text-muted);\">0%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 0%;\"></div></div></div></div></div><!-- Style B: Segmented Progress --><!-- snippet:progress-tracker --><div class=\"cass-panel\" x-data=\"{ steps: 6, total: 10 }\"><div class=\"cass-panel-header\">SEGMENTED PROGRESS — MISSION SUBSTEPS</div><div style=\"padding: 1rem;\"><div class=\"flex flex-wrap\" style=\"margin-bottom: 0.75rem;\"><template x-for=\"i in total\"><div")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 95, "<div style=\"display: flex; flex-direction: column; gap: 1.5rem;\"><!-- Style A: Mission Phase Bars --><div class=\"cass-panel\"><div class=\"cass-panel-header\">MISSION PHASE PROGRESS BARS</div><div style=\"padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;\"><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">PRE-LAUNCH CHECKLIST</span> <span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">100%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill cass-progress-fill-green\" style=\"width: 100%;\"></div></div></div><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">TRANSIT TO LV-426</span> <span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">67%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 67%;\"></div></div></div><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">SURFACE SURVEY</span> <span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">12%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 12%;\"></div></div></div><div><div class=\"flex justify-between mb-1\"><span style=\"font-size: var(--font-size-caption); font-weight: 700;\">SPECIMEN RECOVERY</span> <span style=\"font-size: var(--font-size-caption); font-weight: 700; color: var(--color-text-muted);\">0%</span></div><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 0%;\"></div></div></div></div></div><!-- Style B: Segmented Progress --><!-- snippet:progress-tracker --><div class=\"cass-panel\" x-data=\"{ steps: 6, total: 10 }\"><div class=\"cass-panel-header\">SEGMENTED PROGRESS — MISSION SUBSTEPS</div><div style=\"padding: 1rem;\"><div class=\"flex flex-wrap\" style=\"margin-bottom: 0.75rem;\"><template x-for=\"i in total\"><div")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1260,7 +1247,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 97, "></div></template></div><div class=\"flex items-center gap-3\"><button class=\"cass-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 96, "></div></template></div><div class=\"flex items-center gap-3\"><button class=\"cass-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1268,7 +1255,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 98, ">&#9664; PREV</button> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"steps + ' / ' + total + ' SUBSTEPS COMPLETE'\">6 / 10 SUBSTEPS COMPLETE</span> <button class=\"cass-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 97, ">&#9664; PREV</button> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\" x-text=\"steps + ' / ' + total + ' SUBSTEPS COMPLETE'\">6 / 10 SUBSTEPS COMPLETE</span> <button class=\"cass-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1276,7 +1263,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 99, ">NEXT &#9654;</button></div></div></div><!-- /snippet:progress-tracker -->")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 98, ">NEXT &#9654;</button></div></div></div><!-- /snippet:progress-tracker -->")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1284,13 +1271,13 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 100, "<!-- Style C: Step Tracker --><div class=\"cass-panel\" x-data=\"{ step: 2 }\"><div class=\"cass-panel-header\">STEP TRACKER — MISSION AUTHORIZATION SEQUENCE</div><div style=\"padding: 1rem;\"><div class=\"flex items-center\" style=\"margin-bottom: 1rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 99, "<!-- Style C: Step Tracker --><div class=\"cass-panel\" x-data=\"{ step: 2 }\"><div class=\"cass-panel-header\">STEP TRACKER — MISSION AUTHORIZATION SEQUENCE</div><div style=\"padding: 1rem;\"><div class=\"flex items-center\" style=\"margin-bottom: 1rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for i, label := range []string{"INITIATE", "VERIFY", "AUTHORIZE", "EXECUTE", "CONFIRM"} {
 				if i > 0 {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 101, "<div")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 100, "<div")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -1298,12 +1285,12 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 102, "></div>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 101, "></div>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 103, " <div style=\"text-align: center; flex-shrink: 0;\"><div")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 102, " <div style=\"text-align: center; flex-shrink: 0;\"><div")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1311,50 +1298,50 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 104, ">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 103, ">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				if i < 4 {
-					var templ_7745c5c3_Var39 string
-					templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", i+1))
+					var templ_7745c5c3_Var38 string
+					templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", i+1))
 					if templ_7745c5c3_Err != nil {
 						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1095, Col: 35}
+					}
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
+					if templ_7745c5c3_Err != nil {
+						return templ_7745c5c3_Err
+					}
+				} else {
+					var templ_7745c5c3_Var39 string
+					templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs("5")
+					if templ_7745c5c3_Err != nil {
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1097, Col: 16}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-				} else {
-					var templ_7745c5c3_Var40 string
-					templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs("5")
-					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1097, Col: 16}
-					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
-					if templ_7745c5c3_Err != nil {
-						return templ_7745c5c3_Err
-					}
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 105, "</div><div style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem; white-space: nowrap;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 104, "</div><div style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem; white-space: nowrap;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var41 string
-				templ_7745c5c3_Var41, templ_7745c5c3_Err = templ.JoinStringErrs(label)
+				var templ_7745c5c3_Var40 string
+				templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 				if templ_7745c5c3_Err != nil {
 					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/cassette/cassette.templ`, Line: 1100, Col: 140}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var41))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 106, "</div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 105, "</div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 107, "</div><div class=\"flex gap-3\"><button class=\"cass-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 106, "</div><div class=\"flex gap-3\"><button class=\"cass-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1362,7 +1349,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 108, ">&#9664; BACK</button> <button class=\"cass-btn cass-btn-filled\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 107, ">&#9664; BACK</button> <button class=\"cass-btn cass-btn-filled\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1370,21 +1357,21 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 109, ">NEXT &#9654;</button></div></div></div><!-- Style D: Project Status Table --><div class=\"cass-panel\"><div class=\"cass-panel-header\">MISSION TASK STATUS MATRIX</div><table class=\"cass-table\"><thead><tr><th>TASK</th><th>OWNER</th><th>PROGRESS</th><th>STATUS</th></tr></thead> <tbody><tr><td>Atmospheric Processor Repair</td><td style=\"font-size: var(--font-size-caption);\">HICKS, D.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill cass-progress-fill-green\" style=\"width: 100%;\"></div></div></td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">COMPLETE</span></td></tr><tr><td>Colonial Lab Sweep</td><td style=\"font-size: var(--font-size-caption);\">VASQUEZ, J.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 73%;\"></div></div></td><td><span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">IN PROGRESS</span></td></tr><tr><td>Alien Nest Survey</td><td style=\"font-size: var(--font-size-caption);\">BISHOP</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 40%;\"></div></div></td><td><span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">IN PROGRESS</span></td></tr><tr><td>Drop Ship Maintenance</td><td style=\"font-size: var(--font-size-caption);\">FERRO, C.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 20%;\"></div></div></td><td><span class=\"cass-value-warn\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">DELAYED</span></td></tr><tr><td>Perimeter Defense Setup</td><td style=\"font-size: var(--font-size-caption);\">APONE, SGT.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill cass-progress-fill-red\" style=\"width: 0%;\"></div></div></td><td><span class=\"cass-value-danger\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">NOT STARTED</span></td></tr></tbody></table></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 108, ">NEXT &#9654;</button></div></div></div><!-- Style D: Project Status Table --><div class=\"cass-panel\"><div class=\"cass-panel-header\">MISSION TASK STATUS MATRIX</div><table class=\"cass-table\"><thead><tr><th>TASK</th><th>OWNER</th><th>PROGRESS</th><th>STATUS</th></tr></thead> <tbody><tr><td>Atmospheric Processor Repair</td><td style=\"font-size: var(--font-size-caption);\">HICKS, D.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill cass-progress-fill-green\" style=\"width: 100%;\"></div></div></td><td><span class=\"cass-value-ok\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">COMPLETE</span></td></tr><tr><td>Colonial Lab Sweep</td><td style=\"font-size: var(--font-size-caption);\">VASQUEZ, J.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 73%;\"></div></div></td><td><span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">IN PROGRESS</span></td></tr><tr><td>Alien Nest Survey</td><td style=\"font-size: var(--font-size-caption);\">BISHOP</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 40%;\"></div></div></td><td><span class=\"cass-value\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">IN PROGRESS</span></td></tr><tr><td>Drop Ship Maintenance</td><td style=\"font-size: var(--font-size-caption);\">FERRO, C.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill\" style=\"width: 20%;\"></div></div></td><td><span class=\"cass-value-warn\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">DELAYED</span></td></tr><tr><td>Perimeter Defense Setup</td><td style=\"font-size: var(--font-size-caption);\">APONE, SGT.</td><td style=\"min-width: 120px;\"><div class=\"cass-progress-track\"><div class=\"cass-progress-fill cass-progress-fill-red\" style=\"width: 0%;\"></div></div></td><td><span class=\"cass-value-danger\" style=\"font-size: var(--font-size-caption); font-weight: 700;\">NOT STARTED</span></td></tr></tbody></table></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("13.0  Progress &amp; Completion", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var38), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("13.0  Progress &amp; Completion", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var37), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "<!-- SECTION 14: System Log -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 109, "<!-- SECTION 14: System Log -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var42 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var41 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -1396,7 +1383,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 111, "<div class=\"cass-panel\"><div class=\"cass-panel-header cass-panel-header-blue\">WCYPD COLONY SYSTEMS — EVENT LOG</div><div style=\"padding: 0.75rem;\"><!-- Filter bar --><div x-data=\"{ filter: '' }\" class=\"flex gap-2 items-center mb-3\"><label class=\"cass-label\" style=\"margin-bottom: 0; white-space: nowrap;\">FILTER EVENTS</label> <input type=\"text\" x-model=\"filter\" class=\"cass-input cass-input-box\" style=\"max-width: 240px;\" placeholder=\"SYS, SEC, ATM...\"> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">(UI demo — filter does not apply to HTMX entries)</span></div><!-- Log output --><div style=\"height: 320px; overflow-y: auto; background: var(--color-surface-2); border: 1px solid var(--color-border); padding: 0.5rem;\"><div id=\"cass-log-output\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 110, "<div class=\"cass-panel\"><div class=\"cass-panel-header cass-panel-header-blue\">WCYPD COLONY SYSTEMS — EVENT LOG</div><div style=\"padding: 0.75rem;\"><!-- Filter bar --><div x-data=\"{ filter: '' }\" class=\"flex gap-2 items-center mb-3\"><label class=\"cass-label\" style=\"margin-bottom: 0; white-space: nowrap;\">FILTER EVENTS</label> <input type=\"text\" x-model=\"filter\" class=\"cass-input cass-input-box\" style=\"max-width: 240px;\" placeholder=\"SYS, SEC, ATM...\"> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">(UI demo — filter does not apply to HTMX entries)</span></div><!-- Log output --><div style=\"height: 320px; overflow-y: auto; background: var(--color-surface-2); border: 1px solid var(--color-border); padding: 0.5rem;\"><div id=\"cass-log-output\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1419,7 +1406,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 112, "</div><!-- snippet:system-log --><!-- HTMX polling trigger --><div hx-get=\"/guides/cassette/log\" hx-trigger=\"every 4s\" hx-target=\"#cass-log-output\" hx-swap=\"beforeend\"></div><!-- /snippet:system-log --></div><p class=\"text-xs mb-1\" style=\"color: var(--color-text-muted); font-family: var(--font-body);\">HTMX client — cassette.templ</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 111, "</div><!-- snippet:system-log --><!-- HTMX polling trigger --><div hx-get=\"/guides/cassette/log\" hx-trigger=\"every 4s\" hx-target=\"#cass-log-output\" hx-swap=\"beforeend\"></div><!-- /snippet:system-log --></div><p class=\"text-xs mb-1\" style=\"color: var(--color-text-muted); font-family: var(--font-body);\">HTMX client — cassette.templ</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1427,7 +1414,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 113, "<p class=\"text-xs mt-4 mb-1\" style=\"color: var(--color-text-muted); font-family: var(--font-body);\">Go handler — handlers/guides.go</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 112, "<p class=\"text-xs mt-4 mb-1\" style=\"color: var(--color-text-muted); font-family: var(--font-body);\">Go handler — handlers/guides.go</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1435,21 +1422,21 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 114, "<!-- Controls --><div class=\"flex gap-3 mt-3\"><button class=\"cass-btn\" hx-get=\"/guides/cassette/log\" hx-target=\"#cass-log-output\" hx-swap=\"beforeend\">POLL NOW</button> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); align-self: center;\">Auto-polling every 4 seconds via HTMX</span></div></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 113, "<!-- Controls --><div class=\"flex gap-3 mt-3\"><button class=\"cass-btn\" hx-get=\"/guides/cassette/log\" hx-target=\"#cass-log-output\" hx-swap=\"beforeend\">POLL NOW</button> <span style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); align-self: center;\">Auto-polling every 4 seconds via HTMX</span></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("14.0  System Event Log", components.BadgeHTMX).Render(templ.WithChildren(ctx, templ_7745c5c3_Var42), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("14.0  System Event Log", components.BadgeHTMX).Render(templ.WithChildren(ctx, templ_7745c5c3_Var41), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 115, "<!-- SECTION 15: Modal/Dialog -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 114, "<!-- SECTION 15: Modal/Dialog -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var43 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var42 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -1461,7 +1448,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 116, "<!-- snippet:modal --> <div x-data=\"{ modal: null, authCode: '', confirmed: false }\"><!-- Trigger buttons --><div class=\"flex flex-wrap gap-3 mb-4\"><button class=\"cass-btn cass-btn-filled\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 115, "<!-- snippet:modal --> <div x-data=\"{ modal: null, authCode: '', confirmed: false }\"><!-- Trigger buttons --><div class=\"flex flex-wrap gap-3 mb-4\"><button class=\"cass-btn cass-btn-filled\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1469,7 +1456,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 117, ">REQUEST ACCESS</button> <button class=\"cass-btn cass-btn-danger\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 116, ">REQUEST ACCESS</button> <button class=\"cass-btn cass-btn-danger\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1477,7 +1464,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 118, ">CONFIRM JETTISON</button> <button class=\"cass-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 117, ">CONFIRM JETTISON</button> <button class=\"cass-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1485,7 +1472,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 119, ">SYSTEM NOTIFICATION</button></div><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Click a button above to open the corresponding modal dialog.</p><!-- Overlay --><div class=\"cass-overlay\" x-show=\"modal !== null\" style=\"display: none;\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 118, ">SYSTEM NOTIFICATION</button></div><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted);\">Click a button above to open the corresponding modal dialog.</p><!-- Overlay --><div class=\"cass-overlay\" x-show=\"modal !== null\" style=\"display: none;\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1493,7 +1480,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 120, "><!-- Modal 1: Auth --><div class=\"cass-modal\" x-show=\"modal==='auth'\" style=\"display: none;\"><div class=\"cass-modal-header\">ACCESS REQUEST — LEVEL 5 CLEARANCE</div><div style=\"padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;\"><div><label class=\"cass-label\" for=\"modal-personnel\">PERSONNEL ID</label> <input id=\"modal-personnel\" type=\"text\" class=\"cass-input\" placeholder=\"e.g. RIPLEY, E. — WO-NOS-002\"></div><div><label class=\"cass-label\" for=\"modal-code\">AUTHORIZATION CODE</label> <input id=\"modal-code\" type=\"password\" class=\"cass-input cass-input-box\" placeholder=\"••••••••\"></div><div><label class=\"cass-label\" for=\"modal-level\">ACCESS LEVEL REQUESTED</label> <select id=\"modal-level\" class=\"cass-input cass-input-box\" style=\"cursor: pointer;\"><option>L-3</option> <option>L-4</option> <option>L-5</option> <option>UNRESTRICTED</option></select></div><div><label class=\"cass-label\" for=\"modal-reason\">REASON FOR ACCESS</label> <textarea id=\"modal-reason\" rows=\"2\" class=\"cass-input cass-input-box\" placeholder=\"Describe operational need for elevated access clearance...\"></textarea></div></div><div class=\"flex justify-end gap-3\" style=\"padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);\"><button class=\"cass-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 119, "><!-- Modal 1: Auth --><div class=\"cass-modal\" x-show=\"modal==='auth'\" style=\"display: none;\"><div class=\"cass-modal-header\">ACCESS REQUEST — LEVEL 5 CLEARANCE</div><div style=\"padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;\"><div><label class=\"cass-label\" for=\"modal-personnel\">PERSONNEL ID</label> <input id=\"modal-personnel\" type=\"text\" class=\"cass-input\" placeholder=\"e.g. RIPLEY, E. — WO-NOS-002\"></div><div><label class=\"cass-label\" for=\"modal-code\">AUTHORIZATION CODE</label> <input id=\"modal-code\" type=\"password\" class=\"cass-input cass-input-box\" placeholder=\"••••••••\"></div><div><label class=\"cass-label\" for=\"modal-level\">ACCESS LEVEL REQUESTED</label> <select id=\"modal-level\" class=\"cass-input cass-input-box\" style=\"cursor: pointer;\"><option>L-3</option> <option>L-4</option> <option>L-5</option> <option>UNRESTRICTED</option></select></div><div><label class=\"cass-label\" for=\"modal-reason\">REASON FOR ACCESS</label> <textarea id=\"modal-reason\" rows=\"2\" class=\"cass-input cass-input-box\" placeholder=\"Describe operational need for elevated access clearance...\"></textarea></div></div><div class=\"flex justify-end gap-3\" style=\"padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);\"><button class=\"cass-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1501,7 +1488,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 121, ">CANCEL</button> <button class=\"cass-btn cass-btn-filled\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 120, ">CANCEL</button> <button class=\"cass-btn cass-btn-filled\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1509,7 +1496,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 122, ">SUBMIT REQUEST</button></div></div><!-- Modal 2: Jettison --><div class=\"cass-modal\" x-show=\"modal==='jettison'\" style=\"display: none; border-color: var(--color-danger);\"><div class=\"cass-modal-header cass-modal-header-danger\">CONFIRM JETTISON — IRREVERSIBLE ACTION</div><div style=\"padding: 1.25rem;\"><div class=\"cass-notice cass-notice-warning mb-4\"><div class=\"cass-notice-label\" style=\"color: var(--color-danger);\">WARNING</div><p>This action is irreversible. Once executed, the following cargo will be permanently jettisoned into open space and cannot be recovered.</p></div><p style=\"font-size: var(--font-size-caption); font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em;\">Cargo to be jettisoned:</p><ul style=\"font-size: var(--font-size-body); color: var(--color-text-muted); margin-bottom: 1rem; padding-left: 1rem; line-height: 2;\"><li>Refinery Module RFN-7 (8,400 MT)</li><li>Processing Equipment Set A (12,000 MT)</li><li>Cargo Bay 3 Contents (2,200 MT)</li></ul><div><label class=\"cass-label\" for=\"modal-jettison-confirm\">TYPE \"CONFIRM\" TO PROCEED</label> <input id=\"modal-jettison-confirm\" type=\"text\" x-model=\"authCode\" class=\"cass-input cass-input-box\" placeholder=\"CONFIRM\" style=\"text-transform: uppercase;\"></div></div><div class=\"flex justify-end gap-3\" style=\"padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);\"><button class=\"cass-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 121, ">SUBMIT REQUEST</button></div></div><!-- Modal 2: Jettison --><div class=\"cass-modal\" x-show=\"modal==='jettison'\" style=\"display: none; border-color: var(--color-danger);\"><div class=\"cass-modal-header cass-modal-header-danger\">CONFIRM JETTISON — IRREVERSIBLE ACTION</div><div style=\"padding: 1.25rem;\"><div class=\"cass-notice cass-notice-warning mb-4\"><div class=\"cass-notice-label\" style=\"color: var(--color-danger);\">WARNING</div><p>This action is irreversible. Once executed, the following cargo will be permanently jettisoned into open space and cannot be recovered.</p></div><p style=\"font-size: var(--font-size-caption); font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em;\">Cargo to be jettisoned:</p><ul style=\"font-size: var(--font-size-body); color: var(--color-text-muted); margin-bottom: 1rem; padding-left: 1rem; line-height: 2;\"><li>Refinery Module RFN-7 (8,400 MT)</li><li>Processing Equipment Set A (12,000 MT)</li><li>Cargo Bay 3 Contents (2,200 MT)</li></ul><div><label class=\"cass-label\" for=\"modal-jettison-confirm\">TYPE \"CONFIRM\" TO PROCEED</label> <input id=\"modal-jettison-confirm\" type=\"text\" x-model=\"authCode\" class=\"cass-input cass-input-box\" placeholder=\"CONFIRM\" style=\"text-transform: uppercase;\"></div></div><div class=\"flex justify-end gap-3\" style=\"padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);\"><button class=\"cass-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1517,7 +1504,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 123, ">ABORT</button> <button class=\"cass-btn cass-btn-danger-filled\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 122, ">ABORT</button> <button class=\"cass-btn cass-btn-danger-filled\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1529,7 +1516,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 124, ">JETTISON</button></div></div><!-- Modal 3: Alert --><div class=\"cass-modal\" x-show=\"modal==='alert'\" style=\"display: none;\"><div class=\"cass-modal-header\">SYSTEM NOTIFICATION — PRIORITY MESSAGE</div><div style=\"padding: 1.25rem;\"><div class=\"cass-notice cass-notice-note mb-4\"><div class=\"cass-notice-label\" style=\"color: var(--color-primary);\">PRIORITY: ROUTINE</div><p>Scheduled maintenance window for atmospheric processing units 3 and 4 will commence at 0200 station time. Estimated duration: 45 minutes. Decks F and G will experience reduced atmospheric circulation during this period.</p></div><div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">MSG REF</div><div class=\"cass-doc-cell-value\">SYS-MAINT-2026-003</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">PRIORITY</div><div class=\"cass-doc-cell-value\">ROUTINE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">ISSUED BY</div><div class=\"cass-doc-cell-value\">MU/TH/UR 6000</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">TIMESTAMP</div><div class=\"cass-doc-cell-value\">2026-03-06 01:42</div></div></div></div><div class=\"flex justify-end\" style=\"padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);\"><button class=\"cass-btn cass-btn-filled\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 123, ">JETTISON</button></div></div><!-- Modal 3: Alert --><div class=\"cass-modal\" x-show=\"modal==='alert'\" style=\"display: none;\"><div class=\"cass-modal-header\">SYSTEM NOTIFICATION — PRIORITY MESSAGE</div><div style=\"padding: 1.25rem;\"><div class=\"cass-notice cass-notice-note mb-4\"><div class=\"cass-notice-label\" style=\"color: var(--color-primary);\">PRIORITY: ROUTINE</div><p>Scheduled maintenance window for atmospheric processing units 3 and 4 will commence at 0200 station time. Estimated duration: 45 minutes. Decks F and G will experience reduced atmospheric circulation during this period.</p></div><div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem;\"><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">MSG REF</div><div class=\"cass-doc-cell-value\">SYS-MAINT-2026-003</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">PRIORITY</div><div class=\"cass-doc-cell-value\">ROUTINE</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">ISSUED BY</div><div class=\"cass-doc-cell-value\">MU/TH/UR 6000</div></div><div class=\"cass-doc-cell\"><div class=\"cass-doc-cell-label\">TIMESTAMP</div><div class=\"cass-doc-cell-value\">2026-03-06 01:42</div></div></div></div><div class=\"flex justify-end\" style=\"padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);\"><button class=\"cass-btn cass-btn-filled\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1537,7 +1524,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 125, ">ACKNOWLEDGED</button></div></div></div></div><!-- /snippet:modal --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 124, ">ACKNOWLEDGED</button></div></div></div></div><!-- /snippet:modal --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1547,11 +1534,11 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("15.0  Dialog Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var43), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("15.0  Dialog Components", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var42), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 126, "</div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 125, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
