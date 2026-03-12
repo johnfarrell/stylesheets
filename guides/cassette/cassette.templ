@@ -1181,66 +1181,22 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					<!-- Log output -->
 					<div style="height: 320px; overflow-y: auto; background: var(--color-surface-2); border: 1px solid var(--color-border); padding: 0.5rem;">
 						<div id="cass-log-output">
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:01]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">SYS</span>
-								<span style="color: var(--color-text);">WCYPD COLONY SYSTEMS v4.2.1 — BOOT SEQUENCE COMPLETE</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:03]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">NET</span>
-								<span style="color: var(--color-text);">NETWORK INTERFACES INITIALIZED — 4 NODES ACTIVE</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:07]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">ATM</span>
-								<span style="color: var(--color-text);">ATMOSPHERIC PROCESSOR — NOMINAL — 101.3 kPa</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:12]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">NAV</span>
-								<span style="color: var(--color-text);">NAVIGATION ARRAY — CALIBRATION COMPLETE</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:15]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">SCI</span>
-								<span style="color: var(--color-text);">SCIENCE LAB — ACCESS RESTRICTED — SPECIAL ORDER 937 ACTIVE</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:18]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">PWR</span>
-								<span style="color: var(--color-text);">POWER GRID — OUTPUT 98.7% NOMINAL</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:22]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">SEC</span>
-								<span style="color: var(--color-text);">MOTION SENSOR ARRAY — ARMED — 24 SECTORS ACTIVE</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:25]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">MED</span>
-								<span style="color: var(--color-text);">HYPERSLEEP UNITS 1-7 — OCCUPANTS STABLE</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:31]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">COM</span>
-								<span style="color: var(--color-text);">LONG-RANGE COMMS — SIGNAL LOCK CONFIRMED — RELAY B</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:38]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">ENG</span>
-								<span style="color: var(--color-text);">REACTOR TEMP — 487&#176;C — WITHIN NOMINAL RANGE</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:44]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">SYS</span>
-								<span style="color: var(--color-text);">SPECIAL ORDER 937 — ACTIVATED — SCIENCE DEPT NOTIFIED</span>
-							</div>
-							<div class="flex gap-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); padding: 2px 0; border-bottom: 1px solid var(--color-surface-2);">
-								<span style="min-width: 4.5rem;">[00:00:51]</span>
-								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">SEC</span>
-								<span style="color: var(--color-text);">BULKHEAD DOORS — ALL SEALED — OVERRIDE DISABLED</span>
-							</div>
+							for _, entry := range []struct{ ts, code, msg string }{
+								{"[00:00:01]", "SYS", "WCYPD COLONY SYSTEMS v4.2.1 — BOOT SEQUENCE COMPLETE"},
+								{"[00:00:03]", "NET", "NETWORK INTERFACES INITIALIZED — 4 NODES ACTIVE"},
+								{"[00:00:07]", "ATM", "ATMOSPHERIC PROCESSOR — NOMINAL — 101.3 kPa"},
+								{"[00:00:12]", "NAV", "NAVIGATION ARRAY — CALIBRATION COMPLETE"},
+								{"[00:00:15]", "SCI", "SCIENCE LAB — ACCESS RESTRICTED — SPECIAL ORDER 937 ACTIVE"},
+								{"[00:00:18]", "PWR", "POWER GRID — OUTPUT 98.7% NOMINAL"},
+								{"[00:00:22]", "SEC", "MOTION SENSOR ARRAY — ARMED — 24 SECTORS ACTIVE"},
+								{"[00:00:25]", "MED", "HYPERSLEEP UNITS 1-7 — OCCUPANTS STABLE"},
+								{"[00:00:31]", "COM", "LONG-RANGE COMMS — SIGNAL LOCK CONFIRMED — RELAY B"},
+								{"[00:00:38]", "ENG", "REACTOR TEMP — 487°C — WITHIN NOMINAL RANGE"},
+								{"[00:00:44]", "SYS", "SPECIAL ORDER 937 — ACTIVATED — SCIENCE DEPT NOTIFIED"},
+								{"[00:00:51]", "SEC", "BULKHEAD DOORS — ALL SEALED — OVERRIDE DISABLED"},
+							} {
+								@logEntry(entry.ts, entry.code, entry.msg)
+							}
 						</div>
 						<!-- snippet:system-log -->
 						<!-- HTMX polling trigger -->
