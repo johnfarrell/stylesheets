@@ -1,0 +1,16 @@
+{
+  "planPath": "docs/plans/2026-03-11-code-review-fixes.md",
+  "tasks": [
+    {"id": 1, "subject": "Task 1: Fix unchecked .Render() errors in handlers/guides.go", "status": "pending"},
+    {"id": 2, "subject": "Task 2: Remove leftover test copy from home.templ", "status": "pending"},
+    {"id": 3, "subject": "Task 3: Add SRI hash to HTMX SSE extension script", "status": "pending"},
+    {"id": 4, "subject": "Task 4: Align Dockerfile Go version with go.mod", "status": "pending"},
+    {"id": 5, "subject": "Task 5: Extract static data from handlers into guide packages", "status": "pending"},
+    {"id": 6, "subject": "Task 6: Add PageFunc to Guide struct and eliminate guideContent() switch", "status": "pending", "blockedBy": [5]},
+    {"id": 7, "subject": "Task 7: Make sidebar responsive with mobile hamburger menu", "status": "pending"},
+    {"id": 8, "subject": "Task 8: Add Cache-Control headers to static file handler", "status": "pending"},
+    {"id": 9, "subject": "Task 9: Replace sort.Strings with slices.Sort in BuildCSSVars", "status": "pending"},
+    {"id": 10, "subject": "Task 10: Add safety comment for templ.Raw in sourceview.templ", "status": "pending"}
+  ],
+  "lastUpdated": "2026-03-11T00:00:00Z"
+}
