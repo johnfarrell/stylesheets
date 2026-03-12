@@ -37,41 +37,16 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		ctx = templ.ClearChildren(ctx)
 		snippets := guides.GetHighlightedSnippets(g.Slug)
 		if htmxRequest {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation --> <span id=\"font-loader\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, templ.Attributes{"hx-swap-oob": "true"})
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link rel=\"stylesheet\" href=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var2 templ.SafeURL
-			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(g.FontURL)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 16, Col: 42}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"></span>")
+			templ_7745c5c3_Err = components.OOBFontLoader(g.FontURL).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->")
+		templ_7745c5c3_Err = components.GuideStyles(g, guideStyles()).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.Raw("<style>:root{"+guides.BuildCSSVars(g.CSSVars)+"}"+guideStyles()+"</style>").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div style=\"background: var(--color-bg); min-height: 100%; padding: 2rem; color: var(--color-text); font-family: var(--font-body);\" x-data x-init=\"Alpine.store('desktop', { topZ: 10 })\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><!-- Guide header --><div class=\"retro-window mb-8\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Welcome to Retro OS</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">_</button> <button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><h1 style=\"font-family: var(--font-display); font-size: var(--font-size-display); line-height: 1.1;\">Retro OS</h1><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.5rem;\">Windowed desktop UI &mdash; beveled borders, draggable windows, taskbar. Win95 aesthetic.</p></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div style=\"background: var(--color-bg); min-height: 100%; padding: 2rem; color: var(--color-text); font-family: var(--font-body);\" x-data x-init=\"Alpine.store('desktop', { topZ: 10 })\"><div style=\"max-width: var(--content-max-width); margin: 0 auto;\"><!-- Guide header --><div class=\"retro-window mb-8\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Welcome to Retro OS</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">_</button> <button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><h1 style=\"font-family: var(--font-display); font-size: var(--font-size-display); line-height: 1.1;\">Retro OS</h1><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.5rem;\">Windowed desktop UI &mdash; beveled borders, draggable windows, taskbar. Win95 aesthetic.</p></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -87,11 +62,11 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<!-- 1. Color Palette -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<!-- 1. Color Palette -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var3 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -103,7 +78,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<div class=\"retro-window\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Color Picker</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><!-- snippet:color-swatch --><div class=\"grid grid-cols-2 sm:grid-cols-3 gap-3\" x-data=\"{ copied: '' }\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<div class=\"retro-window\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Color Picker</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><!-- snippet:color-swatch --><div class=\"grid grid-cols-2 sm:grid-cols-3 gap-3\" x-data=\"{ copied: '' }\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -115,7 +90,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"Text Black", "#000000", "Body text"},
 				{"Border Gray", "#808080", "3D borders"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<div class=\"retro-inset\" style=\"cursor: pointer; padding: 0.5rem;\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div class=\"retro-inset\" style=\"cursor: pointer; padding: 0.5rem;\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -123,77 +98,77 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "><div style=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "><div style=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var3 string
+				templ_7745c5c3_Var3, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + c.hex + "; height: 2rem; border: 1px solid #808080; margin-bottom: 0.25rem;")
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 68, Col: 115}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "\"></div><p style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); font-weight: 700;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var4 string
-				templ_7745c5c3_Var4, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + c.hex + "; height: 2rem; border: 1px solid #808080; margin-bottom: 0.25rem;")
+				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(c.name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 74, Col: 115}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 69, Col: 114}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\"></div><p style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); font-weight: 700;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(c.name)
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(c.hex)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 75, Col: 114}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 70, Col: 80}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "</p><p style=\"font-size: 0.625rem; color: var(--color-text-muted);\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, " &mdash; ")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var6 string
-				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(c.hex)
+				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(c.usage)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 76, Col: 80}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 70, Col: 100}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, " &mdash; ")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</p><p x-show=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var7 string
-				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(c.usage)
+				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs("copied === '" + c.hex + "'")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 76, Col: 100}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 71, Col: 49}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "</p><p x-show=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var8 string
-				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs("copied === '" + c.hex + "'")
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 77, Col: 49}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "\" x-cloak style=\"font-size: 0.625rem; color: var(--color-primary); font-weight: 700; margin-top: 0.15rem;\">Copied!</p></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "\" x-cloak style=\"font-size: 0.625rem; color: var(--color-primary); font-weight: 700; margin-top: 0.15rem;\">Copied!</p></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div><!-- /snippet:color-swatch --><p style=\"margin-top: 0.75rem; font-size: var(--font-size-caption); color: var(--color-text-muted);\">Click any swatch to copy hex value to clipboard.</p></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "</div><!-- /snippet:color-swatch --><p style=\"margin-top: 0.75rem; font-size: var(--font-size-caption); color: var(--color-text-muted);\">Click any swatch to copy hex value to clipboard.</p></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -203,11 +178,37 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Color Palette", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Color Palette", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<!-- 2. Typography -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "<!-- 2. Typography -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var8 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, "<div class=\"retro-window\" style=\"max-width: 600px;\"><div class=\"retro-titlebar\"><span>Notepad - typography.txt</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">_</button> <button class=\"retro-winbtn\">X</button></div></div><div class=\"retro-raised\" style=\"padding: 0.25rem 0.5rem; font-size: 0.625rem;\"><span style=\"text-decoration: underline;\">F</span>ile <span style=\"margin-left: 0.5rem; text-decoration: underline;\">E</span>dit <span style=\"margin-left: 0.5rem; text-decoration: underline;\">F</span>ormat <span style=\"margin-left: 0.5rem; text-decoration: underline;\">H</span>elp</div><div class=\"retro-inset\" style=\"padding: 1rem;\"><div style=\"margin-bottom: 1.25rem;\"><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">DISPLAY &mdash; VT323 2.5rem</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-display); line-height: 1.1;\">C:\\&gt; Hello World</p></div><div style=\"margin-bottom: 1.25rem;\"><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">HEADING &mdash; VT323 1.25rem</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700;\">System Configuration Panel</p></div><div style=\"margin-bottom: 1.25rem;\"><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">BODY &mdash; IBM Plex Sans 0.8125rem</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body);\">The desktop metaphor organizes digital work into familiar physical concepts: windows, folders, files, and a trash can. Every element has weight and dimension.</p></div><div><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">CAPTION &mdash; IBM Plex Sans 0.6875rem</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Status: Ready | Objects: 42 | Free disk space: 1.44 MB</p></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Typography", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var8), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<!-- 3. Spacing Scale -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -223,33 +224,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<div class=\"retro-window\" style=\"max-width: 600px;\"><div class=\"retro-titlebar\"><span>Notepad - typography.txt</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">_</button> <button class=\"retro-winbtn\">X</button></div></div><div class=\"retro-raised\" style=\"padding: 0.25rem 0.5rem; font-size: 0.625rem;\"><span style=\"text-decoration: underline;\">F</span>ile <span style=\"margin-left: 0.5rem; text-decoration: underline;\">E</span>dit <span style=\"margin-left: 0.5rem; text-decoration: underline;\">F</span>ormat <span style=\"margin-left: 0.5rem; text-decoration: underline;\">H</span>elp</div><div class=\"retro-inset\" style=\"padding: 1rem;\"><div style=\"margin-bottom: 1.25rem;\"><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">DISPLAY &mdash; VT323 2.5rem</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-display); line-height: 1.1;\">C:\\&gt; Hello World</p></div><div style=\"margin-bottom: 1.25rem;\"><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">HEADING &mdash; VT323 1.25rem</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 700;\">System Configuration Panel</p></div><div style=\"margin-bottom: 1.25rem;\"><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">BODY &mdash; IBM Plex Sans 0.8125rem</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body);\">The desktop metaphor organizes digital work into familiar physical concepts: windows, folders, files, and a trash can. Every element has weight and dimension.</p></div><div><p style=\"font-size: 0.625rem; color: var(--color-text-muted); margin-bottom: 0.25rem;\">CAPTION &mdash; IBM Plex Sans 0.6875rem</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Status: Ready | Objects: 42 | Free disk space: 1.44 MB</p></div></div></div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			return nil
-		})
-		templ_7745c5c3_Err = components.Section("Typography", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "<!-- 3. Spacing Scale -->")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var10 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-			if !templ_7745c5c3_IsBuffer {
-				defer func() {
-					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-					if templ_7745c5c3_Err == nil {
-						templ_7745c5c3_Err = templ_7745c5c3_BufErr
-					}
-				}()
-			}
-			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "<div class=\"retro-window\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Spacing Scale</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.75rem;\">BASE UNIT: 4px</p>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "<div class=\"retro-window\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Spacing Scale</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.75rem;\">BASE UNIT: 4px</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -262,52 +237,52 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"48px", "48px"},
 				{"64px", "64px"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<div class=\"flex items-center gap-3\" style=\"margin-bottom: 0.35rem;\"><span style=\"width: 2.5rem; font-size: var(--font-size-caption); color: var(--color-text-muted); text-align: right; font-family: var(--font-mono);\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<div class=\"flex items-center gap-3\" style=\"margin-bottom: 0.35rem;\"><span style=\"width: 2.5rem; font-size: var(--font-size-caption); color: var(--color-text-muted); text-align: right; font-family: var(--font-mono);\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var10 string
+				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 151, Col: 165}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "</span><div class=\"retro-raised\" style=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var11 string
-				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
+				templ_7745c5c3_Var11, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; height: 1rem;")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 157, Col: 165}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 152, Col: 81}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "</span><div class=\"retro-raised\" style=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var12 string
-				templ_7745c5c3_Var12, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("width: " + s.width + "; height: 1rem;")
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 158, Col: 81}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "\"><div style=\"width: 100%; height: 100%; background: var(--color-primary);\"></div></div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 18, "\"><div style=\"width: 100%; height: 100%; background: var(--color-primary);\"></div></div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "</div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 19, "</div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Spacing Scale", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Spacing Scale", components.BadgeNone).Render(templ.WithChildren(ctx, templ_7745c5c3_Var9), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<!-- 4. Buttons -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<!-- 4. Buttons -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var13 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Var12 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
 			if !templ_7745c5c3_IsBuffer {
@@ -319,7 +294,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<!-- snippet:buttons --> <div class=\"retro-window\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Buttons</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><!-- Sizes --><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;\">SIZES</p><div class=\"flex flex-wrap items-center gap-2 mb-4\"><button class=\"retro-btn\" style=\"font-size: 0.625rem; padding: 0.15rem 0.5rem;\">Small</button> <button class=\"retro-btn\">Medium</button> <button class=\"retro-btn\" style=\"font-size: var(--font-size-body); padding: 0.35rem 1.5rem;\">Large</button></div><!-- Variants --><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;\">VARIANTS</p><div class=\"flex flex-wrap items-center gap-2 mb-4\"><button class=\"retro-btn\">Default</button> <button class=\"retro-btn retro-btn-primary\">Primary</button> <button class=\"retro-btn\" disabled style=\"color: var(--color-text-muted);\">Disabled</button></div><!-- Toggle: Start Menu --><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;\">TOGGLE DEMO</p><div x-data=\"{ menuOpen: false }\" style=\"position: relative;\"><button class=\"retro-start-btn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 21, "<!-- snippet:buttons --> <div class=\"retro-window\" style=\"max-width: 500px;\"><div class=\"retro-titlebar\"><span>Buttons</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><!-- Sizes --><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;\">SIZES</p><div class=\"flex flex-wrap items-center gap-2 mb-4\"><button class=\"retro-btn\" style=\"font-size: 0.625rem; padding: 0.15rem 0.5rem;\">Small</button> <button class=\"retro-btn\">Medium</button> <button class=\"retro-btn\" style=\"font-size: var(--font-size-body); padding: 0.35rem 1.5rem;\">Large</button></div><!-- Variants --><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;\">VARIANTS</p><div class=\"flex flex-wrap items-center gap-2 mb-4\"><button class=\"retro-btn\">Default</button> <button class=\"retro-btn retro-btn-primary\">Primary</button> <button class=\"retro-btn\" disabled style=\"color: var(--color-text-muted);\">Disabled</button></div><!-- Toggle: Start Menu --><p style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.5rem;\">TOGGLE DEMO</p><div x-data=\"{ menuOpen: false }\" style=\"position: relative;\"><button class=\"retro-start-btn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -331,7 +306,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "><span style=\"font-size: 1rem;\">&#x1F5D4;</span> Start</button><div x-show=\"menuOpen\" x-cloak class=\"retro-raised\" style=\"position: absolute; bottom: 100%; left: 0; width: 200px; margin-bottom: 2px;\"><div style=\"display: flex;\"><div style=\"width: 24px; background: var(--color-primary); writing-mode: vertical-rl; text-orientation: mixed; color: #fff; font-family: var(--font-display); font-size: 0.875rem; padding: 0.5rem 0.25rem; letter-spacing: 0.1em;\">RetroOS</div><div style=\"flex: 1;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 22, "><span style=\"font-size: 1rem;\">&#x1F5D4;</span> Start</button><div x-show=\"menuOpen\" x-cloak class=\"retro-raised\" style=\"position: absolute; bottom: 100%; left: 0; width: 200px; margin-bottom: 2px;\"><div style=\"display: flex;\"><div style=\"width: 24px; background: var(--color-primary); writing-mode: vertical-rl; text-orientation: mixed; color: #fff; font-family: var(--font-display); font-size: 0.875rem; padding: 0.5rem 0.25rem; letter-spacing: 0.1em;\">RetroOS</div><div style=\"flex: 1;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -342,7 +317,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"&#x1F50D;", "Find"},
 				{"&#x2753;", "Help"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "<div style=\"padding: 0.35rem 0.5rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: var(--font-size-caption);\" class=\"hover:bg-[#000080] hover:text-white\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<div style=\"padding: 0.35rem 0.5rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: var(--font-size-caption);\" class=\"hover:bg-[#000080] hover:text-white\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -350,25 +325,25 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<span>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, "<span>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var14 string
-				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(item.label)
+				var templ_7745c5c3_Var13 string
+				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(item.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 217, Col: 30}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 211, Col: 30}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "</span></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "</span></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<div style=\"border-top: 1px solid #808080; margin: 0.15rem 0.25rem;\"></div><div style=\"padding: 0.35rem 0.5rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: var(--font-size-caption);\" class=\"hover:bg-[#000080] hover:text-white\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 26, "<div style=\"border-top: 1px solid #808080; margin: 0.15rem 0.25rem;\"></div><div style=\"padding: 0.35rem 0.5rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: var(--font-size-caption);\" class=\"hover:bg-[#000080] hover:text-white\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -376,7 +351,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, ">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, ">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -384,7 +359,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<span>Shut Down...</span></div></div></div></div></div></div></div><!-- /snippet:buttons --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 28, "<span>Shut Down...</span></div></div></div></div></div></div></div><!-- /snippet:buttons --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -394,11 +369,41 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Buttons", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var13), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Buttons", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var12), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, "<!-- 5. Forms -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 29, "<!-- 5. Forms -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var14 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+			if !templ_7745c5c3_IsBuffer {
+				defer func() {
+					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+					if templ_7745c5c3_Err == nil {
+						templ_7745c5c3_Err = templ_7745c5c3_BufErr
+					}
+				}()
+			}
+			ctx = templ.InitializeContext(ctx)
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, "<!-- snippet:forms --> <div class=\"retro-window\" style=\"max-width: 450px;\"><div class=\"retro-titlebar\"><span>System Properties</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><form hx-post=\"/guides/retro/demo-form\" hx-target=\"#retro-form-result\" hx-swap=\"innerHTML\"><div style=\"margin-bottom: 0.75rem;\"><label style=\"display: block; font-size: var(--font-size-caption); margin-bottom: 0.25rem;\">Computer Name:</label> <input type=\"text\" name=\"name\" class=\"retro-input\" placeholder=\"MY-COMPUTER\"></div><div style=\"margin-bottom: 0.75rem;\"><label style=\"display: block; font-size: var(--font-size-caption); margin-bottom: 0.25rem;\">Workgroup:</label> <select name=\"workgroup\" class=\"retro-input\" style=\"padding: 0.2rem;\"><option>WORKGROUP</option> <option>HOME</option> <option>OFFICE</option></select></div><div style=\"margin-bottom: 0.75rem;\"><label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer;\"><input type=\"checkbox\" class=\"retro-check\" checked> Enable network discovery</label> <label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer; margin-top: 0.25rem;\"><input type=\"checkbox\" class=\"retro-check\"> Share printers</label></div><div style=\"margin-bottom: 0.75rem;\"><p style=\"font-size: var(--font-size-caption); margin-bottom: 0.25rem;\">Startup Mode:</p><label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer;\"><input type=\"radio\" name=\"startup\" value=\"normal\" class=\"retro-check\" checked> Normal</label> <label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer; margin-top: 0.15rem;\"><input type=\"radio\" name=\"startup\" value=\"safe\" class=\"retro-check\"> Safe Mode</label></div><div class=\"flex justify-end gap-2\"><button type=\"submit\" class=\"retro-btn retro-btn-primary\" style=\"min-width: 75px;\">OK</button> <button type=\"reset\" class=\"retro-btn\" style=\"min-width: 75px;\">Cancel</button></div></form></div></div><!-- /snippet:forms --> <!-- Message Box for form response --> <div id=\"retro-form-result\" style=\"margin-top: 0.75rem;\"></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SourceView(snippets["forms"]).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			return nil
+		})
+		templ_7745c5c3_Err = components.Section("Forms", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var14), templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<!-- 6. Cards/Panels -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -414,37 +419,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<!-- snippet:forms --> <div class=\"retro-window\" style=\"max-width: 450px;\"><div class=\"retro-titlebar\"><span>System Properties</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">X</button></div></div><div style=\"padding: 1rem;\"><form hx-post=\"/guides/retro/demo-form\" hx-target=\"#retro-form-result\" hx-swap=\"innerHTML\"><div style=\"margin-bottom: 0.75rem;\"><label style=\"display: block; font-size: var(--font-size-caption); margin-bottom: 0.25rem;\">Computer Name:</label> <input type=\"text\" name=\"name\" class=\"retro-input\" placeholder=\"MY-COMPUTER\"></div><div style=\"margin-bottom: 0.75rem;\"><label style=\"display: block; font-size: var(--font-size-caption); margin-bottom: 0.25rem;\">Workgroup:</label> <select name=\"workgroup\" class=\"retro-input\" style=\"padding: 0.2rem;\"><option>WORKGROUP</option> <option>HOME</option> <option>OFFICE</option></select></div><div style=\"margin-bottom: 0.75rem;\"><label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer;\"><input type=\"checkbox\" class=\"retro-check\" checked> Enable network discovery</label> <label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer; margin-top: 0.25rem;\"><input type=\"checkbox\" class=\"retro-check\"> Share printers</label></div><div style=\"margin-bottom: 0.75rem;\"><p style=\"font-size: var(--font-size-caption); margin-bottom: 0.25rem;\">Startup Mode:</p><label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer;\"><input type=\"radio\" name=\"startup\" value=\"normal\" class=\"retro-check\" checked> Normal</label> <label style=\"display: flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-caption); cursor: pointer; margin-top: 0.15rem;\"><input type=\"radio\" name=\"startup\" value=\"safe\" class=\"retro-check\"> Safe Mode</label></div><div class=\"flex justify-end gap-2\"><button type=\"submit\" class=\"retro-btn retro-btn-primary\" style=\"min-width: 75px;\">OK</button> <button type=\"reset\" class=\"retro-btn\" style=\"min-width: 75px;\">Cancel</button></div></form></div></div><!-- /snippet:forms --> <!-- Message Box for form response --> <div id=\"retro-form-result\" style=\"margin-top: 0.75rem;\"></div>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = components.SourceView(snippets["forms"]).Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			return nil
-		})
-		templ_7745c5c3_Err = components.Section("Forms", components.BadgeBoth).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "<!-- 6. Cards/Panels -->")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var16 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-			if !templ_7745c5c3_IsBuffer {
-				defer func() {
-					templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-					if templ_7745c5c3_Err == nil {
-						templ_7745c5c3_Err = templ_7745c5c3_BufErr
-					}
-				}()
-			}
-			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "<!-- snippet:cards --> <div class=\"grid grid-cols-1 sm:grid-cols-2 gap-4\" style=\"max-width: 700px;\"><!-- Closeable window --><div x-data=\"{ open: true }\"><div class=\"retro-window\" x-show=\"open\" x-cloak><div class=\"retro-titlebar\"><span>My Computer</span> <button class=\"retro-winbtn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 32, "<!-- snippet:cards --> <div class=\"grid grid-cols-1 sm:grid-cols-2 gap-4\" style=\"max-width: 700px;\"><!-- Closeable window --><div x-data=\"{ open: true }\"><div class=\"retro-window\" x-show=\"open\" x-cloak><div class=\"retro-titlebar\"><span>My Computer</span> <button class=\"retro-winbtn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -452,7 +427,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, ">X</button></div><div style=\"padding: 0.75rem; font-size: var(--font-size-caption);\"><div class=\"flex items-center gap-2\" style=\"margin-bottom: 0.5rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 33, ">X</button></div><div style=\"padding: 0.75rem; font-size: var(--font-size-caption);\"><div class=\"flex items-center gap-2\" style=\"margin-bottom: 0.5rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -460,7 +435,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<span>3.5 Floppy (A:)</span></div><div class=\"flex items-center gap-2\" style=\"margin-bottom: 0.5rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 34, "<span>3.5 Floppy (A:)</span></div><div class=\"flex items-center gap-2\" style=\"margin-bottom: 0.5rem;\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -468,7 +443,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<span>Local Disk (C:)</span></div><div class=\"flex items-center gap-2\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "<span>Local Disk (C:)</span></div><div class=\"flex items-center gap-2\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -476,7 +451,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "<span>CD-ROM (D:)</span></div></div></div><button x-show=\"!open\" class=\"retro-btn\" style=\"font-size: var(--font-size-caption);\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "<span>CD-ROM (D:)</span></div></div></div><button x-show=\"!open\" class=\"retro-btn\" style=\"font-size: var(--font-size-caption);\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -484,7 +459,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, ">Reopen My Computer</button></div><!-- Minimizable window --><div x-data=\"{ minimized: false }\"><div class=\"retro-window\"><div class=\"retro-titlebar\"><span>Control Panel</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 37, ">Reopen My Computer</button></div><!-- Minimizable window --><div x-data=\"{ minimized: false }\"><div class=\"retro-window\"><div class=\"retro-titlebar\"><span>Control Panel</span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -492,7 +467,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, ">_</button></div></div><div x-show=\"!minimized\" style=\"padding: 0.75rem; font-size: var(--font-size-caption);\"><div class=\"grid grid-cols-3 gap-3 text-center\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, ">_</button></div></div><div x-show=\"!minimized\" style=\"padding: 0.75rem; font-size: var(--font-size-caption);\"><div class=\"grid grid-cols-3 gap-3 text-center\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -504,7 +479,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				{"&#x1F310;", "Network"},
 				{"&#x1F512;", "Security"},
 			} {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, "<div style=\"cursor: pointer; padding: 0.35rem;\" class=\"hover:bg-[#000080] hover:text-white\"><div style=\"font-size: 1.25rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 39, "<div style=\"cursor: pointer; padding: 0.35rem;\" class=\"hover:bg-[#000080] hover:text-white\"><div style=\"font-size: 1.25rem;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -512,25 +487,25 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "</div><div style=\"font-size: 0.625rem; margin-top: 0.15rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 40, "</div><div style=\"font-size: 0.625rem; margin-top: 0.15rem;\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var17 string
-				templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(item.label)
+				var templ_7745c5c3_Var16 string
+				templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(item.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 345, Col: 78}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/retro/retro.templ`, Line: 339, Col: 78}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, "</div></div>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, "</div></div>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "</div></div></div></div><!-- Another closeable window --><div x-data=\"{ open: true }\"><div class=\"retro-window\" x-show=\"open\" x-cloak><div class=\"retro-titlebar\"><span>Recycle Bin</span> <button class=\"retro-winbtn\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 42, "</div></div></div></div><!-- Another closeable window --><div x-data=\"{ open: true }\"><div class=\"retro-window\" x-show=\"open\" x-cloak><div class=\"retro-titlebar\"><span>Recycle Bin</span> <button class=\"retro-winbtn\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -538,7 +513,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, ">X</button></div><div style=\"padding: 0.75rem; font-size: var(--font-size-caption); text-align: center; color: var(--color-text-muted);\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 43, ">X</button></div><div style=\"padding: 0.75rem; font-size: var(--font-size-caption); text-align: center; color: var(--color-text-muted);\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -546,7 +521,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "<p style=\"margin-top: 0.25rem;\">Recycle Bin is empty.</p></div></div><button x-show=\"!open\" class=\"retro-btn\" style=\"font-size: var(--font-size-caption);\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 44, "<p style=\"margin-top: 0.25rem;\">Recycle Bin is empty.</p></div></div><button x-show=\"!open\" class=\"retro-btn\" style=\"font-size: var(--font-size-caption);\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -554,7 +529,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, ">Reopen Recycle Bin</button></div><!-- Info panel --><div class=\"retro-window\"><div class=\"retro-titlebar retro-titlebar-inactive\"><span>System Info</span></div><div style=\"padding: 0.75rem; font-size: var(--font-size-caption);\"><table style=\"width: 100%; border-collapse: collapse;\"><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">OS:</td><td style=\"padding: 0.15rem 0;\">Retro OS 95</td></tr><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">CPU:</td><td style=\"padding: 0.15rem 0;\">Pentium 133MHz</td></tr><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">RAM:</td><td style=\"padding: 0.15rem 0;\">32 MB</td></tr><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">Disk:</td><td style=\"padding: 0.15rem 0;\">1.2 GB</td></tr></table></div></div></div><!-- /snippet:cards --> ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 45, ">Reopen Recycle Bin</button></div><!-- Info panel --><div class=\"retro-window\"><div class=\"retro-titlebar retro-titlebar-inactive\"><span>System Info</span></div><div style=\"padding: 0.75rem; font-size: var(--font-size-caption);\"><table style=\"width: 100%; border-collapse: collapse;\"><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">OS:</td><td style=\"padding: 0.15rem 0;\">Retro OS 95</td></tr><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">CPU:</td><td style=\"padding: 0.15rem 0;\">Pentium 133MHz</td></tr><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">RAM:</td><td style=\"padding: 0.15rem 0;\">32 MB</td></tr><tr><td style=\"padding: 0.15rem 0; color: var(--color-text-muted);\">Disk:</td><td style=\"padding: 0.15rem 0;\">1.2 GB</td></tr></table></div></div></div><!-- /snippet:cards --> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -564,11 +539,11 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = components.Section("Cards / Panels", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var16), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Section("Cards / Panels", components.BadgeAlpine).Render(templ.WithChildren(ctx, templ_7745c5c3_Var15), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "<!-- 7. Draggable Windows --><section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold text-gray-700 uppercase tracking-widest\" style=\"color: #fff; text-shadow: 1px 1px 2px #000;\">Draggable Windows</h2><span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200\">[Alpine]</span></div><!-- snippet:draggable --><div style=\"position: relative; min-height: 350px; border: 2px dashed rgba(255,255,255,0.3); padding: 1rem;\" x-data=\"{\n\t\t\t\t\t\twins: [\n\t\t\t\t\t\t\t{ id: 'drag1', title: 'README.txt', x: 10, y: 10, z: 11, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'This is a draggable Notepad window.\\nTry dragging the title bar!' },\n\t\t\t\t\t\t\t{ id: 'drag2', title: 'SYSTEM.LOG', x: 220, y: 50, z: 12, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'System boot completed.\\nAll services running.\\n640K ought to be enough.' },\n\t\t\t\t\t\t\t{ id: 'drag3', title: 'HELP.TXT', x: 80, y: 120, z: 13, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'Drag windows by their title bar.\\nClick a window to bring it to front.\\nResize is not supported (yet).' }\n\t\t\t\t\t\t],\n\t\t\t\t\t\tbringToFront(win) {\n\t\t\t\t\t\t\tAlpine.store('desktop').topZ++;\n\t\t\t\t\t\t\twin.z = Alpine.store('desktop').topZ;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstartDrag(win, e) {\n\t\t\t\t\t\t\tthis.bringToFront(win);\n\t\t\t\t\t\t\twin.dragging = true;\n\t\t\t\t\t\t\twin.startX = e.clientX;\n\t\t\t\t\t\t\twin.startY = e.clientY;\n\t\t\t\t\t\t\twin.origX = win.x;\n\t\t\t\t\t\t\twin.origY = win.y;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tonDrag(e) {\n\t\t\t\t\t\t\tfor (let w of this.wins) {\n\t\t\t\t\t\t\t\tif (w.dragging) {\n\t\t\t\t\t\t\t\t\tw.x = w.origX + (e.clientX - w.startX);\n\t\t\t\t\t\t\t\t\tw.y = w.origY + (e.clientY - w.startY);\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstopDrag() {\n\t\t\t\t\t\t\tfor (let w of this.wins) { w.dragging = false; }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 46, "<!-- 7. Draggable Windows --><section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold text-gray-700 uppercase tracking-widest\" style=\"color: #fff; text-shadow: 1px 1px 2px #000;\">Draggable Windows</h2><span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200\">[Alpine]</span></div><!-- snippet:draggable --><div style=\"position: relative; min-height: 350px; border: 2px dashed rgba(255,255,255,0.3); padding: 1rem;\" x-data=\"{\n\t\t\t\t\t\twins: [\n\t\t\t\t\t\t\t{ id: 'drag1', title: 'README.txt', x: 10, y: 10, z: 11, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'This is a draggable Notepad window.\\nTry dragging the title bar!' },\n\t\t\t\t\t\t\t{ id: 'drag2', title: 'SYSTEM.LOG', x: 220, y: 50, z: 12, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'System boot completed.\\nAll services running.\\n640K ought to be enough.' },\n\t\t\t\t\t\t\t{ id: 'drag3', title: 'HELP.TXT', x: 80, y: 120, z: 13, dragging: false, startX: 0, startY: 0, origX: 0, origY: 0, content: 'Drag windows by their title bar.\\nClick a window to bring it to front.\\nResize is not supported (yet).' }\n\t\t\t\t\t\t],\n\t\t\t\t\t\tbringToFront(win) {\n\t\t\t\t\t\t\tAlpine.store('desktop').topZ++;\n\t\t\t\t\t\t\twin.z = Alpine.store('desktop').topZ;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstartDrag(win, e) {\n\t\t\t\t\t\t\tthis.bringToFront(win);\n\t\t\t\t\t\t\twin.dragging = true;\n\t\t\t\t\t\t\twin.startX = e.clientX;\n\t\t\t\t\t\t\twin.startY = e.clientY;\n\t\t\t\t\t\t\twin.origX = win.x;\n\t\t\t\t\t\t\twin.origY = win.y;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tonDrag(e) {\n\t\t\t\t\t\t\tfor (let w of this.wins) {\n\t\t\t\t\t\t\t\tif (w.dragging) {\n\t\t\t\t\t\t\t\t\tw.x = w.origX + (e.clientX - w.startX);\n\t\t\t\t\t\t\t\t\tw.y = w.origY + (e.clientY - w.startY);\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstopDrag() {\n\t\t\t\t\t\t\tfor (let w of this.wins) { w.dragging = false; }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -580,7 +555,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "><template x-for=\"win in wins\" x-bind:key=\"win.id\"><div class=\"retro-window\" style=\"position: absolute; width: 240px;\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 47, "><template x-for=\"win in wins\" x-bind:key=\"win.id\"><div class=\"retro-window\" style=\"position: absolute; width: 240px;\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -592,7 +567,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "><div class=\"retro-titlebar\" style=\"cursor: move;\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 48, "><div class=\"retro-titlebar\" style=\"cursor: move;\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -600,7 +575,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "><span x-text=\"win.title\"></span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">_</button> <button class=\"retro-winbtn\">X</button></div></div><div class=\"retro-inset\" style=\"padding: 0.5rem; margin: 0.25rem; font-size: var(--font-size-caption); white-space: pre-line; min-height: 60px;\"><span x-text=\"win.content\"></span></div></div></template><p style=\"position: absolute; bottom: 0.5rem; right: 0.5rem; font-size: 0.625rem; color: rgba(255,255,255,0.5);\">Drag title bars to move. Click to bring to front.</p></div><!-- /snippet:draggable -->")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 49, "><span x-text=\"win.title\"></span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\">_</button> <button class=\"retro-winbtn\">X</button></div></div><div class=\"retro-inset\" style=\"padding: 0.5rem; margin: 0.25rem; font-size: var(--font-size-caption); white-space: pre-line; min-height: 60px;\"><span x-text=\"win.content\"></span></div></div></template><p style=\"position: absolute; bottom: 0.5rem; right: 0.5rem; font-size: 0.625rem; color: rgba(255,255,255,0.5);\">Drag title bars to move. Click to bring to front.</p></div><!-- /snippet:draggable -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -608,7 +583,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "</section><!-- 8. Desktop Icons + HTMX Load & 9. Taskbar --><section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold text-gray-700 uppercase tracking-widest\" style=\"color: #fff; text-shadow: 1px 1px 2px #000;\">Desktop &amp; Taskbar</h2><span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200\">[HTMX]</span> <span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200\">[Alpine]</span></div><!-- snippet:desktop --><div style=\"position: relative; background: var(--color-bg); border: 2px solid #808080; min-height: 450px; overflow: hidden;\" x-data=\"{\n\t\t\t\t\t\tapps: [\n\t\t\t\t\t\t\t{ name: 'about', label: 'About', icon: '&#x1F5A5;', open: false, x: 50, y: 30, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 },\n\t\t\t\t\t\t\t{ name: 'calculator', label: 'Calculator', icon: '&#x1F522;', open: false, x: 200, y: 50, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 },\n\t\t\t\t\t\t\t{ name: 'files', label: 'File Manager', icon: '&#x1F4C1;', open: false, x: 100, y: 80, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 }\n\t\t\t\t\t\t],\n\t\t\t\t\t\topenApp(app) {\n\t\t\t\t\t\t\tapp.open = true;\n\t\t\t\t\t\t\tAlpine.store('desktop').topZ++;\n\t\t\t\t\t\t\tapp.z = Alpine.store('desktop').topZ;\n\t\t\t\t\t\t\tif (!app.loaded) {\n\t\t\t\t\t\t\t\thtmx.trigger(document.getElementById('retro-app-' + app.name), 'load-app');\n\t\t\t\t\t\t\t\tapp.loaded = true;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tcloseApp(app) {\n\t\t\t\t\t\t\tapp.open = false;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tbringFront(app) {\n\t\t\t\t\t\t\tAlpine.store('desktop').topZ++;\n\t\t\t\t\t\t\tapp.z = Alpine.store('desktop').topZ;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstartDrag(app, e) {\n\t\t\t\t\t\t\tthis.bringFront(app);\n\t\t\t\t\t\t\tapp.dragging = true;\n\t\t\t\t\t\t\tapp.startX = e.clientX;\n\t\t\t\t\t\t\tapp.startY = e.clientY;\n\t\t\t\t\t\t\tapp.origX = app.x;\n\t\t\t\t\t\t\tapp.origY = app.y;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tonMove(e) {\n\t\t\t\t\t\t\tfor (let a of this.apps) {\n\t\t\t\t\t\t\t\tif (a.dragging) {\n\t\t\t\t\t\t\t\t\ta.x = a.origX + (e.clientX - a.startX);\n\t\t\t\t\t\t\t\t\ta.y = a.origY + (e.clientY - a.startY);\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstopMove() {\n\t\t\t\t\t\t\tfor (let a of this.apps) { a.dragging = false; }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 50, "</section><!-- 8. Desktop Icons + HTMX Load & 9. Taskbar --><section class=\"mb-12\"><div class=\"flex items-center gap-3 mb-6\"><h2 class=\"text-lg font-semibold text-gray-700 uppercase tracking-widest\" style=\"color: #fff; text-shadow: 1px 1px 2px #000;\">Desktop &amp; Taskbar</h2><span class=\"px-2 py-0.5 text-xs font-mono bg-blue-100 text-blue-700 rounded border border-blue-200\">[HTMX]</span> <span class=\"px-2 py-0.5 text-xs font-mono bg-green-100 text-green-700 rounded border border-green-200\">[Alpine]</span></div><!-- snippet:desktop --><div style=\"position: relative; background: var(--color-bg); border: 2px solid #808080; min-height: 450px; overflow: hidden;\" x-data=\"{\n\t\t\t\t\t\tapps: [\n\t\t\t\t\t\t\t{ name: 'about', label: 'About', icon: '&#x1F5A5;', open: false, x: 50, y: 30, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 },\n\t\t\t\t\t\t\t{ name: 'calculator', label: 'Calculator', icon: '&#x1F522;', open: false, x: 200, y: 50, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 },\n\t\t\t\t\t\t\t{ name: 'files', label: 'File Manager', icon: '&#x1F4C1;', open: false, x: 100, y: 80, z: 10, loaded: false, dragging: false, startX:0, startY:0, origX:0, origY:0 }\n\t\t\t\t\t\t],\n\t\t\t\t\t\topenApp(app) {\n\t\t\t\t\t\t\tapp.open = true;\n\t\t\t\t\t\t\tAlpine.store('desktop').topZ++;\n\t\t\t\t\t\t\tapp.z = Alpine.store('desktop').topZ;\n\t\t\t\t\t\t\tif (!app.loaded) {\n\t\t\t\t\t\t\t\thtmx.trigger(document.getElementById('retro-app-' + app.name), 'load-app');\n\t\t\t\t\t\t\t\tapp.loaded = true;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tcloseApp(app) {\n\t\t\t\t\t\t\tapp.open = false;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tbringFront(app) {\n\t\t\t\t\t\t\tAlpine.store('desktop').topZ++;\n\t\t\t\t\t\t\tapp.z = Alpine.store('desktop').topZ;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstartDrag(app, e) {\n\t\t\t\t\t\t\tthis.bringFront(app);\n\t\t\t\t\t\t\tapp.dragging = true;\n\t\t\t\t\t\t\tapp.startX = e.clientX;\n\t\t\t\t\t\t\tapp.startY = e.clientY;\n\t\t\t\t\t\t\tapp.origX = app.x;\n\t\t\t\t\t\t\tapp.origY = app.y;\n\t\t\t\t\t\t},\n\t\t\t\t\t\tonMove(e) {\n\t\t\t\t\t\t\tfor (let a of this.apps) {\n\t\t\t\t\t\t\t\tif (a.dragging) {\n\t\t\t\t\t\t\t\t\ta.x = a.origX + (e.clientX - a.startX);\n\t\t\t\t\t\t\t\t\ta.y = a.origY + (e.clientY - a.startY);\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\t\tstopMove() {\n\t\t\t\t\t\t\tfor (let a of this.apps) { a.dragging = false; }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -624,7 +599,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, "><!-- Desktop icons --><div class=\"flex gap-6\" style=\"padding: 1rem;\"><template x-for=\"app in apps\" x-bind:key=\"app.name\"><div class=\"retro-icon\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 51, "><!-- Desktop icons --><div class=\"flex gap-6\" style=\"padding: 1rem;\"><template x-for=\"app in apps\" x-bind:key=\"app.name\"><div class=\"retro-icon\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -632,7 +607,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, "><div class=\"retro-icon-img\" x-html=\"app.icon\"></div><span x-text=\"app.label\" style=\"font-size: var(--font-size-caption);\"></span></div></template></div><!-- App windows --><template x-for=\"app in apps\" x-bind:key=\"'win-' + app.name\"><div x-show=\"app.open\" x-cloak class=\"retro-window\" style=\"position: absolute; width: 280px;\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 52, "><div class=\"retro-icon-img\" x-html=\"app.icon\"></div><span x-text=\"app.label\" style=\"font-size: var(--font-size-caption);\"></span></div></template></div><!-- App windows --><template x-for=\"app in apps\" x-bind:key=\"'win-' + app.name\"><div x-show=\"app.open\" x-cloak class=\"retro-window\" style=\"position: absolute; width: 280px;\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -644,7 +619,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, "><div class=\"retro-titlebar\" style=\"cursor: move;\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 53, "><div class=\"retro-titlebar\" style=\"cursor: move;\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -652,7 +627,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "><span x-text=\"app.label\"></span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 54, "><span x-text=\"app.label\"></span><div class=\"flex gap-0.5\"><button class=\"retro-winbtn\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -660,7 +635,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, ">X</button></div></div><div")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 55, ">X</button></div></div><div")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -668,7 +643,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, " hx-swap=\"innerHTML\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 56, " hx-swap=\"innerHTML\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -684,7 +659,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 61, " style=\"min-height: 60px;\"><div style=\"padding: 1rem; text-align: center; font-size: var(--font-size-caption); color: var(--color-text-muted);\">Loading...</div></div></div></template><!-- Taskbar --><div class=\"retro-taskbar\" style=\"position: absolute; bottom: 0; left: 0; right: 0;\"><button class=\"retro-start-btn\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 57, " style=\"min-height: 60px;\"><div style=\"padding: 1rem; text-align: center; font-size: var(--font-size-caption); color: var(--color-text-muted);\">Loading...</div></div></div></template><!-- Taskbar --><div class=\"retro-taskbar\" style=\"position: absolute; bottom: 0; left: 0; right: 0;\"><button class=\"retro-start-btn\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -692,7 +667,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 62, "<span style=\"font-weight: 700;\">Start</span></button><div style=\"width: 1px; height: 1.25rem; background: #808080; margin: 0 0.15rem;\"></div><template x-for=\"app in apps\" x-bind:key=\"'tb-' + app.name\"><button x-show=\"app.loaded\" class=\"retro-taskbar-btn\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 58, "<span style=\"font-weight: 700;\">Start</span></button><div style=\"width: 1px; height: 1.25rem; background: #808080; margin: 0 0.15rem;\"></div><template x-for=\"app in apps\" x-bind:key=\"'tb-' + app.name\"><button x-show=\"app.loaded\" class=\"retro-taskbar-btn\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -704,7 +679,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 63, " x-text=\"app.label\"></button></template><div style=\"flex: 1;\"></div><div class=\"retro-inset\" style=\"padding: 0.1rem 0.5rem; font-size: 0.625rem; font-family: var(--font-mono);\">12:00 PM</div></div></div><!-- /snippet:desktop --><p style=\"margin-top: 0.5rem; font-size: var(--font-size-caption); color: rgba(255,255,255,0.6);\">Double-click desktop icons to open. App content is lazy-loaded via HTMX. Drag windows by title bar. Taskbar shows open apps.</p>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 59, " x-text=\"app.label\"></button></template><div style=\"flex: 1;\"></div><div class=\"retro-inset\" style=\"padding: 0.1rem 0.5rem; font-size: 0.625rem; font-family: var(--font-mono);\">12:00 PM</div></div></div><!-- /snippet:desktop --><p style=\"margin-top: 0.5rem; font-size: var(--font-size-caption); color: rgba(255,255,255,0.6);\">Double-click desktop icons to open. App content is lazy-loaded via HTMX. Drag windows by title bar. Taskbar shows open apps.</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -712,7 +687,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 64, "</section></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 60, "</section></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

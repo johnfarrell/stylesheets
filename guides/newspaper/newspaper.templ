@@ -9,14 +9,9 @@ import (
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	if htmxRequest {
-		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
-		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link rel="stylesheet" href={ g.FontURL }/>
-		</span>
+		@components.OOBFontLoader(g.FontURL)
 	}
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	@components.GuideStyles(g, guideStyles())
 	<!-- 9. Reading Progress Bar (fixed at top) -->
 	<!-- snippet:reading-progress -->
 	<div x-data="{ progress: 0 }"

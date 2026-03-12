@@ -9,15 +9,9 @@ import (
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	if htmxRequest {
-		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
-		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link rel="stylesheet" href={ g.FontURL }/>
-		</span>
+		@components.OOBFontLoader(g.FontURL)
 	}
-	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	@components.GuideStyles(g, guideStyles())
 	<div style="background: var(--color-bg); color: var(--color-text); min-height: 100%;">
 	<div class="mx-auto px-6 py-16" style="max-width: var(--content-max-width); font-family: var(--font-body);">
 		<!-- Guide header -->

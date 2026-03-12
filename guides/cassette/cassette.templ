@@ -9,13 +9,9 @@ import (
 // Page renders the full Cassette style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	@components.GuideStyles(g, guideStyles())
 	if htmxRequest {
-		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link rel="stylesheet" href={ g.FontURL }/>
-		</span>
+		@components.OOBFontLoader(g.FontURL)
 	}
 	<div class="cass-body min-h-screen">
 	<div style="padding: var(--section-padding); max-width: var(--content-max-width); margin: 0 auto;">

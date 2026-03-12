@@ -8,13 +8,9 @@ import (
 // Page renders the Tracker style guide showcase.
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	@components.GuideStyles(g, guideStyles())
 	if htmxRequest {
-		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link rel="stylesheet" href={ g.FontURL }/>
-		</span>
+		@components.OOBFontLoader(g.FontURL)
 	}
 	<div style="background: var(--color-bg); min-height: 100%; padding: var(--section-padding); color: var(--color-text); font-family: var(--font-body);">
 		<div style="max-width: var(--content-max-width); margin: 0 auto;">
