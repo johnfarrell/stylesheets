@@ -18,6 +18,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
 	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	<div style="background: var(--color-bg); color: var(--color-text); min-height: 100%;">
 	<div class="mx-auto px-6 py-16" style="max-width: var(--content-max-width); font-family: var(--font-body);">
 		<!-- Guide header -->
 		<div class="mb-16">
@@ -303,6 +304,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:lazy-load -->
 			@components.SourceView(snippets["lazy-load"])
 		}
+	</div>
 	</div>
 }
 

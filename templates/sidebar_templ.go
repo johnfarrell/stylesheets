@@ -156,7 +156,7 @@ func Sidebar(allGuides []guides.Guide, activeSlug string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</ul><div class=\"p-4 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-2\"><div x-data=\"{ dark: localStorage.getItem('theme') === 'dark' }\" x-init=\"if (dark) document.documentElement.setAttribute('data-theme', 'dark')\" class=\"flex items-center justify-between\"><span class=\"text-xs text-gray-400 dark:text-gray-500\">Theme</span> <button class=\"relative w-10 h-5 rounded-full transition-colors duration-200\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</ul><div class=\"p-4 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-2 shrink-0\"><div x-data=\"{ dark: localStorage.getItem('theme') === 'dark' }\" x-init=\"if (dark) document.documentElement.setAttribute('data-theme', 'dark')\" class=\"flex items-center justify-between\"><span class=\"text-xs text-gray-400 dark:text-gray-500\">Theme</span> <button class=\"relative w-10 h-5 rounded-full bg-gray-300 transition-colors duration-200\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

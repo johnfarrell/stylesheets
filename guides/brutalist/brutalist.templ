@@ -18,6 +18,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 	}
 	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
 	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	<div style="background: var(--color-bg); color: var(--color-text); min-height: 100%;">
 	<div class="p-8 max-w-4xl mx-auto font-mono">
 		<!-- Guide header -->
 		<div class="mb-12 border-b-4 pb-6" style="border-color: var(--border-color)">
@@ -312,6 +313,7 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<!-- /snippet:tabs -->
 			@components.SourceView(snippets["tabs"])
 		}
+	</div>
 	</div>
 }
 

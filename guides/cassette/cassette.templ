@@ -17,7 +17,8 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			<link rel="stylesheet" href={ g.FontURL }/>
 		</span>
 	}
-	<div class="cass-body min-h-screen" style="padding: var(--section-padding); max-width: var(--content-max-width); margin: 0 auto;">
+	<div class="cass-body min-h-screen">
+	<div style="padding: var(--section-padding); max-width: var(--content-max-width); margin: 0 auto;">
 
 		<!-- MASTHEAD -->
 		<div class="mb-8 pb-4" style="border-bottom: 2px solid var(--color-text);">
@@ -1576,5 +1577,6 @@ templ Page(g guides.Guide, htmxRequest bool) {
 			@components.SourceView(snippets["modal"])
 		}
 
+	</div>
 	</div>
 }

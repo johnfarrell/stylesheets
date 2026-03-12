@@ -71,7 +71,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"p-8 max-w-4xl mx-auto font-mono\"><!-- Guide header --><div class=\"mb-12 border-b-4 pb-6\" style=\"border-color: var(--border-color)\"><h1 class=\"text-5xl font-bold uppercase tracking-tight mb-2\" style=\"font-family: var(--font-display)\">Brutalist</h1><p class=\"text-sm\" style=\"color: var(--color-text-muted)\">Raw. Functional. Unapologetic. Heavy borders, stark contrast, no rounded corners.</p></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div style=\"background: var(--color-bg); color: var(--color-text); min-height: 100%;\"><div class=\"p-8 max-w-4xl mx-auto font-mono\"><!-- Guide header --><div class=\"mb-12 border-b-4 pb-6\" style=\"border-color: var(--border-color)\"><h1 class=\"text-5xl font-bold uppercase tracking-tight mb-2\" style=\"font-family: var(--font-display)\">Brutalist</h1><p class=\"text-sm\" style=\"color: var(--color-text-muted)\">Raw. Functional. Unapologetic. Heavy borders, stark contrast, no rounded corners.</p></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -204,7 +204,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(s.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 94, Col: 91}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 95, Col: 91}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -217,7 +217,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: var(--color-primary); width: " + s.width)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 95, Col: 84}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 96, Col: 84}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -357,7 +357,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs("// Raw data block")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 262, Col: 31}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 263, Col: 31}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
@@ -424,7 +424,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var13 string
 				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(t.label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 297, Col: 16}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 298, Col: 16}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 				if templ_7745c5c3_Err != nil {
@@ -449,7 +449,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 36, "</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -486,7 +486,7 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs("{ copied: false, hex: '" + hex + "' }")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 321, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 323, Col: 50}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -507,7 +507,7 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("border-color: var(--border-color); background: " + cssVar)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 327, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 329, Col: 69}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
@@ -520,7 +520,7 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 329, Col: 57}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 331, Col: 57}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
@@ -533,7 +533,7 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs("copied ? 'Copied!' : '" + hex + "'")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 330, Col: 115}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 332, Col: 115}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -546,7 +546,7 @@ func colorSwatch(name, cssVar, hex string) templ.Component {
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(hex)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 330, Col: 123}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/brutalist/brutalist.templ`, Line: 332, Col: 123}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {
