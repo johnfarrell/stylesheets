@@ -22,7 +22,7 @@ templ Layout(allGuides []guides.Guide, activeSlug string, fontURL string, conten
 				}
 			</script>
 		</head>
-		<body class="flex h-screen bg-gray-100 overflow-hidden" x-data="{ sidebarOpen: false }">
+		<body class="flex h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden" x-data="{ sidebarOpen: false }">
 			<!-- Font loader: HTMX out-of-band target for swapping Google Fonts on guide navigation -->
 			<span id="font-loader" hidden>
 				if fontURL != "" {
@@ -33,11 +33,11 @@ templ Layout(allGuides []guides.Guide, activeSlug string, fontURL string, conten
 			</span>
 			<!-- Mobile hamburger -->
 			<button
-				class="fixed top-4 left-4 z-50 md:hidden bg-white border border-gray-200 rounded-lg p-2 shadow-sm"
+				class="fixed top-4 left-4 z-50 md:hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-2 shadow-sm"
 				{ templ.Attributes{"@click": "sidebarOpen = !sidebarOpen"}... }
 				aria-label="Toggle menu"
 			>
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
 				</svg>
 			</button>

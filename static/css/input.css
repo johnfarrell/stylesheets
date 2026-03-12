@@ -2,6 +2,8 @@
 @source "../../**/*.templ";
 @source "../../**/*.go";
 
+@custom-variant dark (&:is([data-theme="dark"] *));
+
 [x-cloak] { display: none !important; }
 
 /* Syntax highlighting — chroma CSS class tokens mapped to per-guide CSS vars */
