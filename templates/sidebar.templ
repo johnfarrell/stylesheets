@@ -8,8 +8,9 @@ import (
 
 templ Sidebar(allGuides []guides.Guide, activeSlug string) {
 	<nav
-		class="w-64 bg-white border-r border-gray-200 flex flex-col h-full shrink-0"
+		class="fixed inset-y-0 left-0 z-40 w-64 bg-white border-r border-gray-200 flex flex-col h-full shrink-0 transition-transform duration-200 -translate-x-full md:translate-x-0 md:relative md:z-auto"
 		x-data={ fmt.Sprintf(`{ active: '%s' }`, activeSlug) }
+		{ templ.Attributes{":class": "sidebarOpen && 'translate-x-0'"}... }
 		{ templ.Attributes{"@set-active.window": "active = $event.detail"}... }
 	>
 		<div class="p-6 border-b border-gray-200">
@@ -28,7 +29,7 @@ templ Sidebar(allGuides []guides.Guide, activeSlug string) {
 						hx-push-url={ fmt.Sprintf("/guides/%s", g.Slug) }
 						class="flex flex-col px-6 py-3 text-sm transition-colors"
 						:class={ fmt.Sprintf(`active === '%s' ? 'bg-gray-100 text-gray-900 font-semibold border-r-2 border-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'`, g.Slug) }
-						{ templ.Attributes{"@click": fmt.Sprintf("active = '%s'", g.Slug)}... }
+						{ templ.Attributes{"@click": fmt.Sprintf("active = '%s'; sidebarOpen = false", g.Slug)}... }
 					>
 						<span>{ g.Name }</span>
 						<span class="text-xs text-gray-400 font-normal mt-0.5">{ g.Description }</span>

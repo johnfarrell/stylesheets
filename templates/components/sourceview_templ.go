@@ -10,6 +10,8 @@ import templruntime "github.com/a-h/templ/runtime"
 
 // SourceView renders an inline "View Source" toggle for a code snippet.
 // Renders nothing if code is empty — safe to call unconditionally.
+// The code parameter is pre-escaped HTML from chroma's class-based syntax highlighter.
+// templ.Raw is safe here because chroma HTML-escapes all source content.
 func SourceView(code string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context

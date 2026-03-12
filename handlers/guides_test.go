@@ -10,6 +10,14 @@ import (
 	"github.com/johnfarrell/stylesheets/handlers"
 )
 
+func TestAllGuidesHavePageFunc(t *testing.T) {
+	for _, g := range guides.All {
+		if g.PageFunc == nil {
+			t.Errorf("guide %q has nil PageFunc", g.Slug)
+		}
+	}
+}
+
 func TestIndexRendersLandingPage(t *testing.T) {
 	mux := handlers.NewMux()
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
@@ -260,5 +268,18 @@ func TestCassetteLogOK(t *testing.T) {
 	}
 	if ct := w.Header().Get("Content-Type"); !strings.Contains(ct, "text/html") {
 		t.Errorf("expected text/html, got %q", ct)
+	}
+}
+
+func TestStaticFilesCacheControl(t *testing.T) {
+	t.Chdir("..")
+	mux := handlers.NewMux()
+	req := httptest.NewRequest(http.MethodGet, "/static/css/output.css", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+
+	cc := w.Header().Get("Cache-Control")
+	if cc != "public, max-age=86400" {
+		t.Errorf("expected Cache-Control 'public, max-age=86400', got %q", cc)
 	}
 }

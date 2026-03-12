@@ -22,7 +22,7 @@ RUN ./node_modules/.bin/tailwindcss \
 
 
 # ── Stage 2: Generate templ + compile Go binary ───────────────────────────────
-FROM golang:1.26-alpine AS go-builder
+FROM golang:1.25-alpine AS go-builder
 WORKDIR /build
 
 # Install templ generator — pinned to match go.mod
