@@ -2,22 +2,17 @@ package cassette
 
 // Tab content data for navigation section.
 
-type tabDef struct {
+type navItem struct {
 	ID    string
 	Label string
 }
 
-var navTabs = []tabDef{
+var navTabs = []navItem{
 	{"overview", "OVERVIEW"},
 	{"systems", "SYSTEMS"},
 	{"crew", "CREW"},
 	{"cargo", "CARGO"},
 	{"logs", "LOGS"},
-}
-
-type navItem struct {
-	ID    string
-	Label string
 }
 
 var tocItems = []navItem{

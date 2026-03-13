@@ -4,20 +4,20 @@ import "strings"
 
 type systemStatus struct {
 	Name   string
-	Status string // "ok", "warn", "err"
+	Status string // statusOK, statusWarn, statusErr
 }
 
 var initialSystemStatuses = []systemStatus{
-	{"LIFE SUPPORT", "ok"},
-	{"PROPULSION", "ok"},
-	{"NAVIGATION", "warn"},
-	{"COMMUNICATIONS", "ok"},
-	{"POWER GRID", "ok"},
-	{"HYPERSLEEP", "ok"},
-	{"MOTION SENSORS", "err"},
-	{"ATMOSPHERIC", "ok"},
-	{"FIRE SUPPRESSION", "ok"},
-	{"CARGO LOCKS", "warn"},
+	{"LIFE SUPPORT", statusOK},
+	{"PROPULSION", statusOK},
+	{"NAVIGATION", statusWarn},
+	{"COMMUNICATIONS", statusOK},
+	{"POWER GRID", statusOK},
+	{"HYPERSLEEP", statusOK},
+	{"MOTION SENSORS", statusErr},
+	{"ATMOSPHERIC", statusOK},
+	{"FIRE SUPPRESSION", statusOK},
+	{"CARGO LOCKS", statusWarn},
 }
 
 // systemStatusJSON returns an Alpine-compatible x-data object literal.

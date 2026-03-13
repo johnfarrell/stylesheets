@@ -59,12 +59,12 @@ func sectionPanels() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div style=\"padding: 0.75rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"cass-panel-body\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				for _, r := range missionDataPanel.Rows {
-					templ_7745c5c3_Err = dataRow(r.Label, r.Value).Render(ctx, templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = dataRow(r.Label, r.Value, "").Render(ctx, templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -95,12 +95,12 @@ func sectionPanels() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div style=\"padding: 0.75rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<div class=\"cass-panel-body\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				for _, r := range specialOrderPanel.Rows {
-					templ_7745c5c3_Err = dataRow(r.Label, r.Value).Render(ctx, templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = dataRow(r.Label, r.Value, "").Render(ctx, templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -136,12 +136,12 @@ func sectionPanels() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</span> <button class=\"cass-btn\" style=\"padding: 0.1rem 0.5rem; font-size: var(--font-size-caption);\" x-text=\"open ? '&#9650; COLLAPSE' : '&#9660; EXPAND'\">&#9650; COLLAPSE</button></div><div x-show=\"open\"><div style=\"padding: 0.75rem;\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</span> <button class=\"cass-btn\" style=\"padding: 0.1rem 0.5rem; font-size: var(--font-size-caption);\" x-text=\"open ? '&#9650; COLLAPSE' : '&#9660; EXPAND'\">&#9650; COLLAPSE</button></div><div x-show=\"open\"><div class=\"cass-panel-body\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for _, r := range engineeringPanel.Rows {
-				templ_7745c5c3_Err = dataRow(r.Label, r.Value).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = dataRow(r.Label, r.Value, "").Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -224,12 +224,12 @@ func sectionPanels() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<div style=\"padding: 0.75rem;\">")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 16, "<div class=\"cass-panel-body\">")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				for _, r := range dangerPanel.Rows {
-					templ_7745c5c3_Err = dataRowColored(r.Label, r.Value, r.Color).Render(ctx, templ_7745c5c3_Buffer)
+					templ_7745c5c3_Err = dataRow(r.Label, r.Value, r.Color).Render(ctx, templ_7745c5c3_Buffer)
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

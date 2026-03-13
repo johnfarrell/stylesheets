@@ -1,5 +1,26 @@
 package cassette
 
+import "github.com/johnfarrell/stylesheets/guides"
+
+// logHandlerSnippet is the server-side handler shown in the system log SourceView.
+// Display copy only — the live handler is in handlers/guides.go.
+const logHandlerSnippet = `mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {
+    entries := []struct{ sub, msg string }{
+        {"SYS", "WCYPD COLONY SYSTEMS — HEARTBEAT NOMINAL"},
+        // ... more entries ...
+    }
+    idx := int(time.Now().Unix()) % len(entries)
+    e := entries[idx]
+    ts := time.Now().Format("15:04:05")
+    fmt.Fprintf(w,
+        ` + "`" + `<div ...>[%s] %s %s</div>` + "`" + `,
+        ts, templ.EscapeString(e.sub), templ.EscapeString(e.msg),
+    )
+})`
+
+// highlightedLogHandler is logHandlerSnippet pre-highlighted as Go, cached at startup.
+var highlightedLogHandler = guides.Highlight(logHandlerSnippet, "go")
+
 var bootLogEntries = []staticLogEntry{
 	{"[00:00:01]", "SYS", "WCYPD COLONY SYSTEMS v4.2.1 — BOOT SEQUENCE COMPLETE"},
 	{"[00:00:03]", "NET", "NETWORK INTERFACES INITIALIZED — 4 NODES ACTIVE"},

@@ -15,8 +15,8 @@ templ panelBlue(header string) {
 }
 
 templ panelDanger(header string) {
-	<div class="cass-panel" style="border-color: var(--color-danger);">
-		<div class="cass-panel-header" style="background: var(--color-danger); color: #fff; border-color: var(--color-danger);">{ header }</div>
+	<div class="cass-panel cass-panel-danger">
+		<div class="cass-panel-header cass-panel-header-danger">{ header }</div>
 		{ children... }
 	</div>
 }

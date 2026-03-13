@@ -7,17 +7,17 @@ templ sectionPanels() {
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			<!-- 1. Basic Panel -->
 			@panel(missionDataPanel.Header) {
-				<div style="padding: 0.75rem;">
+				<div class="cass-panel-body">
 					for _, r := range missionDataPanel.Rows {
-						@dataRow(r.Label, r.Value)
+						@dataRow(r.Label, r.Value, "")
 					}
 				</div>
 			}
 			<!-- 2. Blue-header Panel -->
 			@panelBlue(specialOrderPanel.Header) {
-				<div style="padding: 0.75rem;">
+				<div class="cass-panel-body">
 					for _, r := range specialOrderPanel.Rows {
-						@dataRow(r.Label, r.Value)
+						@dataRow(r.Label, r.Value, "")
 					}
 				</div>
 			}
@@ -28,9 +28,9 @@ templ sectionPanels() {
 					<button class="cass-btn" style="padding: 0.1rem 0.5rem; font-size: var(--font-size-caption);" x-text="open ? '&#9650; COLLAPSE' : '&#9660; EXPAND'">&#9650; COLLAPSE</button>
 				</div>
 				<div x-show="open">
-					<div style="padding: 0.75rem;">
+					<div class="cass-panel-body">
 						for _, r := range engineeringPanel.Rows {
-							@dataRow(r.Label, r.Value)
+							@dataRow(r.Label, r.Value, "")
 						}
 					</div>
 				</div>
@@ -52,9 +52,9 @@ templ sectionPanels() {
 			}
 			<!-- 6. Danger Panel -->
 			@panelDanger(dangerPanel.Header) {
-				<div style="padding: 0.75rem;">
+				<div class="cass-panel-body">
 					for _, r := range dangerPanel.Rows {
-						@dataRowColored(r.Label, r.Value, r.Color)
+						@dataRow(r.Label, r.Value, r.Color)
 					}
 				</div>
 			}

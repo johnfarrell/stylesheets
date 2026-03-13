@@ -1,5 +1,19 @@
 package cassette
 
+// System status values used in section 08 (status board).
+const (
+	statusOK   = "ok"
+	statusWarn = "warn"
+	statusErr  = "err"
+)
+
+// Notice severity values used in section 09 (notices).
+const (
+	severityNote    = "note"
+	severityCaution = "caution"
+	severityWarning = "warning"
+)
+
 // Shared types used across multiple sections.
 
 // docCell is used by sections 06 (panels), 10 (metadata), and 15 (dialogs).

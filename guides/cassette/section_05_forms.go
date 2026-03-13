@@ -1,23 +1,18 @@
 package cassette
 
-type selectOption struct {
+type formOption struct {
 	Value string
 	Label string
 }
 
-var classificationOptions = []selectOption{
+var classificationOptions = []formOption{
 	{"routine", "ROUTINE"},
 	{"priority", "PRIORITY"},
 	{"classified", "CLASSIFIED"},
 	{"eyes-only", "EYES ONLY"},
 }
 
-type checkboxOption struct {
-	Value string
-	Label string
-}
-
-var systemsCheckboxes = []checkboxOption{
+var systemsCheckboxes = []formOption{
 	{"life-support", "LIFE SUPPORT"},
 	{"propulsion", "PROPULSION"},
 	{"comms", "COMMUNICATIONS"},
