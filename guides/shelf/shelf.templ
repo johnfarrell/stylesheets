@@ -1,0 +1,502 @@
+package shelf
+
+import (
+	"fmt"
+	"github.com/johnfarrell/stylesheets/guides"
+	"github.com/johnfarrell/stylesheets/templates/components"
+)
+
+// Page renders the full Shelf style guide showcase.
+templ Page(g guides.Guide, htmxRequest bool) {
+	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
+	@components.GuideStyles(g, guideStyles())
+	if htmxRequest {
+		@components.OOBFontLoader(g.FontURL)
+	}
+	<div style="background: var(--color-bg); min-height: 100%; padding: var(--section-padding); color: var(--color-text); font-family: var(--font-body);">
+	<div style="max-width: var(--content-max-width); margin: 0 auto;">
+
+		<!-- HEADER -->
+		<div class="mb-10 pb-6" style="border-bottom: 2px solid var(--color-primary);">
+			<h1 style="font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.5rem;">Shelf</h1>
+			<p style="font-size: var(--font-size-body); color: var(--color-text-muted); max-width: 36rem; line-height: 1.6;">
+				A warm reading companion. Linen tones, literary type, triple-encoded accessibility.
+			</p>
+		</div>
+		@components.TechSummary([]components.TechCallout{
+			{Tech: "HTMX", Description: "Book search filter + lazy-loaded detail panel"},
+			{Tech: "Alpine", Description: "Collapsible lists, tag management, color copy-to-clipboard"},
+			{Tech: "CSS", Description: "Scandinavian linen/wood palette — shf- prefixed component classes"},
+		})
+
+		<!-- 1. Color Palette -->
+		@components.Section("Color Palette", components.BadgeAlpine) {
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+				<!-- snippet:color-swatch -->
+				@colorSwatchCard("Linen", "--color-bg", "Background")
+				<!-- /snippet:color-swatch -->
+				@colorSwatchCard("Warm Cream", "--color-surface", "Surface")
+				@colorSwatchCard("Parchment", "--color-surface-2", "Surface alt")
+				@colorSwatchCard("Olive", "--color-primary", "Primary actions")
+				@colorSwatchCard("Amber", "--color-accent", "Highlights")
+				@colorSwatchCard("Terracotta", "--color-accent-2", "Accents")
+				@colorSwatchCard("Slate Blue", "--color-info", "Info / links")
+				@colorSwatchCard("Sage", "--color-success", "Success")
+				@colorSwatchCard("Rosewood", "--color-danger", "Danger / error")
+				@colorSwatchCard("Walnut", "--color-text", "Body text")
+				@colorSwatchCard("Driftwood", "--color-text-muted", "Muted text")
+				@colorSwatchCard("Flax", "--color-border", "Borders")
+			</div>
+			<p class="mt-4" style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Click any swatch to copy hex value to clipboard.</p>
+			@components.SourceView(snippets["color-swatch"])
+		}
+
+		<!-- 2. Typography -->
+		@components.Section("Typography", components.BadgeNone) {
+			<div class="space-y-4">
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Lora — Display / 2rem / 600</p>
+					<p style="font-family: var(--font-display); font-size: 2rem; font-weight: 600; line-height: 1.2;">The Library at the End of the World</p>
+				</div>
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Lora — Heading / 1.25rem / 600</p>
+					<p style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 600;">Chapter One: A Quiet Beginning</p>
+				</div>
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Lora — Italic</p>
+					<p style="font-family: var(--font-display); font-size: 1.125rem; font-style: italic; line-height: 1.6;">
+						"A reader lives a thousand lives before he dies. The man who never reads lives only one." — George R.R. Martin
+					</p>
+				</div>
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">DM Sans — Subheading / 0.9375rem / 600</p>
+					<p style="font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600;">Currently Reading &middot; 3 books in progress</p>
+				</div>
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">DM Sans — Body / 0.875rem / 400</p>
+					<p style="font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.6;">
+						Every book on your shelf tells a story beyond its pages — when you found it,
+						who recommended it, the coffee stain on page forty-seven.
+					</p>
+				</div>
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">DM Sans — Caption / 0.75rem</p>
+					<p style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">Added Mar 12, 2026 &middot; Last updated 2 days ago</p>
+				</div>
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">JetBrains Mono — ISBN &amp; Metadata</p>
+					<p style="font-family: var(--font-mono); font-size: var(--font-size-body); letter-spacing: 0.02em;">978-0-441-17271-9</p>
+					<p class="mt-1" style="font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-text-muted);">688 pages</p>
+				</div>
+			</div>
+		}
+
+		<!-- 3. Spacing Scale -->
+		@components.Section("Spacing Scale", components.BadgeNone) {
+			<div class="shf-panel p-6 space-y-3">
+				<p class="mb-4" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Base unit: 4px</p>
+				for _, s := range []struct{ Label, Width string }{
+					{"4px", "4px"},
+					{"8px", "8px"},
+					{"12px", "12px"},
+					{"16px", "16px"},
+					{"24px", "24px"},
+					{"32px", "32px"},
+					{"48px", "48px"},
+					{"64px", "64px"},
+				} {
+					<div class="flex items-center gap-3">
+						<span style="font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-text-muted); width: 3rem; text-align: right; flex-shrink: 0;">{ s.Label }</span>
+						<div style={ "height: 6px; border-radius: 3px; background: var(--color-primary); width: " + s.Width }></div>
+					</div>
+				}
+			</div>
+		}
+
+		<!-- 4. Buttons -->
+		@components.Section("Buttons", components.BadgeAlpine) {
+			<div class="shf-panel p-6 space-y-6">
+				<!-- Size variants -->
+				<div>
+					<p class="mb-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Size variants</p>
+					<div class="flex flex-wrap items-center gap-3">
+						<button class="shf-btn" style="padding: 0.25rem 0.75rem; font-size: 0.6875rem;">SM Button</button>
+						<button class="shf-btn">MD Button</button>
+						<button class="shf-btn" style="padding: 0.5rem 1.5rem; font-size: var(--font-size-body);">LG Button</button>
+					</div>
+				</div>
+				<!-- Style variants -->
+				<div>
+					<p class="mb-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Style variants</p>
+					<div class="flex flex-wrap items-center gap-3">
+						<button class="shf-btn">Default</button>
+						<button class="shf-btn shf-btn-primary">Primary</button>
+						<button class="shf-btn shf-btn-danger">Danger</button>
+						<button class="shf-btn" disabled style="opacity: 0.5; cursor: not-allowed;">Disabled</button>
+					</div>
+				</div>
+				<!-- Scan button -->
+				<div>
+					<p class="mb-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Scan action</p>
+					<button class="shf-btn shf-btn-scan">📷 Scan Book</button>
+				</div>
+				<!-- Toggle demo -->
+				<div>
+					<p class="mb-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Toggle demo</p>
+					<div x-data="{ toggled: false }">
+						<button
+							class="shf-btn"
+							{ templ.Attributes{"@click": "toggled = !toggled"}... }
+							{ templ.Attributes{":class": "toggled ? 'shf-btn shf-btn-primary' : 'shf-btn'"}... }
+							x-text="toggled ? '★ Favorited' : '☆ Add to Favorites'"
+						>☆ Add to Favorites</button>
+					</div>
+				</div>
+			</div>
+		}
+
+		<!-- 5. Forms -->
+		@components.Section("Forms", components.BadgeBoth) {
+			<div class="shf-panel p-6 space-y-5">
+				<!-- Text input -->
+				<div>
+					<label class="shf-meta-label mb-1 block">Book Title</label>
+					<input class="shf-input" type="text" placeholder="Enter book title..." />
+				</div>
+				<!-- Select -->
+				<div>
+					<label class="shf-meta-label mb-1 block">Genre</label>
+					<select class="shf-select">
+						<option value="">Select genre...</option>
+						<option value="fiction">Fiction</option>
+						<option value="non-fiction">Non-Fiction</option>
+						<option value="science-fiction">Science Fiction</option>
+						<option value="fantasy">Fantasy</option>
+						<option value="historical-fiction">Historical Fiction</option>
+					</select>
+				</div>
+				<!-- Checkbox -->
+				<div class="flex items-center gap-2">
+					<input class="shf-checkbox" type="checkbox" id="shf-own" />
+					<label for="shf-own" style="font-size: var(--font-size-body);">I own this book</label>
+				</div>
+				<!-- Radio buttons -->
+				<div>
+					<label class="shf-meta-label mb-2 block">Reading Status</label>
+					<div class="flex flex-col gap-2">
+						<label class="flex items-center gap-2" style="font-size: var(--font-size-body);">
+							<input class="shf-checkbox" type="radio" name="shf-status" value="to-read" checked />
+							To Read
+						</label>
+						<label class="flex items-center gap-2" style="font-size: var(--font-size-body);">
+							<input class="shf-checkbox" type="radio" name="shf-status" value="reading" />
+							Reading
+						</label>
+						<label class="flex items-center gap-2" style="font-size: var(--font-size-body);">
+							<input class="shf-checkbox" type="radio" name="shf-status" value="finished" />
+							Finished
+						</label>
+					</div>
+				</div>
+				<!-- HTMX form -->
+				<div class="shf-divider pt-5">
+					<p class="mb-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">HTMX form submission</p>
+					<form class="flex gap-3 items-end"
+						hx-post="/guides/shelf/demo-form"
+						hx-target="#shf-form-response"
+						hx-swap="innerHTML"
+					>
+						<div class="flex-1">
+							<label class="shf-meta-label mb-1 block">Your Name</label>
+							<input class="shf-input" type="text" name="name" placeholder="Enter your name..." />
+						</div>
+						<button class="shf-btn shf-btn-primary" type="submit">Submit</button>
+					</form>
+					<div id="shf-form-response" class="mt-3" style="font-size: var(--font-size-caption); color: var(--color-primary);"></div>
+				</div>
+			</div>
+		}
+
+		<!-- 6. Tag System -->
+		@components.Section("Tag System", components.BadgeAlpine) {
+			<div class="shf-panel p-6 space-y-6">
+				<div>
+					<p class="mb-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Triple encoding: icon + color + text</p>
+					<div class="flex flex-wrap gap-2">
+						<span class="shf-tag shf-tag-list"><span class="shf-tag-icon">📋</span> To Be Read</span>
+						<span class="shf-tag shf-tag-list"><span class="shf-tag-icon">📖</span> Currently Reading</span>
+						<span class="shf-tag shf-tag-list"><span class="shf-tag-icon">✅</span> Finished</span>
+						<span class="shf-tag shf-tag-gift"><span class="shf-tag-icon">🎁</span> Gift: Mom</span>
+						<span class="shf-tag shf-tag-gift"><span class="shf-tag-icon">🎁</span> Gift: Sarah</span>
+						<span class="shf-tag shf-tag-club"><span class="shf-tag-icon">📖</span> Book Club - March</span>
+						<span class="shf-tag shf-tag-rating"><span class="shf-tag-icon">⭐</span> Favorite</span>
+					</div>
+				</div>
+				<!-- snippet:tag-manager -->
+				<div class="shf-divider pt-5">
+					<p class="mb-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Interactive tag manager</p>
+					<div x-data="{ tags: ['📋 To Read', '🎁 Gift: Mom'], newTag: '' }">
+						<div class="flex flex-wrap gap-2 mb-3">
+							<template x-for="(tag, i) in tags" :key="i">
+								<span class="shf-tag shf-tag-list" style="cursor: pointer;"
+									{ templ.Attributes{"@click": "tags.splice(i, 1)"}... }
+								>
+									<span x-text="tag"></span>
+									<span style="margin-left: 0.25rem; opacity: 0.5;">&times;</span>
+								</span>
+							</template>
+							<span x-show="tags.length === 0" style="font-size: var(--font-size-caption); color: var(--color-text-muted);">No tags — add one below</span>
+						</div>
+						<div class="flex gap-2">
+							<input class="shf-input" style="max-width: 16rem;" type="text" x-model="newTag" placeholder="New tag..."
+								{ templ.Attributes{"@keydown.enter.prevent": "if(newTag.trim()) { tags.push(newTag.trim()); newTag = '' }"}... }
+							/>
+							<button class="shf-btn shf-btn-primary"
+								{ templ.Attributes{"@click": "if(newTag.trim()) { tags.push(newTag.trim()); newTag = '' }"}... }
+							>Add</button>
+						</div>
+					</div>
+				</div>
+				<!-- /snippet:tag-manager -->
+				@components.SourceView(snippets["tag-manager"])
+			</div>
+		}
+
+		<!-- 7. Dashboard Sample (HERO) -->
+		@components.Section("Dashboard", components.BadgeBoth) {
+			<!-- Search bar -->
+			<div class="mb-4">
+				<input class="shf-search" type="search" placeholder="Search books..."
+					name="q"
+					hx-get="/guides/shelf/search"
+					hx-trigger="input changed delay:300ms, search"
+					hx-target="#shf-search-results"
+				/>
+			</div>
+			<!-- Search results / default dashboard -->
+			<div id="shf-search-results">
+				for i, list := range DemoLists {
+					<div class="shf-panel mb-4" x-data={ fmt.Sprintf("{ open: %t }", i == 0) }>
+						<div class="shf-list-header"
+							{ templ.Attributes{"@click": "open = !open"}... }
+						>
+							<span { templ.Attributes{":class": "'shf-chevron' + (open ? ' shf-chevron-open' : '')"}... }>&#9654;</span>
+							<span>{ list.Icon }</span>
+							<span style="font-family: var(--font-display);">{ list.Name }</span>
+							<span class="shf-badge">{ fmt.Sprintf("%d", len(list.Books)) }</span>
+						</div>
+						<div x-show="open">
+							for j, book := range list.Books {
+								if i == 0 && j == 0 {
+									<!-- snippet:book-row -->
+								}
+								<div class="shf-book-row"
+									hx-get={ "/guides/shelf/book/" + book.ID }
+									hx-target="#shf-detail-panel"
+									hx-swap="innerHTML"
+								>
+									<div class="shf-cover" style={ "background: " + coverColor(book.ID) }>
+										{ string([]rune(book.Title)[0:1]) }
+									</div>
+									<div class="flex-1 min-w-0">
+										<p style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 600;" class="truncate">{ book.Title }</p>
+										<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ book.Author }</p>
+									</div>
+									<div class="flex flex-wrap gap-1">
+										for _, tag := range book.Tags {
+											<span class={ "shf-tag", tagClass(tag.Category) }>
+												<span class="shf-tag-icon">{ tag.Icon }</span>
+												{ tag.Label }
+											</span>
+										}
+									</div>
+									<div class="shf-stars hidden sm:flex">
+										@starRating(book.Rating)
+									</div>
+								</div>
+								if i == 0 && j == 0 {
+									<!-- /snippet:book-row -->
+								}
+							}
+						</div>
+					</div>
+				}
+			</div>
+			@components.SourceView(snippets["book-row"])
+			<!-- Detail panel -->
+			<div id="shf-detail-panel" class="mt-6"></div>
+		}
+
+		<!-- 8. Book Detail Panel (static preview) -->
+		@components.Section("Book Detail Panel", components.BadgeHTMX) {
+			<div class="shf-detail">
+				<div class="flex gap-6 flex-col sm:flex-row">
+					<div class="shf-cover-lg" style={ "background: " + coverColor(AllBooks[0].ID) }>
+						{ string([]rune(AllBooks[0].Title)[0:1]) }
+					</div>
+					<div class="flex-1">
+						<h3 style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 600; margin-bottom: 0.25rem;">{ AllBooks[0].Title }</h3>
+						<p style="font-size: var(--font-size-body); color: var(--color-text-muted); margin-bottom: 0.5rem;">{ AllBooks[0].Author }</p>
+						<div class="flex items-center gap-3 mb-4">
+							<span class={ "shf-status", "shf-status-" + AllBooks[0].Status }>
+								{ statusIcon(AllBooks[0].Status) } { statusLabel(AllBooks[0].Status) }
+							</span>
+							<div class="shf-stars">
+								@starRating(AllBooks[0].Rating)
+							</div>
+						</div>
+						<!-- Metadata grid -->
+						<div class="grid grid-cols-2 gap-x-6 gap-y-2 mb-4">
+							<div>
+								<span class="shf-meta-label">ISBN</span>
+								<p style="font-family: var(--font-mono); font-size: var(--font-size-body);">{ AllBooks[0].ISBN }</p>
+							</div>
+							<div>
+								<span class="shf-meta-label">Pages</span>
+								<p style="font-family: var(--font-mono); font-size: var(--font-size-body);">{ fmt.Sprintf("%d", AllBooks[0].Pages) }</p>
+							</div>
+							<div>
+								<span class="shf-meta-label">Genre</span>
+								<p style="font-size: var(--font-size-body);">{ AllBooks[0].Genre }</p>
+							</div>
+							<div>
+								<span class="shf-meta-label">Year</span>
+								<p style="font-size: var(--font-size-body);">{ fmt.Sprintf("%d", AllBooks[0].Year) }</p>
+							</div>
+						</div>
+						<!-- Tags -->
+						if len(AllBooks[0].Tags) > 0 {
+							<div class="mb-4">
+								<span class="shf-meta-label mb-1 block">Tags</span>
+								<div class="flex flex-wrap gap-2">
+									for _, tag := range AllBooks[0].Tags {
+										<span class={ "shf-tag", tagClass(tag.Category) }>
+											<span class="shf-tag-icon">{ tag.Icon }</span>
+											{ tag.Label }
+										</span>
+									}
+								</div>
+							</div>
+						}
+						<!-- Notes -->
+						<div class="mb-4">
+							<span class="shf-meta-label mb-1 block">Notes</span>
+							<p style="font-size: var(--font-size-body); font-style: italic; color: var(--color-text-muted); line-height: 1.6;">
+								A masterpiece of science fiction. The world-building is unparalleled — spice, sandworms, and political intrigue woven into a tapestry that rewards every re-read.
+							</p>
+						</div>
+						<!-- Review textarea -->
+						<div>
+							<span class="shf-meta-label mb-1 block">Review</span>
+							<textarea class="shf-input" rows="3" placeholder="Write your review..." style="resize: vertical;">One of the greatest science fiction novels ever written. Herbert's ecological and political themes remain relevant sixty years later.</textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="mt-3" style="font-size: var(--font-size-caption); color: var(--color-text-muted);">
+				This is a static preview. In the dashboard above, clicking a book loads its detail via HTMX.
+			</p>
+		}
+
+		<!-- 9. Review Cards -->
+		@components.Section("Review Cards", components.BadgeNone) {
+			<div class="space-y-4">
+				<div class="shf-review">
+					<div class="flex items-start gap-3">
+						<div class="shf-avatar">M</div>
+						<div class="flex-1">
+							<div class="flex items-center gap-2 mb-1">
+								<span style="font-size: var(--font-size-body); font-weight: 600;">Margaret</span>
+								<div class="shf-stars">
+									@starRating(5)
+								</div>
+							</div>
+							<p style="font-size: var(--font-size-body); line-height: 1.6; margin-bottom: 0.5rem;">
+								Dune is unlike anything else in science fiction. Herbert doesn't just build a world — he builds an ecology, a religion, a political system, and a mythology, then sets them all in motion. I've read it four times and find something new each time.
+							</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Feb 14, 2026 &middot; Dune</p>
+						</div>
+					</div>
+				</div>
+				<div class="shf-review">
+					<div class="flex items-start gap-3">
+						<div class="shf-avatar">J</div>
+						<div class="flex-1">
+							<div class="flex items-center gap-2 mb-1">
+								<span style="font-size: var(--font-size-body); font-weight: 600;">James</span>
+								<div class="shf-stars">
+									@starRating(4.5)
+								</div>
+							</div>
+							<p style="font-size: var(--font-size-body); line-height: 1.6; margin-bottom: 0.5rem;">
+								Project Hail Mary grabbed me from the first chapter and never let go. Weir's ability to make hard science feel like an adventure story is remarkable. Rocky is one of the best non-human characters in fiction.
+							</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Mar 2, 2026 &middot; Project Hail Mary</p>
+						</div>
+					</div>
+				</div>
+				<div class="shf-review">
+					<div class="flex items-start gap-3">
+						<div class="shf-avatar">S</div>
+						<div class="flex-1">
+							<div class="flex items-center gap-2 mb-1">
+								<span style="font-size: var(--font-size-body); font-weight: 600;">Sarah</span>
+								<div class="shf-stars">
+									@starRating(4)
+								</div>
+							</div>
+							<p style="font-size: var(--font-size-body); line-height: 1.6; margin-bottom: 0.5rem;">
+								Pachinko is a sweeping family saga that spans four generations of a Korean family in Japan. Min Jin Lee writes with such warmth and empathy — every character feels deeply real, even the flawed ones.
+							</p>
+							<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Jan 20, 2026 &middot; Pachinko</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+
+	</div>
+	</div>
+
+	<script>
+	function colorSwatch(varName) {
+		return {
+			hex: '',
+			copied: false,
+			init() {
+				this.hex = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+			},
+			copy() {
+				navigator.clipboard.writeText(this.hex);
+				this.copied = true;
+				setTimeout(() => this.copied = false, 1200);
+			}
+		}
+	}
+	</script>
+}
+
+// colorSwatchCard renders a single color swatch with copy-to-clipboard.
+templ colorSwatchCard(name, cssVar, usage string) {
+	<div class="shf-panel p-3" x-data={ "colorSwatch('" + cssVar + "')" }
+		{ templ.Attributes{"@click": "copy()"}... }
+		style="cursor: pointer; transition: border-color 0.15s;"
+		{ templ.Attributes{":style": "copied ? 'cursor:pointer; transition:border-color 0.15s; border-color: var(--color-primary)' : 'cursor:pointer; transition:border-color 0.15s; border-color: transparent'"}... }
+	>
+		<div style={ "background: var(" + cssVar + "); height: 3rem; border-radius: 4px; margin-bottom: 0.5rem;" }></div>
+		<p style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 600;">{ name }</p>
+		<p style="font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'Copied!' : hex">{ cssVar }</p>
+		<p style="font-size: 0.625rem; color: var(--color-text-muted); margin-top: 0.125rem;">{ usage }</p>
+	</div>
+}
+
+// starRating renders a 5-star rating display.
+templ starRating(rating float64) {
+	for i := range 5 {
+		if float64(i) < rating {
+			<span>★</span>
+		} else {
+			<span class="shf-star-empty">☆</span>
+		}
+	}
+}

@@ -18,6 +18,7 @@ import (
 	minimaltempl "github.com/johnfarrell/stylesheets/guides/minimal"
 	newspapertempl "github.com/johnfarrell/stylesheets/guides/newspaper"
 	retrotempl "github.com/johnfarrell/stylesheets/guides/retro"
+	shelftempl "github.com/johnfarrell/stylesheets/guides/shelf"
 	swisstempl "github.com/johnfarrell/stylesheets/guides/swiss"
 	terminaltempl "github.com/johnfarrell/stylesheets/guides/terminal"
 	trackertempl "github.com/johnfarrell/stylesheets/guides/tracker"
@@ -46,6 +47,8 @@ func init() {
 			guides.All[i].PageFunc = retrotempl.Page
 		case "newspaper":
 			guides.All[i].PageFunc = newspapertempl.Page
+		case "shelf":
+			guides.All[i].PageFunc = shelftempl.Page
 		case "tracker":
 			guides.All[i].PageFunc = trackertempl.Page
 		}
@@ -370,6 +373,37 @@ func NewMux() *http.ServeMux {
 	// Newspaper — initial feed (back to front page)
 	mux.HandleFunc("/guides/newspaper/feed", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/guides/newspaper/headlines?page=0", http.StatusSeeOther)
+	})
+
+	// Shelf — search across books
+	mux.HandleFunc("/guides/shelf/search", func(w http.ResponseWriter, r *http.Request) {
+		q := r.URL.Query().Get("q")
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		if q == "" {
+			// Return nothing — the default dashboard lists remain visible
+			return
+		}
+		for _, book := range shelftempl.AllBooks {
+			if containsFold(book.Title, q) || containsFold(book.Author, q) {
+				if err := shelftempl.SearchResultRow(book).Render(r.Context(), w); err != nil {
+					slog.Error("render failed", "error", err)
+				}
+			}
+		}
+	})
+
+	// Shelf — book detail panel
+	mux.HandleFunc("/guides/shelf/book/{id}", func(w http.ResponseWriter, r *http.Request) {
+		id := r.PathValue("id")
+		book, ok := shelftempl.BookByID(id)
+		if !ok {
+			http.NotFound(w, r)
+			return
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		if err := shelftempl.BookDetail(book).Render(r.Context(), w); err != nil {
+			slog.Error("render failed", "error", err)
+		}
 	})
 
 	// Mission Control — search across tracker items

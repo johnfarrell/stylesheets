@@ -1,0 +1,79 @@
+package shelf
+
+import "fmt"
+
+// BookDetail renders the full detail panel for a single book,
+// loaded via HTMX into #shf-detail-panel.
+templ BookDetail(book Book) {
+	<div class="shf-detail">
+		<div class="flex flex-row">
+			<div class="shf-cover-lg" style={ "background: " + coverColor(book.ID) }>
+				{ string([]rune(book.Title)[0:1]) }
+			</div>
+			<div class="flex-1 ml-6">
+				<h3 style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 600; color: var(--color-text)">
+					{ book.Title }
+				</h3>
+				<div style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-bottom: 0.75rem">
+					{ book.Author }
+				</div>
+				<span class={ "shf-status shf-status-" + book.Status }>
+					{ statusIcon(book.Status) } { statusLabel(book.Status) }
+				</span>
+				<div class="shf-stars mt-2">
+					for i := 1; i <= 5; i++ {
+						if float64(i) <= book.Rating {
+							<span>&#9733;</span>
+						} else {
+							<span class="shf-star-empty">&#9734;</span>
+						}
+					}
+				</div>
+			</div>
+		</div>
+		<div class="shf-divider my-4"></div>
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+			<div>
+				<div class="shf-meta-label">ISBN</div>
+				<div style="font-family: var(--font-mono)">{ book.ISBN }</div>
+			</div>
+			<div>
+				<div class="shf-meta-label">PAGES</div>
+				<div style="font-family: var(--font-mono)">{ fmt.Sprintf("%d pages", book.Pages) }</div>
+			</div>
+			<div>
+				<div class="shf-meta-label">GENRE</div>
+				<div>{ book.Genre }</div>
+			</div>
+			<div>
+				<div class="shf-meta-label">YEAR</div>
+				<div style="font-family: var(--font-mono)">{ fmt.Sprintf("%d", book.Year) }</div>
+			</div>
+		</div>
+		if len(book.Tags) > 0 {
+			<div class="mt-4">
+				<div class="shf-meta-label mb-2">TAGS</div>
+				<div class="flex flex-wrap gap-2">
+					for _, tag := range book.Tags {
+						<span class={ "shf-tag " + tagClass(tag.Category) }>
+							<span class="shf-tag-icon">{ tag.Icon }</span>
+							<span>{ tag.Label }</span>
+						</span>
+					}
+				</div>
+			</div>
+		}
+		if book.Notes != "" {
+			<div class="mt-4">
+				<div class="shf-meta-label mb-1">NOTES</div>
+				<div style="font-style: italic">{ book.Notes }</div>
+			</div>
+		}
+		if book.Review != "" {
+			<div class="mt-4">
+				<div class="shf-meta-label mb-1">REVIEW</div>
+				<div>{ book.Review }</div>
+			</div>
+		}
+	</div>
+}
