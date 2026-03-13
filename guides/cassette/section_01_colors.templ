@@ -1,0 +1,21 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionColors(snippets map[string]string) {
+	@components.Section("1.0  Color Palette", components.BadgeAlpine) {
+		<!-- snippet:color-swatch -->
+		<div>
+			for _, group := range colorGroups {
+				@swatchGroup(group.Title, group.Cols) {
+					for _, s := range group.Swatches {
+						@swatch(s.CSSVar, s.Desc)
+					}
+				}
+			}
+			<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.75rem;">Click any swatch to copy hex value to clipboard.</p>
+		</div>
+		<!-- /snippet:color-swatch -->
+		@components.SourceView(snippets["color-swatch"])
+	}
+}

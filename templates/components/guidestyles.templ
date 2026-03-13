@@ -1,0 +1,9 @@
+package components
+
+import "github.com/johnfarrell/stylesheets/guides"
+
+// GuideStyles injects CSS custom properties, dark mode overrides,
+// and guide-specific styles into the page via a style block.
+templ GuideStyles(g guides.Guide, extraCSS string) {
+	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + extraCSS + "</style>")
+}

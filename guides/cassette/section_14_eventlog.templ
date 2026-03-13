@@ -1,0 +1,56 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionEventLog(snippets map[string]string) {
+	@components.Section("14.0  System Event Log", components.BadgeHTMX) {
+		<div class="cass-panel">
+			<div class="cass-panel-header cass-panel-header-blue">WCYPD COLONY SYSTEMS — EVENT LOG</div>
+			<div class="cass-panel-body">
+				<!-- Filter bar -->
+				<div x-data="{ filter: '' }" class="flex gap-2 items-center mb-3">
+					<label class="cass-label" style="margin-bottom: 0; white-space: nowrap;">FILTER EVENTS</label>
+					<input
+						type="text"
+						x-model="filter"
+						class="cass-input cass-input-box"
+						style="max-width: 240px;"
+						placeholder="SYS, SEC, ATM..."
+					/>
+					<span style="font-size: var(--font-size-caption); color: var(--color-text-muted);">(UI demo — filter does not apply to HTMX entries)</span>
+				</div>
+				<!-- Log output -->
+				<div style="height: 320px; overflow-y: auto; background: var(--color-surface-2); border: 1px solid var(--color-border); padding: 0.5rem;">
+					<div id="cass-log-output">
+						for _, entry := range bootLogEntries {
+							@logEntry(entry.Timestamp, entry.Code, entry.Message)
+						}
+					</div>
+					<!-- snippet:system-log -->
+					<!-- HTMX polling trigger -->
+					<div
+						hx-get="/guides/cassette/log"
+						hx-trigger="every 4s"
+						hx-target="#cass-log-output"
+						hx-swap="beforeend"
+					></div>
+					<!-- /snippet:system-log -->
+				</div>
+				<p class="text-xs mb-1" style="color: var(--color-text-muted); font-family: var(--font-body);">HTMX client — cassette.templ</p>
+				@components.SourceView(snippets["system-log"])
+				<p class="text-xs mt-4 mb-1" style="color: var(--color-text-muted); font-family: var(--font-body);">Go handler — handlers/guides.go</p>
+				@components.SourceView(highlightedLogHandler)
+				<!-- Controls -->
+				<div class="flex gap-3 mt-3">
+					<button
+						class="cass-btn"
+						hx-get="/guides/cassette/log"
+						hx-target="#cass-log-output"
+						hx-swap="beforeend"
+					>POLL NOW</button>
+					<span style="font-size: var(--font-size-caption); color: var(--color-text-muted); align-self: center;">Auto-polling every 4 seconds via HTMX</span>
+				</div>
+			</div>
+		</div>
+	}
+}

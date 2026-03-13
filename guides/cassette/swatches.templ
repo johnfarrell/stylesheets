@@ -1,0 +1,19 @@
+package cassette
+
+templ swatch(cssVar, description string) {
+	<div class="cursor-pointer" x-data={ "colorSwatch('" + cssVar + "')" } { templ.Attributes{"@click": "copy()"}... }>
+		<div style={ "height: 48px; background: var(" + cssVar + "); border: 1px solid var(--color-border);" }></div>
+		<p style="font-size: var(--font-size-caption); font-weight: 700; margin-top: 0.25rem;">{ cssVar }</p>
+		<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'COPIED' : hex"></p>
+		<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ description }</p>
+	</div>
+}
+
+templ swatchGroup(title, cols string) {
+	<div class="mb-4">
+		<p class="mb-2" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">{ title }</p>
+		<div class={ "grid gap-3", cols }>
+			{ children... }
+		</div>
+	</div>
+}

@@ -1,0 +1,75 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionStatus(snippets map[string]string) {
+	@components.Section("8.0  System Status Monitor", components.BadgeAlpine) {
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			<!-- Part A: System Grid -->
+			<!-- snippet:status-board -->
+			<div class="cass-panel" x-data={ systemStatusJSON() }>
+				<div class="cass-panel-header">SYSTEM STATUS GRID — CLICK TO CYCLE</div>
+				<div style="padding: 0.5rem;">
+					<template x-for="(sys, i) in systems" x-key="i">
+						<div
+							class="flex items-center gap-3 cursor-pointer"
+							style="padding: 0.4rem 0.25rem; border-bottom: 1px solid var(--color-surface-2);"
+							{ templ.Attributes{"@click": "sys.s = sys.s==='ok'?'warn':sys.s==='warn'?'err':'ok'"}... }
+						>
+							<span
+								{ templ.Attributes{":class": "sys.s==='ok'?'cass-light cass-light-green cass-pulse':sys.s==='warn'?'cass-light cass-light-amber':sys.s==='err'?'cass-light cass-light-red cass-blink':'cass-light cass-light-off'"}... }
+							></span>
+							<span style="flex: 1; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.04em;" x-text="sys.n"></span>
+							<span
+								style="font-size: var(--font-size-caption); font-weight: 700;"
+								{ templ.Attributes{":style": "sys.s==='ok'?'color:#27ae60':sys.s==='warn'?'color:var(--color-caution)':'color:var(--color-danger)'"}... }
+								x-text="sys.s==='ok'?'NOMINAL':sys.s==='warn'?'DEGRADED':'FAULT'"
+							></span>
+						</div>
+					</template>
+				</div>
+			</div>
+			<!-- /snippet:status-board -->
+			<!-- Right column: MET + Personnel -->
+			<div style="display: flex; flex-direction: column; gap: 1rem;">
+				<!-- Part B: Mission Elapsed Time -->
+				<div class="cass-panel" x-data="{ t: 0 }" x-init="setInterval(() => t++, 1000)">
+					<div class="cass-panel-header">MISSION ELAPSED TIME</div>
+					<div style="padding: 1rem; text-align: center;">
+						<div class="cass-readout-value" style="font-size: 2rem; letter-spacing: 0.1em;"
+							x-text="Math.floor(t/3600).toString().padStart(2,'0')+':'+Math.floor((t%3600)/60).toString().padStart(2,'0')+':'+(t%60).toString().padStart(2,'0')"
+						>00:00:00</div>
+						<div class="cass-readout-unit" style="margin-top: 0.25rem;">HH:MM:SS — ELAPSED SINCE WAKE</div>
+					</div>
+				</div>
+				<!-- Part C: Personnel Tracking -->
+				@panel("PERSONNEL TRACKING — ACTIVE CREW") {
+					<table class="cass-table">
+						<thead>
+							<tr>
+								<th>NAME</th>
+								<th>LOCATION</th>
+								<th>STATUS</th>
+							</tr>
+						</thead>
+						<tbody>
+							for _, p := range personnelTracking {
+								<tr>
+									<td style="font-weight: 500; font-size: var(--font-size-caption);">{ p.Name }</td>
+									<td style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ p.Location }</td>
+									<td>
+										<div class="flex items-center gap-2">
+											<span class="cass-light cass-light-green cass-pulse"></span>
+											@statusText(p.Status, "cass-value-ok")
+										</div>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				}
+			</div>
+		</div>
+		@components.SourceView(snippets["status-board"])
+	}
+}

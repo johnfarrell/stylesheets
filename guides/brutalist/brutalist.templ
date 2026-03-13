@@ -9,15 +9,9 @@ import (
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	if htmxRequest {
-		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
-		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link rel="stylesheet" href={ g.FontURL }/>
-		</span>
+		@components.OOBFontLoader(g.FontURL)
 	}
-	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	@components.GuideStyles(g, guideStyles())
 	<div style="background: var(--color-bg); color: var(--color-text); min-height: 100%;">
 	<div class="p-8 max-w-4xl mx-auto font-mono">
 		<!-- Guide header -->
@@ -35,12 +29,12 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		@components.Section("Color Palette", components.BadgeAlpine) {
 			<!-- snippet:color-swatch -->
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-				@colorSwatch("Primary", "var(--color-primary)", "#000000")
-				@colorSwatch("Secondary", "var(--color-secondary)", "#FF0000")
-				@colorSwatch("Accent", "var(--color-accent)", "#FFFF00")
-				@colorSwatch("BG", "var(--color-bg)", "#FFFFFF")
-				@colorSwatch("Surface", "var(--color-surface)", "#F5F5F5")
-				@colorSwatch("Muted", "var(--color-text-muted)", "#555555")
+				@colorSwatch("Primary", "--color-primary")
+				@colorSwatch("Secondary", "--color-secondary")
+				@colorSwatch("Accent", "--color-accent")
+				@colorSwatch("BG", "--color-bg")
+				@colorSwatch("Surface", "--color-surface")
+				@colorSwatch("Muted", "--color-text-muted")
 			</div>
 			<!-- /snippet:color-swatch -->
 			<p class="text-xs mt-4 font-mono" style="color: var(--color-text-muted)">Click any swatch to copy hex value to clipboard.</p>
@@ -318,17 +312,17 @@ templ Page(g guides.Guide, htmxRequest bool) {
 }
 
 // colorSwatch renders a single color swatch with copy-to-clipboard (Alpine).
-templ colorSwatch(name, cssVar, hex string) {
+templ colorSwatch(name, prop string) {
 	<div
-		x-data={ "{ copied: false, hex: '" + hex + "' }" }
+		x-data={ "colorSwatch('" + prop + "')" }
 		class="cursor-pointer group"
-		{ templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"}... }
+		{ templ.Attributes{"@click": "copy()"}... }
 	>
 		<div
 			class="h-16 border-2 mb-2 transition-transform group-hover:-translate-y-1"
-			style={ "border-color: var(--border-color); background: " + cssVar }
+			style={ "border-color: var(--border-color); background: var(" + prop + ")" }
 		></div>
 		<p class="text-xs font-bold uppercase font-mono">{ name }</p>
-		<p class="text-xs font-mono" style="color: var(--color-text-muted)" x-text={ "copied ? 'Copied!' : '" + hex + "'" }>{ hex }</p>
+		<p class="text-xs font-mono" style="color: var(--color-text-muted)" x-text="copied ? 'Copied!' : hex"></p>
 	</div>
 }

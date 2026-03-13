@@ -1,0 +1,40 @@
+package cassette
+
+import "fmt"
+
+templ readout(r readoutDef) {
+	if r.isDynamic() {
+		<div class="cass-readout" x-data={ r.alpineData() } x-init={ r.alpineInit() }>
+			<div class="cass-readout-unit" style="margin-bottom: 0.25rem;">{ r.Label }</div>
+			<div class="flex items-baseline gap-1">
+				if r.hasThreshold() {
+					<span
+						{ templ.Attributes{":class": r.valueClassExpr()}... }
+						x-text="v"
+					>{ fmt.Sprintf("%g", r.Baseline) }</span>
+				} else {
+					<span class="cass-readout-value" x-text="v">{ fmt.Sprintf("%g", r.Baseline) }</span>
+				}
+				<span class="cass-readout-unit">{ r.Unit }</span>
+			</div>
+			if r.hasThreshold() {
+				<div
+					style="margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;"
+					{ templ.Attributes{":class": r.statusClassExpr()}... }
+					x-text={ r.statusTextExpr() }
+				>NOMINAL</div>
+			} else {
+				<div style="margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;" class="cass-value-ok">NOMINAL</div>
+			}
+		</div>
+	} else {
+		<div class="cass-readout">
+			<div class="cass-readout-unit" style="margin-bottom: 0.25rem;">{ r.Label }</div>
+			<div class="flex items-baseline gap-1">
+				<span class="cass-readout-value">{ r.StaticValue }</span>
+				<span class="cass-readout-unit">{ r.Unit }</span>
+			</div>
+			<div style="margin-top: 0.25rem; font-size: var(--font-size-caption); font-weight: 700;" class="cass-value-ok">{ r.StaticLabel }</div>
+		</div>
+	}
+}

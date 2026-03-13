@@ -1,0 +1,19 @@
+package cassette
+
+import "fmt"
+
+templ progressBar(label string, percent int, fillClass, valueClass string) {
+	<div>
+		<div class="flex justify-between mb-1">
+			<span style="font-size: var(--font-size-caption); font-weight: 700;">{ label }</span>
+			if valueClass != "" {
+				<span class={ valueClass } style="font-size: var(--font-size-caption); font-weight: 700;">{ fmt.Sprintf("%d%%", percent) }</span>
+			} else {
+				<span style="font-size: var(--font-size-caption); font-weight: 700; color: var(--color-text-muted);">{ fmt.Sprintf("%d%%", percent) }</span>
+			}
+		</div>
+		<div class="cass-progress-track">
+			<div class={ "cass-progress-fill", fillClass } style={ fmt.Sprintf("width: %d%%;", percent) }></div>
+		</div>
+	</div>
+}

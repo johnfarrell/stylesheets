@@ -1,0 +1,11 @@
+package components
+
+// OOBFontLoader renders the OOB font swap for HTMX navigation.
+// Call inside `if htmxRequest { }` in each guide's Page().
+templ OOBFontLoader(fontURL string) {
+	<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link rel="stylesheet" href={ fontURL }/>
+	</span>
+}

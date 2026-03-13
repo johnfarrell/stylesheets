@@ -1,0 +1,12 @@
+package cassette
+
+templ docCellView(label, value, valueClass string) {
+	<div class="cass-doc-cell">
+		<div class="cass-doc-cell-label">{ label }</div>
+		if valueClass != "" {
+			<div class={ "cass-doc-cell-value", valueClass }>{ value }</div>
+		} else {
+			<div class="cass-doc-cell-value">{ value }</div>
+		}
+	</div>
+}

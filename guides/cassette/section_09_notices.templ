@@ -1,0 +1,19 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionNotices() {
+	@components.Section("9.0  Notice Components", components.BadgeNone) {
+		<div style="display: flex; flex-direction: column; gap: 0.75rem;">
+			<!-- Static notices -->
+			for _, n := range staticNotices {
+				@staticNotice(n.Severity, n.Message)
+			}
+			<!-- Dismissible variants -->
+			<div style="margin-top: 0.5rem; font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">DISMISSIBLE VARIANTS</div>
+			for _, n := range dismissibleNotices {
+				@dismissibleNotice(n.Severity, n.Message)
+			}
+		</div>
+	}
+}

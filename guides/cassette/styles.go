@@ -1,28 +1,5 @@
 package cassette
 
-import (
-	"github.com/johnfarrell/stylesheets/guides"
-)
-
-// LogHandlerSnippet is the server-side handler shown in the system log SourceView.
-// Display copy only — the live handler is in handlers/guides.go.
-const LogHandlerSnippet = `mux.HandleFunc("/guides/cassette/log", func(w http.ResponseWriter, r *http.Request) {
-    entries := []struct{ sub, msg string }{
-        {"SYS", "WCYPD COLONY SYSTEMS — HEARTBEAT NOMINAL"},
-        // ... more entries ...
-    }
-    idx := int(time.Now().Unix()) % len(entries)
-    e := entries[idx]
-    ts := time.Now().Format("15:04:05")
-    fmt.Fprintf(w,
-        ` + "`" + `<div ...>[%s] %s %s</div>` + "`" + `,
-        ts, templ.EscapeString(e.sub), templ.EscapeString(e.msg),
-    )
-})`
-
-// highlightedLogHandler is LogHandlerSnippet pre-highlighted as Go, cached at startup.
-var highlightedLogHandler = guides.Highlight(LogHandlerSnippet, "go")
-
 func guideStyles() string {
 	return `
 /* [custom] - document body */
@@ -33,6 +10,10 @@ func guideStyles() string {
 .cass-panel{background:var(--color-surface);border:1px solid var(--color-border);}
 .cass-panel-header{background:var(--color-surface-2);border-bottom:1px solid var(--color-border);padding:0.4rem 0.75rem;font-size:var(--font-size-caption);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-muted);}
 .cass-panel-header-blue{background:var(--color-primary);color:#fff;border-bottom:none;}
+.cass-panel-header-danger{background:var(--color-danger);color:#fff;border-color:var(--color-danger);}
+.cass-panel-danger{border-color:var(--color-danger);}
+/* [custom] - panel body padding */
+.cass-panel-body{padding:0.75rem;}
 /* [custom] - buttons */
 .cass-btn{font-family:var(--font-body);font-size:var(--font-size-caption);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--color-primary);color:var(--color-primary);background:transparent;padding:0.4rem 1rem;cursor:pointer;transition:background 0.1s,color 0.1s;}
 .cass-btn:hover{background:var(--color-primary);color:#fff;}

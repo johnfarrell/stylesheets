@@ -1,0 +1,22 @@
+package cassette
+
+templ panel(header string) {
+	<div class="cass-panel">
+		<div class="cass-panel-header">{ header }</div>
+		{ children... }
+	</div>
+}
+
+templ panelBlue(header string) {
+	<div class="cass-panel">
+		<div class="cass-panel-header cass-panel-header-blue">{ header }</div>
+		{ children... }
+	</div>
+}
+
+templ panelDanger(header string) {
+	<div class="cass-panel cass-panel-danger">
+		<div class="cass-panel-header cass-panel-header-danger">{ header }</div>
+		{ children... }
+	</div>
+}

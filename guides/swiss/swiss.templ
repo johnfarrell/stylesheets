@@ -9,15 +9,9 @@ import (
 templ Page(g guides.Guide, htmxRequest bool) {
 	{{ snippets := guides.GetHighlightedSnippets(g.Slug) }}
 	if htmxRequest {
-		<!-- OOB font loader: swaps the #font-loader span in <body> on HTMX navigation -->
-		<span id="font-loader" { templ.Attributes{"hx-swap-oob": "true"}... }>
-			<link rel="preconnect" href="https://fonts.googleapis.com"/>
-			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-			<link rel="stylesheet" href={ g.FontURL }/>
-		</span>
+		@components.OOBFontLoader(g.FontURL)
 	}
-	<!-- CSS vars + guide-specific classes (built in Go, injected via templ.Raw) -->
-	@templ.Raw("<style>:root{" + guides.BuildCSSVars(g.CSSVars) + "}" + guides.BuildDarkCSS(g.DarkCSSVars) + guideStyles() + "</style>")
+	@components.GuideStyles(g, guideStyles())
 	<div style="background: var(--color-bg); color: var(--color-text); min-height: 100%;">
 	<div style="max-width: var(--content-max-width); margin: 0 auto; padding: 2rem; font-family: var(--font-body);">
 		<!-- Guide header -->
@@ -40,9 +34,9 @@ templ Page(g guides.Guide, htmxRequest bool) {
 		@swissSection("Color Palette", "[Alpine]") {
 			<!-- snippet:color-swatch -->
 			<div class="grid grid-cols-1 sm:grid-cols-3 gap-0" style="border: 2px solid var(--color-border);">
-				@swissSwatch("Red", "#e63329", "#fff")
-				@swissSwatch("Black", "#1a1a1a", "#fff")
-				@swissSwatch("White", "#ffffff", "#1a1a1a")
+				@swissSwatch("Red", "--color-primary")
+				@swissSwatch("Black", "--color-secondary")
+				@swissSwatch("White", "--color-bg")
 			</div>
 			<!-- /snippet:color-swatch -->
 			<p class="swiss-label mt-4">Click any swatch to copy hex value.</p>
@@ -362,14 +356,14 @@ templ swissArticleCard(eyebrow, headline, body string) {
 }
 
 // swissSwatch renders a full-bleed Swiss-style color swatch.
-templ swissSwatch(name, hex, textColor string) {
+templ swissSwatch(name, prop string) {
 	<div
-		x-data={ "{ copied: false, hex: '" + hex + "' }" }
+		x-data={ "colorSwatch('" + prop + "')" }
 		class="p-6 cursor-pointer"
-		style={ "background: " + hex + ";" }
-		{ templ.Attributes{"@click": "navigator.clipboard.writeText(hex); copied = true; setTimeout(() => copied = false, 1500)"}... }
+		style={ "background: var(" + prop + ");" }
+		{ templ.Attributes{"@click": "copy()"}... }
 	>
-		<p class="text-sm font-bold" style={ "color: " + textColor + "; font-family: var(--font-body); letter-spacing: 0.05em;" }>{ name }</p>
-		<p class="text-xs font-mono mt-1" style={ "color: " + textColor + "; opacity: 0.7;" } x-text={ "copied ? 'Copied!' : '" + hex + "'" }>{ hex }</p>
+		<p class="text-sm font-bold" style="font-family: var(--font-body); letter-spacing: 0.05em;" { templ.Attributes{":style": "'color:' + contrastText"}... }>{ name }</p>
+		<p class="text-xs font-mono mt-1" { templ.Attributes{":style": "'color:' + contrastText + ';opacity:0.7'"}... } x-text="copied ? 'Copied!' : hex"></p>
 	</div>
 }

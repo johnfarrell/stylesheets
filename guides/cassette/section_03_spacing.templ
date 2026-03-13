@@ -1,0 +1,22 @@
+package cassette
+
+import (
+	"fmt"
+	"github.com/johnfarrell/stylesheets/templates/components"
+)
+
+templ sectionSpacing() {
+	@components.Section("3.0  Spacing Scale", components.BadgeNone) {
+		@panel("SPACING SCALE — BASE UNIT: 4px") {
+			<div style="padding: 1rem;">
+				for _, step := range spacingSteps {
+					<div class="flex items-center gap-4 mb-2">
+						<span style="font-size: var(--font-size-caption); color: var(--color-text-muted); width: 9rem; flex-shrink: 0;">{ step.Label }</span>
+						<div style={ fmt.Sprintf("width: %dpx; height: 12px; background: var(--color-primary);", step.Px) }></div>
+						<span style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ step.TwClass }</span>
+					</div>
+				}
+			</div>
+		}
+	}
+}

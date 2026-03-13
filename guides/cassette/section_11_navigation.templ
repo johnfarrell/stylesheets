@@ -1,0 +1,132 @@
+package cassette
+
+import (
+	"fmt"
+	"github.com/johnfarrell/stylesheets/templates/components"
+)
+
+templ sectionNavigation() {
+	@components.Section("11.0  Navigation Components", components.BadgeAlpine) {
+		<!-- Part A: Horizontal Tabs -->
+		<div class="cass-panel mb-6" x-data="{ tab: 'overview' }">
+			<div class="cass-panel-header">HORIZONTAL TAB NAVIGATION</div>
+			<div style="padding: 0.75rem 0.75rem 0;">
+				<div class="flex" style="border-bottom: 1px solid var(--color-border);">
+					for _, t := range navTabs {
+						<button
+							class="cass-tab"
+							{ templ.Attributes{":class": fmt.Sprintf("tab==='%s' ? 'cass-tab cass-tab-active' : 'cass-tab'", t.ID)}... }
+							{ templ.Attributes{"@click": fmt.Sprintf("tab='%s'", t.ID)}... }
+						>{ t.Label }</button>
+					}
+				</div>
+			</div>
+			<div style="padding: 1rem;">
+				<!-- OVERVIEW -->
+				<div x-show="tab==='overview'">
+					for i, para := range tabOverviewParagraphs {
+						if i == 0 {
+							<p style="font-size: var(--font-size-body); line-height: 1.7; margin-bottom: 0.75rem;">{ para }</p>
+						} else {
+							<p style="font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text-muted);">{ para }</p>
+						}
+					}
+				</div>
+				<!-- SYSTEMS -->
+				<div x-show="tab==='systems'" style="display: none;">
+					<table class="cass-table">
+						<thead><tr><th>SYSTEM</th><th>STATUS</th><th>READING</th><th>NOTES</th></tr></thead>
+						<tbody>
+							for _, s := range tabSystems {
+								<tr>
+									<td>{ s.System }</td>
+									<td>
+										if s.Status == "OVERRIDE" {
+											@statusText(s.Status, "cass-value-warn")
+										} else {
+											@statusText(s.Status, "cass-value-ok")
+										}
+									</td>
+									<td>{ s.Reading }</td>
+									<td style="color: var(--color-text-muted); font-size: var(--font-size-caption);">{ s.Notes }</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				<!-- CREW -->
+				<div x-show="tab==='crew'" style="display: none;">
+					<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+						for _, c := range tabCrew {
+							<div class="flex items-center gap-3" style="padding: 0.5rem; border: 1px solid var(--color-border);">
+								<span class="cass-light cass-light-green cass-pulse"></span>
+								<div>
+									<div style="font-size: var(--font-size-body); font-weight: 500;">{ c.Name }</div>
+									<div style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ c.Role }</div>
+								</div>
+								<span class="cass-value-ok" style="margin-left: auto; font-size: var(--font-size-caption); font-weight: 700;">{ c.Status }</span>
+							</div>
+						}
+					</div>
+				</div>
+				<!-- CARGO -->
+				<div x-show="tab==='cargo'" style="display: none;">
+					<table class="cass-table">
+						<thead><tr><th>ITEM</th><th>QTY</th><th>MASS</th><th>STATUS</th></tr></thead>
+						<tbody>
+							for _, item := range tabCargo {
+								<tr>
+									<td>{ item.Item }</td>
+									<td class="cass-td-num">{ item.Qty }</td>
+									<td class="cass-td-num">{ item.Mass }</td>
+									<td>
+										if item.Status == "SO-937" {
+											@statusText(item.Status, "cass-value-warn")
+										} else {
+											@statusText(item.Status, "cass-value-ok")
+										}
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				<!-- LOGS -->
+				<div x-show="tab==='logs'" style="display: none;">
+					<div style="display: flex; flex-direction: column; gap: 0.25rem;">
+						for _, log := range tabLogs {
+							<div class="flex gap-3" style="font-size: var(--font-size-caption); padding: 0.25rem 0; border-bottom: 1px solid var(--color-surface-2);">
+								<span style="color: var(--color-text-muted); min-width: 9rem;">{ log.Timestamp }</span>
+								<span style="color: var(--color-primary); font-weight: 700; min-width: 2.5rem;">{ log.Code }</span>
+								<span>{ log.Message }</span>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Part B: Vertical Sidebar Nav -->
+		<div class="cass-panel" x-data="{ active: '1' }">
+			<div class="cass-panel-header">VERTICAL DOCUMENT NAVIGATION — TABLE OF CONTENTS</div>
+			<div class="flex">
+				<div style="min-width: 240px; border-right: 1px solid var(--color-border); padding: 0.5rem 0;">
+					for _, item := range tocItems {
+						<div
+							class="cursor-pointer"
+							style="padding: 0.5rem 1rem;"
+							{ templ.Attributes{":style": fmt.Sprintf("active==='%s' ? 'border-left: 3px solid var(--color-primary); background: rgba(11,61,145,0.04); color: var(--color-primary); font-weight: 700;' : 'border-left: 3px solid transparent;'", item.ID)}... }
+							{ templ.Attributes{"@click": fmt.Sprintf("active='%s'", item.ID)}... }
+						>
+							<span style="font-size: var(--font-size-caption);">{ item.Label }</span>
+						</div>
+					}
+				</div>
+				<div style="padding: 1rem; flex: 1;">
+					<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Selected section:</p>
+					<p class="cass-value" style="font-size: var(--font-size-body); margin-top: 0.25rem;" x-text="active"></p>
+					<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.5rem;">Click any section in the nav to change the active state. In a production document, this would scroll to or load that section.</p>
+				</div>
+			</div>
+		</div>
+	}
+}

@@ -1,0 +1,107 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionDialogs(snippets map[string]string) {
+	@components.Section("15.0  Dialog Components", components.BadgeAlpine) {
+		<!-- snippet:modal -->
+		<div x-data="{ modal: null, authCode: '', confirmed: false }">
+			<!-- Trigger buttons -->
+			<div class="flex flex-wrap gap-3 mb-4">
+				for _, t := range modalTriggers {
+					<button class={ t.BtnClass } { templ.Attributes{"@click": t.ResetExpr}... }>{ t.Label }</button>
+				}
+			</div>
+			<p style="font-size: var(--font-size-caption); color: var(--color-text-muted);">Click a button above to open the corresponding modal dialog.</p>
+			<!-- Overlay -->
+			<div class="cass-overlay" x-show="modal !== null" style="display: none;" { templ.Attributes{"@click.self": "modal=null"}... }>
+				<!-- Modal 1: Auth -->
+				<div class="cass-modal" x-show="modal==='auth'" style="display: none;">
+					<div class="cass-modal-header">ACCESS REQUEST — LEVEL 5 CLEARANCE</div>
+					<div style="padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
+						<div>
+							<label class="cass-label" for="modal-personnel">PERSONNEL ID</label>
+							<input id="modal-personnel" type="text" class="cass-input" placeholder="e.g. RIPLEY, E. — WO-NOS-002"/>
+						</div>
+						<div>
+							<label class="cass-label" for="modal-code">AUTHORIZATION CODE</label>
+							<input id="modal-code" type="password" class="cass-input cass-input-box" placeholder="••••••••"/>
+						</div>
+						<div>
+							<label class="cass-label" for="modal-level">ACCESS LEVEL REQUESTED</label>
+							<select id="modal-level" class="cass-input cass-input-box" style="cursor: pointer;">
+								<option>L-3</option>
+								<option>L-4</option>
+								<option>L-5</option>
+								<option>UNRESTRICTED</option>
+							</select>
+						</div>
+						<div>
+							<label class="cass-label" for="modal-reason">REASON FOR ACCESS</label>
+							<textarea id="modal-reason" rows="2" class="cass-input cass-input-box" placeholder="Describe operational need for elevated access clearance..."></textarea>
+						</div>
+					</div>
+					<div class="flex justify-end gap-3" style="padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);">
+						<button class="cass-btn" { templ.Attributes{"@click": "modal=null"}... }>CANCEL</button>
+						<button class="cass-btn cass-btn-filled" { templ.Attributes{"@click": "modal=null"}... }>SUBMIT REQUEST</button>
+					</div>
+				</div>
+				<!-- Modal 2: Jettison -->
+				<div class="cass-modal" x-show="modal==='jettison'" style="display: none; border-color: var(--color-danger);">
+					<div class="cass-modal-header cass-modal-header-danger">CONFIRM JETTISON — IRREVERSIBLE ACTION</div>
+					<div style="padding: 1.25rem;">
+						<div class="cass-notice cass-notice-warning mb-4">
+							<div class="cass-notice-label" style="color: var(--color-danger);">WARNING</div>
+							<p>This action is irreversible. Once executed, the following cargo will be permanently jettisoned into open space and cannot be recovered.</p>
+						</div>
+						<p style="font-size: var(--font-size-caption); font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em;">Cargo to be jettisoned:</p>
+						<ul style="font-size: var(--font-size-body); color: var(--color-text-muted); margin-bottom: 1rem; padding-left: 1rem; line-height: 2;">
+							for _, item := range jettisonCargo {
+								<li>{ item }</li>
+							}
+						</ul>
+						<div>
+							<label class="cass-label" for="modal-jettison-confirm">TYPE "CONFIRM" TO PROCEED</label>
+							<input
+								id="modal-jettison-confirm"
+								type="text"
+								x-model="authCode"
+								class="cass-input cass-input-box"
+								placeholder="CONFIRM"
+								style="text-transform: uppercase;"
+							/>
+						</div>
+					</div>
+					<div class="flex justify-end gap-3" style="padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);">
+						<button class="cass-btn" { templ.Attributes{"@click": "modal=null"}... }>ABORT</button>
+						<button
+							class="cass-btn cass-btn-danger-filled"
+							{ templ.Attributes{":disabled": "authCode !== 'CONFIRM'"}... }
+							{ templ.Attributes{"@click": "authCode==='CONFIRM' && (modal=null)"}... }
+						>JETTISON</button>
+					</div>
+				</div>
+				<!-- Modal 3: Alert -->
+				<div class="cass-modal" x-show="modal==='alert'" style="display: none;">
+					<div class="cass-modal-header">SYSTEM NOTIFICATION — PRIORITY MESSAGE</div>
+					<div style="padding: 1.25rem;">
+						<div class="cass-notice cass-notice-note mb-4">
+							<div class="cass-notice-label" style="color: var(--color-primary);">PRIORITY: ROUTINE</div>
+							<p>Scheduled maintenance window for atmospheric processing units 3 and 4 will commence at 0200 station time. Estimated duration: 45 minutes. Decks F and G will experience reduced atmospheric circulation during this period.</p>
+						</div>
+						<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem;">
+							for _, c := range alertMetadataCells {
+								@docCellView(c.Label, c.Value, c.ValueClass)
+							}
+						</div>
+					</div>
+					<div class="flex justify-end" style="padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border);">
+						<button class="cass-btn cass-btn-filled" { templ.Attributes{"@click": "modal=null"}... }>ACKNOWLEDGED</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /snippet:modal -->
+		@components.SourceView(snippets["modal"])
+	}
+}
