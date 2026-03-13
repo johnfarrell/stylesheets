@@ -1,0 +1,35 @@
+package shelf
+
+// SearchResultRow renders a single book as a search result row,
+// returned by the HTMX search endpoint.
+templ SearchResultRow(book Book) {
+	<div
+		class="shf-book-row"
+		hx-get={ "/guides/shelf/book/" + book.ID }
+		hx-target="#shf-detail-panel"
+		hx-swap="innerHTML"
+	>
+		<div class="shf-cover" style={ "background: " + coverColor(book.ID) }>
+			{ string([]rune(book.Title)[0:1]) }
+		</div>
+		<div class="flex-1">
+			<div style="font-weight: 600; font-size: 0.9375rem">{ book.Title }</div>
+			<div style="font-size: 0.75rem; color: var(--color-text-muted)">{ book.Author }</div>
+		</div>
+		if len(book.Tags) > 0 {
+			<div class="flex flex-wrap gap-1">
+				for _, tag := range book.Tags {
+					<span class={ "shf-tag", tagClass(tag.Category) }>
+						<span class="shf-tag-icon">{ tag.Icon }</span>
+						<span>{ tag.Label }</span>
+					</span>
+				}
+			</div>
+		}
+		if book.Rating > 0 {
+			<div class="shf-stars">
+				@starRating(book.Rating)
+			</div>
+		}
+	</div>
+}
