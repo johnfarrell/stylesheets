@@ -35,7 +35,7 @@ func Home(allGuides []guides.Guide) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"p-8 max-w-5xl mx-auto\"><div class=\"mb-10\"><h1 class=\"text-3xl font-bold text-gray-900 dark:text-gray-100\">Stylesheets</h1><p class=\"mt-2 text-gray-500 dark:text-gray-400 max-w-xl\">A reference collection of UI design languages built with Go, Templ, HTMX, Alpine.js, and Tailwind CSS.</p></div><div class=\"grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"p-8 max-w-5xl mx-auto\"><div class=\"mb-10\"><h1 class=\"text-3xl font-bold text-gray-900 dark:text-gray-100\">Stylesheets</h1><p class=\"mt-2 text-gray-500 dark:text-gray-400 max-w-xl\">A reference collection of UI design languages built with Go, Templ, HTMX, Alpine.js, and Tailwind CSS.</p><p class=\"mt-2 text-gray-500 dark:text-gray-400\">Here you will find a collection of different styles, all trying to show off different ways of using this tech stack. This project acts primarily as a personal playground for using Claude, along with giving me code I can play around with and see changes easily. This tech stack is one that I have had personal interest in learning for quite some time and never found the time, and it felt like a perfect usecase to see how capable Claude is at the same time.</p><p class=\"mt-2 text-gray-500 dark:text-gray-400\">If you encounter any issues or want to make improvements/suggestions based on your experience, PRs are always welcome.</p><br><h2 class=\"text-base font-semibold text-gray-900 dark:text-gray-100\">AI Disclaimer</h2><p class=\"mt-2 text-gray-500 dark:text-gray-400\">Almost the entirety of this website is generated via Claude Code. There are probably many ways to improve what is here or do things more efficiently, but this is what I got. Like I said, this is primarily a reference library to see ways to do different things, not a manual on the best way to accomplish something.</p></div><div class=\"grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -47,7 +47,7 @@ func Home(allGuides []guides.Guide) templ.Component {
 			var templ_7745c5c3_Var2 templ.SafeURL
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinURLErrs(templ.SafeURL(fmt.Sprintf("/guides/%s", g.Slug)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 20, Col: 60}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 38, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -60,7 +60,7 @@ func Home(allGuides []guides.Guide) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/guides/%s/content", g.Slug))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 21, Col: 55}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 39, Col: 55}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -73,7 +73,7 @@ func Home(allGuides []guides.Guide) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/guides/%s", g.Slug))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 23, Col: 52}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 41, Col: 52}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -94,7 +94,7 @@ func Home(allGuides []guides.Guide) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(g.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 27, Col: 82}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 45, Col: 82}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -107,7 +107,7 @@ func Home(allGuides []guides.Guide) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(g.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 28, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/home.templ`, Line: 46, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
