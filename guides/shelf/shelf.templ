@@ -88,6 +88,23 @@ templ Page(g guides.Guide, htmxRequest bool) {
 					<p style="font-family: var(--font-mono); font-size: var(--font-size-body); letter-spacing: 0.02em;">978-0-441-17271-9</p>
 					<p class="mt-1" style="font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-text-muted);">688 pages</p>
 				</div>
+				<!-- Combined typography sample -->
+				<div class="shf-panel p-6">
+					<p class="mb-1" style="font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Combined — Book detail sample</p>
+					<h3 style="font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 600; margin-bottom: 0.25rem;">Dune</h3>
+					<p style="font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 0.75rem;">Frank Herbert</p>
+					<p style="font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.7; margin-bottom: 0.75rem;">
+						Set on the desert planet Arrakis, Dune is the story of Paul Atreides — a young man born into a powerful noble family — who must navigate the dangerous politics of a universe where the most valuable substance in existence, the spice melange, can only be found in one place.
+					</p>
+					<p style="font-family: var(--font-display); font-size: var(--font-size-body); font-style: italic; line-height: 1.6; color: var(--color-text-muted); margin-bottom: 0.75rem;">
+						"I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration."
+					</p>
+					<div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+						<span style="font-family: var(--font-mono); font-size: var(--font-size-caption);">978-0-441-17271-9</span>
+						<span style="font-family: var(--font-mono); font-size: var(--font-size-caption);">688 pages</span>
+						<span style="font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);">Science Fiction &middot; 1965</span>
+					</div>
+				</div>
 			</div>
 		}
 
@@ -483,7 +500,7 @@ templ colorSwatchCard(name, cssVar, usage string) {
 		style="cursor: pointer; transition: border-color 0.15s;"
 		{ templ.Attributes{":style": "copied ? 'cursor:pointer; transition:border-color 0.15s; border-color: var(--color-primary)' : 'cursor:pointer; transition:border-color 0.15s; border-color: transparent'"}... }
 	>
-		<div style={ "background: var(" + cssVar + "); height: 3rem; border-radius: 4px; margin-bottom: 0.5rem;" }></div>
+		<div style={ "background: var(" + cssVar + "); height: 3rem; border-radius: 4px; margin-bottom: 0.5rem; border: 1px solid var(--color-border);" }></div>
 		<p style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: 600;">{ name }</p>
 		<p style="font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="copied ? 'Copied!' : hex">{ cssVar }</p>
 		<p style="font-size: 0.625rem; color: var(--color-text-muted); margin-top: 0.125rem;">{ usage }</p>

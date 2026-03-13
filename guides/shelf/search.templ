@@ -19,7 +19,7 @@ templ SearchResultRow(book Book) {
 		if len(book.Tags) > 0 {
 			<div class="flex flex-wrap gap-1">
 				for _, tag := range book.Tags {
-					<span class={ "shf-tag " + tagClass(tag.Category) }>
+					<span class={ "shf-tag", tagClass(tag.Category) }>
 						<span class="shf-tag-icon">{ tag.Icon }</span>
 						<span>{ tag.Label }</span>
 					</span>
@@ -28,13 +28,7 @@ templ SearchResultRow(book Book) {
 		}
 		if book.Rating > 0 {
 			<div class="shf-stars">
-				for i := 1; i <= 5; i++ {
-					if float64(i) <= book.Rating {
-						<span>&#9733;</span>
-					} else {
-						<span class="shf-star-empty">&#9734;</span>
-					}
-				}
+				@starRating(book.Rating)
 			</div>
 		}
 	</div>

@@ -161,7 +161,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<div class=\"space-y-4\"><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">Lora — Display / 2rem / 600</p><p style=\"font-family: var(--font-display); font-size: 2rem; font-weight: 600; line-height: 1.2;\">The Library at the End of the World</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">Lora — Heading / 1.25rem / 600</p><p style=\"font-family: var(--font-display); font-size: 1.25rem; font-weight: 600;\">Chapter One: A Quiet Beginning</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">Lora — Italic</p><p style=\"font-family: var(--font-display); font-size: 1.125rem; font-style: italic; line-height: 1.6;\">\"A reader lives a thousand lives before he dies. The man who never reads lives only one.\" — George R.R. Martin</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">DM Sans — Subheading / 0.9375rem / 600</p><p style=\"font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600;\">Currently Reading &middot; 3 books in progress</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">DM Sans — Body / 0.875rem / 400</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.6;\">Every book on your shelf tells a story beyond its pages — when you found it, who recommended it, the coffee stain on page forty-seven.</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">DM Sans — Caption / 0.75rem</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Added Mar 12, 2026 &middot; Last updated 2 days ago</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">JetBrains Mono — ISBN &amp; Metadata</p><p style=\"font-family: var(--font-mono); font-size: var(--font-size-body); letter-spacing: 0.02em;\">978-0-441-17271-9</p><p class=\"mt-1\" style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-text-muted);\">688 pages</p></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "<div class=\"space-y-4\"><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">Lora — Display / 2rem / 600</p><p style=\"font-family: var(--font-display); font-size: 2rem; font-weight: 600; line-height: 1.2;\">The Library at the End of the World</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">Lora — Heading / 1.25rem / 600</p><p style=\"font-family: var(--font-display); font-size: 1.25rem; font-weight: 600;\">Chapter One: A Quiet Beginning</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">Lora — Italic</p><p style=\"font-family: var(--font-display); font-size: 1.125rem; font-style: italic; line-height: 1.6;\">\"A reader lives a thousand lives before he dies. The man who never reads lives only one.\" — George R.R. Martin</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">DM Sans — Subheading / 0.9375rem / 600</p><p style=\"font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600;\">Currently Reading &middot; 3 books in progress</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">DM Sans — Body / 0.875rem / 400</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.6;\">Every book on your shelf tells a story beyond its pages — when you found it, who recommended it, the coffee stain on page forty-seven.</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">DM Sans — Caption / 0.75rem</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Added Mar 12, 2026 &middot; Last updated 2 days ago</p></div><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">JetBrains Mono — ISBN &amp; Metadata</p><p style=\"font-family: var(--font-mono); font-size: var(--font-size-body); letter-spacing: 0.02em;\">978-0-441-17271-9</p><p class=\"mt-1\" style=\"font-family: var(--font-mono); font-size: var(--font-size-caption); color: var(--color-text-muted);\">688 pages</p></div><!-- Combined typography sample --><div class=\"shf-panel p-6\"><p class=\"mb-1\" style=\"font-size: var(--font-size-caption); color: var(--color-text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;\">Combined — Book detail sample</p><h3 style=\"font-family: var(--font-display); font-size: var(--font-size-heading); font-weight: 600; margin-bottom: 0.25rem;\">Dune</h3><p style=\"font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 0.75rem;\">Frank Herbert</p><p style=\"font-family: var(--font-body); font-size: var(--font-size-body); line-height: 1.7; margin-bottom: 0.75rem;\">Set on the desert planet Arrakis, Dune is the story of Paul Atreides — a young man born into a powerful noble family — who must navigate the dangerous politics of a universe where the most valuable substance in existence, the spice melange, can only be found in one place.</p><p style=\"font-family: var(--font-display); font-size: var(--font-size-body); font-style: italic; line-height: 1.6; color: var(--color-text-muted); margin-bottom: 0.75rem;\">\"I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration.\"</p><div class=\"flex flex-wrap items-center gap-x-4 gap-y-1\"><span style=\"font-family: var(--font-mono); font-size: var(--font-size-caption);\">978-0-441-17271-9</span> <span style=\"font-family: var(--font-mono); font-size: var(--font-size-caption);\">688 pages</span> <span style=\"font-family: var(--font-body); font-size: var(--font-size-caption); color: var(--color-text-muted);\">Science Fiction &middot; 1965</span></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -208,7 +208,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(s.Label)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 109, Col: 177}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 126, Col: 177}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -221,7 +221,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("height: 6px; border-radius: 3px; background: var(--color-primary); width: " + s.Width)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 110, Col: 105}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 127, Col: 105}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -392,7 +392,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var11 string
 				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("{ open: %t }", i == 0))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 279, Col: 77}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 296, Col: 77}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
@@ -421,7 +421,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var12 string
 				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(list.Icon)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 284, Col: 24}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 301, Col: 24}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 				if templ_7745c5c3_Err != nil {
@@ -434,7 +434,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var13 string
 				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(list.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 285, Col: 66}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 302, Col: 66}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 				if templ_7745c5c3_Err != nil {
@@ -447,7 +447,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 				var templ_7745c5c3_Var14 string
 				templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", len(list.Books)))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 286, Col: 67}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 303, Col: 67}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 				if templ_7745c5c3_Err != nil {
@@ -471,7 +471,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var15 string
 					templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs("/guides/shelf/book/" + book.ID)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 294, Col: 49}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 311, Col: 49}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 					if templ_7745c5c3_Err != nil {
@@ -484,7 +484,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var16 string
 					templ_7745c5c3_Var16, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + coverColor(book.ID))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 298, Col: 76}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 315, Col: 76}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 					if templ_7745c5c3_Err != nil {
@@ -497,7 +497,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var17 string
 					templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(string([]rune(book.Title)[0:1]))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 299, Col: 43}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 316, Col: 43}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 					if templ_7745c5c3_Err != nil {
@@ -510,7 +510,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var18 string
 					templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(book.Title)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 302, Col: 133}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 319, Col: 133}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 					if templ_7745c5c3_Err != nil {
@@ -523,7 +523,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var19 string
 					templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(book.Author)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 303, Col: 103}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 320, Col: 103}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 					if templ_7745c5c3_Err != nil {
@@ -559,7 +559,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 						var templ_7745c5c3_Var22 string
 						templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Icon)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 308, Col: 49}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 325, Col: 49}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 						if templ_7745c5c3_Err != nil {
@@ -572,7 +572,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 						var templ_7745c5c3_Var23 string
 						templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Label)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 309, Col: 23}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 326, Col: 23}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 						if templ_7745c5c3_Err != nil {
@@ -648,7 +648,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var25 string
 			templ_7745c5c3_Var25, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: " + coverColor(AllBooks[0].ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 334, Col: 82}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 351, Col: 82}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 			if templ_7745c5c3_Err != nil {
@@ -661,7 +661,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var26 string
 			templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(string([]rune(AllBooks[0].Title)[0:1]))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 335, Col: 46}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 352, Col: 46}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 			if templ_7745c5c3_Err != nil {
@@ -674,7 +674,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var27 string
 			templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(AllBooks[0].Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 338, Col: 150}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 355, Col: 150}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
 			if templ_7745c5c3_Err != nil {
@@ -687,7 +687,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var28 string
 			templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(AllBooks[0].Author)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 339, Col: 126}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 356, Col: 126}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 			if templ_7745c5c3_Err != nil {
@@ -722,7 +722,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var31 string
 			templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(statusIcon(AllBooks[0].Status))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 342, Col: 40}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 359, Col: 40}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 			if templ_7745c5c3_Err != nil {
@@ -735,7 +735,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var32 string
 			templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(statusLabel(AllBooks[0].Status))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 342, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 359, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
 			if templ_7745c5c3_Err != nil {
@@ -756,7 +756,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var33 string
 			templ_7745c5c3_Var33, templ_7745c5c3_Err = templ.JoinStringErrs(AllBooks[0].ISBN)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 352, Col: 102}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 369, Col: 102}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var33))
 			if templ_7745c5c3_Err != nil {
@@ -769,7 +769,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var34 string
 			templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", AllBooks[0].Pages))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 356, Col: 122}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 373, Col: 122}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 			if templ_7745c5c3_Err != nil {
@@ -782,7 +782,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var35 string
 			templ_7745c5c3_Var35, templ_7745c5c3_Err = templ.JoinStringErrs(AllBooks[0].Genre)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 360, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 377, Col: 72}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var35))
 			if templ_7745c5c3_Err != nil {
@@ -795,7 +795,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 			var templ_7745c5c3_Var36 string
 			templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", AllBooks[0].Year))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 364, Col: 90}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 381, Col: 90}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
 			if templ_7745c5c3_Err != nil {
@@ -836,7 +836,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var39 string
 					templ_7745c5c3_Var39, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Icon)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 374, Col: 48}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 391, Col: 48}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var39))
 					if templ_7745c5c3_Err != nil {
@@ -849,7 +849,7 @@ func Page(g guides.Guide, htmxRequest bool) templ.Component {
 					var templ_7745c5c3_Var40 string
 					templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(tag.Label)
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 375, Col: 22}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 392, Col: 22}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 					if templ_7745c5c3_Err != nil {
@@ -962,7 +962,7 @@ func colorSwatchCard(name, cssVar, usage string) templ.Component {
 		var templ_7745c5c3_Var43 string
 		templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs("colorSwatch('" + cssVar + "')")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 481, Col: 68}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 498, Col: 68}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
 		if templ_7745c5c3_Err != nil {
@@ -989,9 +989,9 @@ func colorSwatchCard(name, cssVar, usage string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var44 string
-		templ_7745c5c3_Var44, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: var(" + cssVar + "); height: 3rem; border-radius: 4px; margin-bottom: 0.5rem;")
+		templ_7745c5c3_Var44, templ_7745c5c3_Err = templruntime.SanitizeStyleAttributeValues("background: var(" + cssVar + "); height: 3rem; border-radius: 4px; margin-bottom: 0.5rem; border: 1px solid var(--color-border);")
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 486, Col: 106}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 503, Col: 145}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
 		if templ_7745c5c3_Err != nil {
@@ -1004,7 +1004,7 @@ func colorSwatchCard(name, cssVar, usage string) templ.Component {
 		var templ_7745c5c3_Var45 string
 		templ_7745c5c3_Var45, templ_7745c5c3_Err = templ.JoinStringErrs(name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 487, Col: 102}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 504, Col: 102}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var45))
 		if templ_7745c5c3_Err != nil {
@@ -1017,7 +1017,7 @@ func colorSwatchCard(name, cssVar, usage string) templ.Component {
 		var templ_7745c5c3_Var46 string
 		templ_7745c5c3_Var46, templ_7745c5c3_Err = templ.JoinStringErrs(cssVar)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 488, Col: 155}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 505, Col: 155}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var46))
 		if templ_7745c5c3_Err != nil {
@@ -1030,7 +1030,7 @@ func colorSwatchCard(name, cssVar, usage string) templ.Component {
 		var templ_7745c5c3_Var47 string
 		templ_7745c5c3_Var47, templ_7745c5c3_Err = templ.JoinStringErrs(usage)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 489, Col: 95}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `guides/shelf/shelf.templ`, Line: 506, Col: 95}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var47))
 		if templ_7745c5c3_Err != nil {

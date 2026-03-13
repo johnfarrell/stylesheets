@@ -379,15 +379,12 @@ func NewMux() *http.ServeMux {
 	mux.HandleFunc("/guides/shelf/search", func(w http.ResponseWriter, r *http.Request) {
 		q := r.URL.Query().Get("q")
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		if q == "" {
-			// Return nothing — the default dashboard lists remain visible
-			return
-		}
 		for _, book := range shelftempl.AllBooks {
-			if containsFold(book.Title, q) || containsFold(book.Author, q) {
-				if err := shelftempl.SearchResultRow(book).Render(r.Context(), w); err != nil {
-					slog.Error("render failed", "error", err)
-				}
+			if q != "" && !containsFold(book.Title, q) && !containsFold(book.Author, q) {
+				continue
+			}
+			if err := shelftempl.SearchResultRow(book).Render(r.Context(), w); err != nil {
+				slog.Error("render failed", "error", err)
 			}
 		}
 	})

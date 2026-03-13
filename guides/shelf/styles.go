@@ -250,10 +250,10 @@ func guideStyles() string {
     font-size: 0.75rem;
     line-height: 1;
 }
-.shf-tag-list { color: var(--color-primary); background: rgba(90,114,71,0.1); }
-.shf-tag-gift { color: var(--color-accent); background: rgba(192,139,62,0.1); }
-.shf-tag-club { color: var(--color-info); background: rgba(91,122,148,0.1); }
-.shf-tag-rating { color: var(--color-accent-2); background: rgba(184,104,66,0.1); }
+.shf-tag-list { color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 10%, transparent); }
+.shf-tag-gift { color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.shf-tag-club { color: var(--color-info); background: color-mix(in srgb, var(--color-info) 10%, transparent); }
+.shf-tag-rating { color: var(--color-accent-2); background: color-mix(in srgb, var(--color-accent-2) 10%, transparent); }
 /* [custom] - star rating display */
 .shf-stars {
     display: inline-flex;
@@ -289,8 +289,8 @@ func guideStyles() string {
     border-color: var(--color-primary);
 }
 .shf-btn-primary:hover {
-    background: #4a5f3a;
-    border-color: #4a5f3a;
+    background: color-mix(in srgb, var(--color-primary) 80%, black);
+    border-color: color-mix(in srgb, var(--color-primary) 80%, black);
 }
 .shf-btn-danger {
     color: var(--color-danger);
@@ -312,8 +312,8 @@ func guideStyles() string {
     gap: 0.5rem;
 }
 .shf-btn-scan:hover {
-    background: #4a5f3a;
-    border-color: #4a5f3a;
+    background: color-mix(in srgb, var(--color-primary) 80%, black);
+    border-color: color-mix(in srgb, var(--color-primary) 80%, black);
 }
 /* [custom] - warm-styled input */
 .shf-input {
@@ -413,9 +413,9 @@ func guideStyles() string {
     padding: 0.2rem 0.625rem;
     border-radius: 10px;
 }
-.shf-status-reading { color: var(--color-info); background: rgba(91,122,148,0.1); }
+.shf-status-reading { color: var(--color-info); background: color-mix(in srgb, var(--color-info) 10%, transparent); }
 .shf-status-to-read { color: var(--color-text-muted); background: var(--color-surface-2); }
-.shf-status-finished { color: var(--color-success); background: rgba(106,154,110,0.1); }
+.shf-status-finished { color: var(--color-success); background: color-mix(in srgb, var(--color-success) 10%, transparent); }
 /* [custom] - select input */
 .shf-select {
     font-family: var(--font-body);

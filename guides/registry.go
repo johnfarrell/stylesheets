@@ -559,8 +559,8 @@ var All = []Guide{
 		Description: "Warm, scannable, list-driven. A reading companion built on linen tones, literary type, and triple-encoded accessibility.",
 		FontURL:     "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap",
 		CSSVars: map[string]string{
-			"--color-bg":          "#faf8f5",
-			"--color-surface":     "#f2ece4",
+			"--color-bg":          "#f2ece4",
+			"--color-surface":     "#faf8f5",
 			"--color-surface-2":   "#ebe4d9",
 			"--color-primary":     "#5a7247",
 			"--color-secondary":   "#2c2119",
