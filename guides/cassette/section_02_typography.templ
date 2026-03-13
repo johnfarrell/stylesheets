@@ -1,0 +1,22 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionTypography() {
+	@components.Section("2.0  Typography", components.BadgeNone) {
+		<div style="border: 1px solid var(--color-border);">
+			<div style="background: var(--color-surface-2); border-bottom: 1px solid var(--color-border); padding: 0.4rem 0.75rem;">
+				<span style="font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-muted);">{ typeTableHeader }</span>
+			</div>
+			for i, spec := range typeSpecimens {
+				@typeSpecimenRow(spec.FontName, spec.SizeLabel, spec.SampleText, spec.Style, i == len(typeSpecimens)-1)
+			}
+		</div>
+		<div class="mt-4 cass-panel" style="padding: 1.25rem;">
+			<div class="cass-panel-header" style="margin: -1.25rem -1.25rem 1rem -1.25rem;">{ paragraphSpec.Header }</div>
+			<p style="font-size: var(--font-size-body); line-height: 1.7; color: var(--color-text);">
+				{ paragraphSpec.Body }
+			</p>
+		</div>
+	}
+}

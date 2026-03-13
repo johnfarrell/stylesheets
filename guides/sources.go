@@ -3,7 +3,7 @@ package guides
 import "embed"
 
 // SourceFS holds the embedded guide subdirectories for snippet extraction.
-// Each guide's .templ file is read by path ({slug}/{slug}.templ) at runtime.
+// All .templ files in each guide directory are scanned for snippet markers.
 //
 //go:embed brutalist minimal cassette glass bento swiss terminal retro newspaper tracker
 var SourceFS embed.FS

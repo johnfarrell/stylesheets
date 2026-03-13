@@ -1,0 +1,63 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionPanels() {
+	@components.Section("6.0  Panel Components", components.BadgeAlpine) {
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			<!-- 1. Basic Panel -->
+			@panel(missionDataPanel.Header) {
+				<div style="padding: 0.75rem;">
+					for _, r := range missionDataPanel.Rows {
+						@dataRow(r.Label, r.Value)
+					}
+				</div>
+			}
+			<!-- 2. Blue-header Panel -->
+			@panelBlue(specialOrderPanel.Header) {
+				<div style="padding: 0.75rem;">
+					for _, r := range specialOrderPanel.Rows {
+						@dataRow(r.Label, r.Value)
+					}
+				</div>
+			}
+			<!-- 3. Collapsible Panel -->
+			<div class="cass-panel" x-data="{ open: true }">
+				<div class="cass-panel-header flex justify-between items-center cursor-pointer" { templ.Attributes{"@click": "open = !open"}... }>
+					<span>{ engineeringPanel.Header }</span>
+					<button class="cass-btn" style="padding: 0.1rem 0.5rem; font-size: var(--font-size-caption);" x-text="open ? '&#9650; COLLAPSE' : '&#9660; EXPAND'">&#9650; COLLAPSE</button>
+				</div>
+				<div x-show="open">
+					<div style="padding: 0.75rem;">
+						for _, r := range engineeringPanel.Rows {
+							@dataRow(r.Label, r.Value)
+						}
+					</div>
+				</div>
+			</div>
+			<!-- 4. Left-border Accent Panel -->
+			<div class="cass-panel" style="border-left: 4px solid var(--color-primary);">
+				<div style="padding: 0.75rem 1rem;">
+					<p style="font-size: var(--font-size-caption); font-weight: 700; color: var(--color-primary); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">{ navNote.Title }</p>
+					<p style="font-size: var(--font-size-body); line-height: 1.6; color: var(--color-text);">{ navNote.Body }</p>
+				</div>
+			</div>
+			<!-- 5. Status Summary Panel -->
+			@panel("VESSEL STATUS SUMMARY") {
+				<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;">
+					for _, c := range vesselStatusCells {
+						@docCellView(c.Label, c.Value, c.ValueClass)
+					}
+				</div>
+			}
+			<!-- 6. Danger Panel -->
+			@panelDanger(dangerPanel.Header) {
+				<div style="padding: 0.75rem;">
+					for _, r := range dangerPanel.Rows {
+						@dataRowColored(r.Label, r.Value, r.Color)
+					}
+				</div>
+			}
+		</div>
+	}
+}

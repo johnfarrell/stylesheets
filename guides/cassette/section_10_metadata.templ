@@ -1,0 +1,30 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionMetadata() {
+	@components.Section("10.0  Document Metadata", components.BadgeNone) {
+		<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+			for _, doc := range docBlocks {
+				<div class="cass-doc-header">
+					<div style={ "background: " + doc.TitleBg + "; color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;" }>
+						{ doc.Title }
+					</div>
+					for _, row := range doc.Rows {
+						<div style="display: grid; grid-template-columns: repeat(4, 1fr);">
+							for _, cell := range row {
+								@docCellView(cell.Label, cell.Value, cell.ValueClass)
+							}
+						</div>
+					}
+					if doc.Summary != nil {
+						<div class="cass-doc-cell">
+							<div class="cass-doc-cell-label">{ doc.Summary.Label }</div>
+							<div class="cass-doc-cell-value" style="margin-top: 0.25rem; line-height: 1.5;">{ doc.Summary.Value }</div>
+						</div>
+					}
+				</div>
+			}
+		</div>
+	}
+}

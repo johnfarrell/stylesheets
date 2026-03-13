@@ -1,22 +1,16 @@
 package cassette
 
-import "strings"
-
-func noticeLabelColor(severity string) string {
-	switch severity {
-	case "caution":
-		return "var(--color-caution)"
-	case "warning":
-		return "var(--color-danger)"
-	default:
-		return "var(--color-primary)"
-	}
+templ staticNotice(severity, message string) {
+	<div class={ "cass-notice cass-notice-" + severity }>
+		<div class="cass-notice-label" style={ "color: " + noticeLabelColor(severity) + ";" }>{ noticeLabel(severity) }</div>
+		<p>{ message }</p>
+	</div>
 }
 
 templ dismissibleNotice(severity, message string) {
 	<div x-data="{ visible: true }" x-show="visible" class={ "cass-notice cass-notice-" + severity }>
 		<div class="flex justify-between items-start">
-			<div class="cass-notice-label" style={ "color: " + noticeLabelColor(severity) + ";" }>{ strings.ToUpper(severity) }</div>
+			<div class="cass-notice-label" style={ "color: " + noticeLabelColor(severity) + ";" }>{ noticeLabel(severity) }</div>
 			<button { templ.Attributes{"@click": "visible=false"}... } style="background: none; border: none; cursor: pointer; color: var(--color-text-muted); font-size: 1rem; line-height: 1; padding: 0;">&#215;</button>
 		</div>
 		<p>{ message }</p>

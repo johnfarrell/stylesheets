@@ -1,0 +1,85 @@
+package cassette
+
+import (
+	"fmt"
+	"github.com/johnfarrell/stylesheets/templates/components"
+)
+
+templ sectionProgress(snippets map[string]string) {
+	@components.Section("13.0  Progress &amp; Completion", components.BadgeAlpine) {
+		<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+			<!-- Style A: Mission Phase Bars -->
+			@panel("MISSION PHASE PROGRESS BARS") {
+				<div style="padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+					for _, p := range missionPhases {
+						@progressBar(p.Label, p.Percent, p.FillClass, p.ValueClass)
+					}
+				</div>
+			}
+			<!-- Style B: Segmented Progress -->
+			<!-- snippet:progress-tracker -->
+			<div class="cass-panel" x-data="{ steps: 6, total: 10 }">
+				<div class="cass-panel-header">SEGMENTED PROGRESS — MISSION SUBSTEPS</div>
+				<div style="padding: 1rem;">
+					<div class="flex flex-wrap" style="margin-bottom: 0.75rem;">
+						<template x-for="i in total">
+							<div { templ.Attributes{":style": "i<=steps?'width:24px;height:24px;margin:1px;background:var(--color-primary);border:1px solid var(--color-border)':'width:24px;height:24px;margin:1px;background:var(--color-surface-2);border:1px solid var(--color-border)'"}... }></div>
+						</template>
+					</div>
+					<div class="flex items-center gap-3">
+						<button class="cass-btn" { templ.Attributes{"@click": "if(steps>0)steps--"}... }>&#9664; PREV</button>
+						<span style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="steps + ' / ' + total + ' SUBSTEPS COMPLETE'">6 / 10 SUBSTEPS COMPLETE</span>
+						<button class="cass-btn" { templ.Attributes{"@click": "if(steps<total)steps++"}... }>NEXT &#9654;</button>
+					</div>
+				</div>
+			</div>
+			<!-- /snippet:progress-tracker -->
+			@components.SourceView(snippets["progress-tracker"])
+			<!-- Style C: Step Tracker -->
+			<div class="cass-panel" x-data="{ step: 2 }">
+				<div class="cass-panel-header">STEP TRACKER — MISSION AUTHORIZATION SEQUENCE</div>
+				<div style="padding: 1rem;">
+					<div class="flex items-center" style="margin-bottom: 1rem;">
+						for i, label := range authSequenceSteps {
+							if i > 0 {
+								<div { templ.Attributes{":class": fmt.Sprintf("step>%d ? 'cass-step-line cass-step-line-done' : 'cass-step-line'", i)}... }></div>
+							}
+							<div style="text-align: center; flex-shrink: 0;">
+								<div
+									{ templ.Attributes{":class": fmt.Sprintf("step>%d ? 'cass-step-circle cass-step-circle-done' : step===%d ? 'cass-step-circle cass-step-circle-active' : 'cass-step-circle'", i, i)}... }
+								>
+									{ fmt.Sprintf("%d", i+1) }
+								</div>
+								<div style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem; white-space: nowrap;">{ label }</div>
+							</div>
+						}
+					</div>
+					<div class="flex gap-3">
+						<button class="cass-btn" { templ.Attributes{"@click": "if(step>0)step--"}... }>&#9664; BACK</button>
+						<button class="cass-btn cass-btn-filled" { templ.Attributes{"@click": "if(step<4)step++"}... }>NEXT &#9654;</button>
+					</div>
+				</div>
+			</div>
+			<!-- Style D: Project Status Table -->
+			@panel("MISSION TASK STATUS MATRIX") {
+				<table class="cass-table">
+					<thead>
+						<tr><th>TASK</th><th>OWNER</th><th>PROGRESS</th><th>STATUS</th></tr>
+					</thead>
+					<tbody>
+						for _, t := range missionTasks {
+							<tr>
+								<td>{ t.Task }</td>
+								<td style="font-size: var(--font-size-caption);">{ t.Owner }</td>
+								<td style="min-width: 120px;">
+									<div class="cass-progress-track"><div class={ "cass-progress-fill", t.FillClass } style={ fmt.Sprintf("width: %d%%;", t.Percent) }></div></div>
+								</td>
+								<td>@statusText(t.Status, t.StatusClass)</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+		</div>
+	}
+}

@@ -1,0 +1,78 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionReadouts(snippets map[string]string) {
+	@components.Section("12.0  Instrument Readouts", components.BadgeAlpine) {
+		<!-- Part A: Readout Grid -->
+		<!-- snippet:instrument-readout -->
+		@panelBlue("ENVIRONMENTAL INSTRUMENT READOUTS — LIVE") {
+			<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 0.75rem; gap: 0.5rem;">
+				for _, r := range instrumentReadouts {
+					@readout(r)
+				}
+			</div>
+		}
+		<!-- /snippet:instrument-readout -->
+		@components.SourceView(snippets["instrument-readout"])
+		<!-- Part B: Bar Gauges -->
+		<div class="cass-panel mb-6" x-data={ barGaugeAlpineData() }>
+			<div class="cass-panel-header">BAR GAUGE DISPLAY</div>
+			<div style="padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+				for _, g := range barGauges {
+					@barGauge(g.Label, g.AlpineVar, g.FillClass, g.ValueClass)
+				}
+				<div style="margin-top: 0.5rem;">
+					<button
+						class="cass-btn"
+						{ templ.Attributes{"@click": barGaugeRefreshExpr()}... }
+					>REFRESH READINGS</button>
+				</div>
+			</div>
+		</div>
+		<!-- Part C: Threshold Monitor -->
+		<div class="cass-panel" x-data="{ val: 78, limit: 85 }">
+			<div class="cass-panel-header">COOLANT PRESSURE — THRESHOLD MONITOR</div>
+			<div style="padding: 1rem;">
+				<div class="flex items-start gap-6 flex-wrap">
+					<div>
+						<div class="cass-readout-unit" style="margin-bottom: 0.25rem;">CURRENT PRESSURE</div>
+						<div class="flex items-baseline gap-1">
+							<span
+								{ templ.Attributes{":class": "val > limit ? 'cass-readout-value cass-readout-value-danger' : 'cass-readout-value'"}... }
+								x-text="val"
+							>78</span>
+							<span class="cass-readout-unit">kPa</span>
+						</div>
+					</div>
+					<div>
+						<div class="cass-readout-unit" style="margin-bottom: 0.25rem;">THRESHOLD LIMIT</div>
+						<div class="flex items-baseline gap-1">
+							<span class="cass-readout-value" x-text="limit">85</span>
+							<span class="cass-readout-unit">kPa</span>
+						</div>
+					</div>
+					<div x-show="val > limit" style="display: none;">
+						<div style="background: var(--color-danger); color: #fff; padding: 0.4rem 0.75rem; font-size: var(--font-size-caption); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.5rem;">
+							&#9888; THRESHOLD EXCEEDED
+						</div>
+					</div>
+				</div>
+				<div style="margin-top: 1rem;">
+					<div class="flex justify-between mb-1">
+						<label class="cass-label" for="cass-thresh">ADJUST PRESSURE (0–120 kPa)</label>
+						<span x-text="val + ' kPa'" class="cass-value">78 kPa</span>
+					</div>
+					<input
+						id="cass-thresh"
+						type="range"
+						min="0"
+						max="120"
+						x-model="val"
+						style="width: 100%; accent-color: var(--color-primary);"
+					/>
+				</div>
+			</div>
+		</div>
+	}
+}

@@ -87,13 +87,24 @@ func extractClose(line string) (string, bool) {
 func loadAll() map[string]map[string]string {
 	cache := map[string]map[string]string{}
 	for _, g := range All {
-		path := g.Slug + "/" + g.Slug + ".templ"
-		data, err := SourceFS.ReadFile(path)
+		entries, err := SourceFS.ReadDir(g.Slug)
 		if err != nil {
-			// Not yet embedded — skip silently
 			continue
 		}
-		cache[g.Slug] = ParseSnippets(string(data))
+		merged := map[string]string{}
+		for _, e := range entries {
+			if e.IsDir() || !strings.HasSuffix(e.Name(), ".templ") {
+				continue
+			}
+			data, err := SourceFS.ReadFile(g.Slug + "/" + e.Name())
+			if err != nil {
+				continue
+			}
+			for k, v := range ParseSnippets(string(data)) {
+				merged[k] = v
+			}
+		}
+		cache[g.Slug] = merged
 	}
 	return cache
 }

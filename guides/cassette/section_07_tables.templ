@@ -1,0 +1,80 @@
+package cassette
+
+import (
+	"fmt"
+	"github.com/johnfarrell/stylesheets/templates/components"
+)
+
+templ sectionTables() {
+	@components.Section("7.0  Data Tables", components.BadgeAlpine) {
+		<!-- Table 1: Crew Manifest -->
+		<div class="cass-panel mb-6">
+			<div class="cass-panel-header cass-panel-header-blue">USCSS NOSTROMO — CREW MANIFEST (MSV-180286)</div>
+			<div x-data="{ selected: null }" style="overflow-x: auto;">
+				<table class="cass-table">
+					<thead>
+						<tr>
+							for _, h := range crewTableHeaders {
+								<th>{ h }</th>
+							}
+						</tr>
+					</thead>
+					<tbody>
+						for i, crew := range crewManifest {
+							<tr
+								style="cursor: pointer;"
+								{ templ.Attributes{":class": fmt.Sprintf("selected===%d ? 'bg-blue-50' : ''", i)}... }
+								{ templ.Attributes{"@click": fmt.Sprintf("selected===%d ? selected=null : selected=%d", i, i)}... }
+							>
+								<td style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ crew.ID }</td>
+								<td style="font-weight: 500;">{ crew.Name }</td>
+								<td style="font-size: var(--font-size-caption);">{ crew.Rank }</td>
+								<td style="font-size: var(--font-size-caption);">{ crew.Dept }</td>
+								<td>
+									if crew.Status == "ACTIVE" {
+										@statusText(crew.Status, "cass-value-ok")
+									} else if crew.Status == "KIA" {
+										@statusText(crew.Status, "cass-value-danger")
+									} else {
+										<span style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ crew.Status }</span>
+									}
+								</td>
+								<td style="font-size: var(--font-size-caption);">{ crew.Clearance }</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- Table 2: System Status Matrix -->
+		@panel("ENVIRONMENTAL SYSTEMS STATUS MATRIX") {
+			<div style="overflow-x: auto;">
+				<table class="cass-table">
+					<thead>
+						<tr>
+							for _, h := range envTableHeaders {
+								<th>{ h }</th>
+							}
+						</tr>
+					</thead>
+					<tbody>
+						for _, r := range envReadings {
+							<tr>
+								<td>{ r.System }</td>
+								<td class="cass-td-num">{ r.Reading }</td>
+								<td style="color: var(--color-text-muted); font-size: var(--font-size-caption);">{ r.Range }</td>
+								<td>
+									if r.Status == "CAUTION" {
+										@statusText(r.Status, "cass-value-warn")
+									} else {
+										@statusText(r.Status, "cass-value-ok")
+									}
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+	}
+}

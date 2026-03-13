@@ -1,0 +1,80 @@
+package cassette
+
+import "github.com/johnfarrell/stylesheets/templates/components"
+
+templ sectionButtons(snippets map[string]string) {
+	@components.Section("4.0  Button Components", components.BadgeAlpine) {
+		<!-- Variant Matrix Table -->
+		@panel("VARIANT SPECIFICATION MATRIX") {
+			<table class="cass-table">
+				<thead>
+					<tr>
+						<th>VARIANT</th>
+						<th>PREVIEW</th>
+						<th>USE CASE</th>
+					</tr>
+				</thead>
+				<tbody>
+					for _, v := range buttonVariants {
+						<tr>
+							<td style="font-size: var(--font-size-caption); font-weight: 700;">{ v.Name }</td>
+							<td>
+								if v.Disabled {
+									<button class={ v.Class } disabled>{ v.Label }</button>
+								} else {
+									<button class={ v.Class }>{ v.Label }</button>
+								}
+							</td>
+							<td style="font-size: var(--font-size-caption); color: var(--color-text-muted);">{ v.UseCase }</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+		<!-- Size Variants -->
+		@panel("SIZE VARIANTS") {
+			<div style="padding: 1rem; display: flex; align-items: flex-end; gap: 1rem; flex-wrap: wrap;">
+				for _, s := range buttonSizes {
+					<div class="text-center">
+						if s.SizeStyle != "" {
+							<button class="cass-btn" style={ s.SizeStyle }>{ s.BtnLabel }</button>
+						} else {
+							<button class="cass-btn">{ s.BtnLabel }</button>
+						}
+						<p style="font-size: var(--font-size-caption); color: var(--color-text-muted); margin-top: 0.25rem;">{ s.SizeLabel }</p>
+					</div>
+				}
+			</div>
+		}
+		<!-- Interactive: Armed/Safe Toggle -->
+		<!-- snippet:button-toggle -->
+		@panel("INTERACTIVE — ARMED / SAFE TOGGLE") {
+			<div style="padding: 1rem;">
+				<div x-data="{ armed: false }" class="flex items-center gap-4">
+					<button
+						{ templ.Attributes{"@click": "armed = !armed"}... }
+						{ templ.Attributes{":class": "armed ? 'cass-btn cass-btn-danger-filled' : 'cass-btn'"}... }
+					>
+						<span x-text="armed ? '&#9689; ARMED' : '&#9675; SAFE'">&#9675; SAFE</span>
+					</button>
+					<span style="font-size: var(--font-size-caption); color: var(--color-text-muted);" x-text="armed ? 'WEAPONS HOT — CONFIRM TARGET BEFORE FIRING' : 'WEAPONS SAFE — CLICK TO ARM'">WEAPONS SAFE — CLICK TO ARM</span>
+				</div>
+			</div>
+		}
+		<!-- /snippet:button-toggle -->
+		@components.SourceView(snippets["button-toggle"])
+		<!-- Interactive: Confirm with feedback -->
+		@panel("INTERACTIVE — CONFIRM WITH FEEDBACK") {
+			<div style="padding: 1rem;">
+				<div x-data="{ confirmed: false }" class="flex items-center gap-4">
+					<button
+						class="cass-btn cass-btn-filled"
+						{ templ.Attributes{"@click": "confirmed=true; setTimeout(()=>confirmed=false,2000)"}... }
+						x-text="confirmed ? '&#10003; CONFIRMED' : 'CONFIRM SEQUENCE'"
+					>CONFIRM SEQUENCE</button>
+					<span x-show="confirmed" style="font-size: var(--font-size-caption); color: #27ae60; font-weight: 700;">SEQUENCE ACKNOWLEDGED — EXECUTING</span>
+				</div>
+			</div>
+		}
+	}
+}
